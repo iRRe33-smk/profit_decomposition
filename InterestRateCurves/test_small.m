@@ -1,61 +1,61 @@
-global d_given
+global d_given indeces_m f_given delta_T n_points n_given
 d_given = readmatrix('Data/DiscountCurves.xlsx','Range','C3:O3');
+f_given = -log(d_given);
+%f_given = [13 12 11 10 9 8 7 8 9 10 11 12 13]; %V-shape
+%f_given = [1 3 6 7 9 12 15 18 23 27 30 35 36]; %Linear ish
+
+n_points = 30;
+indeces_m = [1, 4, 6 ,8,10, 12,14,16,18,20,22,24,n_points];
+n_given = max(size(f_given));
+delta_T = 1/n_points;
 optimize();
+
 function f_answer = optimize()
-    n_points = 30;
+    global indeces_m f_given delta_T n_points n_given
+    %%% Startvektor
     f0 = zeros(1,n_points);
     
-    fun = @objective;
-    nonlcon = @constraint;
-    A = [];
-    b = [];
-    Aeq = [];
-    beq = [];
-    lb = zeros(1,n_points);
-    ub = [];
-
-    [f_answer] = fmincon(fun,f0,A,b,Aeq,beq,lb,ub,nonlcon);
-    plot(f_answer)
-    function obj = objective(f)
-        global d_given
-        %f_given_o = [1 3 4 6 7 8 10 11 12 14 16 19 20];
-        f_given_o = -log(d_given);
-        n_given = 13;
-        delta_T_o = 1/5;
-        obj1 = 0;
-        indeces = [1, 2, 3 ,4,5, 8,9,10,11,12,13,14,15];
-        E_e = 10*diag(ones(1,n_given));
-        for i = 2:max(size(f))-1
-            obj1 = obj1 + (((f(i+1) - 2*f(i) + f(i-1))/(delta_T_o^2))^2)*delta_T_o;
-        end
-        z = zeros(1,n_given);
-        for i = 1:5
-            z(1, i) = abs(f_given_o(i) - f(indeces(i)));
-        end
-        obj2 = 0.5*z*E_e*z';
-        obj = obj1 + obj2;
-    end
-    function [c, ceq] = constraint(f)
-        global d_given
-        %f_given_c = [1 3 4 6 7 8 10 11 12 14 16 19 20];
-        f_given_c = -log(d_given);
-        n_given = 13;
-        indeces = [1, 2, 3 ,4,5, 8,9,10,11,12,13,14,15];
-        z = zeros(1,n_given);
-        F_e = ones(1,n_given);
-        F_e(1) = 0;
-        F_e(n_given) = 0;
-        F_e = diag(F_e);
-        for i = 1:n_given
-            z(1, i) = abs(f_given_c(i) - f(indeces(i)));
-        end
-        for i = 1:n_given
-            c1(i) = exp(-f(indeces(i)));
-        end
-        c = c1 + F_e*z' - exp(-f_given_c);
-        ceq = [];  
-        
+    %%%Nollvektor förutom där unika marknadspriser existerar
+    f_C = zeros(1,n_points);
+    for i = 1:n_given
+        f_C(indeces_m(i)) = f_given(i);
     end
     
+    %%%Nollvektor förutom där priser måste bevaras
+    f_nallowed = zeros(1,n_points);
+    for j = 1:n_given
+        f_nallowed(indeces_m(j)) = 1;
+    end
+    
+    fun = @objective;
+    A = [];
+    b = [];
+    Aeq = diag(f_nallowed);
+    beq = f_C;
+    lb = zeros(1,n_points);
+    ub = [];
+ 
+    [f_answer] = fmincon(fun,f0,A,b,Aeq,beq,lb,ub);
+    figure(1)
+    plot(f_answer)
+    
+    %%% Cubic Spline Attempt %%%
+    x = [1 2 7 14 30 60 90 120 150 360 720 1800 3600];
+    y = f_given;
+    xx = 1:1:3600;
+    yy = spline(x,y,xx);
+    figure(2)
+    plot(x,y,'o',xx,yy)
+    
+    function obj = objective(f)
+        obj = 0;
+        for k = 2:max(size(f))-1
+            obj = obj + (((f(k+1) - 2*f(k) + f(k-1))/(delta_T^2))^2)*delta_T;
+        end
+        for p = 1:max(size(f))-1
+            obj = obj + (((f(p+1) - f(p))/(2*delta_T))^2)*delta_T;
+        end
+        obj = 0.5*obj;
+    end 
 end
 
