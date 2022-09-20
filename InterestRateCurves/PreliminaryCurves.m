@@ -10,16 +10,24 @@ for day = 1:n_dates
     end
 end
 
-%Forward-räntor
-forwardRates = zeros(size(discountFactors));
+%Spot-räntor
+spotRates = zeros(size(discountFactors));
 for day = 1:n_dates
     for i = 1:n_datapoints
-        forwardRates(day, i) = -log(discountFactors(day,i))/(x(i)/360);
+        spotRates(day, i) = -log(discountFactors(day,i))/(x(i)/360); 
     end
 end
 
-curves = zeros(n_dates, 10800);
-xx = 1:1:10800;
+%Forward-räntor
+forwardRates = zeros(size(discountFactors));
+for day = 1:n_dates
+    for i = 1:n_datapoints-1
+        forwardRates(day, i) = (spotRates(day,i+1)*((x(i+1)/360)) - spotRates(day,i)*((x(i)/360)))/(((x(i+1)/360)) -((x(i)/360)));
+    end
+end
+
+curves = zeros(n_dates, 9000);
+xx = 1:1:9000;
 %Kurvor ligger i curves, nehä
 for day = 1:n_dates
     %curves(day, :) = spline(x, simpleRates(day, :), xx);
@@ -27,8 +35,8 @@ for day = 1:n_dates
 end
 
 
-day = 25; %Dag att plotta
-days = 10800; %Antal dagar att plotta, dag 1 till och med days
+day = 1; %Dag att plotta
+days = 9000; %Antal dagar att plotta, dag 1 till och med days
 plot(curves(day,:))
 set(gca,'xtick',x_tick,'xticklabel',maturity_tick)
 axis([-100 days (min(curves(day,1:days)) - 0.1*range(curves(day,1:days))) ...
