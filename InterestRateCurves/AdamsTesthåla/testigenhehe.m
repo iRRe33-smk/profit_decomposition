@@ -1,12 +1,12 @@
 given = [1, 2, 3,4,5,6,10, 30, 50, 45,44,43,41,40,39,40,42,41,40,39,40,43,44,45,42];
-n_points = 50;
+n_points = 28;
 n_given = max(size(given));
 delta_T = 1/365;
 mid = round(n_points/2);
 con = zeros(n_points, n_points);
 
 %%%%
-options = optimoptions(@fmincon, 'MaxFunctionEvaluations',10000, 'MaxIterations', 10000);
+options = optimoptions(@fmincon, 'MaxFunctionEvaluations',100000, 'MaxIterations', 10000);
 
 A_n = zeros(n_points - 2, n_points);
 W = diag(ones(1,n_points-2));
@@ -19,7 +19,7 @@ fun = @(f) 0.5*f'*A_n'*W*A_n*f;
 %solution
 beq = zeros(1,n_points);
 
-for i =1:n_given
+for i = 1:n_given
     factor = n_points/n_given;
     beq(round(factor*i)) = given(i);
     con(round(factor*i),round(factor*i)) = 1;
