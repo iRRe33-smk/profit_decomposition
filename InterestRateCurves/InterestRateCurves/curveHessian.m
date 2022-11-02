@@ -42,7 +42,7 @@ options = optimoptions('fmincon','Algorithm','interior-point',...
 
 
 [x,fval,eflag,output] = fmincon(obj,x0,[],[],A,givenRates,[],[],[],options);
-figure(2)
+figure(1)
 plot(x)
 
 function [A] = getA(marketPriceIndeces, n_f, n_r)

@@ -11,7 +11,7 @@ function [forwardRates, spotRates, T,daysInBtw] = getForwAndSpot()
     spotRates = zeros(size(discountFactors));
     for day = 1:n_dates
         for i = 1:n_datapoints
-            spotRates(day, i) = -log(discountFactors(day,i))/(x(i)/360); 
+            spotRates(day, i) = -log(discountFactors(day,i))/(x(i)/365); 
         end
     end
     %Forward-räntor
