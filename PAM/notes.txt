@@ -1,0 +1,72 @@
+Läs in dataset först. 
+Framtida betalningar måste vara kända i förväg.
+
+
+
+
+
+    dataupdatering skapar från dataset
+        h (lager)
+        x^s, x^b (transaktioner)
+        B.O.M
+        
+                
+
+    hämtar från räntegrupps matriser:
+        f (FX-rate)
+        R^c (delta spot rate, t-1) deltaD
+    
+    hämtar/beräknar från interna prislistor:
+        marknadspriser (första värdet, innnan  riskfakorerna påverkar)
+        S (transaktionskostnader)                
+        
+
+
+
+
+
+
+DATASCRIPT:
+
+mängder:
+    assetIDN I
+    currencies C
+    timeSpan T
+
+variabler:
+    numProducts = length(assetIDN)
+    numCurrencies = length(currencies)
+    numTimesteps = length(T)
+    
+    BOM: matrix(numProducts x numProducts)
+    ASSETS: { ID : int,
+            indicies : array[<numProdcuts],
+            currencyID : int}
+    h = array[] int
+    deltaT = array[numCurrencies] float
+    S = matrix(numProducts x numCurrencies) float
+    f = array[1 + numCurrencies] första index är 1 ty ingen enhet för assets
+    R = matrix(numCurrencies x numTimesteps) float
+    P = array[] float, samma längd som h
+    x_s = array[] float, samma längd som h
+    x_b = array[] float, samma längd som h
+    Dividends = matrix[length(h) x Timesteps] float, samma längd som h
+    
+
+
+MAIN-SCRIPT:
+
+-Import data (excel, interest rate curve etc.)
+-create datastructure form DATA-SCRIPT
+- Calculate TERMS from other scripts
+- Visualise results (for every department and total)
+- 
+
+
+
+
+
+
+
+
+
