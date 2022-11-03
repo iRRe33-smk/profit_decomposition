@@ -1,15 +1,15 @@
 clear
-[forwardRates, ~, discountFactors, ~, ~] = getForwAndSpot();
+[forwardRates, spotRates, discountFactors, ~, ~] = getForwAndSpot();
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Precalculate constant expressions  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 T = [1 2 7 14 30 60 90 180 270 1*365 2*365 3*365 4*365 5*365 6*365 7*365 ...
-     8*365 9*365 10*365];
+     8*365 9*365 10*365 11*365 12*365 13*365 14*365 15*365 20*365 25*365];
 n_r = length(T);
 n_f = T(end);
-forwardRates = 100*forwardRates(16,1:n_r);
 discountFactors = discountFactors(16,1:n_r);
+spotRates = spotRates(16,1:n_r);
 logDiscountFactors = -log(discountFactors)';
 deltaT = 1/365;
 marketPriceIndeces = zeros(n_f, 1);
@@ -20,17 +20,16 @@ A_n = getA_n(deltaT, n_f);
 V = 10; rho = 2; phi = 4;
 w = getW(n_f, V, rho, phi);
 W = diag(w);
-E = 10e6*eye(n_r);
+E = 10e4*eye(n_r);
 A = getA(marketPriceIndeces, n_f, n_r, deltaT);
 Hess = zeros(n_f + n_r, n_f + n_r);
-Hess(1:n_f,1:n_f) = 2*A_n'*W*A_n;
-Hess(n_f+1:n_f + n_r, n_f+1:n_f + n_r) = 2*E;
-Hess = 0.5*Hess;
+Hess(1:n_f,1:n_f) = A_n'*W*A_n;
+Hess(n_f+1:n_f + n_r, n_f+1:n_f + n_r) = E;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %        Perform optimization         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-HessFun = @(y, lambda) Hess;
+HessFun = @(x, lambda) Hess;
 obj = @(x) objective(x, W, A_n, n_f, n_r, E);
 x0 = zeros(n_f + n_r, 1);
 options = optimoptions('fmincon','Algorithm','interior-point',...
@@ -38,16 +37,14 @@ options = optimoptions('fmincon','Algorithm','interior-point',...
     'HessianFcn',HessFun);
 
 [x,fval,eflag,output] = fmincon(obj,x0,[],[],A, logDiscountFactors, [], [], [], options);
-curve = 100*x(1:n_f);
+curve = x(1:n_f);
 plot(curve)
 hold on
-scatter(T,forwardRates);
-
+scatter(T, spotRates)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %              Functions              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 function [obj, gradObj] = objective(x, W, A_n, n_f, n_r, E)
     f = x(1:n_f);
     z = x(n_f+1:n_f+n_r);

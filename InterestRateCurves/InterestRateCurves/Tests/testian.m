@@ -3,6 +3,7 @@ z = [z1;z2;z3];
 E = [e1 0 0; 0 e2 0; 0 0 e3];
 r = [r1;r2;r3];
 f = z'*E*z + w1*((f2 - 2*f1 + f0)/t^2)^2 + w2*((f3 - 2*f2 + f1)/t^2)^2 + w3*((f4 - 2*f3 + f2)/t^2)^2 + w4*((f5 - 2*f4 + f3)/t^2)^2 + w5*((f6 - 2*f5 + f4)/t^2)^2;
+f = 0.5*f;
 fow = [f0; f1; f2; f3; f4; f5; f6; z] ;
 %[A] = getA([1,0,1,0,0,0,1], 7, 3,deltaT);
 %con = A*fow
@@ -15,7 +16,7 @@ hessian(f, [f0,f1,f2,f3,f4,f5,f6, z1, z2, z3])
 %gradcon = [gradient(con(1,:), [f0,f1,f2,f3,f4,f5,f6, z1, z2, z3]) gradient(con(2,:), [f0,f1,f2,f3,f4,f5,f6, z1, z2, z3]) gradient(con(3,:), [f0,f1,f2,f3,f4,f5,f6, z1, z2, z3])]
 A_n = getA_n(t, 7);
 Hess = getHess(0, 0, t, w,7 , 3, E);
-2*A_n'*W*A_n
+
 
 
 function A_n = getA_n(deltaT, n_f)
