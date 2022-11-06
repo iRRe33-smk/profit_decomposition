@@ -1,5 +1,6 @@
-function [forwardRates, spotRates, discountFactors, T,daysInBtw] = getForwAndSpot()
+function [forwardRates, spotRates, discountFactors, T,daysInBtw, dates] = getForwAndSpot()
     discountFactors = readmatrix("Data/DiscountCurves.xlsx","Range","C3:AC125", "Sheet", "Curves");
+    dates = readmatrix("Data/DiscountCurves.xlsx","Range","B3:B125", "Sheet", "Curves");
     x = [1 2 7 14 30 60 90 180 270 360 720 1080 1440 1800 2160 2520 2880 3240 3600 3960 4320 4680 5040 5400 7200 9000 10800];
     sN = size(discountFactors);
     n_datapoints = sN(2);
