@@ -1,6 +1,6 @@
-function [curve] = curveHessianNonlconWithZ(day, punishment)
-    [forwardRates, spotRates, ~, deltaTdays] = getForwAndSpot();
-    forwardRates = forwardRates(day,:);
+
+    [forwardRates, spotRates, D, deltaTdays] = getForwAndSpot();
+    forwardRates = forwardRates(1,:);
     givenRates = forwardRates';
     deltaT = 1/365;
 
@@ -16,6 +16,12 @@ function [curve] = curveHessianNonlconWithZ(day, punishment)
     n_r = length(T);
     n_f = length(fr);
     givenRates = givenRates(1:n_r,:);
+    D = D(1,:);
+    D = D';
+    D = D(1:n_r,:);
+    
+    
+    D = log(D);
     forwardRates = fr;
     marketPriceIndeces = ind;
 
@@ -24,11 +30,11 @@ function [curve] = curveHessianNonlconWithZ(day, punishment)
     V = 10; rho = 2; phi = 4;
     w = getW(n_f, V, rho, phi);
     W = diag(w);
-    E = punishment*eye(n_r);
+    E = 1000*eye(n_r);
 
-    [A] = getA(marketPriceIndeces, n_f, n_r);
+    A = getA(marketPriceIndeces, n_f, n_r, deltaT);
     
-    A = [A eye(n_r)];
+    
 
     nonlcon = @(f) con(f, marketPriceIndeces, n_f, n_r, givenRates);
 
@@ -43,8 +49,8 @@ function [curve] = curveHessianNonlconWithZ(day, punishment)
         "SpecifyConstraintGradient",false,"SpecifyObjectiveGradient",true,...
         'HessianFcn',getHessFun);
 
-    [x,fval,eflag,output] = fmincon(obj,x0,[],[],A,givenRates,[],[],[],options);
-    curve = 100*x(1:n_f);
+    [x,fval,eflag,output] = fmincon(obj,x0,[],[],A,-D,[],[],[],options);
+    curve =x(1:n_f);
 
     function [c, ceq, gradc, gradceq] = con(f, marketPriceIndeces, n_f, n_r, givenRates)
         c = [];
@@ -54,18 +60,19 @@ function [curve] = curveHessianNonlconWithZ(day, punishment)
         ceq = A*fow + z - givenRates;
     end
 
-    function [A] = getA(marketPriceIndeces, n_f, n_r)
-        A = zeros(n_r, n_f);
-        for row = 1:n_r
-            for column = 1:n_f
-                if marketPriceIndeces(column) == 1
-                    A(row, column) = 1;
-                    marketPriceIndeces(column) = 0;
-                    break;
-                end
+    function A = getA(marketPriceIndeces, n_f, n_r, deltaT)
+    A = zeros(n_r, n_f + n_r);
+    for row = 1:n_r
+        for column = 1:n_f
+            if marketPriceIndeces(column) == 1
+                A(row, 1:column) = deltaT;
+                A(row, n_f + row) = 1;
+                marketPriceIndeces(column) = 0;
+                break;
             end
         end
     end
+end
 
     function [h, gradh] = objective(f, w, deltaT, n_f, n_r, E)
         fow = f(1:n_f);
@@ -144,4 +151,3 @@ function [curve] = curveHessianNonlconWithZ(day, punishment)
     end
 
         
-end  
