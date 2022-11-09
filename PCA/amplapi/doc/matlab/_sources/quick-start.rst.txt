@@ -1,0 +1,295 @@
+.. _secMATLABQuickStart:
+
+MATLAB quick start
+==================
+
+MATLAB can easily consume Java objects, therefore usage of AMPL API from MATLAB is very direct. 
+Because of this, just a few MATLAB files are distributed, located in the MATLAB subdirectory of the distribution directory. 
+An helper script (\ **setUp.m**\ ) is provided for the user, which sets MATLABs Javaclasspaths 
+(the paths in which Matlab searches for Java classes) and imports the library’s functionalities. 
+A function (\ **initAMPL.m**\ ) is distributed too, to facilitate the process of creating a new AMPL object.
+When running the examples, the user can just run the convenient **setupOnce.m** script, 
+located in the examples directory, which takes care of executing the main setup routine. 
+Full class reference is given in :ref:`secReferenceMATLAB`.
+
+Complete listing
+----------------
+
+The complete MATLAB script is below:
+
+.. code-block:: matlab
+
+   % Create an AMPL instance
+   ampl = AMPL;
+
+   %% If the AMPL installation directory is not in the system search path:
+   % ampl = AMPL('full path to the AMPL installation directory');
+
+   % Display version
+   ampl.eval('option version;')
+   
+   % Initialisation
+   basef = fileparts(which('dietModel'));
+   addpath(fullfile(basef, '../../matlab'));
+   modeldirectory = fullfile(basef, '.', 'models');
+   
+   % Load from file the ampl model
+   ampl.read([modeldirectory  '/' 'diet.mod']);
+   ampl.readData([modeldirectory  '/' 'diet.dat']);
+   
+   % Solve
+   ampl.solve
+   
+   % Get objective map by AMPL name
+   totalcost = ampl.getObjective('Total_Cost');
+   % Print it
+   fprintf('Objective is: %f\n' ,totalcost.value());
+               
+   % Reassign data - specific instances 
+   cost = ampl.getParameter('cost');
+   cost.setValues({'BEEF';'HAM'}, [5.01; 4.55]);
+   disp('Increased costs of beef and ham.');
+   
+   % Resolve and display objective
+   ampl.solve();
+   fprintf('New objective value: %f\n', totalcost.value());
+   
+   % Reassign data - all instances
+   cost.setValues(3, 5, 5, 6, 1, 2, 5.01, 4.55);
+   
+   disp('Updated all costs');
+   
+   % Resolve and display objective
+   ampl.solve();
+   fprintf('New objective value: %f\n', totalcost.value());
+   
+   % Get the values of the variable Buy in a dataframe object
+   buy = ampl.getVariable('Buy');
+   df = buy.getValues;
+   % Print them
+   df
+      
+   
+   % Close the AMPL object
+   ampl.close();
+
+
+Initialisation
+--------------
+
+To initialise the MATLAB interface, navigate to the MATLAB directory of the distribution and execute the script **setUp.m**.
+This should return something on the lines of::
+
+   >> setUp
+   Using api at D:/Development/AMPLApi/git/examples/matlab/../../matlab/../ampl-1.0.jar
+   Using ampl in the folder D:/Development/AMPLApi/git/examples/matlab/../../matlab/../ampl
+
+
+This procedure must be executed once every session. To execute the examples, the script **setupOnce.m** 
+is provided in the examples directory and should be used instead.
+The main object needed to interact with AMPL is of the AMPL class and can be instantiated as shown below::
+
+   >> ampl = AMPL;
+
+
+   
+The statement above creates an instance of the API and names is ampl.
+
+
+AMPL Environment creation
+-------------------------
+
+Since the structure of AMPL API for MATLAB is the same as AMPL API for Java, the main method 
+is the :mat:meth:`AMPL.eval` function. 
+Copy the following statements to have a hello world application which interprets the command
+`option version;` in the underlying AMPL executable and prints the result on the console. 
+
+.. code-block:: matlab
+
+   % Create an AMPL instance
+   ampl = AMPL;
+   % Display version
+   ampl.eval('option version;')
+
+The output of the statements above should be something of the form::
+   
+   ans =
+   option version 'AMPL Version 20140220 (MS VC++ 10.0, 64-bit)';
+
+Load a model from file
+----------------------
+ 
+The following lines use the method :mat:meth:`AMPL.read` to load a model and
+data stored in external (AMPL) files.
+If the files are not found, an error will be displayed.
+
+.. code-block:: matlab
+
+   ampl.read([modeldirectory  '/' 'diet.mod']);
+   ampl.readData([modeldirectory  '/' 'diet.dat']);
+
+Once these commands are executed, the AMPL interpreter will have interpreted the content of the two files. No further communication is made between the AMPL interpreter and MATLAB, as every entity is created lazily (as needed).
+
+Solve a model
+-------------
+
+To solve the model, it is sufficient to issue the command:
+
+.. code-block:: matlab
+
+   ampl.solve;
+   
+
+which should display, depending on the default solver used, something like::
+
+   CBC trunk optimal, objective 118.0594032
+   3 iterations
+
+
+Get an AMPL entity in the programming environment (get objective value)
+-----------------------------------------------------------------------
+
+AMPL API provides Java representations of the AMPL entities, which can be directly used in MATLAB. Usually, not all the entities are of interest for the programmer. The generic procedure is:
+
+1. Identify the entities that need interaction (either data read or modification)
+2. For each of these entities, create an object of the appropriate class in Java
+3. Get the entity through the AMPL API using :mat:meth:`AMPL.getEntity` or one of its type safe alternatives (:mat:meth:`AMPL.getVariable`, :mat:meth:`AMPL.getParameter`, :mat:meth:`AMPL.getObjective`  , :mat:meth:`AMPL.getSet`, :mat:meth:`AMPL.getConstraint`)
+
+To gain access to a specific entity, we can assign to a MATLAB placeholder. 
+In this example, we want to be able to refer to the AMPL objective `Total_Cost` as `totalcost` in MATLAB. 
+We can use the following statements to do that and display the current values of the objective.
+
+.. code-block:: matlab
+
+   totalcost = ampl.getObjective('Total_Cost');
+   fprintf('Objective is: %f\n', totalcost.value);
+
+The output of the lines above is::
+
+   Objective is: 118.05940323955669
+   
+   
+An alternative way to access a scalar value from the underlying interpreter is to use the function :mat:meth:`AMPL.getValue`. This
+function has a very simple syntax and it is useful for all the times in which we are only interested in getting a value, without
+having to manipulate the underlying entity. This approach is shown below:
+
+.. code-block:: matlab
+
+   fprintf('Objective is: %f\n', ampl.getValue('Total_Cost'));
+
+
+Modify model data (assign values to parameters)
+-----------------------------------------------
+
+The input data of an optimisation model is stored in its parameters; these can be scalar or vectorial entities. 
+Two ways are provided to change the value of vectorial parameter: change specific values or change all values at once. 
+The example shows an example of both ways, reassigning the values of the parameter costs firstly specifically, then altogether. 
+Each time, it then solves the model and get the objective function. The functions that can be used to modify the values are 
+:mat:meth:`Parameter.set` and :mat:meth:`Parameter.setValues`.
+
+.. code-block:: matlab
+
+   cost = ampl.getParameter('cost');
+   cost.setValues({'BEEF','HAM'}, [5.01; 4.55]);
+   disp('Increased costs of beef and ham.');
+
+The code above assigns the values 5.01 and 4.55 to the parameter cost for the objects beef and ham respectively.
+The model is then solved again and the new objective is printed with:
+
+.. code-block:: matlab
+
+   ampl.solve();
+   fprintf('New objective value: %f\n', totalcost.value);
+
+If the order of the indexing of an entity is known (i.e. for multiple reassignment), it is not necessary 
+to specify both the indices and the values. The data vector is assigned to each of the parameter values, 
+in the order they are represented in AMPL. 
+
+.. code-block:: matlab
+
+   % Reassign data - all instances
+   cost.setValues(3, 5, 5, 6, 1, 2, 5.01, 4.55);
+   disp('Updated all costs');
+   % Resolve and display objective
+   ampl.solve;
+   fprintf('New objective value: %f\n', totalcost.value());
+
+The statements above produce the following output::
+
+   Increased costs of beef and ham.
+   New objective value: 144.415720
+   Updated all costs
+   New objective value: 164.543750
+   
+   
+Get numeric values from variables and other entities
+----------------------------------------------------
+
+To access all the numeric values contained in a Variable or any other entity, use a :mat:meth:`DataFrame` object. Doing so, the data is detached from 
+the entity, and there is a considerable performance gain. To do so, we first get the Variable object from AMPL, then we get its data with the
+functions, available for all entities: :mat:meth:`Variable.getValues`, :mat:meth:`Constraint.getValues`, :mat:meth:`Objective.getValues`, :mat:meth:`Parameter.getValues` and :mat:meth:`Set.getValues`.
+
+.. code-block:: matlab
+
+   % Get the values of the variable Buy in a dataframe object
+   buy = ampl.getVariable('Buy');
+   df = buy.getValues;
+   % Print them
+   df
+   
+   
+The statements above produce the following output::
+
+   df =
+      j in FOOD  |  Buy               
+      BEEF       |  10.0              
+      CHK        |  2.0               
+      FISH       |  2.0               
+      HAM        |  7.01644736842106  
+      MCH        |  10.0              
+      MTL        |  10.0              
+      SPG        |  6.65570175438596  
+      TUR        |  2.0               
+
+
+Get arbitrary values via ampl expressions
+-----------------------------------------
+
+Often we are interested in very specific values coming out of the optimization session. To make use of the power of AMPL expressions and avoiding
+cluttering up the environment by creating entities, fetching data through arbitrary AMPL expressions is possible. For this model, we are interested
+in knowing how close each decision variable is to its upper bound, in percentage.
+We can obtain this data into a dataframe with the code:
+
+.. code-block:: matlab
+
+   % Get the values of an expression into a DataFrame object
+   df2 = ampl.getData('{j in FOOD} 100*Buy[j]/Buy[j].ub');
+   
+The statements above produce the following output::
+
+   df2 =
+   index0  |  100*Buy[j]/(Buy[j].ub)  
+   BEEF    |  53.60613810741687       
+   CHK     |  20.0                    
+   FISH    |  20.0                    
+   HAM     |  100.0                   
+   MCH     |  100.0                   
+   MTL     |  100.0                   
+   SPG     |  93.06052855924978       
+   TUR     |  20.0   
+
+
+Close the AMPL object to free the resources
+-------------------------------------------
+
+Since the AMPL object is very resource-hungry, it is good practice to make sure it is closed and all its resources released when it is not needed
+anymore. This can be easily achieved by calling the function :mat:meth:`AMPL.close`.
+
+.. code-block:: matlab
+
+   ampl.close();
+   
+
+
+
+

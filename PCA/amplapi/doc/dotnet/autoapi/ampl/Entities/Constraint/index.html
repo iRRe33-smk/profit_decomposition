@@ -1,0 +1,573 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Constraint Class &#8212; AMPL API 2.0.3-0 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/autoapi.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Constraint Class</a><ul>
+<li><a class="reference internal" href="#inheritance-hierarchy">Inheritance Hierarchy</a></li>
+<li><a class="reference internal" href="#syntax">Syntax</a></li>
+<li><a class="reference internal" href="#properties">Properties</a></li>
+<li><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../../_sources/autoapi/ampl/Entities/Constraint/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="constraint-class">
+<h1>Constraint Class<a class="headerlink" href="#constraint-class" title="Permalink to this headline">¶</a></h1>
+<p>This class represents an algebraic or logical constraint. In case the
+constraint is scalar, its values can be accessed via properties like
+<a class="reference internal" href="#ampl.Entities.Constraint.Body" title="ampl.Entities.Constraint.Body"><code class="xref dn dn-prop docutils literal notranslate"><span class="pre">ampl.Entities.Constraint.Body</span></code></a> and <a class="reference internal" href="#ampl.Entities.Constraint.Dual" title="ampl.Entities.Constraint.Dual"><code class="xref dn dn-prop docutils literal notranslate"><span class="pre">ampl.Entities.Constraint.Dual</span></code></a>.
+All the AMPL suffixes for constraints (see <a class="reference external" href="http://www.ampl.com/NEW/suffbuiltin.html">http://www.ampl.com/NEW/suffbuiltin.html</a>)
+are available through methods of this class with the same name (and methods
+of <a class="reference internal" href="../../ConstraintInstance/index.html#ampl.ConstraintInstance" title="ampl.ConstraintInstance"><code class="xref dn dn-class docutils literal notranslate"><span class="pre">ampl.ConstraintInstance</span></code></a> for indexed constraints).
+Note that, since this class represents both algebraic and logical
+constraints, some suffixes might not be available for every entity.
+An <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">ArgumentException</span></code> is thrown if one of such methods is called for
+a non-scalar constraint and if a method corresponding to a suffix which is
+not supported by the type of the constraint is called.
+An <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">ArgumentOutOfRangeException</span></code> is thrown if any property of an entity which has been
+deleted from the underlying interpreter is accessed.
+The instances, represented by the class <a class="reference internal" href="../../ConstraintInstance/index.html#ampl.ConstraintInstance" title="ampl.ConstraintInstance"><code class="xref dn dn-class docutils literal notranslate"><span class="pre">ampl.ConstraintInstance</span></code></a> can be accessed
+via the indexing operator, via the method <a class="reference internal" href="#ampl.Entities.Constraint.Get" title="ampl.Entities.Constraint.Get"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.Entities.Constraint.Get</span></code></a> or via the iterator provided.
+To gain access to all the values in an entity (for all instances and all
+suffixes for that entities), see <a class="reference internal" href="../Entity/index.html#ampl.Entities.Entity.GetValues" title="ampl.Entities.Entity.GetValues"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.Entities.Entity.GetValues()</span></code></a> and the
+<a class="reference internal" href="../../DataFrame/index.html#ampl.DataFrame" title="ampl.DataFrame"><code class="xref dn dn-class docutils literal notranslate"><span class="pre">ampl.DataFrame</span></code></a> class.</p>
+<dl class="docutils">
+<dt>Namespace</dt>
+<dd><a class="reference internal" href="../index.html#ampl.Entities" title="ampl.Entities"><code class="xref dn dn-ns docutils literal notranslate"><span class="pre">ampl.Entities</span></code></a></dd>
+<dt>Assemblies</dt>
+<dd><ul class="first last simple">
+<li>AMPL</li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#inheritance-hierarchy" id="id1">Inheritance Hierarchy</a></li>
+<li><a class="reference internal" href="#syntax" id="id2">Syntax</a></li>
+<li><a class="reference internal" href="#properties" id="id3">Properties</a></li>
+<li><a class="reference internal" href="#methods" id="id4">Methods</a></li>
+</ul>
+</div>
+<div class="section" id="inheritance-hierarchy">
+<h2><a class="toc-backref" href="#id1">Inheritance Hierarchy</a><a class="headerlink" href="#inheritance-hierarchy" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><code class="xref dn dn-cls docutils literal notranslate"><span class="pre">System.Object</span></code></li>
+<li><a class="reference internal" href="../Entity/index.html#ampl.Entities.Entity" title="ampl.Entities.Entity"><code class="xref dn dn-cls docutils literal notranslate"><span class="pre">ampl.Entities.Entity</span></code></a></li>
+<li><code class="xref dn dn-cls docutils literal notranslate"><span class="pre">ampl.Entities.Entity{ampl.ConstraintInstance}</span></code></li>
+<li><a class="reference internal" href="#ampl.Entities.Constraint" title="ampl.Entities.Constraint"><code class="xref dn dn-cls docutils literal notranslate"><span class="pre">ampl.Entities.Constraint</span></code></a></li>
+</ul>
+</div>
+<div class="section" id="syntax">
+<h2><a class="toc-backref" href="#id2">Syntax</a><a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">class</span> <span class="nc">Constraint</span> <span class="p">:</span> <span class="n">Entity</span><span class="p">&lt;</span><span class="n">ConstraintInstance</span><span class="p">&gt;,</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">ConstraintInstance</span><span class="p">&gt;,</span> <span class="n">IEnumerable</span>
+</pre></div>
+</div>
+<dl class="class">
+<dd></dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">ampl.Entities.</code><code class="descname">Constraint</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="properties">
+<h2><a class="toc-backref" href="#id3">Properties</a><a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dd><dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Astatus">
+<code class="descname">Astatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Astatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current AMPL status (dropped, presolved, or substituted out)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.String</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">string</span> <span class="n">Astatus</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Body">
+<code class="descname">Body</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current value of the constraint’s body</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Double</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">double</span> <span class="n">Body</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Defvar">
+<code class="descname">Defvar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Defvar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the index in <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">_var</span></code> of “defined variable” substituted out by
+the constraint</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Int32</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">int</span> <span class="n">Defvar</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Dinit">
+<code class="descname">Dinit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Dinit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current initial guess for the constraint’s public dual variable</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Double</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">double</span> <span class="n">Dinit</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Dinit0">
+<code class="descname">Dinit0</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Dinit0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the original initial guess for the constraint’s public dual variable</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Double</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">double</span> <span class="n">Dinit0</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Dual">
+<code class="descname">Dual</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Dual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get and set the current value of the constraint’s public dual variable.
+Setting this property is equivalent to the AMPL statement:
+<code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">let</span> <span class="pre">c</span> <span class="pre">:=</span> <span class="pre">dual;</span></code>
+Note that dual values are often reset by the underlying AMPL interpreter by the
+presolve functionalities triggered by some methods.
+A possible workaround is to set the option <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">presolve;</span></code> to <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">false</span></code> (see
+AMPL.SetOption).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Double</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">double</span> <span class="n">Dual</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.IsLogical">
+<code class="descname">IsLogical</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.IsLogical" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the constraint is a logical constraint. The available suffixes
+differ between logical and non logical constraints. See
+<a class="reference external" href="http://www.ampl.com/NEW/suffbuiltin.html">http://www.ampl.com/NEW/suffbuiltin.html</a> for a list of the available
+suffixes for algebraic constraints. The suffixes available for logical
+constraints are marked on the method description by “Valid only for logical
+constraints”.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Boolean</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if logical</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">bool</span> <span class="n">IsLogical</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Lb">
+<code class="descname">Lb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Lb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current value of the constraint’s lower bound</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Double</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">double</span> <span class="n">Lb</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Lbs">
+<code class="descname">Lbs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Lbs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the constraint lower bound sent to the solver (reflecting adjustment
+for fixed variables)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Double</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">double</span> <span class="n">Lbs</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Ldual">
+<code class="descname">Ldual</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Ldual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current public dual value associated with the lower bound</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Double</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">double</span> <span class="n">Ldual</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Lslack">
+<code class="descname">Lslack</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Lslack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the slack at lower bound <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">body</span> <span class="pre">-</span> <span class="pre">lb</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Double</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">double</span> <span class="n">Lslack</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Slack">
+<code class="descname">Slack</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Slack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constraint slack (the lesser of lslack and uslack)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Double</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">double</span> <span class="n">Slack</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Sstatus">
+<code class="descname">Sstatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Sstatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the solver status (basis status of constraint’s %slack or artificial
+variable)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.String</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">string</span> <span class="n">Sstatus</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Status">
+<code class="descname">Status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the AMPL status if not <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">in</span></code>, otherwise solver status</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.String</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">string</span> <span class="n">Status</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Ub">
+<code class="descname">Ub</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Ub" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current value of the constraint’s upper bound</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Double</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">double</span> <span class="n">Ub</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Ubs">
+<code class="descname">Ubs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Ubs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the constraint upper bound sent to the solver (reflecting adjustment
+for fixed variables)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Double</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">double</span> <span class="n">Ubs</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Udual">
+<code class="descname">Udual</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Udual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current public dual value associated with the upper bounds</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Double</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">double</span> <span class="n">Udual</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Uslack">
+<code class="descname">Uslack</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Uslack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the slack at upper bound <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">ub</span> <span class="pre">-</span> <span class="pre">body</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Double</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">double</span> <span class="n">Uslack</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="property">
+<dt id="prop-ampl.Entities.Constraint.Val">
+<code class="descname">Val</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prop-ampl.Entities.Constraint.Val" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the AMPL val suffix. Valid only for logical constraints.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Double</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="kt">double</span> <span class="n">Val</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="methods">
+<h2><a class="toc-backref" href="#id4">Methods</a><a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dd><dl class="method">
+<dt id="meth-ampl.Entities.Constraint.Drop">
+<code class="descname">Drop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#meth-ampl.Entities.Constraint.Drop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drop all instances in this constraint entity, corresponding to the AMPL
+code: <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">drop</span> <span class="pre">constraintname;</span></code></p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">Drop</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="meth-ampl.Entities.Constraint.Get">
+<code class="descname">Get</code><span class="sig-paren">(</span><em>System.Object[]</em><span class="sig-paren">)</span><a class="headerlink" href="#meth-ampl.Entities.Constraint.Get" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">ampl.ConstraintInstance</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="n">ConstraintInstance</span> <span class="nf">Get</span><span class="p">(</span><span class="k">params</span> <span class="kt">object</span><span class="p">[]</span> <span class="n">index</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">Get</code><span class="sig-paren">(</span><em>ampl.Tuple</em><span class="sig-paren">)</span></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">ampl.ConstraintInstance</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">override</span> <span class="n">ConstraintInstance</span> <span class="nf">Get</span><span class="p">(</span><span class="n">Tuple</span> <span class="n">t</span> <span class="p">=</span> <span class="k">null</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="meth-ampl.Entities.Constraint.GetEnumerator">
+<code class="descname">GetEnumerator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#meth-ampl.Entities.Constraint.GetEnumerator" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">System.Collections.Generic.IEnumerator&lt;System.Collections.Generic.IEnumerator`1&gt;{ampl.ConstraintInstance&lt;ampl.ConstraintInstance&gt;}</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">override</span> <span class="n">IEnumerator</span><span class="p">&lt;</span><span class="n">ConstraintInstance</span><span class="p">&gt;</span> <span class="n">GetEnumerator</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="meth-ampl.Entities.Constraint.Restore">
+<code class="descname">Restore</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#meth-ampl.Entities.Constraint.Restore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore all instances in this constraint entity, corresponding to the
+AMPL code: <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">restore</span> <span class="pre">constraintname;</span></code></p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">Restore</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013-2017, AMPL Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.
+    </div>
+  </body>
+</html>

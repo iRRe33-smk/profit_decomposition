@@ -1,0 +1,441 @@
+.. _secMATLABrefParameter:
+
+Parameter
+=========
+
+.. mat:class:: Parameter
+
+
+The Parameter object stores the information regarding a parameter in the algebraic
+model. It can contain multiple instances, typically numbers (or strings in case of symbolic paramters) or can be scalar.
+Accessing numerical data  of a Parameter can via achieved via the single instances (throgh :mat:meth:`Parameter.get`) or
+via the :mat:meth:`Parameter.getValues` which returns a :mat:class:`DataFrame` object containing all the information 
+stored in the parameter, including the indexing.
+Data can be assigned using :mat:meth:`AMPL.setData` and a :mat:class:`DataFrame` or using :mat:meth:`Parameter.set` or :mat:meth:`Parameter.setValues`. 
+
+ 
+
+get(key)
+--------
+
+.. mat:classmethod:: Parameter.get(key)
+
+**Syntax**
+
+
+``v = get(key)``
+ 
+**Description**
+
+
+``v = get(key)`` returns the object corresponding to the specified key.
+Note that the same effect can be achieved using MATLAB's indexing operator (round brackets).
+
+**Input Arguments**
+
+
+The key of the parameter instance to look up.
+
+**Output Arguments**
+
+
+``v``
+   The specified parameter instance
+   
+**Example**
+
+     
+Create an indexed variable, get an instance for each, and fix them to some value
+
+.. code-block:: matlab
+
+   ampl.eval('var x{1..5}; var y{1..2, 1..2};');  
+   x = ampl.getVariable('x');
+   y = ampl.getVariable('y');
+   x2 = x.get(2);      % or x2 = x(2);
+   y2_2 = y.get(2,2);  % or y2_2 = y(2,2);
+   x2.fix(3);
+   y2_2.fix(4.4);
+   x.getValues
+   y.getValues
+   
+
+gives:: 
+
+ ans =
+   i1   |  val  
+   1.0  |  0.0  
+   2.0  |  3.0  
+   3.0  |  0.0  
+   4.0  |  0.0  
+   5.0  |  0.0  
+    
+   ans =
+   i1   i2   |  val  
+   1.0  1.0  |  0.0  
+   1.0  2.0  |  0.0  
+   2.0  1.0  |  0.0  
+   2.0  2.0  |  4.4  
+
+
+
+
+getValues
+---------
+
+.. mat:classmethod:: Parameter.getValues()
+
+**Syntax**
+
+
+``df = getValues()``
+ 
+**Description**
+
+
+``df = getValues()`` returns a dataframe with all the values stored in the parameter, decoupled from the underlying AMPL. 
+To gain access to the data, see :mat:class:`DataFrame`.
+
+
+**Output Arguments**
+
+
+``df``
+   A dataframe containing all the values of the parameter and all its indices
+   
+**Example**
+
+     
+Create a parameter and get its values in a dataframe. Prove that it is disconnected from the underlying AMPL instance:
+
+.. code-block:: matlab
+ 
+   ampl.eval('param b{i in 1..2} := i;');
+   b = ampl.getParameter('b');
+   df = b.getValues();
+   ampl.close();
+   ampl
+   df
+   
+gives::
+
+   ampl =
+   AMPL is not running
+ 
+   df =
+   i in 1 .. 2  |  value  
+   1            |  1.0    
+   2            |  2.0  
+
+      
+
+hasDefault
+----------
+
+.. mat:classmethod:: Parameter.hasDefault()
+
+**Syntax**
+
+
+``v = hasDefault``
+ 
+**Description**
+
+
+``v = hasDefault`` returns true if the parameter has a default value set
+
+
+**Output Arguments**
+
+
+``v``
+   1 if the parameter has a default value, 0 otherwise
+   
+**Example**
+
+     
+Create two parameters, one with default and one not and check which one has a default:
+
+.. code-block:: matlab
+ 
+   ampl.eval('param a; param b{1..2} default 1;');
+   a = ampl.getParameter('a');
+   b = ampl.getParameter('b');
+   a.hasDefault
+   b.hasDefault
+   
+gives::
+
+   ans =
+     0
+   
+   ans =
+     1
+      
+
+
+isSymbolic
+----------
+
+.. mat:classmethod:: Parameter.isSymbolic()
+
+**Syntax**
+
+
+``v = isSymbolic``
+ 
+**Description**
+
+
+``v = isSymbolic`` returns true if the parameter is symbolic (can store strings rather than numbers)
+
+
+**Output Arguments**
+
+
+``v``
+   1 if the parameter is symbolic, 0 otherwise
+   
+**Example**
+
+     
+Create two parameters and check which one is symbolic:
+
+.. code-block:: matlab
+ 
+   ampl.eval('param a symbolic; param b{1..2} default 1;');
+   a = ampl.getParameter('a');
+   b = ampl.getParameter('b');
+   a.isSymbolic
+   b.isSymbolic
+   
+gives::
+
+   ans =
+     1
+   
+   ans =
+     0
+     
+
+set(index, value)
+-----------------
+
+.. mat:classmethod:: Parameter.set()
+
+**Syntax**
+
+
+``set(value)``
+
+``set(stringvalue)``
+
+``set(index, value)``
+
+``set(index, stringvalue)``
+
+
+**Description**
+
+
+Function to set a single value of a parameter. 
+
+``set(value)`` and ``set(stringvalue)`` set the a scalar parameter to the specified value.
+
+``set(index, value)`` and ``set(index, stringvalue)`` set the a scalar parameter to the specified value.
+
+
+**Input Arguments**
+
+``index`` 
+   The index of the value to be set
+
+``value`` 
+   The numerical value to set
+``stringvalue``
+   The literal value to set
+
+  
+**Example**
+
+     
+Create a few parameters and assign single values to their instances.
+
+.. code-block:: matlab
+
+   ampl.eval('param a{1..5} default 2; param b{1..2, 1..2} symbolic default "default value";');  
+   a = ampl.getParameter('a');
+   b = ampl.getParameter('b');
+   ad = a.getInstances
+   bd = b.getInstances
+   a.set(2, 42);
+   b.set([1,2], 'New Value');
+    ad = a.getInstances
+   bd = b.getInstances
+
+gives:: 
+
+   ad =
+     2
+     2
+     2
+     2
+     2
+
+   bd = 
+    'default value'
+    'default value'
+    'default value'
+    'default value'
+
+   ad =
+     2
+    42
+     2
+     2
+     2
+
+   bd = 
+    'default value'
+    'New Value'
+    'default value'
+    'default value'
+
+
+
+setValues
+---------
+
+.. mat:classmethod:: Parameter.setValues()
+
+**Syntax**
+
+
+``setValues(indices, values)``
+
+``setValues(indices, stringvalues)``
+
+``setValues(valuesmatrix)``
+
+``setValues(values)``
+
+``setValues(stringvalues)``
+
+ 
+**Description**
+
+
+Function to set multiple values of a parameter which has no value assigned. To set data to multiple entities at once, see :mat:meth:`AMPL.setData`.
+ 
+``setValues(indices, values)`` Sets the values of the parameter at the specified indices to the values specified in values
+
+``setValues(indices, stringvalues)`` Sets the values of the symbolic parameter at the specified indices to the literal values specified in stringvalues
+
+``setValues(valuesmatrix)`` Sets the values of the parameter to the values specified in the matrix values. Valid only for 2-d parameters
+
+``setValues(values)`` Assign the specified double values to the parameter, assigning them to the parameter in the same order as the indices in the entity
+
+``setValues(stringvalues)`` Assign the specified string values to the parameter, assigning them to the parameter in the same order as the indices in the entity
+
+
+
+**Input Arguments**
+
+
+``indices``
+   An array or cell array of indices. Each tuple must be a row in the array. 
+``values`` 
+   The numerical values to set. Each value must be a row in the array..
+``stringvalues``
+   The literal values to set. Each value must be a row in the array..
+``valuesmatrix``
+   The matrix of values to set to a 2-d parameter. For **Example**, the :math:`$m \times n$` matrix: :math:`A = \left( \begin{array}{cccc} a_{11} & a_{12} & ... & a_{1n} \\ x_{21} & x_{22} & ... & x_{2n} \\ ... & ... & ... & ... \\ a_{m1} & a_{m2} & ... & a_{mn} \end{array} \right)`
+   can be assigned to the AMPL parameter: \ ``param a{1..m, 1..n};``\
+   with the statement \ ``setValues(A)``\
+  
+**Example**
+     
+Ordered. Create a few parameters and assign specific data specifying the indices of the instances.
+
+.. code-block:: matlab
+
+   ampl.eval('param a{1..5} default 2; param b{1..2, 1..2};');  
+   a = ampl.getParameter('a');
+   b = ampl.getParameter('b');
+   indices = [2; 4]; values = [11; 22];
+   a.setValues(indices, values);
+   a.getValues
+   
+ 
+gives::
+
+  ans =
+      a [*] :=
+      1   2
+      2  11
+      3   2
+      4  22
+      5   2
+      ;
+      
+and for multiple indices, simply:
+
+.. code-block:: matlab
+   
+   indices = [1 1, 2,2];
+   b.setValues(indices, values);
+   b.getValues
+
+gives::
+
+   ans = 
+      b :=
+      1 1   11
+      2 2   22
+      ;
+
+
+Bi-dimensional (assigning from matrix)
+
+.. code-block:: matlab
+
+   ampl.eval('param 2d{1..3, 1..2};');
+   values = eye(3,2);
+   d = ampl.getParameter('2d');
+   d.setValues(values);
+   d.getValues
+   
+ gives::
+ 
+   ans =
+    i1   i2   |  val  
+    1.0  1.0  |  1.0  
+    1.0  2.0  |  0.0  
+    2.0  1.0  |  0.0  
+    2.0  2.0  |  1.0  
+    3.0  1.0  |  0.0  
+    3.0  2.0  |  0.0  
+ 
+ Not specifying the indices, it is possible to do operations like:
+ 
+.. code-block:: matlab
+ 
+   ampl.eval('param a{i in 1..5} := i; param b{1..5} default 0;');
+   a = ampl.getParameter('a');
+   b = ampl.getParameter('b');
+   values = a.getInstances;
+   b.setValues(values);
+   b.display
+   
+ which assign all the values of a to b, as shown by the output::
+
+   ans =
+   i1   |  val  
+   1.0  |  1.0  
+   2.0  |  2.0  
+   3.0  |  3.0  
+   4.0  |  4.0  
+   5.0  |  5.0  
+   
+
+   

@@ -1,0 +1,110 @@
+
+
+ParameterMap Class
+==================
+
+
+
+
+
+
+Enables iterable access to the parameters
+
+
+Namespace
+    :dn:ns:`ampl.Entities`
+Assemblies
+    * AMPL
+
+----
+
+.. contents::
+   :local:
+
+
+
+Inheritance Hierarchy
+---------------------
+
+
+* :dn:cls:`System.Object`
+* :dn:cls:`ampl.Entities.EntityMap{ampl.Entities.Parameter}`
+* :dn:cls:`ampl.Entities.ParameterMap`
+
+
+
+
+
+
+
+
+Syntax
+------
+
+.. code-block:: csharp
+
+    public class ParameterMap : EntityMap<Parameter>, IEnumerable<Parameter>, IEnumerable
+
+
+
+
+
+
+
+
+.. dn:class:: ampl.Entities.ParameterMap
+    :hidden:
+
+.. dn:class:: ampl.Entities.ParameterMap
+
+Methods
+-------
+
+.. dn:class:: ampl.Entities.ParameterMap
+    :noindex:
+    :hidden:
+
+    
+    .. dn:method:: ampl.Entities.ParameterMap.GetEnumerator()
+
+        
+        :rtype: System.Collections.Generic.IEnumerator<System.Collections.Generic.IEnumerator`1>{ampl.Entities.Parameter<ampl.Entities.Parameter>}
+
+        
+        .. code-block:: csharp
+
+            public override IEnumerator<Parameter> GetEnumerator()
+    
+
+Properties
+----------
+
+.. dn:class:: ampl.Entities.ParameterMap
+    :noindex:
+    :hidden:
+
+    
+    .. dn:property:: ampl.Entities.ParameterMap.Item[System.String]
+
+        
+
+        
+        :type name: System.String
+        :rtype: ampl.Entities.Parameter
+
+        
+        .. code-block:: csharp
+
+            public Parameter this[string name] { get; }
+    
+    .. dn:property:: ampl.Entities.ParameterMap.Size
+
+        
+        :rtype: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public override int Size { get; }
+    
+

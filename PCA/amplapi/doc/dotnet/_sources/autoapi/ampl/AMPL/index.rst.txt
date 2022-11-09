@@ -1,0 +1,1126 @@
+
+
+AMPL Class
+==========
+
+
+
+
+
+
+An AMPL translator. An object of this class can be used to do the following tasks:
+
+Run AMPL code. See :dn:method:`ampl.AMPL.Eval` and :dn:method:`ampl.AMPL.EvalAsync`.
+
+Read models and data from files. See :dn:method:`ampl.AMPL.read`,
+:dn:method:`ampl.AMPL.ReadData`, :dn:method:`ampl.AMPL.ReadAsync` and
+:dn:method:`ampl.AMPL.ReadDataAsync`.
+
+Solve optimization problems constructed from model and data (see
+:dn:method:`ampl.AMPL.Solve` and :dn:method:`ampl.AMPL.SolveAsync`).
+
+Access single elements of an optimization problem. See the generic
+:dn:method:`ampl.AMPL.GetEntity` and the generic :dn:method:`ampl.AMPL.GetVariable`,
+:dn:method:`ampl.AMPL.GetObjective`, :dn:method:`ampl.AMPL.GetConstraint`,
+:dn:method:`ampl.AMPL.GetSet` and :dn:method:`ampl.AMPL.GetParameter`.
+
+Access lists of available elements of an optimization problem. See
+:dn:method:`ampl.AMPL.GetVariables`, :dn:method:`ampl.AMPL.GetObjectives`,
+:dn:method:`ampl.AMPL.GetConstraints`, :dn:method:`ampl.AMPL.GetSets` and
+:dn:method:`ampl.AMPL.GetParameters`.
+
+AMPL stores one or more problems which may consume substantial amount of
+memory. An AMPL object without any references to it will eventually be freed
+by the Java garbage collector and all the memory and other resources
+associated with it will be released. This includes any resources which are
+out of scope of the garbage collector such as open files or memory managed by
+the native code. Call :dn:method:`ampl.AMPL.Close` to release these resources
+explicitly.
+
+The initialisation of the Java representation of the AMPL entities (any class
+derived from :dn:class:`ampl.Entities.Entity`) is lazy and consists of two steps. When a
+function listing available elements is called, only a shallow list with
+names, types and declarations of the elements is populated. The same happens
+when a reference to a Java representation of one entity is obtained (through
+a call to :dn:method:`ampl.AMPL.GetEntity` or any other single entity factory
+function). When accessing any instance of an entity (through the methods
+'get' of any class), the (memory hungry) list of instances for that entity is
+created.
+
+Consistency is maintained automatically. Any command issued to the translator
+through :dn:method:`ampl.AMPL.Eval` and similar functions invalidates all entities,
+and any further access to any entity will require communication between the
+native translator and the Java code. Conversely, any operation called through
+the Java equivalent function, like fixing variables or solving the model will
+invalidate only the entities involved. A list of dependencies between
+entities is automatically updated.
+
+Error handling is two-faced:
+
+1. Errors coming from the underlying AMPL translator (e.g. syntax errors and
+warnings obtained calling the :dn:method:`ampl.AMPL.Eval` method) are handled by
+the event :dn:event:`ampl.AMPL.Error`. Note that by default the event is 
+disabled. To enable it, call :dn:method:`ampl.AMPL.EnableErrorAndWarningRouting`.
+
+2. Generic errors coming from misusing the API, which are detected in .NET,
+are thrown as exceptions.
+
+The default implementation of the error handler throws exceptions on errors
+and prints to console on warnings.
+
+The output of every user interaction with the underlying translator is
+handled by the event :dn:event:`ampl.AMPL.Output`, which is called at each 
+block of output from the translator after the function :dn:method:`ampl.AMPL.EnableOutputRouting`
+is called.
+
+
+Namespace
+    :dn:ns:`ampl`
+Assemblies
+    * AMPL
+
+----
+
+.. contents::
+   :local:
+
+
+
+Inheritance Hierarchy
+---------------------
+
+
+* :dn:cls:`System.Object`
+* :dn:cls:`ampl.AMPL`
+
+
+
+
+
+
+
+
+Syntax
+------
+
+.. code-block:: csharp
+
+    public class AMPL : IDisposable
+
+
+
+
+
+
+
+
+.. dn:class:: ampl.AMPL
+    :hidden:
+
+.. dn:class:: ampl.AMPL
+
+Constructors
+------------
+
+.. dn:class:: ampl.AMPL
+    :noindex:
+    :hidden:
+
+    
+    .. dn:constructor:: ampl.AMPL.AMPL()
+
+        
+
+        
+        Default constructor: creates a new AMPL instance with 
+        the default environment.
+
+
+        
+
+        
+        .. code-block:: csharp
+
+            public AMPL()
+    
+    .. dn:constructor:: ampl.AMPL.AMPL(ampl.Environment)
+
+        
+
+        
+        Creates a new AMPL instance with the specified environment
+
+
+        
+
+        
+        :type e: ampl.Environment
+
+        
+        .. code-block:: csharp
+
+            public AMPL(Environment e)
+    
+
+Methods
+-------
+
+.. dn:class:: ampl.AMPL
+    :noindex:
+    :hidden:
+
+    
+    .. dn:method:: ampl.AMPL.Cd(System.String)
+
+        
+
+        
+        Change or display the current working directory (see
+        https://en.wikipedia.org/wiki/Working_directory ).
+
+
+        
+
+        
+        :param directoryName: New working directory or null 
+            (to display the working directory)
+        
+        :type directoryName: System.String
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public string Cd(string directoryName = null)
+    
+    .. dn:method:: ampl.AMPL.Close()
+
+        
+
+        
+        Stops the underlying engine and release its resources.
+        Any further attempt to execute  optimisation commands 
+        without restarting it will throw an exception.
+
+
+        
+
+        
+        .. code-block:: csharp
+
+            public void Close()
+    
+    .. dn:method:: ampl.AMPL.Display(System.String[])
+
+        
+
+        
+        :type args: System.String<System.String>[]
+
+        
+        .. code-block:: csharp
+
+            public void Display(params string[] args)
+    
+    .. dn:method:: ampl.AMPL.Dispose()
+
+        
+
+        
+        .. code-block:: csharp
+
+            public void Dispose()
+    
+    .. dn:method:: ampl.AMPL.Dispose(System.Boolean)
+
+        
+
+        
+        :type disposing: System.Boolean
+
+        
+        .. code-block:: csharp
+
+            protected virtual void Dispose(bool disposing)
+    
+    .. dn:method:: ampl.AMPL.EnableErrorAndWarningRouting()
+
+        
+
+        
+        Enable routing of AMPL error and warning handling via the C# wrapper.
+        Must be called to enable handling of errors and warning
+        through handlers registered with  :dn:event:`ampl.AMPL.Error`
+        and :dn:event:`ampl.AMPL.Warning`.
+
+
+        
+
+        
+        .. code-block:: csharp
+
+            public void EnableErrorAndWarningRouting()
+    
+    .. dn:method:: ampl.AMPL.EnableOutputRouting()
+
+        
+
+        
+        Enable routing of AMPL console outputs through the C# wrapper.
+        Must be called to enable handling of the output through a personalised 
+        handler registered with :dn:event:`ampl.AMPL.Output`.
+
+
+        
+
+        
+        .. code-block:: csharp
+
+            public void EnableOutputRouting()
+    
+    .. dn:method:: ampl.AMPL.Eval(System.String)
+
+        
+
+        
+        Parses AMPL code and evaluates it as a possibly empty sequence of AMPL
+        declarations and statements.
+        As a side effect, it invalidates all entities (as the passed statements
+        can contain any arbitrary command); the lists of entities will be
+        re-populated lazily (at first access)
+        The output of interpreting the statements is passed to the current
+        OutputHandler (see getOutputHandler and
+        setOutputHandler).
+        By default, errors are reported as exceptions and warnings are printed on
+        stdout. This behavior can be changed reassigning an
+        ErrorHandler using setErrorHandler.
+
+
+        
+
+        
+        :param AMPLStatements: A collection of AMPL statements 
+            and declarations to be passed to the interpreter
+        
+        :type AMPLStatements: System.String
+
+        
+        .. code-block:: csharp
+
+            public void Eval(string AMPLStatements)
+    
+    .. dn:method:: ampl.AMPL.EvalAsync(System.String, System.Action)
+
+        
+
+        
+        Interpret asynchronously the given AMPL statements
+
+
+        
+
+        
+        :type AMPLStatements: System.String
+
+        
+        :param cb: Call back to be executed when completed
+        
+        :type cb: System.Action
+
+        
+        .. code-block:: csharp
+
+            public void EvalAsync(string AMPLStatements, Action cb)
+    
+    .. dn:method:: ampl.AMPL.Expand(ampl.Entities.Entity[])
+
+        
+
+        
+        :type entities: ampl.Entities.Entity<ampl.Entities.Entity>[]
+
+        
+        .. code-block:: csharp
+
+            public void Expand(params Entity[] entities)
+    
+    .. dn:method:: ampl.AMPL.GetBoolOption(System.String)
+
+        
+
+        
+        Get the current value of the specified boolean option. 
+
+
+        
+
+        
+        :param name: Option name
+        
+        :type name: System.String
+        :rtype: System.Nullable<System.Nullable`1>{System.Boolean<System.Boolean>}
+        :return: The option value, null if the specified option
+            does not exist
+
+        
+        .. code-block:: csharp
+
+            public bool ? GetBoolOption(string name)
+    
+    .. dn:method:: ampl.AMPL.GetConstraint(System.String)
+
+        
+
+        
+        Get the constraint with the corresponding name
+
+
+        
+
+        
+        :param name: Name of the constraint to be found
+        
+        :type name: System.String
+        :rtype: ampl.Entities.Constraint
+
+        
+        .. code-block:: csharp
+
+            public Constraint GetConstraint(string name)
+    
+    .. dn:method:: ampl.AMPL.GetConstraints()
+
+        
+
+        
+        Get the defined constraints
+
+
+        
+        :rtype: ampl.Entities.ConstraintMap
+
+        
+        .. code-block:: csharp
+
+            public ConstraintMap GetConstraints()
+    
+    .. dn:method:: ampl.AMPL.GetData(System.String[])
+
+        
+
+        
+        <p>Get the data corresponding to the display statements. The statements can
+        be AMPL expressions, or entities. It captures the equivalent of the command:
+        </p>
+        <p>
+        <code>display ds1, ..., dsn;</code>
+        </p>
+        <p> where<code> ds1, ..., dsn </code>are the <span class="paramref">statements</span> with which the function is called. </p>
+        <p>As only one DataFrame is returned, the operation will fail if the results
+        of the display statements cannot be indexed over the same set. As a result, any
+        attempt to get data from more than one set, or to get data for multiple
+        parameters with a different number of indexing sets will fail.</p>
+
+
+        
+
+        
+        :param statements: The display statements to be fetched
+        
+        :type statements: System.String<System.String>[]
+        :rtype: ampl.DataFrame
+        :return: 
+            DataFrame capturing the output of the display command in tabular form
+
+
+        
+        .. code-block:: csharp
+
+            public DataFrame GetData(params string[] statements)
+    
+    .. dn:method:: ampl.AMPL.GetDblOption(System.String)
+
+        
+
+        
+        Get the current value of the specified option. 
+
+
+        
+
+        
+        :param name: Option name
+        
+        :type name: System.String
+        :rtype: System.Nullable<System.Nullable`1>{System.Double<System.Double>}
+        :return: The option value, null if the specified option
+            does not exist
+
+        
+        .. code-block:: csharp
+
+            public double ? GetDblOption(string name)
+    
+    .. dn:method:: ampl.AMPL.GetEntity(System.String)
+
+        
+
+        
+        Get entity corresponding to the specified name (looks for it in all types
+        of entities)
+
+
+        
+
+        
+        :param name: Name of the entity
+        
+        :type name: System.String
+        :rtype: ampl.Entities.Entity
+        :return: The AMPL entity with the specified name
+
+        
+        .. code-block:: csharp
+
+            public Entity GetEntity(string name)
+    
+    .. dn:method:: ampl.AMPL.GetIntOption(System.String)
+
+        
+
+        
+        Get the current value of the specified option. 
+
+
+        
+
+        
+        :param name: Option name
+        
+        :type name: System.String
+        :rtype: System.Nullable<System.Nullable`1>{System.Int32<System.Int32>}
+        :return: The option value, null if the specified option
+            does not exist
+
+        
+        .. code-block:: csharp
+
+            public int ? GetIntOption(string name)
+    
+    .. dn:method:: ampl.AMPL.GetObjective(System.String)
+
+        
+
+        
+        Get the objective with the corresponding name
+
+
+        
+
+        
+        :param name: Name of the objective to be found
+        
+        :type name: System.String
+        :rtype: ampl.Entities.Objective
+
+        
+        .. code-block:: csharp
+
+            public Objective GetObjective(string name)
+    
+    .. dn:method:: ampl.AMPL.GetObjectives()
+
+        
+
+        
+        Get the defined objectives
+
+
+        
+        :rtype: ampl.Entities.ObjectiveMap
+
+        
+        .. code-block:: csharp
+
+            public ObjectiveMap GetObjectives()
+    
+    .. dn:method:: ampl.AMPL.GetOption(System.String)
+
+        
+
+        
+        Get the current value of the specified option. 
+
+
+        
+
+        
+        :param name: Option name
+        
+        :type name: System.String
+        :rtype: System.String
+        :return: The option value, null if the specified option
+            does not exist
+
+        
+        .. code-block:: csharp
+
+            public string GetOption(string name)
+    
+    .. dn:method:: ampl.AMPL.GetParameter(System.String)
+
+        
+
+        
+        Get the parameter with the corresponding name
+
+
+        
+
+        
+        :param name: Name of the parameter to be found
+        
+        :type name: System.String
+        :rtype: ampl.Entities.Parameter
+
+        
+        .. code-block:: csharp
+
+            public Parameter GetParameter(string name)
+    
+    .. dn:method:: ampl.AMPL.GetParameters()
+
+        
+
+        
+        Get the defined parameters 
+
+
+        
+        :rtype: ampl.Entities.ParameterMap
+
+        
+        .. code-block:: csharp
+
+            public ParameterMap GetParameters()
+    
+    .. dn:method:: ampl.AMPL.GetSet(System.String)
+
+        
+
+        
+        Get the set with the corresponding name
+
+
+        
+
+        
+        :param name: Name of the set to be found
+        
+        :type name: System.String
+        :rtype: ampl.Entities.Set
+
+        
+        .. code-block:: csharp
+
+            public Set GetSet(string name)
+    
+    .. dn:method:: ampl.AMPL.GetSets()
+
+        
+
+        
+        Get the defined sets 
+
+
+        
+        :rtype: ampl.Entities.SetMap
+
+        
+        .. code-block:: csharp
+
+            public SetMap GetSets()
+    
+    .. dn:method:: ampl.AMPL.GetValue(System.String)
+
+        
+
+        
+        Get a scalar value from the underlying AMPL interpreter, 
+        as a double or a string.
+
+
+        
+
+        
+        :param scalarExpression: An AMPL expression which evaluates 
+            to a scalar value.
+        
+        :type scalarExpression: System.String
+        :rtype: ampl.Variant
+
+        
+        .. code-block:: csharp
+
+            public Variant GetValue(string scalarExpression)
+    
+    .. dn:method:: ampl.AMPL.GetVariable(System.String)
+
+        
+
+        
+        Get the variable with the corresponding name
+
+
+        
+
+        
+        :param name: Name of the variable to be found
+        
+        :type name: System.String
+        :rtype: ampl.Entities.Variable
+
+        
+        .. code-block:: csharp
+
+            public Variable GetVariable(string name)
+    
+    .. dn:method:: ampl.AMPL.GetVariables()
+
+        
+
+        
+        Get the defined variables 
+
+
+        
+        :rtype: ampl.Entities.VariableMap
+
+        
+        .. code-block:: csharp
+
+            public VariableMap GetVariables()
+    
+    .. dn:method:: ampl.AMPL.Interrupt()
+
+        
+
+        
+        Interrupt an underlying asynchronous operation (execution of AMPL code by the 
+        AMPL interpreter). An asynchronous operation can be started via evalAsync(), solveAsync(), readAsync() and
+        readDataAsync().
+        Does nothing if the engine and the solver are idle.
+
+
+        
+
+        
+        .. code-block:: csharp
+
+            public void Interrupt()
+    
+    .. dn:method:: ampl.AMPL.Read(System.String)
+
+        
+
+        
+        Interprets the specified file (script or model or mixed) As a side effect,
+        it invalidates all entities (as the passed file can contain any arbitrary
+        command); the lists of entities will be re-populated lazily (at first
+        access)
+
+
+        
+
+        
+        :param filename: Path to the file (Relative to the 
+            current working directory or absolute)
+        
+        :type filename: System.String
+
+        
+        .. code-block:: csharp
+
+            public void Read(string filename)
+    
+    .. dn:method:: ampl.AMPL.ReadAsync(System.String, System.Action)
+
+        
+
+        
+        Interprets the specified file asynchronously, interpreting it as a model
+        or a script file. As a side effect, it invalidates all entities (as the
+        passed file can contain any arbitrary command); the lists of entities
+        will be re-populated lazily (at first access)
+
+
+        
+
+        
+        :param filename: Path to the file (Relative to the 
+            current working directory or absolute)
+        
+        :type filename: System.String
+
+        
+        :param cb: Callback to be executed when the file has been interpreted
+        
+        :type cb: System.Action
+
+        
+        .. code-block:: csharp
+
+            public void ReadAsync(string filename, Action cb)
+    
+    .. dn:method:: ampl.AMPL.ReadData(System.String)
+
+        
+
+        
+        Interprets the specified data file. As a side effect,
+        it invalidates all entities (as the passed file can contain any arbitrary
+        command); the lists of entities will be re-populated lazily (at first
+        access)
+
+
+        
+
+        
+        :param filename: Path to the file (Relative to the 
+            current working directory or absolute)
+        
+        :type filename: System.String
+
+        
+        .. code-block:: csharp
+
+            public void ReadData(string filename)
+    
+    .. dn:method:: ampl.AMPL.ReadDataAsync(System.String, System.Action)
+
+        
+
+        
+        Interprets the specified data file asynchronously, interpreting it as a model
+        or a script file. The file is interpreted as data. 
+        As a side effect, it invalidates all entities (as the file can contain 
+        arbitrary commands); the lists of entities will be re-populated 
+        lazily (at first access)
+
+
+        
+
+        
+        :param filename: Path to the file (Relative to the 
+            current working directory or absolute)
+        
+        :type filename: System.String
+
+        
+        :param cb: Callback to be executed when the file has been interpreted
+        
+        :type cb: System.Action
+
+        
+        .. code-block:: csharp
+
+            public void ReadDataAsync(string filename, Action cb)
+    
+    .. dn:method:: ampl.AMPL.ReadTable(System.String)
+
+        
+
+        
+        Read the table corresponding to the specified name, equivalent to the
+        AMPL statement:
+
+        read table tableName;
+
+
+        
+
+        
+        :param tableName: Name of the table to be read
+        
+        :type tableName: System.String
+
+        
+        .. code-block:: csharp
+
+            public void ReadTable(string tableName)
+    
+    .. dn:method:: ampl.AMPL.Reset()
+
+        
+
+        
+        Clears all entities in the underlying AMPL interpreter, 
+        clears all maps and invalidates all entities
+
+
+        
+
+        
+        .. code-block:: csharp
+
+            public void Reset()
+    
+    .. dn:method:: ampl.AMPL.SetData(ampl.DataFrame, System.String)
+
+        
+
+        
+        Assign the data in the dataframe to the AMPL entities with the names
+        corresponding to the column names.If setName is null, only the
+        parameters value will be assigned.
+
+
+        
+
+        
+        :param df: The dataframe containing the data to be assigned
+        
+        :type df: ampl.DataFrame
+
+        
+        :param setName: The name of the set to which the indices values of the DataFrame are to be assigned. 
+        
+        :type setName: System.String
+
+        
+        .. code-block:: csharp
+
+            public void SetData(DataFrame df, string setName = null)
+    
+    .. dn:method:: ampl.AMPL.SetOption(System.String, System.Boolean)
+
+        
+
+        
+        Set an AMPL option to a specified boolean value.
+        In AMPL, boolean options are represented as integer: 
+        0 for false, 1 for true.
+
+
+        
+
+        
+        :param name: Name of the option to be set 
+            (alphanumeric without spaces)
+        
+        :type name: System.String
+
+        
+        :param value: Value the option must be set to
+        
+        :type value: System.Boolean
+
+        
+        .. code-block:: csharp
+
+            public void SetOption(string name, bool value)
+    
+    .. dn:method:: ampl.AMPL.SetOption(System.String, System.Double)
+
+        
+
+        
+        Set an AMPL option to a specified double value.
+
+
+        
+
+        
+        :param name: Name of the option to be set 
+            (alphanumeric without spaces)
+        
+        :type name: System.String
+
+        
+        :param value: Value the option must be set to
+        
+        :type value: System.Double
+
+        
+        .. code-block:: csharp
+
+            public void SetOption(string name, double value)
+    
+    .. dn:method:: ampl.AMPL.SetOption(System.String, System.Int32)
+
+        
+
+        
+        Set an AMPL option to a specified integer value.
+
+
+        
+
+        
+        :param name: Name of the option to be set 
+            (alphanumeric without spaces)
+        
+        :type name: System.String
+
+        
+        :param value: Value the option must be set to
+        
+        :type value: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public void SetOption(string name, int value)
+    
+    .. dn:method:: ampl.AMPL.SetOption(System.String, System.String)
+
+        
+
+        
+        Set an AMPL option to a specified value.
+
+
+        
+
+        
+        :param name: Name of the option to be set 
+            (alphanumeric without spaces)
+        
+        :type name: System.String
+
+        
+        :param value: String representing the value 
+            the option must be set to
+        
+        :type value: System.String
+
+        
+        .. code-block:: csharp
+
+            public void SetOption(string name, string value)
+    
+    .. dn:method:: ampl.AMPL.Show(ampl.Entities.Entity[])
+
+        
+
+        
+        :type entities: ampl.Entities.Entity<ampl.Entities.Entity>[]
+
+        
+        .. code-block:: csharp
+
+            public void Show(params Entity[] entities)
+    
+    .. dn:method:: ampl.AMPL.Solve()
+
+        
+
+        
+        Solve the current model
+
+
+        
+
+        
+        .. code-block:: csharp
+
+            public void Solve()
+    
+    .. dn:method:: ampl.AMPL.SolveAsync(System.Action)
+
+        
+
+        
+        Solve the current model asynchronously 
+
+
+        
+
+        
+        :param cb: Call back to be executed when completed
+        
+        :type cb: System.Action
+
+        
+        .. code-block:: csharp
+
+            public void SolveAsync(Action cb)
+    
+    .. dn:method:: ampl.AMPL.ToString()
+
+        
+
+        
+
+        Get a string describing the object. Returns the version of the API and
+        either the version of the interpreter or the message "AMPL is not
+        running" if the interpreter is not running (e.g. due to unexpected
+        internal error or to a call AMPL.Close())
+
+
+        
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public override string ToString()
+    
+
+Events
+------
+
+.. dn:class:: ampl.AMPL
+    :noindex:
+    :hidden:
+
+    
+    .. dn:event:: ampl.AMPL.Error
+
+        
+
+        
+        Raised for each AMPL error, if :dn:method:`ampl.AMPL.EnableErrorAndWarningRouting` has been called on the current object instance
+
+
+        
+        :rtype: System.Action<System.Action`1>{AMPLException<AMPLException>}
+
+        
+        .. code-block:: csharp
+
+            public event Action<AMPLException> Error
+    
+    .. dn:event:: ampl.AMPL.Output
+
+        
+
+        
+        Raised for each AMPL output, if :dn:method:`ampl.AMPL.EnableOutputRouting` has been called on the current object instance
+
+
+        
+        :rtype: System.Action<System.Action`2>{Kind<Kind>, System.String<System.String>}
+
+        
+        .. code-block:: csharp
+
+            public event Action<Kind, string> Output
+    
+    .. dn:event:: ampl.AMPL.Warning
+
+        
+
+        
+        Raised for each AMPL warning, if :dn:method:`ampl.AMPL.EnableErrorAndWarningRouting` has been called on the current object instance
+
+
+        
+        :rtype: System.Action<System.Action`1>{AMPLException<AMPLException>}
+
+        
+        .. code-block:: csharp
+
+            public event Action<AMPLException> Warning
+    
+

@@ -1,0 +1,283 @@
+.. java:import:: java.util Iterator
+
+Constraint
+==========
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class Constraint extends BasicEntity<ConstraintInstance>
+
+   This class represents an algebraic or logical constraint. In case the constraint is scalar, its values can be accessed via functions like :java:ref:`Constraint.body` and :java:ref:`Constraint.dual`. All the AMPL suffixes for constraints (see http://www.ampl.com/NEW/suffbuiltin.html) are available through methods of this class with the same name (and methods of :java:ref:`ConstraintInstance` for indexed constraints).
+
+   Note that, since this class represents both algebraic and logical constraints, some suffixes might not be available for every entity.
+
+   An :java:ref:`UnsupportedOperationException` is thrown if one of such methods is called for a non-scalar constraint and if a method corresponding to a suffix which is not supported by the type of the constraint is called.
+
+   The instances, represented by the class :java:ref:`ConstraintInstance` can be accessed via the method :java:ref:`Constraint.get` (see section :ref:`secAccessInstancesAndValues` for further information on how to access instances).
+
+   To gain access to all the values in an entity (for all instances and all suffixes for that entities), see :java:ref:`Entity.getValues` and the :java:ref:`DataFrame` class.
+
+Constructors
+------------
+Constraint
+^^^^^^^^^^
+
+.. java:constructor:: public Constraint(Entity entity)
+   :outertype: Constraint
+
+   Constructor
+
+Constraint
+^^^^^^^^^^
+
+.. java:constructor::  Constraint(ConstraintBase impl)
+   :outertype: Constraint
+
+Methods
+-------
+astatus
+^^^^^^^
+
+.. java:method:: public String astatus()
+   :outertype: Constraint
+
+   Get the current AMPL status (dropped, presolved, or substituted out)
+
+body
+^^^^
+
+.. java:method:: public double body()
+   :outertype: Constraint
+
+   Get the current value of the constraint's body
+
+defvar
+^^^^^^
+
+.. java:method:: public int defvar()
+   :outertype: Constraint
+
+   Get the index in \ ``_var``\  of "defined variable" substituted out by the constraint
+
+dinit
+^^^^^
+
+.. java:method:: public double dinit()
+   :outertype: Constraint
+
+   Get the current initial guess for the constraint's dual variable
+
+dinit0
+^^^^^^
+
+.. java:method:: public double dinit0()
+   :outertype: Constraint
+
+   Get the original initial guess for the constraint's dual variable
+
+drop
+^^^^
+
+.. java:method:: public void drop()
+   :outertype: Constraint
+
+   Drop all instances in this constraint entity, corresponding to the AMPL code:
+
+   .. parsed-literal::
+
+      drop constraintname;
+
+dual
+^^^^
+
+.. java:method:: public double dual()
+   :outertype: Constraint
+
+   Get the current value of the constraint's dual variable.
+
+   Note that dual values are often reset by the underlying AMPL interpreter by the presolve functionalities triggered by some methods. A possible workaround is to set the option \ ``presolve``\  to ``false`` (see :java:ref:`AMPL.setBoolOption`).
+
+get
+^^^
+
+.. java:method:: public ConstraintInstance get()
+   :outertype: Constraint
+
+   Get the constraint instance (to be used only on scalar constraints)
+
+   :throws UnsupportedOperationException: if the constraint is not scalar.
+   :return: The corresponding instance. @ throws IllegalStateException if the constraint has been deleted in the underlying AMPL interpreter
+
+get
+^^^
+
+.. java:method:: public ConstraintInstance get(Object... key)
+   :outertype: Constraint
+
+   Get the constraint instance corresponding to the specified key. See :ref:`secAccessInstancesAndValues` for further information on how the key can be specified.
+
+   :param key: The key to be found
+   :throws IllegalArgumentException: if trying to access an instance with the wrong number of keys (see :java:ref:`Entity.indexarity`)
+   :throws IllegalStateException: if the entity has been deleted in the underlying AMPL interpreter
+   :return: The constraint instance corresponding to the specified key. Returns ``null`` if the specified key is not present.
+
+get
+^^^
+
+.. java:method:: public ConstraintInstance get(Tuple key)
+   :outertype: Constraint
+
+   Get the constraint instance corresponding to the specified key, expressed as a Tuple. See :ref:`secAccessInstancesAndValues` for further information on how the key can be specified.
+
+   :param key: The indexing Tuple of the instance to be found
+   :throws IllegalArgumentException: if trying to access an instance with the wrong indexarity (see :java:ref:`Entity.indexarity`)
+   :throws IllegalStateException: if the entity has been deleted in the underlying AMPL interpreter
+   :return: The constraint instance corresponding to the specified key. Returns ``null`` if the specified key is not present.
+
+impl
+^^^^
+
+.. java:method::  ConstraintBase impl()
+   :outertype: Constraint
+
+isLogical
+^^^^^^^^^
+
+.. java:method:: public boolean isLogical()
+   :outertype: Constraint
+
+   Check if the constraint is a logical constraint. The available suffixes differ between logical and non logical constraints. See http://www.ampl.com/NEW/suffbuiltin.html for a list of the available suffixes for algebraic constraints. The suffixes available for logical constraints are marked on the method description by "Valid only for logical constraints".
+
+   :return: True if logical
+
+iterator
+^^^^^^^^
+
+.. java:method:: @Override public Iterator<ConstraintInstance> iterator()
+   :outertype: Constraint
+
+lb
+^^
+
+.. java:method:: public double lb()
+   :outertype: Constraint
+
+   Get the current value of the constraint's lower bound
+
+lbs
+^^^
+
+.. java:method:: public double lbs()
+   :outertype: Constraint
+
+   Get the constraint lower bound sent to the solver (reflecting adjustment for fixed variables)
+
+ldual
+^^^^^
+
+.. java:method:: public double ldual()
+   :outertype: Constraint
+
+   Get the current dual value associated with the lower bound
+
+lslack
+^^^^^^
+
+.. java:method:: public double lslack()
+   :outertype: Constraint
+
+   Get the slack at lower bound \ ``body - lb``\
+
+restore
+^^^^^^^
+
+.. java:method:: public void restore()
+   :outertype: Constraint
+
+   Restore all instances in this constraint entity, corresponding to the AMPL code:
+
+   .. parsed-literal::
+
+      restore constraintname;
+
+setDual
+^^^^^^^
+
+.. java:method:: public void setDual(double dual)
+   :outertype: Constraint
+
+   Set the value of the dual variable associated to this constraint (valid only if the constraint is scalar). Equivalent to the AMPL statement:
+
+   .. parsed-literal::
+
+      let c := dual;
+
+   Note that dual values are often reset by the underlying AMPL interpreter by the presolve functionalities triggered by some methods. A possible workaround is to set the option \ ``presolve``\  to ``false`` (see :java:ref:`AMPL.setBoolOption`).
+
+   :param dual: The value to be assigned to the dual variable
+
+slack
+^^^^^
+
+.. java:method:: public double slack()
+   :outertype: Constraint
+
+   Constraint slack (the lesser of lslack and uslack)
+
+sstatus
+^^^^^^^
+
+.. java:method:: public String sstatus()
+   :outertype: Constraint
+
+   Get the solver status (basis status of constraint's slack or artificial variable)
+
+status
+^^^^^^
+
+.. java:method:: public String status()
+   :outertype: Constraint
+
+   Get the AMPL status if not \ ``in``\ , otherwise solver status
+
+ub
+^^
+
+.. java:method:: public double ub()
+   :outertype: Constraint
+
+   Get the current value of the constraint's upper bound
+
+ubs
+^^^
+
+.. java:method:: public double ubs()
+   :outertype: Constraint
+
+   Get the constraint upper bound sent to the solver (reflecting adjustment for fixed variables)
+
+udual
+^^^^^
+
+.. java:method:: public double udual()
+   :outertype: Constraint
+
+   Get the current dual value associated with the upper bounds
+
+uslack
+^^^^^^
+
+.. java:method:: public double uslack()
+   :outertype: Constraint
+
+   Get the slack at upper bound \ ``ub - body``\
+
+val
+^^^
+
+.. java:method:: public double val()
+   :outertype: Constraint
+
+   Get the AMPL val suffix. Valid only for logical constraints.
+

@@ -1,0 +1,9 @@
+.. highlight:: c++
+
+.. _ref::ErrorHandler:
+
+ErrorHandler
+------------
+
+.. doxygenclass:: ampl::ErrorHandler
+   :members:

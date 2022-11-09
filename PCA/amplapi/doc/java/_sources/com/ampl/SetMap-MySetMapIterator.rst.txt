@@ -1,0 +1,41 @@
+.. java:import:: java.util Iterator
+
+.. java:import:: java.util NoSuchElementException
+
+SetMap.MySetMapIterator
+=======================
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class MySetMapIterator implements Iterator<Set>
+   :outertype: SetMap
+
+Constructors
+------------
+MySetMapIterator
+^^^^^^^^^^^^^^^^
+
+.. java:constructor:: public MySetMapIterator(EntityMapSet impl)
+   :outertype: SetMap.MySetMapIterator
+
+Methods
+-------
+hasNext
+^^^^^^^
+
+.. java:method:: @Override public boolean hasNext()
+   :outertype: SetMap.MySetMapIterator
+
+next
+^^^^
+
+.. java:method:: @Override public Set next()
+   :outertype: SetMap.MySetMapIterator
+
+remove
+^^^^^^
+
+.. java:method:: @Override public void remove()
+   :outertype: SetMap.MySetMapIterator
+

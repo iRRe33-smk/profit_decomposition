@@ -1,0 +1,7 @@
+.. _ref::VariableInstance:
+
+VariableInstance
+----------------
+
+.. doxygenclass:: ampl::VariableInstance
+   :members:

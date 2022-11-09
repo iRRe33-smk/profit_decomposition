@@ -1,0 +1,293 @@
+
+
+ConstraintInstance Class
+========================
+
+
+
+
+
+
+Represents a constraint instance and allows access to all the AMPL suffixes of the related instance. For documentation on the properties see :dn:class:`ampl.Entities.Constraint`.
+
+
+Namespace
+    :dn:ns:`ampl`
+Assemblies
+    * AMPL
+
+----
+
+.. contents::
+   :local:
+
+
+
+Inheritance Hierarchy
+---------------------
+
+
+* :dn:cls:`System.Object`
+* :dn:cls:`ampl.Instance`
+* :dn:cls:`ampl.ConstraintInstance`
+
+
+
+
+
+
+
+
+Syntax
+------
+
+.. code-block:: csharp
+
+    public class ConstraintInstance : Instance, IDisposable
+
+
+
+
+
+
+
+
+.. dn:class:: ampl.ConstraintInstance
+    :hidden:
+
+.. dn:class:: ampl.ConstraintInstance
+
+Properties
+----------
+
+.. dn:class:: ampl.ConstraintInstance
+    :noindex:
+    :hidden:
+
+    
+    .. dn:property:: ampl.ConstraintInstance.Astatus
+
+        
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public string Astatus { get; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Body
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Body { get; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Defvar
+
+        
+        :rtype: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public int Defvar { get; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Dinit
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Dinit { get; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Dinit0
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Dinit0 { get; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Dual
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Dual { get; set; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Lb
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Lb { get; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Lbs
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Lbs { get; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Ldual
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Ldual { get; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Lslack
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Lslack { get; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Slack
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Slack { get; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Sstatus
+
+        
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public string Sstatus { get; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Status
+
+        
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public string Status { get; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Ub
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Ub { get; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Ubs
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Ubs { get; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Udual
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Udual { get; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Uslack
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Uslack { get; }
+    
+    .. dn:property:: ampl.ConstraintInstance.Val
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Val { get; }
+    
+
+Methods
+-------
+
+.. dn:class:: ampl.ConstraintInstance
+    :noindex:
+    :hidden:
+
+    
+    .. dn:method:: ampl.ConstraintInstance.Dispose()
+
+        
+
+        
+        .. code-block:: csharp
+
+            public override void Dispose()
+    
+    .. dn:method:: ampl.ConstraintInstance.Drop()
+
+        
+
+        
+        .. code-block:: csharp
+
+            public void Drop()
+    
+    .. dn:method:: ampl.ConstraintInstance.Finalize()
+
+        
+
+        
+        .. code-block:: csharp
+
+            protected void Finalize()
+    
+    .. dn:method:: ampl.ConstraintInstance.Restore()
+
+        
+
+        
+        .. code-block:: csharp
+
+            public void Restore()
+    
+

@@ -1,0 +1,41 @@
+.. java:import:: java.util Iterator
+
+.. java:import:: java.util NoSuchElementException
+
+TableMap.MyTableMapIterator
+===========================
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class MyTableMapIterator implements Iterator<Table>
+   :outertype: TableMap
+
+Constructors
+------------
+MyTableMapIterator
+^^^^^^^^^^^^^^^^^^
+
+.. java:constructor:: public MyTableMapIterator(EntityMapTable impl)
+   :outertype: TableMap.MyTableMapIterator
+
+Methods
+-------
+hasNext
+^^^^^^^
+
+.. java:method:: @Override public boolean hasNext()
+   :outertype: TableMap.MyTableMapIterator
+
+next
+^^^^
+
+.. java:method:: @Override public Table next()
+   :outertype: TableMap.MyTableMapIterator
+
+remove
+^^^^^^
+
+.. java:method:: @Override public void remove()
+   :outertype: TableMap.MyTableMapIterator
+

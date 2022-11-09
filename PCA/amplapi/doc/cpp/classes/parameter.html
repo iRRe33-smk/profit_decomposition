@@ -1,0 +1,416 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Parameter &#8212; AMPL API 2.0.3-0 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Set" href="set.html" />
+    <link rel="prev" title="ObjectiveInstance" href="objectiveinstance.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="set.html" title="Set"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="objectiveinstance.html" title="ObjectiveInstance"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" accesskey="U">C++ API reference</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="objectiveinstance.html"
+                        title="previous chapter">ObjectiveInstance</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="set.html"
+                        title="next chapter">Set</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/classes/parameter.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="parameter">
+<span id="ref-parameter"></span><h1>Parameter<a class="headerlink" href="#parameter" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="_CPPv3N4ampl9ParameterE">
+<span id="_CPPv2N4ampl9ParameterE"></span><span id="ampl::Parameter"></span><span class="target" id="classampl_1_1_parameter"></span><em class="property">class </em><code class="descname">Parameter</code> : <em class="property">public</em> ampl::BasicEntity&lt;<a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a>&gt;<a class="headerlink" href="#_CPPv3N4ampl9ParameterE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Represents an AMPL parameter. </p>
+<p>The values can be Double or String (in case of symbolic parameters). </p>
+<p>Data can be assigned to the parameter using the methods <a class="reference internal" href="#classampl_1_1_parameter_1a345fcd4224f02908fb53bd7ffef3c492"><span class="std std-ref">Parameter::set()</span></a> and <a class="reference internal" href="#classampl_1_1_parameter_1a13cfaa20ab5c1b55f992fb2479f02d02"><span class="std std-ref">Parameter::setValues</span></a> directly from objects of this class or using <a class="reference internal" href="ampl.html#classampl_1_1_a_m_p_l_1aee45bc8bf4e410c106a5f040b1e84ce8"><span class="std std-ref">AMPL::setData</span></a> and a <a class="reference internal" href="dataframe.html#classampl_1_1_data_frame"><span class="std std-ref">DataFrame</span></a> object. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Instance access</p>
+<p>Methods to access the instances which are part of this <a class="reference internal" href="entity.html#classampl_1_1_entity"><span class="std std-ref">Entity</span></a> </p>
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity3getEv">
+<span id="_CPPv2NK4ampl11BasicEntity3getEv"></span><span id="ampl::BasicEntity::getC"></span><span class="target" id="classampl_1_1_basic_entity_1a32e82de65ec87aadc2879e2164d45f1b"></span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><br /></dt>
+<dd><p>Get the instance corresponding to a scalar entity. </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>The corresponding instance. </dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">runtime_error</span></code>: if the entity has been deleted in the underlying AMPL interpreter </li>
+<li><code class="docutils literal notranslate"><span class="pre">logic_error</span></code>: if the entity is not scalar </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity3getE8TupleRef">
+<span id="_CPPv2NK4ampl11BasicEntity3getE8TupleRef"></span><span id="ampl::BasicEntity::get__TupleRefC"></span><span class="target" id="classampl_1_1_basic_entity_1a79b4d8fa9c4feaaffa9351fe14aec1d2"></span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <code class="descname">get</code><span class="sig-paren">(</span><a class="reference internal" href="tuple.html#_CPPv3N4ampl8TupleRefE" title="ampl::TupleRef">TupleRef</a> <em>index</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl11BasicEntity3getE8TupleRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the instance with the specified index. </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>The corresponding instance </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">index</span></code>: The tuple specifying the index </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">out_of_range</span></code>: if an instance with the specified index does not exist </li>
+<li><code class="docutils literal notranslate"><span class="pre">out_of_range</span></code>: if the entity has been deleted in the underlying AMPL interpreter </li>
+<li><code class="docutils literal notranslate"><span class="pre">ampl::UnsupportedOperationException</span></code>: if the entity is scalar </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity3getE10VariantRef">
+<span id="_CPPv2NK4ampl11BasicEntity3getE10VariantRef"></span><span id="ampl::BasicEntity::get__VariantRefC"></span><span class="target" id="classampl_1_1_basic_entity_1a524b86e742c0218025b4a627dc4d3a71"></span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <code class="descname">get</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v1</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl11BasicEntity3getE10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the instance with the specified index. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity3getE10VariantRef10VariantRef">
+<span id="_CPPv2NK4ampl11BasicEntity3getE10VariantRef10VariantRef"></span><span id="ampl::BasicEntity::get__VariantRef.VariantRefC"></span><span class="target" id="classampl_1_1_basic_entity_1adb93aae81826b66f8295326c1f0288db"></span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <code class="descname">get</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v1</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v2</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl11BasicEntity3getE10VariantRef10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the instance with the specified index. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity3getE10VariantRef10VariantRef10VariantRef">
+<span id="_CPPv2NK4ampl11BasicEntity3getE10VariantRef10VariantRef10VariantRef"></span><span id="ampl::BasicEntity::get__VariantRef.VariantRef.VariantRefC"></span><span class="target" id="classampl_1_1_basic_entity_1a1ef0e5388e35b9afcccd7b57c40cdf91"></span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <code class="descname">get</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v1</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v2</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v3</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl11BasicEntity3getE10VariantRef10VariantRef10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the instance with the specified index. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity3getE10VariantRef10VariantRef10VariantRef10VariantRef">
+<span id="_CPPv2NK4ampl11BasicEntity3getE10VariantRef10VariantRef10VariantRef10VariantRef"></span><span id="ampl::BasicEntity::get__VariantRef.VariantRef.VariantRef.VariantRefC"></span><span class="target" id="classampl_1_1_basic_entity_1a73666582a6547219a6c43312b02e49f1"></span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <code class="descname">get</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v1</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v2</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v3</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v4</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl11BasicEntity3getE10VariantRef10VariantRef10VariantRef10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the instance with the specified index. </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>The corresponding instance </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">v1</span></code>: The VariantRef specifying the first element of the indexing tuple </li>
+<li><code class="docutils literal notranslate"><span class="pre">v2</span></code>: The VariantRef specifying the second element of the indexing tuple </li>
+<li><code class="docutils literal notranslate"><span class="pre">v3</span></code>: The VariantRef specifying the third element of the indexing tuple </li>
+<li><code class="docutils literal notranslate"><span class="pre">v4</span></code>: The VariantRef specifying the fourth element of the indexing tuple </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">out_of_range</span></code>: if an instance with the specified index does not exist </li>
+<li><code class="docutils literal notranslate"><span class="pre">runtime_error</span></code>: if the entity has been deleted in the underlying AMPL interpreter </li>
+<li><code class="docutils literal notranslate"><span class="pre">ampl::UnsupportedOperationException</span></code>: if the entity is scalar </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntityixE8TupleRef">
+<span id="_CPPv2NK4ampl11BasicEntityixE8TupleRef"></span><span id="ampl::BasicEntity::subscript-operator__TupleRefC"></span><span class="target" id="classampl_1_1_basic_entity_1a1708e6623ea6233e2f42e2289fa5ff19"></span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <code class="descname">operator[]</code><span class="sig-paren">(</span><a class="reference internal" href="tuple.html#_CPPv3N4ampl8TupleRefE" title="ampl::TupleRef">TupleRef</a> <em>index</em><span class="sig-paren">)</span> <em class="property">const</em><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntityixE10VariantRef">
+<span id="_CPPv2NK4ampl11BasicEntityixE10VariantRef"></span><span id="ampl::BasicEntity::subscript-operator__VariantRefC"></span><span class="target" id="classampl_1_1_basic_entity_1a87f1d642f78075924ef2ce2cb8052120"></span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <code class="descname">operator[]</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v1</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl11BasicEntityixE10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Types</p>
+<dl class="type">
+<dt id="_CPPv3N4ampl11BasicEntity8iteratorE">
+<span id="_CPPv2N4ampl11BasicEntity8iteratorE"></span><span id="ampl::BasicEntity::iterator"></span><span class="target" id="classampl_1_1_basic_entity_1af07a6d71c9f2a1cf30569f1410ea1607"></span><em class="property">typedef </em>internal::CountedIterator&lt;internal::EntityWrapper&lt;<a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a>&gt;&gt; <code class="descname">iterator</code><br /></dt>
+<dd><p>Iterator for entities, represented by an iterator pointing to elements of type std::pair&lt;TupleRef, InstanceClass&gt; </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv3NK4ampl9Parameter10isSymbolicEv">
+<span id="_CPPv2NK4ampl9Parameter10isSymbolicEv"></span><span id="ampl::Parameter::isSymbolicC"></span><span class="target" id="classampl_1_1_parameter_1a1f541050b19b7d66e2e8ee032e602565"></span>bool <code class="descname">isSymbolic</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl9Parameter10isSymbolicEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns true if the parameter is declared as symbolic (can store both numerical and string values) </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl9Parameter10hasDefaultEv">
+<span id="_CPPv2NK4ampl9Parameter10hasDefaultEv"></span><span id="ampl::Parameter::hasDefaultC"></span><span class="target" id="classampl_1_1_parameter_1add2af518fb5a0948577fc83c57aacb3c"></span>bool <code class="descname">hasDefault</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl9Parameter10hasDefaultEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><p>Check if the parameter has a default initial value. In case of the following AMPL code:</p>
+<div class="highlight-ampl notranslate"><div class="highlight"><pre><span></span><span class="kd">param</span> <span class="nv">a</span><span class="p">;</span>
+<span class="kd">param</span> <span class="nv">b</span><span class="w"> </span><span class="kr">default</span><span class="w"> </span>a<span class="p">;</span>
+</pre></div>
+</div>
+<p>the function will return true for parameter <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p>
+</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>True if the parameter has a default initial value. Please note that if the parameter has a default expression which refers to another parameter which value is not defined, this will return true. </dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl9Parameter9setValuesEA_K5TupleN8internal4ArgsENSt6size_tE">
+<span id="_CPPv2N4ampl9Parameter9setValuesEA_K5TupleN8internal4ArgsENSt6size_tE"></span><span id="ampl::Parameter::setValues__TupleCA.internal::Args.std::s"></span><span class="target" id="classampl_1_1_parameter_1a13cfaa20ab5c1b55f992fb2479f02d02"></span>void <code class="descname">setValues</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="tuple.html#_CPPv3N4ampl5TupleE" title="ampl::Tuple">Tuple</a> <em>indices</em>[], internal::Args <em>values</em>, std::size_t <em>nvalues</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl9Parameter9setValuesEA_K5TupleN8internal4ArgsENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><p>Assign the values (string or double) to the parameter instances with the
+specified indices, equivalent to the AMPL code:</p>
+<div class="highlight-ampl notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="p">{</span>i<span class="w"> </span><span class="kr">in</span><span class="w"> </span>indices<span class="p">}</span> <span class="nv">par</span><span class="p">[</span>i<span class="p">]</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span>values<span class="p">[</span>i<span class="p">];</span>
+</pre></div>
+</div>
+</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">indices</span></code>: an array of indices of the instances to be set </li>
+<li><code class="docutils literal notranslate"><span class="pre">values</span></code>: values to set </li>
+<li><code class="docutils literal notranslate"><span class="pre">nvalues</span></code>: length of the values array </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">logic_error</span></code>: If called on a scalar parameter </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl9Parameter9setValuesENSt6size_tEN8internal4ArgsENSt6size_tEN8internal4ArgsEPKdb">
+<span id="_CPPv2N4ampl9Parameter9setValuesENSt6size_tEN8internal4ArgsENSt6size_tEN8internal4ArgsEPKdb"></span><span id="ampl::Parameter::setValues__std::s.internal::Args.std::s.internal::Args.doubleCP.b"></span><span class="target" id="classampl_1_1_parameter_1a047267dfd89c0217bef43b1a0e7cebfe"></span>void <code class="descname">setValues</code><span class="sig-paren">(</span>std::size_t <em>num_rows</em>, internal::Args <em>row_indices</em>, std::size_t <em>num_cols</em>, internal::Args <em>col_indices</em>, <em class="property">const</em> double *<em>data</em>, bool <em>transpose</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl9Parameter9setValuesENSt6size_tEN8internal4ArgsENSt6size_tEN8internal4ArgsEPKdb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><p>Assign the specified values to a 2-d parameter, using the two dimensions
+as two indices.</p>
+<p>For example, the <span class="math notranslate nohighlight">\(m \times n\)</span> matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}`A = \left( \begin{array}{cccc} a_{11} &amp; a_{12} &amp; ... &amp; a_{1n} \\
+a_{21} &amp; a_{22} &amp; ... &amp; a_{2n} \\ ... &amp; ... &amp; ... &amp; ... \\ a_{  m1} &amp;
+a_{m2} &amp; ... &amp; a_{mn} \end{array} \right)`\end{split}\]</div>
+<p>can be assigned to the AMPL parameter: <code class="docutils literal notranslate"><span class="pre">param</span> <span class="pre">A</span> <span class="pre">{1..m,</span> <span class="pre">1..n};</span></code>
+with the statement <code class="docutils literal notranslate"><span class="pre">setValues(A,</span> <span class="pre">false)</span></code>.</p>
+<p>As an example, to assign the matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}`A = \left( \begin{array}{cccc} 11 &amp; 12  \\
+21 &amp; 22 \\ 31 &amp; 32 \end{array} \right)`\end{split}\]</div>
+<p>to the AMPL paramater: <code class="docutils literal notranslate"><span class="pre">param</span> <span class="pre">A{1..3,</span> <span class="pre">1..2};</span></code> we can use the following
+code:</p>
+<div class="highlight-ampl notranslate"><div class="highlight"><pre><span></span>ampl.eval<span class="p">(</span><span class="s2">&quot;param a{1..3, 1..2};&quot;</span><span class="p">);</span>
+Parameter<span class="w"> </span>a<span class="w"> </span><span class="o">=</span><span class="w"> </span>ampl.getParameter<span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+
+double<span class="w"> </span>values<span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+double<span class="w"> </span>rows<span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+double<span class="w"> </span>cols<span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="kr">for</span><span class="w"> </span><span class="p">(</span>int<span class="w"> </span>i<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span>i<span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span>i<span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span>rows<span class="p">[</span>i<span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>i<span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">for</span><span class="w"> </span><span class="p">(</span>int<span class="w"> </span>j<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span>j<span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span>j<span class="o">++</span><span class="p">)</span>
+<span class="w">  </span>values<span class="p">[</span>i<span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span>j<span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>i<span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span>j<span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kr">for</span><span class="w"> </span><span class="p">(</span>int<span class="w"> </span>i<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span>i<span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span>i<span class="o">++</span><span class="p">)</span>
+<span class="w">  </span>cols<span class="p">[</span>i<span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>i<span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+a.setValues<span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span>rows<span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span>cols<span class="p">,</span><span class="w"> </span>values<span class="p">,</span><span class="w"> </span>false<span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">num_rows</span></code>: Number of rows </li>
+<li><code class="docutils literal notranslate"><span class="pre">row_indices</span></code>: Indices of the rows </li>
+<li><code class="docutils literal notranslate"><span class="pre">num_cols</span></code>: Number of rows </li>
+<li><code class="docutils literal notranslate"><span class="pre">col_indices</span></code>: Indices of the rows </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: Values to be assigned </li>
+<li><code class="docutils literal notranslate"><span class="pre">transpose</span></code>: True to transpose the values in the matrix</li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">logic_error</span></code>: If the method is called on a parameter which is not two-dimensional </li>
+<li><code class="docutils literal notranslate"><span class="pre">invalid_argument</span></code>: If the size of ‘values’ do not correspond to the sizes of the underlying indices </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl9Parameter9setValuesEN8internal4ArgsENSt6size_tE">
+<span id="_CPPv2N4ampl9Parameter9setValuesEN8internal4ArgsENSt6size_tE"></span><span id="ampl::Parameter::setValues__internal::Args.std::s"></span><span class="target" id="classampl_1_1_parameter_1aa94aba619c3e3fca307617eb6abd9e00"></span>void <code class="descname">setValues</code><span class="sig-paren">(</span>internal::Args <em>values</em>, std::size_t <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl9Parameter9setValuesEN8internal4ArgsENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Assign the specified n values to this parameter, assigning them to the parameter in the same order as the indices in the entity. </p>
+<p>The number of values in the array must be equal to the specified size.</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">values</span></code>: Values to be assigned. </li>
+<li><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of values to be assigned (must be equal to the number of instances in this parameter)</li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">invalid_argument</span></code>: If trying to assign a string to a non symbolic parameter </li>
+<li><code class="docutils literal notranslate"><span class="pre">logic_error</span></code>: If the number of arguments is not equal to the number of instances in this parameter </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl9Parameter3setE10VariantRef">
+<span id="_CPPv2N4ampl9Parameter3setE10VariantRef"></span><span id="ampl::Parameter::set__VariantRef"></span><span class="target" id="classampl_1_1_parameter_1a345fcd4224f02908fb53bd7ffef3c492"></span>void <code class="descname">set</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl9Parameter3setE10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the value of a scalar parameter. </p>
+<p><dl class="docutils">
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">runtime_error</span></code>: if the entity has been deleted in the underlying AMPL </li>
+<li><code class="docutils literal notranslate"><span class="pre">logic_error</span></code>: if this parameter is not scalar. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl9Parameter3setE10VariantRef10VariantRef">
+<span id="_CPPv2N4ampl9Parameter3setE10VariantRef10VariantRef"></span><span id="ampl::Parameter::set__VariantRef.VariantRef"></span><span class="target" id="classampl_1_1_parameter_1af7619473e4dececccb2f6f8d08824fb1"></span>void <code class="descname">set</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>index</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl9Parameter3setE10VariantRef10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the value of a single instance of this parameter. </p>
+<p><dl class="docutils">
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">runtime_error</span></code>: if the entity has been deleted in the underlying AMPL </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl9Parameter3setE8TupleRef10VariantRef">
+<span id="_CPPv2N4ampl9Parameter3setE8TupleRef10VariantRef"></span><span id="ampl::Parameter::set__TupleRef.VariantRef"></span><span class="target" id="classampl_1_1_parameter_1a4f7bf426ea35ea5fd38353510c1e3cdd"></span>void <code class="descname">set</code><span class="sig-paren">(</span><a class="reference internal" href="tuple.html#_CPPv3N4ampl8TupleRefE" title="ampl::TupleRef">TupleRef</a> <em>index</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl9Parameter3setE8TupleRef10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the value of a single instance of this parameter. </p>
+<p><dl class="docutils">
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">runtime_error</span></code>: if the entity has been deleted in the underlying AMPL </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity5beginEv">
+<span id="_CPPv2NK4ampl11BasicEntity5beginEv"></span><span id="ampl::BasicEntity::beginC"></span><span class="target" id="classampl_1_1_basic_entity_1a83d585eb47d9739484509d1965df7d82"></span><a class="reference internal" href="constraint.html#_CPPv3N4ampl11BasicEntity8iteratorE" title="ampl::BasicEntity::iterator">iterator</a> <code class="descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><br /></dt>
+<dd><p>Get an iterator pointing to the first instance in this entity. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity3endEv">
+<span id="_CPPv2NK4ampl11BasicEntity3endEv"></span><span id="ampl::BasicEntity::endC"></span><span class="target" id="classampl_1_1_basic_entity_1a48cc62a70d97354be9be938b945fbc4b"></span><a class="reference internal" href="constraint.html#_CPPv3N4ampl11BasicEntity8iteratorE" title="ampl::BasicEntity::iterator">iterator</a> <code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><br /></dt>
+<dd><p>Get an iterator pointing after the last instance in this entity. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity4findE8TupleRef">
+<span id="_CPPv2NK4ampl11BasicEntity4findE8TupleRef"></span><span id="ampl::BasicEntity::find__TupleRefC"></span><span class="target" id="classampl_1_1_basic_entity_1af4055bd9d8d8ab250d7569fc1c3c7c2c"></span><a class="reference internal" href="constraint.html#_CPPv3N4ampl11BasicEntity8iteratorE" title="ampl::BasicEntity::iterator">iterator</a> <code class="descname">find</code><span class="sig-paren">(</span><a class="reference internal" href="tuple.html#_CPPv3N4ampl8TupleRefE" title="ampl::TupleRef">TupleRef</a> <em>t</em><span class="sig-paren">)</span> <em class="property">const</em><br /></dt>
+<dd><p>Searches the current entity for an instance with the specified index. </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>an iterator to the wanted entity if found, otherwise an iterator to BasicEntity::end. </dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="set.html" title="Set"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="objectiveinstance.html" title="ObjectiveInstance"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" >C++ API reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013-2017, AMPL Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.
+    </div>
+  </body>
+</html>

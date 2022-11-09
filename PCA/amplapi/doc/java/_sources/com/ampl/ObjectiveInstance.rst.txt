@@ -1,0 +1,112 @@
+ObjectiveInstance
+=================
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class ObjectiveInstance extends BasicInstance<ObjectiveInstanceBase>
+
+   Represents an objective instance.
+
+   All AMPL suffixes for an objective are available through methods with the same name in this class. See http://www.ampl.com/NEW/suffbuiltin.html for a list of the available suffixes.
+
+   All the accessors in this class throw a :java:ref:`IllegalArgumentException` if the instance has been deleted in the underlying AMPL interpreter.
+
+Constructors
+------------
+ObjectiveInstance
+^^^^^^^^^^^^^^^^^
+
+.. java:constructor::  ObjectiveInstance(ObjectiveInstanceBase impl)
+   :outertype: ObjectiveInstance
+
+Methods
+-------
+astatus
+^^^^^^^
+
+.. java:method:: public String astatus()
+   :outertype: ObjectiveInstance
+
+   Return the AMPL status
+
+drop
+^^^^
+
+.. java:method:: public void drop()
+   :outertype: ObjectiveInstance
+
+   Drop all instances of this objective, corresponding to the AMPL code:
+
+   .. parsed-literal::
+
+      drop objectiveName;
+
+exitcode
+^^^^^^^^
+
+.. java:method:: public int exitcode()
+   :outertype: ObjectiveInstance
+
+   Exit code returned by solver after most recent solve with this objective
+
+   :return: Exit code
+
+impl
+^^^^
+
+.. java:method::  ObjectiveInstanceBase impl()
+   :outertype: ObjectiveInstance
+
+message
+^^^^^^^
+
+.. java:method:: public String message()
+   :outertype: ObjectiveInstance
+
+   Result message returned by solver after most recent solve with this objective
+
+minimization
+^^^^^^^^^^^^
+
+.. java:method:: public boolean minimization()
+   :outertype: ObjectiveInstance
+
+   Return true if the objective is minimization, false otherwise
+
+restore
+^^^^^^^
+
+.. java:method:: public void restore()
+   :outertype: ObjectiveInstance
+
+   Restore all instances of this objective, corresponding to the AMPL code:
+
+   .. parsed-literal::
+
+      restore objectiveName;
+
+result
+^^^^^^
+
+.. java:method:: public String result()
+   :outertype: ObjectiveInstance
+
+   Result string returned by solver after most recent solve with this objective
+
+sstatus
+^^^^^^^
+
+.. java:method:: public String sstatus()
+   :outertype: ObjectiveInstance
+
+   Return the solver status
+
+value
+^^^^^
+
+.. java:method:: public double value()
+   :outertype: ObjectiveInstance
+
+   Get the value of the objective instance
+

@@ -1,0 +1,23 @@
+.. highlight:: c++
+
+.. _amplapi:
+
+
+
+AMPL C++ API
+============
+
+Contents
+--------
+
+.. toctree::
+   :maxdepth: 2
+
+   intro
+   getting-started
+   class-structure
+   quick-start
+   reference
+   examples
+   
+   

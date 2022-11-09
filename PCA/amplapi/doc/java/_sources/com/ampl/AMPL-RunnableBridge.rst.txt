@@ -1,0 +1,43 @@
+.. java:import:: java.io Closeable
+
+.. java:import:: java.io IOException
+
+.. java:import:: java.io Writer
+
+.. java:import:: java.lang.reflect Field
+
+.. java:import:: java.util Arrays
+
+AMPL.RunnableBridge
+===================
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type::  class RunnableBridge extends Runnable
+   :outertype: AMPL
+
+Fields
+------
+_r
+^^
+
+.. java:field::  java.lang.Runnable _r
+   :outertype: AMPL.RunnableBridge
+
+Constructors
+------------
+RunnableBridge
+^^^^^^^^^^^^^^
+
+.. java:constructor:: public RunnableBridge(java.lang.Runnable r)
+   :outertype: AMPL.RunnableBridge
+
+Methods
+-------
+run
+^^^
+
+.. java:method:: @Override public void run()
+   :outertype: AMPL.RunnableBridge
+

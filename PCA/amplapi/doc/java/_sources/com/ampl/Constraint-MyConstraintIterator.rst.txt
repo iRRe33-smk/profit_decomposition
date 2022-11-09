@@ -1,0 +1,39 @@
+.. java:import:: java.util Iterator
+
+Constraint.MyConstraintIterator
+===============================
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class MyConstraintIterator implements Iterator<ConstraintInstance>
+   :outertype: Constraint
+
+Constructors
+------------
+MyConstraintIterator
+^^^^^^^^^^^^^^^^^^^^
+
+.. java:constructor:: public MyConstraintIterator(ConstraintBase impl)
+   :outertype: Constraint.MyConstraintIterator
+
+Methods
+-------
+hasNext
+^^^^^^^
+
+.. java:method:: @Override public boolean hasNext()
+   :outertype: Constraint.MyConstraintIterator
+
+next
+^^^^
+
+.. java:method:: @Override public ConstraintInstance next()
+   :outertype: Constraint.MyConstraintIterator
+
+remove
+^^^^^^
+
+.. java:method:: @Override public void remove()
+   :outertype: Constraint.MyConstraintIterator
+

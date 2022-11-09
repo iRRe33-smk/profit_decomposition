@@ -1,0 +1,39 @@
+.. java:import:: java.util Iterator
+
+Parameter.MyParameterIterator
+=============================
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class MyParameterIterator implements Iterator<Object>
+   :outertype: Parameter
+
+Constructors
+------------
+MyParameterIterator
+^^^^^^^^^^^^^^^^^^^
+
+.. java:constructor:: public MyParameterIterator(ParameterBase impl)
+   :outertype: Parameter.MyParameterIterator
+
+Methods
+-------
+hasNext
+^^^^^^^
+
+.. java:method:: @Override public boolean hasNext()
+   :outertype: Parameter.MyParameterIterator
+
+next
+^^^^
+
+.. java:method:: @Override public Object next()
+   :outertype: Parameter.MyParameterIterator
+
+remove
+^^^^^^
+
+.. java:method:: @Override public void remove()
+   :outertype: Parameter.MyParameterIterator
+

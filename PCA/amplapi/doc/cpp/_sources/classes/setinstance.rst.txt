@@ -1,0 +1,7 @@
+.. _ref::SetInstance:
+
+SetInstance
+-----------
+
+.. doxygenclass:: ampl::SetInstance
+   :members:

@@ -1,0 +1,1001 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AMPL &#8212; AMPL API 2.0.3-0 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DataFrame" href="dataframe.html" />
+    <link rel="prev" title="C++ API reference" href="../reference.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="dataframe.html" title="DataFrame"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../reference.html" title="C++ API reference"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" accesskey="U">C++ API reference</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../reference.html"
+                        title="previous chapter">C++ API reference</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dataframe.html"
+                        title="next chapter">DataFrame</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/classes/ampl.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ampl">
+<span id="ref-ampl"></span><h1>AMPL<a class="headerlink" href="#ampl" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="_CPPv3N4ampl4AMPLE">
+<span id="_CPPv2N4ampl4AMPLE"></span><span id="ampl::AMPL"></span><span class="target" id="classampl_1_1_a_m_p_l"></span><em class="property">class </em><code class="descname">AMPL</code><a class="headerlink" href="#_CPPv3N4ampl4AMPLE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>An AMPL translator.</p>
+<p>An object of this class can be used to do the following tasks:</p>
+<p><ul class="simple">
+<li>Run AMPL code. See <a class="reference internal" href="#classampl_1_1_a_m_p_l_1ac2c55c976beed2aed9a7f91239ff241b"><span class="std std-ref">eval()</span></a> and <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a0f44e5db86da465c2b17b53b4f32eefd"><span class="std std-ref">evalAsync()</span></a>. </li>
+<li>Read models and data from files. See <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a711ed71c2e94fd5578481fdaf7442955"><span class="std std-ref">read()</span></a>, <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a9c04588fec4e7ba8f454655cba111623"><span class="std std-ref">readData()</span></a>, <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a6c8e702b8356ee0cff03ed3848786dcb"><span class="std std-ref">readAsync()</span></a> and <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a454268822d281c026234bf09b29d302f"><span class="std std-ref">readDataAsync()</span></a>. </li>
+<li>Solve optimization problems constructed from model and data (see <a class="reference internal" href="#classampl_1_1_a_m_p_l_1aae118b222c657e19a94c252c1d2e3df2"><span class="std std-ref">solve()</span></a> and <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a7ebb45c6a5eaf271a7c2a80005e60ffa"><span class="std std-ref">solveAsync()</span></a>). </li>
+<li>Access single Elements of an optimization problem. See <a class="reference internal" href="#classampl_1_1_a_m_p_l_1adee01b93178efe6b8228aeaa6d4cd728"><span class="std std-ref">getVariable()</span></a>, <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a2ff83a020b1ab5302f23d04062ea05db"><span class="std std-ref">getObjective()</span></a>, <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a65778cb4c7d13f110d096e393f8a10fd"><span class="std std-ref">getConstraint()</span></a>, <a class="reference internal" href="#classampl_1_1_a_m_p_l_1af0f463a7e6fe81731c298baf9182b4dd"><span class="std std-ref">getSet()</span></a> and <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a5445d059f6c5d44767fdc495d2e7117e"><span class="std std-ref">getParameter()</span></a>. </li>
+<li>Access lists of available entities of an optimization problem. See <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a943e136b228afd3f7801acb209ab8f44"><span class="std std-ref">getVariables()</span></a>, <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a9cf2e914a44f4b137c29705bb09bd356"><span class="std std-ref">getObjectives()</span></a>, <a class="reference internal" href="#classampl_1_1_a_m_p_l_1acc2ebc5e7fdab7401ffcd97b183ebccb"><span class="std std-ref">getConstraints()</span></a>, <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a5f1d9299621ac6ee0fb55422bff74876"><span class="std std-ref">getSets()</span></a> and <a class="reference internal" href="#classampl_1_1_a_m_p_l_1aaa20a0df6b973f399fbcdcb763fdcbe9"><span class="std std-ref">getParameters()</span></a>. </li>
+</ul>
+</p>
+<p>AMPL stores one or more problems which may consume substantial amount of memory. The <a class="reference internal" href="#classampl_1_1_a_m_p_l"><span class="std std-ref">AMPL</span></a> object has a destructor which automaticallly closes the underlying AMPL interpreter and deletes all C++ entitites linked to it. Some entities (notably all instances of <a class="reference internal" href="dataframe.html#classampl_1_1_data_frame"><span class="std std-ref">DataFrame</span></a> and DataFrame::Slice) are not owned by the AMPL object and are not therefore deleted. </p>
+<p>The initialization of the C++ representation of the AMPL entities (any class derived from <a class="reference internal" href="entity.html#classampl_1_1_entity"><span class="std std-ref">ampl::Entity</span></a>) is lazy and consists of two steps. When a function listing available Elements is called, only a shallow list with names, types and declarations of the Elements is populated. The same happens when a reference to a C++ representation of one entity is obtained (through a call to any other single entity factory function). When accessing any instance of an entity (through the methods ‘get’ of any class), the (memory hungry) list of instances for that entity is created. </p>
+<p>Consistency is maintained automatically. Any command issued to the translator through eval and similar functions invalidates all entities, and any further access to any entity will require communication between the native translator and the C++ code. Conversely, any operation called through the C++ equivalent function, like fixing variables or solving the model will invalidate only the entities involved. A list of dependencies between entities is automatically updated. </p>
+<p>Error handling is two-faced: <ul class="simple">
+<li>Errors coming from the underlying AMPL translator (e.g. syntax errors and warnings obtained calling the eval method) are handled by the <a class="reference internal" href="errorhandler.html#classampl_1_1_error_handler"><span class="std std-ref">ErrorHandler</span></a> which can be set and get via <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a7c9d810ea786548d94455d5c8b9f7257"><span class="std std-ref">getErrorHandler()</span></a> and <a class="reference internal" href="#classampl_1_1_a_m_p_l_1ac4c16dc300c181a30d377752308396e0"><span class="std std-ref">setErrorHandler()</span></a>. </li>
+<li>Generic errors coming from misusing the API, which are detected in C++, are thrown as exceptions. </li>
+</ul>
+<p>The default implementation of the error handler throws exceptions on errors and prints to console on warnings. </p>
+</p>
+<p>The output of every user interaction with the underlying translator is handled implementing the abstract class <a class="reference internal" href="outputhandler.html#classampl_1_1_output_handler"><span class="std std-ref">ampl::OutputHandler</span></a>. The (only) method is called at each block of output from the translator. The current output handler can be accessed and set via <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a68c73780c12782a3b740eb66c4a272d9"><span class="std std-ref">AMPL::getOutputHandler()</span></a> and <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a3a0a3a3f803e91fa5852d92c705a5620"><span class="std std-ref">AMPL::setOutputHandler()</span></a>. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL4AMPLEv">
+<span id="_CPPv2N4ampl4AMPL4AMPLEv"></span><span id="ampl::AMPL::AMPL"></span><span class="target" id="classampl_1_1_a_m_p_l_1a3c4b39b46a5085883191f2187e9f6f45"></span><code class="descname">AMPL</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL4AMPLEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Default constructor: creates a new <a class="reference internal" href="#classampl_1_1_a_m_p_l"><span class="std std-ref">AMPL</span></a> instance with the default environment.</p>
+<p><dl class="docutils">
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::runtime_error</span></code>: If no valid AMPL license has been found or if the translator cannot be started for any other reason. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL4AMPLERK11Environment">
+<span id="_CPPv2N4ampl4AMPL4AMPLERK11Environment"></span><span id="ampl::AMPL::AMPL__EnvironmentCR"></span><span class="target" id="classampl_1_1_a_m_p_l_1a632344c07a8ea1f84e83a8050d60efad"></span><code class="descname">AMPL</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="environment.html#_CPPv3N4ampl11EnvironmentE" title="ampl::Environment">Environment</a> &amp;<em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL4AMPLERK11Environment" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructor: creates a new <a class="reference internal" href="#classampl_1_1_a_m_p_l"><span class="std std-ref">AMPL</span></a> instance with the specified environment. This allows the user to specify the location of the AMPL binaries to be used and to modify the environment variables in which the AMPL interpreter will run</p>
+<p><dl class="docutils">
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::runtime_error</span></code>: If no valid AMPL license has been found or if the translator cannot be started for any other reason. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPLD0Ev">
+<span id="_CPPv2N4ampl4AMPLD0Ev"></span><span id="ampl::AMPL::~AMPL"></span><span class="target" id="classampl_1_1_a_m_p_l_1a40b218e38de0db551e8621fcd8a8e440"></span><code class="descname">~AMPL</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPLD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Default destructor Releases all the resources related to the <a class="reference internal" href="#classampl_1_1_a_m_p_l"><span class="std std-ref">AMPL</span></a> instance (most notably kills the underlying interpreter. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL7getDataE10StringArgs">
+<span id="_CPPv2NK4ampl4AMPL7getDataE10StringArgs"></span><span id="ampl::AMPL::getData__StringArgsC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a4c6c20b838478ab354b849540a4ad59f"></span><a class="reference internal" href="dataframe.html#_CPPv3N4ampl9DataFrameE" title="ampl::DataFrame">DataFrame</a> <code class="descname">getData</code><span class="sig-paren">(</span>StringArgs <em>statements</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL7getDataE10StringArgs" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the data corresponding to the display statements. </p>
+<p>The statements can be AMPL expressions, or entities. It captures the equivalent of the command:</p>
+<p><div class="highlight-ampl notranslate"><div class="highlight"><pre><span></span><span class="kr">display</span><span class="w"> </span>ds1<span class="p">,</span><span class="w"> </span><span class="o">..</span>.<span class="p">,</span><span class="w"> </span>dsn<span class="p">;</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">ds1,</span> <span class="pre">...,</span> <span class="pre">dsn</span></code> are the <code class="docutils literal notranslate"><span class="pre">displayStatements</span></code> with which the
+function is called.</p>
+ </p>
+<p>As only one <a class="reference internal" href="dataframe.html#classampl_1_1_data_frame"><span class="std std-ref">DataFrame</span></a> is returned, the operation will fail if the results of the display statements cannot be indexed over the same set. As a result, any attempt to get data from more than one set, or to get data for multiple parameters with a different number of indexing sets will fail.</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd><a class="reference internal" href="dataframe.html#classampl_1_1_data_frame"><span class="std std-ref">DataFrame</span></a> capturing the output of the display command in tabular form. </dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><a class="reference internal" href="amplexception.html#classampl_1_1_a_m_p_l_exception"><span class="std std-ref"><span class="pre">AMPLException</span></span></a></code>: if the AMPL visualization command does not succeed for one of the reasons listed above. </li>
+</ul>
+</dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">statements</span></code>: The display statements to be fetched. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL10exportDataEb">
+<span id="_CPPv2NK4ampl4AMPL10exportDataEb"></span><span id="ampl::AMPL::exportData__bC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a6c66f43580c837e2ecccddb9f15b6ee7"></span>std::string <code class="descname">exportData</code><span class="sig-paren">(</span>bool <em>includeSets</em> = true<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL10exportDataEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get all data loaded in the current instance. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">includeSets</span></code>: <a class="reference internal" href="set.html#classampl_1_1_set"><span class="std std-ref">Set</span></a> to false to export only the parameter values, to true to include the sets too </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL10exportDataEN3fmt10CStringRefEb">
+<span id="_CPPv2N4ampl4AMPL10exportDataEN3fmt10CStringRefEb"></span><span id="ampl::AMPL::exportData__fmt::CStringRef.b"></span><span class="target" id="classampl_1_1_a_m_p_l_1ad87ce651039218fadde3421b4e9fff46"></span>void <code class="descname">exportData</code><span class="sig-paren">(</span>fmt::CStringRef <em>dataFileName</em>, bool <em>includeSets</em> = true<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL10exportDataEN3fmt10CStringRefEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Write all data loaded in the current instance to a file. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">dataFileName</span></code>: The file where to write the data to </li>
+<li><code class="docutils literal notranslate"><span class="pre">includeSets</span></code>: <a class="reference internal" href="set.html#classampl_1_1_set"><span class="std std-ref">Set</span></a> to false to export only the parameter values, to true to include the sets too </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL11exportModelEv">
+<span id="_CPPv2NK4ampl4AMPL11exportModelEv"></span><span id="ampl::AMPL::exportModelC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a0601f180bbf2e07a66e9e5025ea4630a"></span>std::string <code class="descname">exportModel</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL11exportModelEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the declarations that were made in the current <a class="reference internal" href="#classampl_1_1_a_m_p_l"><span class="std std-ref">AMPL</span></a> instance. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL11exportModelEN3fmt10CStringRefE">
+<span id="_CPPv2NK4ampl4AMPL11exportModelEN3fmt10CStringRefE"></span><span id="ampl::AMPL::exportModel__fmt::CStringRefC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a89b5e104421edc0fc8ffd60fac1d2971"></span>void <code class="descname">exportModel</code><span class="sig-paren">(</span>fmt::CStringRef <em>fileName</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL11exportModelEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Write the declarations that were made in the current <a class="reference internal" href="#classampl_1_1_a_m_p_l"><span class="std std-ref">AMPL</span></a> instance to a file. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">fileName</span></code>: The file where to write the declarations to </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL9getEntityEN3fmt10CStringRefE">
+<span id="_CPPv2NK4ampl4AMPL9getEntityEN3fmt10CStringRefE"></span><span id="ampl::AMPL::getEntity__fmt::CStringRefC"></span><span class="target" id="classampl_1_1_a_m_p_l_1ac2b37ff558adebfdfef50b28226be627"></span><a class="reference internal" href="entity.html#_CPPv3N4ampl6EntityE" title="ampl::Entity">Entity</a> <code class="descname">getEntity</code><span class="sig-paren">(</span>fmt::CStringRef <em>name</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL9getEntityEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get entity corresponding to the specified name (looks for it in all types of entities) </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>The AMPL entity with the specified name </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name of the entity </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::out_of_range</span></code>: exception if the specified entity does not exist </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL11getVariableEN3fmt10CStringRefE">
+<span id="_CPPv2NK4ampl4AMPL11getVariableEN3fmt10CStringRefE"></span><span id="ampl::AMPL::getVariable__fmt::CStringRefC"></span><span class="target" id="classampl_1_1_a_m_p_l_1adee01b93178efe6b8228aeaa6d4cd728"></span><a class="reference internal" href="variable.html#_CPPv3N4ampl8VariableE" title="ampl::Variable">Variable</a> <code class="descname">getVariable</code><span class="sig-paren">(</span>fmt::CStringRef <em>name</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL11getVariableEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the variable with the corresponding name. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name of the variable to be found </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::out_of_range</span></code>: exception if the specified variable does not exist </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL13getConstraintEN3fmt10CStringRefE">
+<span id="_CPPv2NK4ampl4AMPL13getConstraintEN3fmt10CStringRefE"></span><span id="ampl::AMPL::getConstraint__fmt::CStringRefC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a65778cb4c7d13f110d096e393f8a10fd"></span><a class="reference internal" href="constraint.html#_CPPv3N4ampl10ConstraintE" title="ampl::Constraint">Constraint</a> <code class="descname">getConstraint</code><span class="sig-paren">(</span>fmt::CStringRef <em>name</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL13getConstraintEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the constraint with the corresponding name. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name of the constraint to be found </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::out_of_range</span></code>: exception if the specified constraint does not exist </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL12getObjectiveEN3fmt10CStringRefE">
+<span id="_CPPv2NK4ampl4AMPL12getObjectiveEN3fmt10CStringRefE"></span><span id="ampl::AMPL::getObjective__fmt::CStringRefC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a2ff83a020b1ab5302f23d04062ea05db"></span><a class="reference internal" href="objective.html#_CPPv3N4ampl9ObjectiveE" title="ampl::Objective">Objective</a> <code class="descname">getObjective</code><span class="sig-paren">(</span>fmt::CStringRef <em>name</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL12getObjectiveEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the objective with the corresponding name. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name of the objective to be found </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">An</span></code>: std::out_of_range exception if the specified objective does not exist </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL6getSetEN3fmt10CStringRefE">
+<span id="_CPPv2NK4ampl4AMPL6getSetEN3fmt10CStringRefE"></span><span id="ampl::AMPL::getSet__fmt::CStringRefC"></span><span class="target" id="classampl_1_1_a_m_p_l_1af0f463a7e6fe81731c298baf9182b4dd"></span><a class="reference internal" href="set.html#_CPPv3N4ampl3SetE" title="ampl::Set">Set</a> <code class="descname">getSet</code><span class="sig-paren">(</span>fmt::CStringRef <em>name</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL6getSetEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the set with the corresponding name. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name of the set to be found </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::out_of_range</span></code>: exception if the specified set does not exist </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL12getParameterEN3fmt10CStringRefE">
+<span id="_CPPv2NK4ampl4AMPL12getParameterEN3fmt10CStringRefE"></span><span id="ampl::AMPL::getParameter__fmt::CStringRefC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a5445d059f6c5d44767fdc495d2e7117e"></span><a class="reference internal" href="parameter.html#_CPPv3N4ampl9ParameterE" title="ampl::Parameter">Parameter</a> <code class="descname">getParameter</code><span class="sig-paren">(</span>fmt::CStringRef <em>name</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL12getParameterEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the parameter with the corresponding name. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name of the parameter to be found </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::out_of_range</span></code>: exception if the specified parameter does not exist </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL8getTableEN3fmt10CStringRefE">
+<span id="_CPPv2NK4ampl4AMPL8getTableEN3fmt10CStringRefE"></span><span id="ampl::AMPL::getTable__fmt::CStringRefC"></span><span class="target" id="classampl_1_1_a_m_p_l_1afc44aeed79ac43ba4ee1948b26cebcd0"></span>Table <code class="descname">getTable</code><span class="sig-paren">(</span>fmt::CStringRef <em>name</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL8getTableEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the table with the corresponding name. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name of the table to be found </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::out_of_range</span></code>: exception if the specified table does not exist </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL4evalEN3fmt10CStringRefE">
+<span id="_CPPv2N4ampl4AMPL4evalEN3fmt10CStringRefE"></span><span id="ampl::AMPL::eval__fmt::CStringRef"></span><span class="target" id="classampl_1_1_a_m_p_l_1ac2c55c976beed2aed9a7f91239ff241b"></span>void <code class="descname">eval</code><span class="sig-paren">(</span>fmt::CStringRef <em>amplstatements</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL4evalEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Parses AMPL code and evaluates it as a possibly empty sequence of AMPL declarations and statements. </p>
+<p>As a side effect, it invalidates all entities (as the passed statements can contain any arbitrary command); the lists of entities will be re-populated lazily (at first access) </p>
+<p>The output of interpreting the statements is passed to the current <a class="reference internal" href="outputhandler.html#classampl_1_1_output_handler"><span class="std std-ref">OutputHandler</span></a> (see getOutputHandler and setOutputHandler). </p>
+<p>By default, errors are reported as exceptions and warnings are printed on stdout. This behavior can be changed reassigning an <a class="reference internal" href="errorhandler.html#classampl_1_1_error_handler"><span class="std std-ref">ErrorHandler</span></a> using setErrorHandler.</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">amplstatements</span></code>: A collection of AMPL statements and declarations to be passed to the interpreter </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::runtime_error</span></code>: if the input is not a complete AMPL statement (e.g. if it does not end with semicolon) or if the underlying interpreter is not running </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL5resetEv">
+<span id="_CPPv2N4ampl4AMPL5resetEv"></span><span id="ampl::AMPL::reset"></span><span class="target" id="classampl_1_1_a_m_p_l_1a02967e657896ed91c559a53e3a721eca"></span>void <code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL5resetEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Clears all entities in the underlying AMPL interpreter, clears all maps and invalidates all entities. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL5closeEv">
+<span id="_CPPv2N4ampl4AMPL5closeEv"></span><span id="ampl::AMPL::close"></span><span class="target" id="classampl_1_1_a_m_p_l_1a529df9253a173b56d8090070396cd40e"></span>void <code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL5closeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Stops the underlying engine, and release all any further attempt to execute optimisation commands without restarting it will throw an exception. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL9isRunningEv">
+<span id="_CPPv2NK4ampl4AMPL9isRunningEv"></span><span id="ampl::AMPL::isRunningC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a1c906dde28120439c1c07f704081bc0e"></span>bool <code class="descname">isRunning</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL9isRunningEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns true if the underlying engine is running. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL6isBusyEv">
+<span id="_CPPv2NK4ampl4AMPL6isBusyEv"></span><span id="ampl::AMPL::isBusyC"></span><span class="target" id="classampl_1_1_a_m_p_l_1aeda25e9040373408cc228b6bfc6986e6"></span>bool <code class="descname">isBusy</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL6isBusyEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns true if the underlying engine is doing an async operation. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL5solveEv">
+<span id="_CPPv2N4ampl4AMPL5solveEv"></span><span id="ampl::AMPL::solve"></span><span class="target" id="classampl_1_1_a_m_p_l_1aae118b222c657e19a94c252c1d2e3df2"></span>void <code class="descname">solve</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL5solveEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Solve the current model. </p>
+<p><dl class="docutils">
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::runtime_error</span></code>: If the underlying interpreter is not running </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL9readAsyncEN3fmt10CStringRefEP8Runnable">
+<span id="_CPPv2N4ampl4AMPL9readAsyncEN3fmt10CStringRefEP8Runnable"></span><span id="ampl::AMPL::readAsync__fmt::CStringRef.RunnableP"></span><span class="target" id="classampl_1_1_a_m_p_l_1a6c8e702b8356ee0cff03ed3848786dcb"></span>void <code class="descname">readAsync</code><span class="sig-paren">(</span>fmt::CStringRef <em>filename</em>, <a class="reference internal" href="runnable.html#_CPPv3N4ampl8RunnableE" title="ampl::Runnable">Runnable</a> *<em>cb</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL9readAsyncEN3fmt10CStringRefEP8Runnable" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Interprets the specified file asynchronously, interpreting it as a model or a script file. </p>
+<p>As a side effect, it invalidates all entities (as the passed file can contain any arbitrary command); the lists of entities will be re-populated lazily (at first access)</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">filename</span></code>: Path to the file (Relative to the current working directory or absolute) </li>
+<li><code class="docutils literal notranslate"><span class="pre">cb</span></code>: Callback to be executed when the file has been interpreted </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL13readDataAsyncEN3fmt10CStringRefEP8Runnable">
+<span id="_CPPv2N4ampl4AMPL13readDataAsyncEN3fmt10CStringRefEP8Runnable"></span><span id="ampl::AMPL::readDataAsync__fmt::CStringRef.RunnableP"></span><span class="target" id="classampl_1_1_a_m_p_l_1a454268822d281c026234bf09b29d302f"></span>void <code class="descname">readDataAsync</code><span class="sig-paren">(</span>fmt::CStringRef <em>filename</em>, <a class="reference internal" href="runnable.html#_CPPv3N4ampl8RunnableE" title="ampl::Runnable">Runnable</a> *<em>cb</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL13readDataAsyncEN3fmt10CStringRefEP8Runnable" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Interprets the specified data file asynchronously. </p>
+<p>When interpreting is over, the specified callback is called. The file is interpreted as data. As a side effect, it invalidates all entities (as the passed file can contain any arbitrary command); the lists of entities will be re-populated lazily (at first access)</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">filename</span></code>: Full path to the file </li>
+<li><code class="docutils literal notranslate"><span class="pre">cb</span></code>: Callback to be executed when the file has been interpreted </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL9evalAsyncEN3fmt10CStringRefEP8Runnable">
+<span id="_CPPv2N4ampl4AMPL9evalAsyncEN3fmt10CStringRefEP8Runnable"></span><span id="ampl::AMPL::evalAsync__fmt::CStringRef.RunnableP"></span><span class="target" id="classampl_1_1_a_m_p_l_1a0f44e5db86da465c2b17b53b4f32eefd"></span>void <code class="descname">evalAsync</code><span class="sig-paren">(</span>fmt::CStringRef <em>amplstatement</em>, <a class="reference internal" href="runnable.html#_CPPv3N4ampl8RunnableE" title="ampl::Runnable">Runnable</a> *<em>cb</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL9evalAsyncEN3fmt10CStringRefEP8Runnable" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Interpret the given AMPL statement Throws runtime_error if the underlying ampl interpreter is not running </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL10solveAsyncEP8Runnable">
+<span id="_CPPv2N4ampl4AMPL10solveAsyncEP8Runnable"></span><span id="ampl::AMPL::solveAsync__RunnableP"></span><span class="target" id="classampl_1_1_a_m_p_l_1a7ebb45c6a5eaf271a7c2a80005e60ffa"></span>void <code class="descname">solveAsync</code><span class="sig-paren">(</span><a class="reference internal" href="runnable.html#_CPPv3N4ampl8RunnableE" title="ampl::Runnable">Runnable</a> *<em>cb</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL10solveAsyncEP8Runnable" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Solve the current model asynchronously. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cb</span></code>: Object encapsulating the function to be called when solver is done </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL9interruptEv">
+<span id="_CPPv2N4ampl4AMPL9interruptEv"></span><span id="ampl::AMPL::interrupt"></span><span class="target" id="classampl_1_1_a_m_p_l_1a46749a082123cf84ab0bd996b2ef5f37"></span>void <code class="descname">interrupt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL9interruptEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Interrupt an underlying asynchronous operation (execution of AMPL code by the AMPL interpreter). </p>
+<p>An asynchronous operation can be started via <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a0f44e5db86da465c2b17b53b4f32eefd"><span class="std std-ref">evalAsync()</span></a>, <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a7ebb45c6a5eaf271a7c2a80005e60ffa"><span class="std std-ref">solveAsync()</span></a>, <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a6c8e702b8356ee0cff03ed3848786dcb"><span class="std std-ref">readAsync()</span></a> and <a class="reference internal" href="#classampl_1_1_a_m_p_l_1a454268822d281c026234bf09b29d302f"><span class="std std-ref">readDataAsync()</span></a>. Does nothing if the engine and the solver are idle. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL2cdEv">
+<span id="_CPPv2NK4ampl4AMPL2cdEv"></span><span id="ampl::AMPL::cdC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a9925465685acf95463d81a081517540d"></span>std::string <code class="descname">cd</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL2cdEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the current working directory from the underlying interpreter (see <a class="reference external" href="https://en.wikipedia.org/wiki/Working_directory">https://en.wikipedia.org/wiki/Working_directory</a> ). </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>Current working directory </dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL2cdEN3fmt10CStringRefE">
+<span id="_CPPv2N4ampl4AMPL2cdEN3fmt10CStringRefE"></span><span id="ampl::AMPL::cd__fmt::CStringRef"></span><span class="target" id="classampl_1_1_a_m_p_l_1a383110d2726b7f8827408371b267ae80"></span>std::string <code class="descname">cd</code><span class="sig-paren">(</span>fmt::CStringRef <em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL2cdEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Change or display the current working directory (see <a class="reference external" href="https://en.wikipedia.org/wiki/Working_directory">https://en.wikipedia.org/wiki/Working_directory</a> ). </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>Current working directory </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">path</span></code>: New working directory or null (to display the working directory) </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL9setOptionEN3fmt10CStringRefEN3fmt10CStringRefE">
+<span id="_CPPv2N4ampl4AMPL9setOptionEN3fmt10CStringRefEN3fmt10CStringRefE"></span><span id="ampl::AMPL::setOption__fmt::CStringRef.fmt::CStringRef"></span><span class="target" id="classampl_1_1_a_m_p_l_1ada8be0e7965ef7a8bd652967e4cd110f"></span>void <code class="descname">setOption</code><span class="sig-paren">(</span>fmt::CStringRef <em>name</em>, fmt::CStringRef <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL9setOptionEN3fmt10CStringRefEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><a class="reference internal" href="set.html#classampl_1_1_set"><span class="std std-ref">Set</span></a> an AMPL option to a specified value. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name of the option to be set (alphanumeric without spaces) </li>
+<li><code class="docutils literal notranslate"><span class="pre">value</span></code>: String representing the value the option must be set to </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::invalid_argument</span></code>: if the option name is not valid </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL9getOptionEN3fmt10CStringRefE">
+<span id="_CPPv2NK4ampl4AMPL9getOptionEN3fmt10CStringRefE"></span><span id="ampl::AMPL::getOption__fmt::CStringRefC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a4f09177c113d28fafc7826e9b7746775"></span><a class="reference internal" href="optional.html#_CPPv3N4ampl8OptionalE" title="ampl::Optional">Optional</a>&lt;std::string&gt; <code class="descname">getOption</code><span class="sig-paren">(</span>fmt::CStringRef <em>name</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL9getOptionEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the current value of the specified option. </p>
+<p>If the option does not exist, the returned <a class="reference internal" href="optional.html#classampl_1_1_optional"><span class="std std-ref">Optional</span></a> object will not have value. Usage: if (auto value = ampl.getOption(“solver”)) value.get();</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>Value of the option as a string. </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Option name (alphanumeric) </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::invalid_argument</span></code>: if the option name is not valid </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL12getIntOptionEN3fmt10CStringRefE">
+<span id="_CPPv2NK4ampl4AMPL12getIntOptionEN3fmt10CStringRefE"></span><span id="ampl::AMPL::getIntOption__fmt::CStringRefC"></span><span class="target" id="classampl_1_1_a_m_p_l_1aa136b92aac6fc35e393d3faf42bdc2be"></span><a class="reference internal" href="optional.html#_CPPv3N4ampl8OptionalE" title="ampl::Optional">Optional</a>&lt;int&gt; <code class="descname">getIntOption</code><span class="sig-paren">(</span>fmt::CStringRef <em>name</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL12getIntOptionEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the current value of the specified integer option. </p>
+<p>If the option does not exist, the returned <a class="reference internal" href="optional.html#classampl_1_1_optional"><span class="std std-ref">Optional</span></a> object will not have value.</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>Value of the option (integer) </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Option name (alphanumeric) </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::invalid_argument</span></code>: if the option name is not valid </li>
+<li><code class="docutils literal notranslate"><span class="pre">std::invalid_argument</span></code>: If the option did not have a value which could be casted to integer </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL12setIntOptionEN3fmt10CStringRefEi">
+<span id="_CPPv2N4ampl4AMPL12setIntOptionEN3fmt10CStringRefEi"></span><span id="ampl::AMPL::setIntOption__fmt::CStringRef.i"></span><span class="target" id="classampl_1_1_a_m_p_l_1af29b7e9c87fcc18ec889230cce6a95e4"></span>void <code class="descname">setIntOption</code><span class="sig-paren">(</span>fmt::CStringRef <em>name</em>, int <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL12setIntOptionEN3fmt10CStringRefEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><a class="reference internal" href="set.html#classampl_1_1_set"><span class="std std-ref">Set</span></a> an AMPL option to a specified integer value. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name of the option to be set </li>
+<li><code class="docutils literal notranslate"><span class="pre">value</span></code>: The integer value the option must be set to </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::invalid_argument</span></code>: if the option name is not valid </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL12getDblOptionEN3fmt10CStringRefE">
+<span id="_CPPv2NK4ampl4AMPL12getDblOptionEN3fmt10CStringRefE"></span><span id="ampl::AMPL::getDblOption__fmt::CStringRefC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a51a609db5d04b86bd2a9ca76ba1633c3"></span><a class="reference internal" href="optional.html#_CPPv3N4ampl8OptionalE" title="ampl::Optional">Optional</a>&lt;double&gt; <code class="descname">getDblOption</code><span class="sig-paren">(</span>fmt::CStringRef <em>name</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL12getDblOptionEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the current value of the specified double option If the option does not exist, the returned <a class="reference internal" href="optional.html#classampl_1_1_optional"><span class="std std-ref">Optional</span></a> object will not have value. </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>Value of the option (double) </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Option name </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::invalid_argument</span></code>: if the option name is not valid </li>
+<li><code class="docutils literal notranslate"><span class="pre">std::invalid_argument</span></code>: If the option did not have a value which could be casted to double </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL12setDblOptionEN3fmt10CStringRefEd">
+<span id="_CPPv2N4ampl4AMPL12setDblOptionEN3fmt10CStringRefEd"></span><span id="ampl::AMPL::setDblOption__fmt::CStringRef.double"></span><span class="target" id="classampl_1_1_a_m_p_l_1a32b80eb1ffa0e42d1e21d543d4b615f7"></span>void <code class="descname">setDblOption</code><span class="sig-paren">(</span>fmt::CStringRef <em>name</em>, double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL12setDblOptionEN3fmt10CStringRefEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><a class="reference internal" href="set.html#classampl_1_1_set"><span class="std std-ref">Set</span></a> an AMPL option to a specified double value. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name of the option to be set </li>
+<li><code class="docutils literal notranslate"><span class="pre">value</span></code>: The double value the option must be set to </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::invalid_argument</span></code>: if the option name is not valid </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL13getBoolOptionEN3fmt10CStringRefE">
+<span id="_CPPv2NK4ampl4AMPL13getBoolOptionEN3fmt10CStringRefE"></span><span id="ampl::AMPL::getBoolOption__fmt::CStringRefC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a95f03daaa624c125e5516bc292144fc7"></span><a class="reference internal" href="optional.html#_CPPv3N4ampl8OptionalE" title="ampl::Optional">Optional</a>&lt;bool&gt; <code class="descname">getBoolOption</code><span class="sig-paren">(</span>fmt::CStringRef <em>name</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL13getBoolOptionEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the current value of the specified boolean option. </p>
+<p>In <a class="reference internal" href="#classampl_1_1_a_m_p_l"><span class="std std-ref">AMPL</span></a>, boolean options are represented as integer: 0 for false, 1 for true. If the option does not exist, the returned <a class="reference internal" href="optional.html#classampl_1_1_optional"><span class="std std-ref">Optional</span></a> object will not have value.</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>Value of the option (boolean) </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Option name </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::invalid_argument</span></code>: if the option name is not valid </li>
+<li><code class="docutils literal notranslate"><span class="pre">std::invalid_argument</span></code>: If the option did not have a value which could be casted to boolean </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL23getCurrentObjectiveNameEv">
+<span id="_CPPv2N4ampl4AMPL23getCurrentObjectiveNameEv"></span><span id="ampl::AMPL::getCurrentObjectiveName"></span><span class="target" id="classampl_1_1_a_m_p_l_1ac3c804e61cd87bf764f14aeace8fd963"></span>std::string <code class="descname">getCurrentObjectiveName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL23getCurrentObjectiveNameEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the name of the currently active objective (see the <code class="docutils literal notranslate"><span class="pre">objective</span></code> command) </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>Current objective or empty string if no objective has been declared </dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL13setBoolOptionEN3fmt10CStringRefEb">
+<span id="_CPPv2N4ampl4AMPL13setBoolOptionEN3fmt10CStringRefEb"></span><span id="ampl::AMPL::setBoolOption__fmt::CStringRef.b"></span><span class="target" id="classampl_1_1_a_m_p_l_1aee3fd874ae4a766a5dce57861259ab93"></span>void <code class="descname">setBoolOption</code><span class="sig-paren">(</span>fmt::CStringRef <em>name</em>, bool <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL13setBoolOptionEN3fmt10CStringRefEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><a class="reference internal" href="set.html#classampl_1_1_set"><span class="std std-ref">Set</span></a> an AMPL option to a specified boolean value. </p>
+<p>Note that in <a class="reference internal" href="#classampl_1_1_a_m_p_l"><span class="std std-ref">AMPL</span></a>, boolean options are represented as integer: 0 for false, 1 for true</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name of the option to be set </li>
+<li><code class="docutils literal notranslate"><span class="pre">value</span></code>: The boolean value the option must be set to </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::invalid_argument</span></code>: if the option name is not valid </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL4readEN3fmt10CStringRefE">
+<span id="_CPPv2N4ampl4AMPL4readEN3fmt10CStringRefE"></span><span id="ampl::AMPL::read__fmt::CStringRef"></span><span class="target" id="classampl_1_1_a_m_p_l_1a711ed71c2e94fd5578481fdaf7442955"></span>void <code class="descname">read</code><span class="sig-paren">(</span>fmt::CStringRef <em>fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL4readEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Interprets the specified file (script or model or mixed) As a side effect, it invalidates all entities (as the passed file can contain any arbitrary command); the lists of entities will be re-populated lazily (at first access) </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">fileName</span></code>: Full path to the file. </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">runtime_error</span></code>: In case the file does not exist. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL8readDataEN3fmt10CStringRefE">
+<span id="_CPPv2N4ampl4AMPL8readDataEN3fmt10CStringRefE"></span><span id="ampl::AMPL::readData__fmt::CStringRef"></span><span class="target" id="classampl_1_1_a_m_p_l_1a9c04588fec4e7ba8f454655cba111623"></span>void <code class="descname">readData</code><span class="sig-paren">(</span>fmt::CStringRef <em>fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL8readDataEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Interprets the specified file as an AMPL data file. </p>
+<p>As a side effect, it invalidates all entities (as the passed file can contain any arbitrary command); the lists of entities will be re-populated lazily (at first access). After reading the file, the interpreter is put back to “model” mode. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">fileName</span></code>: Full path to the file. </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::runtime_error</span></code>: In case the file does not exist. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL8getValueEN3fmt10CStringRefE">
+<span id="_CPPv2NK4ampl4AMPL8getValueEN3fmt10CStringRefE"></span><span id="ampl::AMPL::getValue__fmt::CStringRefC"></span><span class="target" id="classampl_1_1_a_m_p_l_1afcd99e970052a8cb5b1eaf855ca0120b"></span><a class="reference internal" href="variant.html#_CPPv3N4ampl7VariantE" title="ampl::Variant">Variant</a> <code class="descname">getValue</code><span class="sig-paren">(</span>fmt::CStringRef <em>scalarExpression</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL8getValueEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get a scalar value from the underlying AMPL interpreter, as a double or a string. </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>A Variant which represent the value of the expression. </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">scalarExpression</span></code>: An AMPL expression which evaluates to a scalar value. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL9getOutputEN3fmt10CStringRefE">
+<span id="_CPPv2N4ampl4AMPL9getOutputEN3fmt10CStringRefE"></span><span id="ampl::AMPL::getOutput__fmt::CStringRef"></span><span class="target" id="classampl_1_1_a_m_p_l_1a1a34545056ba787475215473b0a16f53"></span>std::string <code class="descname">getOutput</code><span class="sig-paren">(</span>fmt::CStringRef <em>amplstatement</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL9getOutputEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Equivalent to <a class="reference internal" href="#classampl_1_1_a_m_p_l_1ac2c55c976beed2aed9a7f91239ff241b"><span class="std std-ref">eval()</span></a> but returns the output as a string. </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>A std::string with the output. </dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL7setDataERK9DataFrameN3fmt10CStringRefE">
+<span id="_CPPv2N4ampl4AMPL7setDataERK9DataFrameN3fmt10CStringRefE"></span><span id="ampl::AMPL::setData__DataFrameCR.fmt::CStringRef"></span><span class="target" id="classampl_1_1_a_m_p_l_1aee45bc8bf4e410c106a5f040b1e84ce8"></span>void <code class="descname">setData</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="dataframe.html#_CPPv3N4ampl9DataFrameE" title="ampl::DataFrame">DataFrame</a> &amp;<em>df</em>, fmt::CStringRef <em>setName</em> = &quot;&quot;<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL7setDataERK9DataFrameN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Assign the data in the dataframe to the AMPL entities with the names corresponding to the column names. </p>
+<p>If setName is null, only the parameters value will be assigned.</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">df</span></code>: The dataframe containing the data to be assigned. </li>
+<li><code class="docutils literal notranslate"><span class="pre">setName</span></code>: The name of the set to which the indices values of the <a class="reference internal" href="dataframe.html#classampl_1_1_data_frame"><span class="std std-ref">DataFrame</span></a> are to be assigned. </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><a class="reference internal" href="amplexception.html#classampl_1_1_a_m_p_l_exception"><span class="std std-ref"><span class="pre">AMPLException</span></span></a></code>: If the data assignment procedure was not successful. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL8toStringEv">
+<span id="_CPPv2NK4ampl4AMPL8toStringEv"></span><span id="ampl::AMPL::toStringC"></span><span class="target" id="classampl_1_1_a_m_p_l_1aaaebb387c10b3ddaa46246111ff6686d"></span>std::string <code class="descname">toString</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL8toStringEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get a string describing the object. </p>
+<p><p>Returns the version of the API and either the version of the interpreter or the message “AMPL is not</p>
+<p>running” if the interpreter is not running (e.g. due to unexpected internal error or to a call </p>
+<a class="reference internal" href="#classampl_1_1_a_m_p_l_1a529df9253a173b56d8090070396cd40e"><span class="std std-ref">AMPL::close</span></a>) <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>A std::string that represents this object. </dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL9readTableEN3fmt10CStringRefE">
+<span id="_CPPv2N4ampl4AMPL9readTableEN3fmt10CStringRefE"></span><span id="ampl::AMPL::readTable__fmt::CStringRef"></span><span class="target" id="classampl_1_1_a_m_p_l_1a7474a43ce9e5e5aaac98f8db799f3d52"></span>void <code class="descname">readTable</code><span class="sig-paren">(</span>fmt::CStringRef <em>tableName</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL9readTableEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read the table corresponding to the specified name, equivalent to the AMPL statement: </p>
+<p><div class="highlight-ampl notranslate"><div class="highlight"><pre><span></span><span class="kd">read table</span> <span class="nv">tableName</span><span class="p">;</span>
+</pre></div>
+</div>
+</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">tableName</span></code>: Name of the table to be read. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL10writeTableEN3fmt10CStringRefE">
+<span id="_CPPv2N4ampl4AMPL10writeTableEN3fmt10CStringRefE"></span><span id="ampl::AMPL::writeTable__fmt::CStringRef"></span><span class="target" id="classampl_1_1_a_m_p_l_1a5881d175555865eda77bcebfa0aadb92"></span>void <code class="descname">writeTable</code><span class="sig-paren">(</span>fmt::CStringRef <em>tableName</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL10writeTableEN3fmt10CStringRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Write the table corresponding to the specified name, equivalent to the AMPL statement. </p>
+<p><div class="highlight-ampl notranslate"><div class="highlight"><pre><span></span><span class="kr">write</span><span class="w"> </span><span class="kd">table</span> <span class="nv">tableName</span><span class="p">;</span>
+</pre></div>
+</div>
+</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">tableName</span></code>: Name of the table to be written. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL7displayE10StringArgs">
+<span id="_CPPv2N4ampl4AMPL7displayE10StringArgs"></span><span id="ampl::AMPL::display__StringArgs"></span><span class="target" id="classampl_1_1_a_m_p_l_1a5126403fa30362a4a95619fe307f3e6b"></span>void <code class="descname">display</code><span class="sig-paren">(</span>StringArgs <em>amplExpressions</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL7displayE10StringArgs" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Writes on the current <a class="reference internal" href="outputhandler.html#classampl_1_1_output_handler"><span class="std std-ref">OutputHandler</span></a> the outcome of the AMPL statement. </p>
+<p><div class="highlight-ampl notranslate"><div class="highlight"><pre><span></span><span class="kr">display</span><span class="w"> </span>e1<span class="p">,</span><span class="w"> </span>e2<span class="p">,</span><span class="w"> </span><span class="o">..</span><span class="p">,</span><span class="w"> </span>en<span class="p">;</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">e1...en</span></code> are the strings passed to the procedure.</p>
+</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">amplExpressions</span></code>: Expressions to be evaluated. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL7displayE10EntityArgs">
+<span id="_CPPv2N4ampl4AMPL7displayE10EntityArgs"></span><span id="ampl::AMPL::display__EntityArgs"></span><span class="target" id="classampl_1_1_a_m_p_l_1a1f01c368fee5f25ff6b82e59de4dcb58"></span>void <code class="descname">display</code><span class="sig-paren">(</span><a class="reference internal" href="entity.html#_CPPv3N4ampl10EntityArgsE" title="ampl::EntityArgs">EntityArgs</a> <em>entities</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL7displayE10EntityArgs" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Writes on the current <a class="reference internal" href="outputhandler.html#classampl_1_1_output_handler"><span class="std std-ref">OutputHandler</span></a> the outcome of the AMPL statement. </p>
+<p><div class="highlight-ampl notranslate"><div class="highlight"><pre><span></span><span class="kr">display</span><span class="w"> </span>e1<span class="p">,</span><span class="w"> </span>e2<span class="p">,</span><span class="w"> </span><span class="o">..</span><span class="p">,</span><span class="w"> </span>en<span class="p">;</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">e1...en</span></code> are the objects passed to the procedure.</p>
+ <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">entities</span></code>: The entities to display </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL4showE10EntityArgs">
+<span id="_CPPv2N4ampl4AMPL4showE10EntityArgs"></span><span id="ampl::AMPL::show__EntityArgs"></span><span class="target" id="classampl_1_1_a_m_p_l_1a35d03b1df1bb6c09e5333ddeafce5f57"></span>void <code class="descname">show</code><span class="sig-paren">(</span><a class="reference internal" href="entity.html#_CPPv3N4ampl10EntityArgsE" title="ampl::EntityArgs">EntityArgs</a> <em>entities</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL4showE10EntityArgs" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Writes on the current <a class="reference internal" href="outputhandler.html#classampl_1_1_output_handler"><span class="std std-ref">OutputHandler</span></a> the outcome of the AMPL statement. </p>
+<p><div class="highlight-ampl notranslate"><div class="highlight"><pre><span></span><span class="kr">show</span><span class="w"> </span>e1<span class="p">,</span><span class="w"> </span>e2<span class="p">,</span><span class="w"> </span><span class="o">..</span><span class="p">,</span><span class="w"> </span>en<span class="p">;</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">e1...en</span></code> are the objects passed to the procedure.</p>
+ <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">entities</span></code>: The entities to show </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL6expandE10EntityArgs">
+<span id="_CPPv2N4ampl4AMPL6expandE10EntityArgs"></span><span id="ampl::AMPL::expand__EntityArgs"></span><span class="target" id="classampl_1_1_a_m_p_l_1a1505eed15dcf206465fced7e823228c0"></span>void <code class="descname">expand</code><span class="sig-paren">(</span><a class="reference internal" href="entity.html#_CPPv3N4ampl10EntityArgsE" title="ampl::EntityArgs">EntityArgs</a> <em>entities</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL6expandE10EntityArgs" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Writes on the current <a class="reference internal" href="outputhandler.html#classampl_1_1_output_handler"><span class="std std-ref">OutputHandler</span></a> the outcome of the AMPL statement. </p>
+<p><div class="highlight-ampl notranslate"><div class="highlight"><pre><span></span><span class="kr">expand</span><span class="w"> </span>e1<span class="p">,</span><span class="w"> </span>e2<span class="p">,</span><span class="w"> </span><span class="o">..</span><span class="p">,</span><span class="w"> </span>en<span class="p">;</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">e1...en</span></code> are the objects passed to the procedure.</p>
+ <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">entities</span></code>: The entities to expand </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL16setOutputHandlerEP13OutputHandler">
+<span id="_CPPv2N4ampl4AMPL16setOutputHandlerEP13OutputHandler"></span><span id="ampl::AMPL::setOutputHandler__OutputHandlerP"></span><span class="target" id="classampl_1_1_a_m_p_l_1a3a0a3a3f803e91fa5852d92c705a5620"></span>void <code class="descname">setOutputHandler</code><span class="sig-paren">(</span><a class="reference internal" href="outputhandler.html#_CPPv3N4ampl13OutputHandlerE" title="ampl::OutputHandler">OutputHandler</a> *<em>outputhandler</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL16setOutputHandlerEP13OutputHandler" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Sets a new output handler. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">outputhandler</span></code>: The function handling the AMPL output derived from interpreting user commands. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl4AMPL15setErrorHandlerEP12ErrorHandler">
+<span id="_CPPv2N4ampl4AMPL15setErrorHandlerEP12ErrorHandler"></span><span id="ampl::AMPL::setErrorHandler__ErrorHandlerP"></span><span class="target" id="classampl_1_1_a_m_p_l_1ac4c16dc300c181a30d377752308396e0"></span>void <code class="descname">setErrorHandler</code><span class="sig-paren">(</span><a class="reference internal" href="errorhandler.html#_CPPv3N4ampl12ErrorHandlerE" title="ampl::ErrorHandler">ErrorHandler</a> *<em>errorhandler</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl4AMPL15setErrorHandlerEP12ErrorHandler" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Sets a new error handler Note that the ownership of the error handling object remains of the caller. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">errorhandler</span></code>: The object handling AMPL errors and warnings. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL16getOutputHandlerEv">
+<span id="_CPPv2NK4ampl4AMPL16getOutputHandlerEv"></span><span id="ampl::AMPL::getOutputHandlerC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a68c73780c12782a3b740eb66c4a272d9"></span><a class="reference internal" href="outputhandler.html#_CPPv3N4ampl13OutputHandlerE" title="ampl::OutputHandler">OutputHandler</a> *<code class="descname">getOutputHandler</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL16getOutputHandlerEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the current output handler. </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>A pointer to the current output handler. </dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL15getErrorHandlerEv">
+<span id="_CPPv2NK4ampl4AMPL15getErrorHandlerEv"></span><span id="ampl::AMPL::getErrorHandlerC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a7c9d810ea786548d94455d5c8b9f7257"></span><a class="reference internal" href="errorhandler.html#_CPPv3N4ampl12ErrorHandlerE" title="ampl::ErrorHandler">ErrorHandler</a> *<code class="descname">getErrorHandler</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL15getErrorHandlerEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the current error handler. </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>A pointer to the current error handler. </dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL12getVariablesEv">
+<span id="_CPPv2NK4ampl4AMPL12getVariablesEv"></span><span id="ampl::AMPL::getVariablesC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a943e136b228afd3f7801acb209ab8f44"></span><a class="reference internal" href="entitymap.html#_CPPv3N4ampl9EntityMapE" title="ampl::EntityMap">EntityMap</a>&lt;<a class="reference internal" href="variable.html#_CPPv3N4ampl8VariableE" title="ampl::Variable">Variable</a>&gt; <code class="descname">getVariables</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL12getVariablesEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get all the variables declared. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL14getConstraintsEv">
+<span id="_CPPv2NK4ampl4AMPL14getConstraintsEv"></span><span id="ampl::AMPL::getConstraintsC"></span><span class="target" id="classampl_1_1_a_m_p_l_1acc2ebc5e7fdab7401ffcd97b183ebccb"></span><a class="reference internal" href="entitymap.html#_CPPv3N4ampl9EntityMapE" title="ampl::EntityMap">EntityMap</a>&lt;<a class="reference internal" href="constraint.html#_CPPv3N4ampl10ConstraintE" title="ampl::Constraint">Constraint</a>&gt; <code class="descname">getConstraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL14getConstraintsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get all the constraints declared. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL13getObjectivesEv">
+<span id="_CPPv2NK4ampl4AMPL13getObjectivesEv"></span><span id="ampl::AMPL::getObjectivesC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a9cf2e914a44f4b137c29705bb09bd356"></span><a class="reference internal" href="entitymap.html#_CPPv3N4ampl9EntityMapE" title="ampl::EntityMap">EntityMap</a>&lt;<a class="reference internal" href="objective.html#_CPPv3N4ampl9ObjectiveE" title="ampl::Objective">Objective</a>&gt; <code class="descname">getObjectives</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL13getObjectivesEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get all the objectives declared. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL7getSetsEv">
+<span id="_CPPv2NK4ampl4AMPL7getSetsEv"></span><span id="ampl::AMPL::getSetsC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a5f1d9299621ac6ee0fb55422bff74876"></span><a class="reference internal" href="entitymap.html#_CPPv3N4ampl9EntityMapE" title="ampl::EntityMap">EntityMap</a>&lt;<a class="reference internal" href="set.html#_CPPv3N4ampl3SetE" title="ampl::Set">Set</a>&gt; <code class="descname">getSets</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL7getSetsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get all the sets declared. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL13getParametersEv">
+<span id="_CPPv2NK4ampl4AMPL13getParametersEv"></span><span id="ampl::AMPL::getParametersC"></span><span class="target" id="classampl_1_1_a_m_p_l_1aaa20a0df6b973f399fbcdcb763fdcbe9"></span><a class="reference internal" href="entitymap.html#_CPPv3N4ampl9EntityMapE" title="ampl::EntityMap">EntityMap</a>&lt;<a class="reference internal" href="parameter.html#_CPPv3N4ampl9ParameterE" title="ampl::Parameter">Parameter</a>&gt; <code class="descname">getParameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL13getParametersEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get all the parameters declared. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl4AMPL9getTablesEv">
+<span id="_CPPv2NK4ampl4AMPL9getTablesEv"></span><span id="ampl::AMPL::getTablesC"></span><span class="target" id="classampl_1_1_a_m_p_l_1a81e7dd7ab98d91d3b820ac51326cc40f"></span><a class="reference internal" href="entitymap.html#_CPPv3N4ampl9EntityMapE" title="ampl::EntityMap">EntityMap</a>&lt;Table&gt; <code class="descname">getTables</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl4AMPL9getTablesEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get all the tables declared. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="dataframe.html" title="DataFrame"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../reference.html" title="C++ API reference"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" >C++ API reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013-2017, AMPL Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.
+    </div>
+  </body>
+</html>

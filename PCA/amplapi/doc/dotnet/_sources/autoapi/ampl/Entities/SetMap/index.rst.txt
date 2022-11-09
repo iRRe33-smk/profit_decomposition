@@ -1,0 +1,110 @@
+
+
+SetMap Class
+============
+
+
+
+
+
+
+Enables iterable access to the sets
+
+
+Namespace
+    :dn:ns:`ampl.Entities`
+Assemblies
+    * AMPL
+
+----
+
+.. contents::
+   :local:
+
+
+
+Inheritance Hierarchy
+---------------------
+
+
+* :dn:cls:`System.Object`
+* :dn:cls:`ampl.Entities.EntityMap{ampl.Entities.Set}`
+* :dn:cls:`ampl.Entities.SetMap`
+
+
+
+
+
+
+
+
+Syntax
+------
+
+.. code-block:: csharp
+
+    public class SetMap : EntityMap<Set>, IEnumerable<Set>, IEnumerable
+
+
+
+
+
+
+
+
+.. dn:class:: ampl.Entities.SetMap
+    :hidden:
+
+.. dn:class:: ampl.Entities.SetMap
+
+Methods
+-------
+
+.. dn:class:: ampl.Entities.SetMap
+    :noindex:
+    :hidden:
+
+    
+    .. dn:method:: ampl.Entities.SetMap.GetEnumerator()
+
+        
+        :rtype: System.Collections.Generic.IEnumerator<System.Collections.Generic.IEnumerator`1>{ampl.Entities.Set<ampl.Entities.Set>}
+
+        
+        .. code-block:: csharp
+
+            public override IEnumerator<Set> GetEnumerator()
+    
+
+Properties
+----------
+
+.. dn:class:: ampl.Entities.SetMap
+    :noindex:
+    :hidden:
+
+    
+    .. dn:property:: ampl.Entities.SetMap.Item[System.String]
+
+        
+
+        
+        :type name: System.String
+        :rtype: ampl.Entities.Set
+
+        
+        .. code-block:: csharp
+
+            public Set this[string name] { get; }
+    
+    .. dn:property:: ampl.Entities.SetMap.Size
+
+        
+        :rtype: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public override int Size { get; }
+    
+

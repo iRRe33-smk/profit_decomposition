@@ -1,0 +1,10 @@
+.. highlight:: c++
+
+.. _ref::Objective:
+
+Objective
+---------
+
+.. doxygenclass:: ampl::Objective
+   :members:
+   :undoc-members:

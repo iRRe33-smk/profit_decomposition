@@ -1,0 +1,56 @@
+.. java:import:: java.util Iterator
+
+.. java:import:: java.util NoSuchElementException
+
+VariableMap
+===========
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class VariableMap implements EntityMap<Variable>
+
+Fields
+------
+_impl
+^^^^^
+
+.. java:field::  EntityMapVariable _impl
+   :outertype: VariableMap
+
+Constructors
+------------
+VariableMap
+^^^^^^^^^^^
+
+.. java:constructor::  VariableMap(EntityMapVariable impl)
+   :outertype: VariableMap
+
+Methods
+-------
+find
+^^^^
+
+.. java:method:: @Override public Variable find(String name)
+   :outertype: VariableMap
+
+   Get the variable with the specified name
+
+   :throws NoSuchElementException: if not found
+
+iterator
+^^^^^^^^
+
+.. java:method:: @Override public Iterator<Variable> iterator()
+   :outertype: VariableMap
+
+   Get an iterator to the contents of the class
+
+size
+^^^^
+
+.. java:method:: @Override public int size()
+   :outertype: VariableMap
+
+   Get the number of variables
+

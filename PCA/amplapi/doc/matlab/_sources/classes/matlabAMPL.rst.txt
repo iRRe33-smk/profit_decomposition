@@ -1,0 +1,1228 @@
+.. _secMATLABrefAMPL:
+
+
+AMPL
+====
+
+.. mat:class:: AMPL
+
+The AMPL object is central to the MATLAB API for AMPL. All usage of the API 
+starts from the creation of an AMPL object.
+It represent an underlying interpreter, and can be used to issue commands and to 
+gain access to the created entities.
+
+
+
+eval
+----
+
+.. mat:classmethod:: AMPL.eval(amplstring)
+
+**Syntax**
+
+``eval(amplstring)``
+ 
+**Description**
+
+
+``eval(amplstring)`` interprets the string given as an argument through the underlying
+AMPL interpeter. It accepts only AMPL statements and the output of the interpreter is 
+displayed on the MATLAB console.
+
+**Input Arguments**
+
+
+``amplstring``    A sequence of AMPL statements
+
+**Example**
+
+     
+Create a variable x and a simple objective function in the underlying 
+AMPL object, and use its functionalities to show the equational form
+of the objective function.
+ 
+.. code-block:: matlab
+
+   ampl.eval('var x {1..3} >= 0; minimize o: sum {j in 1..3} x[j];');
+   ampl.eval('expand o;');   
+   
+The object ``output`` stores now the output of the interpreter when
+subject to those statements. To display it in MATLAB, simply execute::
+
+   >> output = 
+   minimize o:
+      x[1] + x[2] + x[3];
+
+
+
+read
+----
+
+.. mat:classmethod:: AMPL.read(filename)
+
+**Syntax**
+
+
+``read(filename)``
+ 
+**Description**
+
+
+``read(filename)`` reads the file specified by its parameter as a model file. The output coming from the interpreter will be 
+printed on the console. Equivalent to the AMPL statement ``model filename;``.
+
+**Input Arguments**
+
+
+``filename``    A path to an AMPL file. Can be absolute or relative to the AMPL's current
+working directory (as given by :mat:meth:`AMPL.cd()`).
+
+
+**Example**
+
+     
+Reads a model file called test.mod placed in the subdirectory "/models" of the current 
+working directory.
+ 
+.. code-block:: matlab
+
+   ampl.read('models/test.mod');
+
+
+
+readData
+--------
+
+.. mat:classmethod:: AMPL.readData(filename)
+
+**Syntax**
+
+
+``o = readData(filename)``
+ 
+**Description**
+
+
+``o = readData(filename)`` reads the file specified by its parameter as a data file. 
+Equivalent to the AMPL statement ``data filename;``.
+
+**Input Arguments**
+
+
+``filename``    A path to an AMPL data file (.dat). Can be absolute or relative to the AMPL's current
+working directory (as given by :mat:meth:`AMPL.cd()`).
+
+
+**Example**
+
+     
+Reads a model file called test.mod placed in the subdirectory "/models" of the current 
+working directory and a data file called dataset1.dat in the current directory.
+ 
+.. code-block:: matlab
+
+   ampl.read('models/test.mod');
+   o = ampl.readData('dataset1.dat') 
+   
+
+
+solve
+-----
+
+.. mat:classmethod:: AMPL.solve()
+
+**Syntax**
+
+
+``solve()``
+ 
+**Description**
+
+
+``solve`` starts the solution process, on the current model instance and with the 
+current options. It is equivalent to issuing ``eval('solve;');``.
+
+
+
+**Example**
+
+     
+Create a simple model and solve it: 
+
+.. code-block:: matlab
+
+   ampl.eval('var x;');
+   ampl.eval('maximize z: x;');
+   ampl.eval('subject to c: x<=5;');
+   ampl.solve();
+   o = ampl.getObjective('z');
+   v = o.value
+   
+This will give::
+
+   >> v = 5
+
+
+getValue
+--------
+
+.. mat:classmethod:: AMPL.getValue(scalarExpression)
+   
+**Syntax**
+
+
+``v = getValue(scalarExpression)``
+ 
+**Description**
+
+
+``v = getValue(scalarExpression)``  Get a (single) value corresponding to the evaluation of the
+given expression in the underlying AMPL interpreter.
+
+
+**Input Arguments**
+
+
+``scalarExpression`` A string representing an AMPL expression which evaluates to a single value.
+
+
+**Output Arguments**
+
+
+``v`` A number or a string containing the value of the AMPL expression
+
+**Example** 1: Get value of a scalar variable
+
+     
+Get the value of a scalar variable in a very compact way:
+ 
+.. code-block:: matlab
+
+   ampl.eval('var x := 3;')
+   v = ampl.getValue('x')
+   
+gives::
+
+   v =
+   3  
+      
+
+
+getData
+-------
+
+.. mat:classmethod:: AMPL.getData(displayExpressions)
+   
+**Syntax**
+
+
+``df = getData(displayExpressions)``
+ 
+**Description**
+
+
+``df = getData(displayExpression)``  Get the data corresponding to the display statements in a :mat:class:`DataFrame`. The statements can be AMPL expressions or entities. It captures the equivalent of the command:
+``display ds1, ..., dsn;`` where ``ds1, ..., dsn`` are the strings passed to the function. As only one DataFrame is returned, the operation will fail if the results of the display statements
+cannot be indexed over the same set. As a result, any attempt to get data from more than one set, or to get data for multiple parameters with a different number of indexing sets will fail.
+
+
+**Input Arguments**
+
+
+``displayExpression`` A list of strings representing the display expression(s) to be fetched into the DataFrame.
+
+
+**Output Arguments**
+
+
+``df`` A :mat:class:`DataFrame` containig the values returned by the display expression
+
+**Example** 1
+
+     
+Get values of an AMPL expression into a dataframe
+ 
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..100} := i;);
+   df = ampl.getData('{i in 1..100 : x[i] >= 98} x[i]')
+   
+gives::
+
+   df =
+   
+   index0  |  x[i]   
+   98.0    |  98.0   
+   99.0    |  99.0   
+   100.0   |  100.0  
+
+
+**Example** 2
+
+
+Fetch multiple values in the same dataframe
+
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..2, j in 3..4} := i+10*j;');
+   ampl.eval('var y{i in 2..4, j in 4..5} := i*j;');
+   df = ampl.getData('x', 'y')
+   
+      
+will give::
+
+   df =
+   index0  index1  |  x     y     
+   1.0     3.0     |  31.0        
+   1.0     4.0     |  41.0        
+   2.0     3.0     |  32.0        
+   2.0     4.0     |  42.0  8.0   
+   2.0     5.0     |        10.0  
+   3.0     4.0     |        12.0  
+   3.0     5.0     |        15.0  
+   4.0     4.0     |        16.0  
+   4.0     5.0     |        20.0
+  
+      
+   
+setData
+-------
+
+.. mat:classmethod:: AMPL.setData(dataframe, assignSets)
+   
+**Syntax**
+
+``setData(dataframe)``
+
+``setData(dataframe, setName)``
+ 
+**Description**
+
+``setData(dataframe)`` ` assigns the data in the dataframe to the AMPL entities with the corresponding names
+
+``setData(dataframe, setName)`` assigns the data in the dataframe to the AMPL entities with the corresponding names (and the indexing columns to the specified set)
+
+
+**Input Arguments**
+
+
+``dataframe`` A :mat:class:`DataFrame` with columns which names correspond to entities currently defined in the underlying AMPL interpreter.
+
+``setName``  The name of the set to which the indices values of the DataFrame are to be assigned.
+Note that at most one set can be assigned at the same time as the parameters (for :mat:class:`DataFrame` with multiple indexing columns)
+
+
+**Example** 1
+
+     
+Create DataFrame with one indexing column and arbitrary column names, populate it and set the values into the parameters
+ 
+.. code-block:: matlab
+
+   d = DataFrame(1, {'PROD', 'price', 'cost'});
+   d.addRow('shirts', 10, 5);
+   d.addRow('skirts', 8,  6);
+   ampl.eval('set PROD; param price{PROD}; param cost{PROD};')
+   ampl.setData(d, 'PROD');
+   % now the AMPL parameters price and cost, as well as the set PROD are assigned the listed values
+
+**Example** 2
+
+
+Create a DataFrame object inferring the table structure from the AMPL entities. It is mandatory for sets to be listed first.
+Do not assign the set values to AMPL (it is not supported for multiple sets at once).
+
+.. code-block:: matlab
+
+   ampl.eval('set PROD; set COLOUR; param price{PROD, COLOUR};');
+   ampl.eval('data; set PROD := shirts skirts; set COLOUR := red blue; model;');
+   PROD = ampl.getSet('PROD');
+   COLOUR = ampl.getSet('COLOUR');
+   price = ampl.getParameter('price');
+   d = DataFrame([PROD, COLOUR, price]);
+   
+   d.addRow({'shirts', 'red', 5});
+   d.addRow({'shirts', 'blue',  4.5});
+   d.addRow({'skirts', 'blue',  5.5});
+   
+   ampl.setData(d);
+   % now the AMPL parameter cost will have the assigned value
+   price.display
+   
+will give::
+
+   ans =
+    
+   price :=
+   shirts blue   4.5
+   shirts red    5
+   skirts blue   5.5
+  
+   
+   
+cd
+--
+
+.. mat:classmethod:: AMPL.cd()
+
+**Syntax**
+
+
+``workingdir = cd``
+
+``cd(directory)``
+ 
+**Description**
+
+
+``cd`` changes or displays the current working directory of the underlying AMPL interpreter.
+
+**Input Arguments**
+
+
+``directory`` the directory to change to
+
+**Output Arguments**
+
+
+``workingdir``
+   The current working directory of the underlying AMPL interpreter. Can be different from MATLAB's
+   current directory.
+
+**Example**
+
+     
+Display the current working directory and then change it to be the same as MATLAB's. 
+
+.. code-block:: matlab
+
+   workingdir = ampl.cd % display AMPL's current working directory
+   ampl.cd(pwd)         % changes AMPL working directory to MATLAB's (and displays it)
+   
+This will give::
+
+   workingdir =
+   d:\
+ 
+   ans =
+   D:\Development\AMPLApi\git\distribution\target\distribution-0.1-bin\matlab
+
+
+close
+-----
+
+.. mat:classmethod:: AMPL.close()
+
+**Syntax**
+
+
+``close``
+ 
+**Description**
+
+
+``close`` stops the  underlying AMPL process and releases all the resources it uses.
+
+
+**Example**
+
+     
+Close all resources: 
+
+.. code-block:: matlab
+
+    ampl.close
+    ampl.isRunning
+    
+This will give::
+
+   ans = 
+         0
+
+
+
+
+
+getConstraints
+--------------
+
+.. mat:classmethod:: AMPL.getConstraints()
+
+**Syntax**
+
+
+``names = getConstraints``
+
+**Description**
+
+
+``names = getConstraints`` gets the :mat:class:`EntityList` of constraints currently defined. Once 
+a reference to the list is obtained, is automatically kept in sync with the AMPL interpreter.
+
+
+**Example**
+
+     
+Get the list of constraints defined in a model:
+
+.. code-block:: matlab
+
+   ampl.eval('var x{1..3}; c{i in 1..2}: x[i] <= i; c2: x[3] <= 10;');
+   names = ampl.getConstraints()
+
+This will give::
+
+   names =
+ 
+   List of defined constraints:
+   c2
+   c
+
+To prove that is kept in sync, executing:
+
+.. code-block:: matlab
+
+   ampl.eval('c3: x[1]<=0;')
+   names
+
+Will then give::
+   
+   names =
+ 
+   List of defined constraints:
+   c2
+   c
+   c3 
+ 
+
+
+getVariables
+------------
+
+.. mat:classmethod:: AMPL.getVariables()
+
+**Syntax**
+
+
+``names = getVariables``
+
+**Description**
+
+
+``names = getVariables`` gets the :mat:class:`EntityList` of variables currently defined. Once 
+a reference to the list is obtained, is automatically kept in sync with the AMPL interpreter.
+
+
+**Example**
+
+     
+Get the list of variables defined in a model:
+
+.. code-block:: matlab
+
+   ampl.eval('var x{1..3}; var y;');
+   names = ampl.getVariables()
+
+This will give::
+
+   names =
+ 
+   List of defined variables:
+   x
+   y
+
+To prove that is kept in sync, executing:
+
+.. code-block:: matlab
+
+   ampl.eval('var x;')
+   names
+
+Will then give::
+   
+   names =
+ 
+   List of defined constraints:
+   x
+   y
+   z 
+
+
+
+getObjectives
+-------------
+
+.. mat:classmethod:: AMPL.getObjectives()
+
+**Syntax**
+
+
+``names = getObjectives``
+
+**Description**
+
+
+``names = getObjectives`` gets the :mat:class:`EntityList` of objectives currently defined. Once 
+a reference to the list is obtained, is automatically kept in sync with the AMPL interpreter.
+
+
+**Example**
+
+     
+Get the list of objectives defined in a model:
+
+.. code-block:: matlab
+
+   ampl.eval('var x{1..3} <= 4; maximize obj: sum{i in 1..3} x[i];');
+   names = ampl.getObjectives()
+   ampl.eval('maximize newobj: sum{i in 1..3} x[i]/i;');
+   names
+   ampl.eval('delete obj;');
+   names
+ 
+will give::
+
+   names =
+   List of defined objectives:
+      obj
+ 
+   names =
+   List of defined objectives:
+      newobj
+      obj
+
+   names =
+   List of defined objectives:
+      newobj
+
+
+
+getParameters
+-------------
+
+.. mat:classmethod:: AMPL.getParameters()
+
+**Syntax**
+
+
+``names = getParameters``
+
+**Description**
+
+
+``names = getParameters`` gets the :mat:class:`EntityList` of parameters currently defined. Once 
+a reference to the list is obtained, is automatically kept in sync with the AMPL interpreter.
+
+
+**Example**
+
+     
+Get the list of parameters defined in a model:
+
+.. code-block:: matlab
+
+   ampl.eval('param a; param b symbolic;');
+   names = ampl.getParameters();
+   names
+   
+will give::
+
+   names =
+    List of defined parameters:
+      b
+      a
+      
+
+
+
+getSets
+-------
+
+.. mat:classmethod:: AMPL.getSets()
+
+**Syntax**
+
+
+``names = getSets``
+
+**Description**
+
+
+a reference to the list is obtained, is automatically kept in sync with the AMPL interpreter.
+
+
+**Example**
+
+     
+Get the list of sets defined in a model:
+
+.. code-block:: matlab
+
+   ampl.eval('set A; set B{A};');
+   names = ampl.getSets();
+   names
+   
+will give::
+
+   names =
+    List of defined sets:
+      B
+      A
+
+
+
+getEntity
+---------
+
+.. mat:classmethod:: AMPL.getEntity(name)
+
+**Syntax**
+
+
+``entity = getEntity(name)``
+
+``cons = getConstraint(name)``
+
+``var = getVariable(name)``
+
+``set = getSet(name)``
+
+``param = getParameter(name)``
+
+``obj = getObjective(name)``
+ 
+**Description**
+
+
+``getEntity`` is the generic version of all the specialised functions below, and gets any AMPL entity which has the specified name.
+
+``getConstraint`` gets the constraint entity corresponding to the specified name,
+ 
+``getVariable`` gets the variable entity corresponding to the specified name,
+
+``getParameter`` gets the parameter entity corresponding to the specified name,
+
+``getSet`` gets the set entity corresponding to the specified name and
+
+``getObjective`` gets the objective entity corresponding to the specified name. 
+
+
+**Output Arguments**
+
+
+``entity``
+   The :mat:class:`Entity` corresponding to the name, its type is resolved dynamically by MATLAB
+
+``var``
+   The :mat:class:`Variable` corresponding to the name
+   
+``set``
+   The :mat:class:`Set` set corresponding to the name
+   
+``param``
+   The :mat:class:`Parameter` corresponding to the name
+      
+``obj``
+   The :mat:class:`Objective` corresponding to the name
+
+``cons``
+   The :mat:class:`Constraint` corresponding to the name
+
+   
+**Example**
+
+     
+Declare a model and gain programmatic access to various entities:
+
+.. code-block:: matlab
+
+   ampl.eval('param a := 5; set A = 1..3; var x{A} >= 0;');
+   ampl.eval('maximize z: sum{i in A} x[i]; c{i in A}: x[i] <= a;');
+   a = ampl.getParameter('a');
+   A = ampl.getSet('A');
+   x = ampl.getVariable('x');
+   z = ampl.getObjective('z');
+   c = ampl.getConstraint('c');
+   ampl.display(a)
+   ampl.display(A)
+   ampl.display(x)
+   ampl.display(z)
+   ampl.display(c)
+    
+This will give::
+
+   ans =
+      a = 5
+       
+   ans =    
+      set A := 1 2 3;
+       
+   ans =    
+      x [*] :=
+      1  0
+      2  0
+      3  0
+      ;
+       
+   ans =    
+      z = 0
+       
+   ans =
+      c [*] :=
+      1  0
+      2  0
+      3  0
+      ;
+
+
+getConstraint
+-------------
+
+.. mat:classmethod:: AMPL.getConstraint(name)
+
+See  :mat:meth:`AMPL.getEntity` .
+
+
+
+getObjective
+------------
+
+.. mat:classmethod:: AMPL.getObjective(name)
+
+See  :mat:meth:`AMPL.getEntity`.
+
+
+
+getParameter
+------------
+
+.. mat:classmethod:: AMPL.getParameter(name)
+
+See  :mat:meth:`AMPL.getEntity`.
+
+
+getSet
+------
+
+.. mat:classmethod:: AMPL.getSet(name)
+
+See  :mat:meth:`AMPL.getEntity`.
+
+
+getVariable
+-----------
+
+.. mat:classmethod:: AMPL.getVariable(name)
+
+See  :mat:meth:`AMPL.getEntity`.
+
+
+
+isRunning
+---------
+
+.. mat:classmethod:: AMPL.isRunning()
+
+**Syntax**
+
+
+``b = isRunning``
+ 
+**Description**
+
+
+``b = isRunning`` returns 1 if the underlying AMPL intepreter is running and ready to accepts commands.
+
+**Output Arguments**
+
+
+``b``
+   1 if the underlying engine is running, 0 otherwise (if the engine had been stopped with :mat:meth:`AMPL.close()` or if it had not been
+   started due to other problems.
+
+**Example**
+
+     
+Start AMPL and check if it is running
+ 
+.. code-block:: matlab
+
+   ampl = initAMPL;
+   b = isRunning
+   
+gives::
+
+   >> b =
+      1
+
+
+
+reset
+-----
+
+.. mat:classmethod:: AMPL.reset()
+
+**Syntax**
+
+
+``b = reset``
+ 
+**Description**
+
+
+``reset`` resets the underlying AMPL interpreter. Equivalent to the AMPL statement ``reset;``.
+
+
+**Example**
+
+     
+Start AMPL and check if it is running
+ 
+.. code-block:: matlab
+
+   ampl.eval('var x;');
+   ampl.reset;
+   ampl.eval('var x{1..3};')
+  
+   
+does not give an error because the variable x has been deleted from AMPL by the reset command.
+
+
+
+display
+-------
+
+.. mat:classmethod:: AMPL.display(displayExpressions)
+   
+**Syntax**
+
+
+``display(displayExpression)``
+
+``display(displayExpressions)``  
+ 
+**Description**
+
+
+``display(displayExpression)``  Prints on screen the result of calling the AMPL ``display`` command
+on the display expression.
+
+``display(displayExpressions)`` Prints on screen the result of calling the AMPL ``display`` command
+on a series of expressions. 
+
+
+**Input Arguments**
+
+
+``displayExpression`` A string containing the display expression to be displayed 
+
+``displayExpressions`` A list of display expression(s) to be displayed
+
+
+**Example** 1
+
+     
+Prints the values of an AMPL expression: and of two expressions.
+ 
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..100} := i;');
+   ampl.display('{i in 1..100 : x[i] >= 98} x[i]');
+   ampl.display('{i in 95..98} i', '{i in 1..100 : x[i] >= 98} x[i]'); 
+   
+gives::
+
+   :      i    x[i]    :=
+   95    95      .
+   96    96      .
+   97    97      .
+   98    98      98
+   99      .     99
+   100     .    100
+   ; 
+  
+
+
+
+show
+----
+
+.. mat:classmethod:: AMPL.show(showExpressions)
+   
+**Syntax**
+
+
+``show(entity)``
+
+``show(entities)``  
+ 
+**Description**
+
+The AMPL ``show`` command fetches the declaration of an entity. It can be used
+on single entities or list of entities
+ 
+``show(entity)``  Prints on screen the result of calling the AMPL ``show`` command
+on the specified entity
+
+``show(entities)`` Prints on screen the result of calling the AMPL ``show`` command
+on a series of entities. 
+
+
+**Input Arguments**
+
+
+``entity`` An AMPL entity
+
+``entities`` A list of AMPL entities
+
+
+**Example** 1
+
+     
+Prints the declaration of an AMPL expression and an entity
+ 
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..100}; maximize z: sum{i in 1..100} x[i];');
+   x = ampl.getVariable('x');
+   z = ampl.getObjective('z');
+   ampl.show(x, z);
+    
+   
+gives::
+
+   var x{i in 1 .. 100}
+   maximize z: sum{i in 1 .. 100} x[i];
+      
+      
+
+
+expand
+------
+
+.. mat:classmethod:: AMPL.expand(expandExpressions)
+   
+**Syntax**
+
+
+``expand(entity)``
+
+``expand(entities)``  
+ 
+**Description**
+
+The AMPL ``expand`` command expands an entity, visualizing all its instances. It can be used
+on single entities or list of entities
+ 
+``expand(entity)``  Prints on screen the result of calling the AMPL ``expand`` command
+on the specified entity.
+
+``expand(entities)`` Prints on screen the result of calling the AMPL ``expand`` command
+on all the entieis. 
+
+
+**Input Arguments**
+
+``entity`` An AMPL entity
+
+``entities`` A list of AMPL entities
+
+
+**Example** 1
+
+     
+Expands the entities in this model:
+ 
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..3}; maximize z: sum{i in 1..3} x[i];');
+   x = ampl.getVariable('x');
+   z = ampl.getObjective('z');
+   ampl.expand(x, z);
+    
+   
+gives::
+
+   Coefficients of x[1]:
+      z  1
+   Coefficients of x[2]:
+      z  1
+   Coefficients of x[3]:
+      z  1
+   maximize z:
+      x[1] + x[2] + x[3];
+
+
+getOption
+---------
+
+.. mat:classmethod:: AMPL.getOption(name)
+
+**Syntax**
+
+
+``stringvalue = getOption(name)``
+
+``intvalue = getIntOption(name)``
+
+``dblvalue = getDblOption(name)``
+
+``boolvalue = getBoolOption(name)``
+ 
+**Description**
+
+
+``getOption``, ``getIntOption``, ``getDblOption``, ``getBoolOption`` get values of the specified options in the underlying AMPL interpreter,
+casted to the specified data structure.
+
+
+**Output Arguments**
+
+
+``stringvalue``
+   The value of the specified option as a string
+   
+``intvalue``
+   The value of the specified option as an integer
+   
+``dblvalue``
+   The value of the specified option as a floating point nubmer
+   
+``boolvalue``
+   The value of the specified option as a boolean (mapped in MATLAB to an integer, 0 if true, 1 otherwise)
+
+**Example**
+
+     
+Shows the version of the underlying AMPL interpreter, the current random seed and the current relax_integrality status. 
+
+.. code-block:: matlab
+
+   version = ampl.getOption('version')                % Get the value of option version
+   eps = ampl.getDblOption('display_eps')             % Get the value of display_eps
+   randseed = ampl.getIntOption('randseed')           % Get the value of randseed
+   relaxed = ampl.getBoolOption('relax_integrality')  % Get the value of relax_integrality
+   
+This will give::
+
+   version =
+      AMPL OptiRisk Version 20130625 (MS VC++ 10.0, 64-bit)
+   eps =
+      0
+   randseed =
+      1
+   relaxed =
+      0
+ 
+
+  
+     
+
+   
+setOption
+---------
+
+.. mat:classmethod:: AMPL.setOption(optionname)
+   
+**Syntax**
+
+
+``setOption(optionname, stringvalue)``
+
+``setDblOption(optionname, numericvalue)``
+
+``setIntOption(optionname, integervalue)``
+
+``setBoolOption(optionname, booleanvalue)``
+ 
+**Description**
+
+   
+``setOption(optionname, stringvalue)`` Set the value of the specified option to the specified string
+
+``setDblOption(optionname, value)`` Set the value of the specified option to the specified value
+
+``setIntOption(optionname, value)`` Set the value of the specified option to the specified integer value
+
+``setBoolOption(optionname, boolvalue)`` Set the value of the specified option to the specified boolean value
+
+**Input Arguments**
+
+
+``optionname`` The name of the option to be set 
+
+``stringvalue`` The string to set the option's value to
+
+``value`` The number to set the option's value to
+
+``boolvalue`` The boolean value (`true` or `false`) to set the option's value to. MATLAB maps 0 to `false` and 1 to `true`
+
+**Example**
+
+     
+Get and set values of various options
+ 
+.. code-block:: matlab
+
+   ampl.getDblOption('presolve')
+   ampl.setDblOption('presolve', 0);
+   ampl.getDblOption('presolve')
+   ampl.setBoolOption('presolve', true);
+   ampl.getBoolOption('presolve')
+   ampl.setOption('mystringoption', 'mystringvalue');
+   ampl.getOption('mystringoption')
+   
+   
+gives::
+
+  ans =
+    10
+
+  ans =
+     0
+  
+  ans =
+     1
+
+  ans =
+     mystringvalue
+
+	 
+	 
+initializeEvents
+----------------
+
+.. mat:classmethod:: AMPL.initializeEvents
+ 
+**Description**
+
+``initializeEvents()`` enables output redirection for the current session. 
+	After this functions is called, the event :mat:attr:`AMPL.Output` will be
+	fired every time the interpreter outputs something on screen. 
+	See :mat:class:`AMPLOutput`.
+	Note that the java library must be statically added to classpath for this to work
+	(see https://uk.mathworks.com/help/matlab/matlab_external/jar-file-classes.html?s_tid=gn_loc_drop)
+
+
+**Example**
+
+Redirect AMPL output   
+ 
+.. code-block:: matlab
+
+  ampl = AMPL;
+  ampl.initializeEvents;
+  addlistener(ampl, 'Output', @(h,e)disp(e.msg));
+ 
+At this point, every AMPL output will be redirected to the anonymous function (``disp(e.msg)``)
+
+Output
+------
+
+.. mat:attribute:: AMPL.Output
+
+
+**Description**
+
+After initialization with :mat:meth:`AMPL.initializeEvents`, this event is fired whenever 
+the underlying AMPL interpreter prints somethig on screen.

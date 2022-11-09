@@ -1,0 +1,10 @@
+.. highlight:: c++
+
+.. _ref::DataFrame:
+
+DataFrame
+----------
+
+.. doxygenclass:: ampl::DataFrame
+   :members:
+   :undoc-members:

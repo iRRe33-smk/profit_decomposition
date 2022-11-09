@@ -1,0 +1,270 @@
+
+
+Objective Class
+===============
+
+
+
+
+
+
+Represents an AMPL objective. Note that, in case of a scalar objective, all
+the properties (corresponding to AMPL suffixes) of the objective instance can
+be accessed through corresponding properties on the Objective itself.
+The properties have the same name of the corresponding
+AMPL suffixes. See http://www.ampl.com/NEW/suffbuiltin.html
+for a list of the available suffixes.
+An `ArgumentException` is thrown if one of such methods is called for
+a non-scalar objective.
+An `ArgumentOutOfRangeException` is thrown if any property of an entity which has been
+deleted from the underlying interpreter is accessed.
+The instances, represented by the class  :dn:class:`ampl.ObjectiveInstance` can be accessed via
+the indexing operator, via the method :dn:method:`ampl.Entities.Objective.Get` or via the iterator provided.
+To gain access to all the values in an entity (for all instances and all
+suffixes for that entities), see :dn:method:`ampl.Entities.Entity.GetValues` and the
+:dn:class:`ampl.DataFrame` class.
+
+
+Namespace
+    :dn:ns:`ampl.Entities`
+Assemblies
+    * AMPL
+
+----
+
+.. contents::
+   :local:
+
+
+
+Inheritance Hierarchy
+---------------------
+
+
+* :dn:cls:`System.Object`
+* :dn:cls:`ampl.Entities.Entity`
+* :dn:cls:`ampl.Entities.Entity{ampl.ObjectiveInstance}`
+* :dn:cls:`ampl.Entities.Objective`
+
+
+
+
+
+
+
+
+Syntax
+------
+
+.. code-block:: csharp
+
+    public class Objective : Entity<ObjectiveInstance>, IEnumerable<ObjectiveInstance>, IEnumerable
+
+
+
+
+
+
+
+
+.. dn:class:: ampl.Entities.Objective
+    :hidden:
+
+.. dn:class:: ampl.Entities.Objective
+
+Properties
+----------
+
+.. dn:class:: ampl.Entities.Objective
+    :noindex:
+    :hidden:
+
+    
+    .. dn:property:: ampl.Entities.Objective.Astatus
+
+        
+
+        
+        Return the AMPL status
+
+
+        
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public string Astatus { get; }
+    
+    .. dn:property:: ampl.Entities.Objective.ExitCode
+
+        
+
+        
+        Exit code returned by solver after most recent solve with this objective
+
+
+        
+        :rtype: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public int ExitCode { get; }
+    
+    .. dn:property:: ampl.Entities.Objective.IsMinimization
+
+        
+
+        
+        Get the sense of this objective, true if minimization, false if maximization
+
+
+        
+        :rtype: System.Boolean
+
+        
+        .. code-block:: csharp
+
+            public bool IsMinimization { get; }
+    
+    .. dn:property:: ampl.Entities.Objective.Message
+
+        
+
+        
+        Result message returned by solver after most recent solve with this objective
+
+
+        
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public string Message { get; }
+    
+    .. dn:property:: ampl.Entities.Objective.Result
+
+        
+
+        
+        Result string returned by solver after most recent solve with this objective
+
+
+        
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public string Result { get; }
+    
+    .. dn:property:: ampl.Entities.Objective.Sstatus
+
+        
+
+        
+        Return the solver status
+
+
+        
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public string Sstatus { get; }
+    
+    .. dn:property:: ampl.Entities.Objective.Value
+
+        
+
+        
+        Get the value of this objective 
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Value { get; }
+    
+
+Methods
+-------
+
+.. dn:class:: ampl.Entities.Objective
+    :noindex:
+    :hidden:
+
+    
+    .. dn:method:: ampl.Entities.Objective.Drop()
+
+        
+
+        
+        Drop this objective
+
+
+        
+
+        
+        .. code-block:: csharp
+
+            public void Drop()
+    
+    .. dn:method:: ampl.Entities.Objective.Get(System.Object[])
+
+        
+
+        
+        :type index: System.Object<System.Object>[]
+        :rtype: ampl.ObjectiveInstance
+
+        
+        .. code-block:: csharp
+
+            public ObjectiveInstance Get(params object[] index)
+    
+    .. dn:method:: ampl.Entities.Objective.Get(ampl.Tuple)
+
+        
+
+        
+        :type t: ampl.Tuple
+        :rtype: ampl.ObjectiveInstance
+
+        
+        .. code-block:: csharp
+
+            public override ObjectiveInstance Get(Tuple t = null)
+    
+    .. dn:method:: ampl.Entities.Objective.GetEnumerator()
+
+        
+        :rtype: System.Collections.Generic.IEnumerator<System.Collections.Generic.IEnumerator`1>{ampl.ObjectiveInstance<ampl.ObjectiveInstance>}
+
+        
+        .. code-block:: csharp
+
+            public override IEnumerator<ObjectiveInstance> GetEnumerator()
+    
+    .. dn:method:: ampl.Entities.Objective.Restore()
+
+        
+
+        
+        Restore this objective  (if it had been dropped, no effect otherwise)
+
+
+        
+
+        
+        .. code-block:: csharp
+
+            public void Restore()
+    
+

@@ -1,0 +1,111 @@
+.. _secExamplesCsharp:
+
+C# API examples
+=================
+
+This section lists a few examples in C#. 
+These are the same files that can be found in the *examples* directory of the distribution, and show the basic usage of the C# API. 
+
+Example 1: First steps
+----------------------
+
+:download:`firstexample.cs <../../cpp/swig/csharp/lib/examples/FirstExample.cs>`
+
+This example shows how to
+ 
+* read an AMPL model
+* reassign values to parameters 
+* solve the model 
+* display the objective function value
+
+Example 2: Get and set AMPL options
+-----------------------------------
+
+:download:`optionsexample.cs <../../cpp/swig/csharp/lib/examples/OptionsExample.cs>`
+
+This example shows how to:
+
+* get and set AMPL options
+
+Example 3: Use AMPL asynchronously
+----------------------------------
+
+:download:`asyncexample.cs <../../cpp/swig/csharp/lib/examples/AsyncExample.cs>`
+
+This example shows how to:
+
+* set a callback for AMPL async operation (implementing :class:`ampl::Runnable`)
+* start and interrupt async operations
+   
+Example 4: Get and set data through DataFrames
+----------------------------------------------
+
+:download:`dataframeexample.cs <../../cpp/swig/csharp/lib/examples/DataFrameExample.cs>`
+
+This example shows how to:
+
+* Use :class:`ampl::DataFrame` objects to assign values to sets and parameters
+* Use an :class:`ampl::DataFrame` object to fetch and decouple values from a variable
+   
+Example 5: Operate with multidimensional data
+---------------------------------------------
+
+:download:`multidimensionalexample.cs <../../cpp/swig/csharp/lib/examples/MultidimensionalExample.cs>`
+
+This example shows how to:
+
+* Use a :class:`ampl::DataFrame` to assign values to multidimensional parameters
+
+
+Example 6: Assign all data to a model and solve it
+--------------------------------------------------
+
+:download:`dietmodel.cs <../../cpp/swig/csharp/lib/examples/DietModel.cs>`
+
+This example shows how to:
+
+* Assign all the data necessary to generate a model instance programmatically
+
+
+
+Example 7: Build an efficient frontier
+--------------------------------------
+
+:download:`efficientfrontier.cs <../../cpp/swig/csharp/lib/examples/EfficientFrontier.cs>`
+
+This example shows how to:
+
+* build an efficient frontier by repeteatly solve a portfolio problem in AMPL
+
+Example 8: Simple heuristic
+---------------------------
+
+:download:`trackingmodel.cs <../../cpp/swig/csharp/lib/examples/TrackingModel.cs>`
+
+This example shows how to:
+
+* Do a simple heuristics for solving a QMIP problem, using the relaxed solution as a hint
+
+ 
+Example 9: Simple heuristic
+---------------------------
+
+:download:`trackingmodel.cs <../../cpp/swig/csharp/lib/examples/TrackingModel.cs>`
+
+This example shows how to:
+
+* Do a simple heuristics for solving a QMIP problem, using the relaxed solution as a hint
+
+ 
+Example 10: Redirecting output and error messages
+--------------------------------------------------
+
+:download:`OutputAndErrorRedirectionExample.cs <../../cpp/swig/csharp/lib/examples/OutputAndErrorRedirectionExample.cs>`
+
+This example shows how to:
+
+* Redirect the output and error messages from the underlying AMPL interpreter
+
+ 
+   
+   

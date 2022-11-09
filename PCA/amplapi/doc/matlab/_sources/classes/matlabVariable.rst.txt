@@ -1,0 +1,533 @@
+.. _secMATLABrefVariable:
+
+Variable
+========
+
+.. mat:class:: Variable
+
+
+The Variable object stores the information regarding a variable in the algebraic
+model.                
+It can contain multiple variable instances, or can be scalar. Generally, numerical values are available
+for each specific instance, which are accessible through the function :mat:meth:`Variable.get`. 
+For scalar variables, direct accessors to the values are available (see for **Example** function :mat:meth:`Variable.value` below).
+For ease of use, values for the entire algebraic entity can be accessed directly and assigned to MATLAB vectors using the 
+:mat:class:`DataFrame` object. To assign values in this way, see :mat:meth:`AMPL.setData`. To get the values use 
+:mat:meth:`Variable.getValues`.  
+
+
+
+
+get(key)
+--------
+
+.. mat:classmethod:: Variable.get(key)
+
+**Syntax**
+
+
+``v = get(key)``
+ 
+**Description**
+
+
+``v = get(key)`` returns the VariableInstance corresponding to the specified key. 
+Note that the same effect can be achieved using MATLAB's indexing operator (round brackets).
+
+**Input Arguments**
+
+
+The key of the variable instance to look up.
+
+**Output Arguments**
+
+
+``v``
+   The specified variable instance
+   
+**Example**
+
+     
+Create an indexed variable, get an instance for each, and fix them to some value
+
+.. code-block:: matlab
+
+   ampl.eval('var x{1..5}; var y{1..2, 1..2};');  
+   x = ampl.getVariable('x');
+   y = ampl.getVariable('y');
+   x2 = x.get(2);
+   y2_2 = y.get({2,2});
+   x2.fix(3);
+   y2_2.fix(4.4);
+   x.display
+   y.display
+   
+
+gives:: 
+
+   ans =
+      x [*] :=
+      1  0
+      2  3
+      3  0
+      4  0
+      5  0
+      ;
+    
+   ans =
+      y :=
+      1 1   0
+      1 2   0
+      2 1   0
+      2 2   4.4
+      ;
+
+
+
+
+
+getValues
+---------
+
+.. mat:classmethod:: Variable.getValues()
+
+**Syntax**
+
+
+``df = v.getValues()``
+
+``df = v.getValues(suffixes)``
+ 
+**Description**
+
+
+
+These functions return a dataframe with all the specified values of the variable, decoupled from the underlying AMPL. 
+To gain access to the data, see :mat:class:`DataFrame`.
+
+``v.getValues()`` gets the AMPL value (equivalent to the suffix ``val``)
+
+``v.getValues(suffixes)`` allows the user to specify which suffixes to get 
+
+
+**Input Arguments**
+
+
+``suffixes``
+   Strings specifying which suffixes of the variable to get (see `AMPL built-in suffixes <http://www.ampl.com/NEW/suffbuiltin.html>`_).
+
+**Output Arguments**
+
+
+``df``
+   A dataframe containing all the specified values of the variable and its indices
+   
+**Example**
+
+     
+Create an algebraic variable in AMPL, then get the values and the lower and upper bounds for all instances in a dataframe. 
+
+.. code-block:: matlab
+ 
+   ampl.eval('var x{i in 1..2} <= i, >= -i;');
+   x = ampl.getVariable('x');
+   df = x.getValues('val', 'lb', 'ub')
+    
+gives::
+
+   df =
+   i in 1 .. 2  |  value  lb    ub   
+   1.0          |  0.0    -1.0  1.0 
+   2.0          |  0.0    -2.0  2.0  
+
+
+
+
+value()
+-------
+
+.. mat:classmethod:: Variable.value()
+
+**Syntax**
+
+
+``v = value()``
+ 
+**Description**
+
+
+``v = value()`` Get the current value of the variable. Valid only for scalar entities. 
+
+**Output Arguments**
+
+
+``v``
+   The current value of the variable
+   
+**Example**
+
+     
+Create a scalar variable x and an indexed variable y (using :mat:meth:`AMPL.eval`) Try to access their values
+and see that x returns its current value (0) and y throws an error because it is
+not a scalar variable.
+
+.. code-block:: matlab
+
+   >> ampl.eval('var x; var y{1..2};');  
+   >> x = ampl.getVariable('x');
+   >> y = ampl.getVariable('y');
+   >> v = x.value
+    v = 0
+   >> y.value
+      Java exception occurred:
+      com.ampl.AMPLException: The entity y is not a scalar entity
+      at com.ampl.Entity.checkNoIndexing(Entity.java:429)
+      at com.ampl.Variable.value(Variable.java:214)
+
+
+setValue(v)
+-----------
+
+.. mat:classmethod:: Variable.setValue()
+
+**Syntax**
+
+
+``setValue(v)``
+ 
+**Description**
+
+
+``setValue(v)`` Assigns the specified value to the variable.  Valid only for scalar variables. Equivalent to the AMPL code::
+
+   var x;
+   let x := v;
+
+
+**Input Arguments**
+
+
+``v``
+   The value to be assigned 
+   
+**Example**
+
+     
+Create a variable x and sets its initial value. Then displays it:
+
+.. code-block:: matlab
+
+   ampl.eval('var x;');  
+   x = ampl.getVariable('x');
+   x.setValue(4);
+   x.value
+   
+gives::
+
+   ans =
+     4
+     
+     
+     
+
+dual
+----
+
+.. mat:classmethod:: Variable.dual()
+
+**Syntax**
+
+
+``v = dual``
+ 
+**Description**
+
+
+``dual`` Access the current dual value of the variable (if scalar). Valid only for scalar entities. 
+
+
+**Output Arguments**
+
+
+``v``
+   The dual value of the variable
+
+**Example**
+
+     
+Create a scalar variable x and an indexed variable y (using :mat:meth:`AMPL.eval`).
+Set the system to fetch all suffixes from the variables and get the values.
+
+.. code-block:: matlab
+
+   ampl.eval('var x; var y{1..2};');  
+   x = ampl.getVariable('x');
+   x.setGetAllProperties(1);
+   v = x.dual
+   
+gives::
+
+    v = 0
+    
+
+lb
+--
+
+.. mat:classmethod:: Variable.lb()
+
+**Syntax**
+
+
+``v = lb``
+ 
+**Description**
+
+
+``lb`` Get the current lower bound of the variable. Valid only for scalar entities. See :ref:`secVariableSuffixesNotes`.
+
+
+**Output Arguments**
+
+
+``v``
+   The lower bound of the variable
+
+**Example**
+
+     
+Create a scalar variable x and an indexed variable y (using :mat:meth:`AMPL.eval`).
+Set the system to fetch all suffixes from the variables and get the value.
+
+.. code-block:: matlab
+
+   ampl.eval('var x; var y{1..2};');  
+   x = ampl.getVariable('x');
+   x.setGetAllProperties(1);
+   v = x.lb
+   
+gives::
+
+    v = 0
+    
+
+
+
+ub
+--
+
+.. mat:classmethod:: Variable.ub()
+
+**Syntax**
+
+
+``v = ub``
+ 
+**Description**
+
+
+``ub`` Get the current upper bound of the variable. Valid only for scalar entities. See :ref:`secVariableSuffixesNotes`.
+
+
+**Output Arguments**
+
+
+``v``
+   The upper bound of the variable
+
+**Example**
+
+     
+Create a scalar variable x and an indexed variable y (using :mat:meth:`AMPL.eval`).
+Set the system to fetch all suffixes from the variables and get the value.
+
+.. code-block:: matlab
+
+   ampl.eval('var x; var y{1..2};');  
+   x = ampl.getVariable('x');
+   x.setGetAllProperties(1);
+   v = x.ub
+   
+gives::
+
+    v = 0    
+
+
+getIntegrality
+--------------
+
+.. mat:classmethod:: Variable.getIntegrality()
+
+**Syntax**
+
+
+``v = getIntegrality``
+
+ 
+**Description**
+
+
+``v = getIntegrality`` returns the integrality type of this Variable
+
+
+**Output Arguments**
+
+
+``v``
+   Integrality type
+
+**Example**
+
+     
+Create a continous, an integer and a binary variable and check their integrality
+
+.. code-block:: matlab
+
+   ampl.eval('var x; var y integer; var z binary;');  
+   x = ampl.getVariable('x');
+   y = ampl.getVariable('y');
+   z = ampl.getVariable('z');
+   v = x.getIntegrality
+   v = y.getIntegrality
+   v = z.getIntegrality
+   
+gives::
+
+    v =
+      CONTINUOUS
+ 
+   v =
+      INTEGER
+ 
+   v =
+      BINARY
+      
+      
+
+fix
+---
+
+.. mat:classmethod:: Variable.fix()
+
+**Syntax**
+
+
+``fix``
+ 
+**Description**
+
+
+``fix`` Fix all instances in the variable to their current values
+
+**Example**
+
+     
+Create a scalar variable x and an indexed variable y (using :mat:meth:`AMPL.eval`) and fix 
+their values.
+
+.. code-block:: matlab
+
+   ampl.eval('var x<=3; var y{1..3}<=4;');
+   ampl.eval('maximize z: x + sum{i in 1..3} y[i];');
+   x = ampl.getVariable('x');
+   y = ampl.getVariable('y');
+   x.fix;      % fix variables
+   y.fix;
+   ampl.solve; % solve
+   x.display   % display solution
+   y.display
+   x.unfix;    % unfix variables
+   y.unfix;
+   ampl.solve; % solve and display
+   x.display   % display solution
+   y.display
+   
+ gives::
+ 
+   ans =
+      x = 0
+    
+   ans =
+      y [*] :=
+      1  0
+      2  0
+      3  0
+      ;
+    
+   ans = 
+      x = 3
+   
+   ans = 
+      y [*] :=
+      1  4
+      2  4
+      3  4
+      ;  
+      
+
+
+unfix
+-----
+
+.. mat:classmethod:: Variable.unfix()
+
+**Syntax**
+
+
+``unfix``
+ 
+**Description**
+
+
+``unfix`` Fix all instances in the variable to their current values
+
+**Example**
+
+     
+Create a scalar variable x and an indexed variable y (using :mat:meth:`AMPL.eval`), fix 
+their values, solve and unfix them
+
+.. code-block:: matlab
+
+   ampl.eval('var x<=3; var y{1..3}<=4;');
+   ampl.eval('maximize z: x + sum{i in 1..3} y[i];');
+   x = ampl.getVariable('x');
+   y = ampl.getVariable('y');
+   x.fix;      % fix variables
+   y.fix;
+   ampl.solve; % solve
+   x.display   % display solution
+   y.display
+   x.unfix;    % unfix variables
+   y.unfix;
+   ampl.solve; % solve and display
+   x.display   % display solution
+   y.display
+   
+ gives::
+ 
+   ans =
+      x = 0
+    
+   ans =
+      y [*] :=
+      1  0
+      2  0
+      3  0
+      ;
+    
+   ans = 
+      x = 3
+   
+   ans = 
+      y [*] :=
+      1  4
+      2  4
+      3  4
+      ;  
+
+
+
+
+
+
+   

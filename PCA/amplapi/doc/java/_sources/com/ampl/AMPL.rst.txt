@@ -1,0 +1,790 @@
+.. java:import:: java.io Closeable
+
+.. java:import:: java.io IOException
+
+.. java:import:: java.io Writer
+
+.. java:import:: java.lang.reflect Field
+
+.. java:import:: java.util Arrays
+
+AMPL
+====
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class AMPL extends AMPLBase implements Closeable
+
+   An AMPL translator. An object of this class can be used to do the following tasks:
+
+   ..
+
+   * Run AMPL code. See :java:ref:`AMPL.eval` and :java:ref:`AMPL.evalAsync`.
+   * Read models and data from files. See :java:ref:`AMPL.read`, :java:ref:`AMPL.readData`, :java:ref:`AMPL.readAsync` and :java:ref:`AMPL.readDataAsync`.
+   * Solve optimization problems constructed from model and data (see :java:ref:`AMPL.solve` and :java:ref:`AMPL.solveAsync`).
+   * Access single elements of an optimization problem. See the generic :java:ref:`AMPL.getEntity` and the generic :java:ref:`AMPL.getVariable`, :java:ref:`AMPL.getObjective`, :java:ref:`AMPL.getConstraint`, :java:ref:`AMPL.getSet` and :java:ref:`AMPL.getParameter`.
+   * Access lists of available elements of an optimization problem. See :java:ref:`AMPL.getVariables`, :java:ref:`AMPL.getObjectives`, :java:ref:`AMPL.getConstraints`, :java:ref:`AMPL.getSets` and :java:ref:`AMPL.getParameters`.
+
+   AMPL stores one or more problems which may consume substantial amount of memory. An AMPL object without any references to it will eventually be freed by the Java garbage collector and all the memory and other resources associated with it will be released. This includes any resources which are out of scope of the garbage collector such as open files or memory managed by the native code. Call :java:ref:`AMPL.close` to release these resources explicitly.
+
+   The initialisation of the Java representation of the AMPL entities (any class derived from :java:ref:`Entity`) is lazy and consists of two steps. When a function listing available elements is called, only a shallow list with names, types and declarations of the elements is populated. The same happens when a reference to a Java representation of one entity is obtained (through a call to :java:ref:`AMPL.getEntity` or any other single entity factory function). When accessing any instance of an entity (through the methods 'get' of any class), the (memory hungry) list of instances for that entity is created.
+
+   Consistency is maintained automatically. Any command issued to the translator through :java:ref:`AMPL.eval` and similar functions invalidates all entities, and any further access to any entity will require communication between the native translator and the Java code. Conversely, any operation called through the Java equivalent function, like fixing variables or solving the model will invalidate only the entities involved. A list of dependencies between entities is automatically updated.
+
+   Error handling is two-faced:
+
+   ..
+
+   * Errors coming from the underlying AMPL translator (e.g. syntax errors and warnings obtained calling the :java:ref:`AMPL.eval` method) are handled by the :java:ref:`ErrorHandler` which can be set and get via :java:ref:`AMPL.getErrorHandler()` and :java:ref:`AMPL.setErrorHandler()`.
+   * Generic errors coming from misusing the API, which are detected in Java, are thrown as exceptions.
+
+   The default implementation of the error handler throws exceptions on errors and prints to console on warnings.
+
+   The output of every user interaction with the underlying translator is handled implementing the interface :java:ref:`OutputHandler`. The (only) method is called at each block of output from the translator. The current output handler can be accessed and set via :java:ref:`AMPL.getOutputHandler` and :java:ref:`AMPL.setOutputHandler`.
+
+Constructors
+------------
+AMPL
+^^^^
+
+.. java:constructor:: public AMPL()
+   :outertype: AMPL
+
+   Default constructor: creates a new AMPL instance with the default environment.
+
+   :throws LicenseException: If no valid AMPL license has been found
+   :throws RuntimeException: if the translator cannot be started for any other reason.
+
+AMPL
+^^^^
+
+.. java:constructor:: public AMPL(Environment env)
+   :outertype: AMPL
+
+   Constructor: creates a new AMPL instance with an ad-hoc environment. The environment can specify the location of the AMPL translator, the location of the licence file and any system environment variable.
+
+   :param env: The environment in which the AMPL instance has to be created (can specify position of the license or other environment variables)
+   :throws LicenseException: If no valid AMPL license has been found
+   :throws RuntimeException: If the translator cannot be started for any other reason.
+
+Methods
+-------
+addLibraryPath
+^^^^^^^^^^^^^^
+
+.. java:method:: static void addLibraryPath(String pathToAdd) throws Exception
+   :outertype: AMPL
+
+   Adds the specified path to the java library path
+
+   :param pathToAdd: the path to add
+   :throws Exception:
+
+attachShutDownHook
+^^^^^^^^^^^^^^^^^^
+
+.. java:method:: public void attachShutDownHook()
+   :outertype: AMPL
+
+cd
+^^
+
+.. java:method:: public String cd(String path)
+   :outertype: AMPL
+
+   Change or display the current working directory (see https://en.wikipedia.org/wiki/Working_directory ).
+
+   :param path: New working directory or null (to display the working directory)
+   :return: Current working directory
+
+cd
+^^
+
+.. java:method:: public String cd()
+   :outertype: AMPL
+
+   Get the current working directory from the underlying interpreter (see https://en.wikipedia.org/wiki/Working_directory ).
+
+   :return: Current working directory
+
+close
+^^^^^
+
+.. java:method:: public void close()
+   :outertype: AMPL
+
+   Stops the underlying engine, and release all any further attempt to execute optimisation commands without restarting it will throw an exception. It does not invalidate the currently generated entities, so that their values can be read and used.
+
+delete
+^^^^^^
+
+.. java:method:: public void delete()
+   :outertype: AMPL
+
+display
+^^^^^^^
+
+.. java:method:: public void display(Object... objects)
+   :outertype: AMPL
+
+   Writes on the current :java:ref:`OutputHandler` the outcome of the AMPL statement
+
+   .. parsed-literal::
+
+      display o1, o2, .., on;
+
+   where \ ``o1...on``\  are the objects passed to the procedure.
+
+   :param objects: Objects to write
+   :throws IllegalArgumentException: if an empty array of objects is passed
+
+display
+^^^^^^^
+
+.. java:method:: public void display(Writer out, Object... objects) throws IOException
+   :outertype: AMPL
+
+   Writes in the writer \ ``out``\  the outcome of the AMPL statement
+
+   .. parsed-literal::
+
+      display o1, o2, .., on;
+
+   where \ ``o1...on``\  are the objects passed to the procedure.
+
+   :param out: Writer to output the display command to
+   :param objects: Objects to write
+   :throws java.io.IOException: from the writer
+   :throws IllegalArgumentException: if an empty array of objects is passed
+
+enableErrorRedirection
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. java:method:: public void enableErrorRedirection()
+   :outertype: AMPL
+
+eval
+^^^^
+
+.. java:method:: public void eval(String s)
+   :outertype: AMPL
+
+   Parses AMPL code and evaluates it as a possibly empty sequence of AMPL declarations and statements.
+
+   As a side effect, it invalidates all entities (as the passed statements can contain any arbitrary command); the lists of entities will be re-populated lazily (at first access)
+
+   The output of interpreting the statements is passed to the current :java:ref:`OutputHandler` (see :java:ref:`AMPL.getOutputHandler` and :java:ref:`AMPL.setOutputHandler`).
+
+   By default, errors are reported as exceptions and warnings are printed on stdout. This behaviour can be changed reassigning a :java:ref:`ErrorHandler` using :java:ref:`AMPL.setErrorHandler`.
+
+   :param s: A collection of AMPL statements to be passed to the interpreter
+   :throws IllegalArgumentException: if the input is not a complete AMPL statement
+
+evalAsync
+^^^^^^^^^
+
+.. java:method:: public void evalAsync(String s, java.lang.Runnable callback)
+   :outertype: AMPL
+
+   Interprets the input statements asynchronously passing them to the underlying interpreter. As a side effect, it invalidates all entities (as the passed statements can contain any arbitrary command); the lists of entities will be re-populated lazily (at first access)
+
+   The output of interpreting the statements is passed to the current :java:ref:`OutputHandler` (see :java:ref:`AMPL.getOutputHandler` and :java:ref:`AMPL.setOutputHandler`).
+
+   By default, errors are reported as exceptions and warnings are printed on stdout. This behaviour can be changed reassigning a :java:ref:`ErrorHandler` using :java:ref:`AMPL.setErrorHandler`.
+
+   :param s: A collection of AMPL statements to be passed to the interpreter
+   :param callback: Callback to be called when AMPL has finished interpreting (or it is interrupted)
+   :throws IllegalArgumentException: if the input is not a complete AMPL statement
+
+expand
+^^^^^^
+
+.. java:method:: public void expand(Entity... entities)
+   :outertype: AMPL
+
+   Writes on the current :java:ref:`OutputHandler` the outcome of the AMPL statement
+
+   .. parsed-literal::
+
+      expand e1, e2, .., en;
+
+   where \ ``e1...en``\  are the entites passed to the procedure.
+
+   :param entities: Entities to expand.
+   :throws IllegalArgumentException: if an empty array of objects is passed
+
+expand
+^^^^^^
+
+.. java:method:: public void expand(Writer out, Entity... entities) throws IOException
+   :outertype: AMPL
+
+   Writes in the writer \ ``out``\  the output of the AMPL statement
+
+   .. parsed-literal::
+
+      expand e1, e2, .., en;
+
+   where \ ``e1...en``\  are the entites passed to the procedure.
+
+   :param out: Writer to output the \ ``expand``\  command to
+   :param entities: Entities to expand.
+   :throws IllegalArgumentException: If an empty array of objects is passed
+   :throws IOException: From the writer
+
+exportData
+^^^^^^^^^^
+
+.. java:method:: public String exportData(boolean includeSets)
+   :outertype: AMPL
+
+   Get all the data currently loaded in dat format
+
+   :param includeSets: True to include set members in the export, false to exclude them
+
+exportData
+^^^^^^^^^^
+
+.. java:method:: public void exportData(String fileName, boolean includeSets)
+   :outertype: AMPL
+
+   Writes all the data currently loaded to file in dat format
+
+   :param fileName: The file to write
+   :param includeSets: True to include set members in the export, false to exclude them
+
+exportModel
+^^^^^^^^^^^
+
+.. java:method:: public String exportModel()
+   :outertype: AMPL
+
+   Returns all the declarations in the current AMPL instance
+
+exportModel
+^^^^^^^^^^^
+
+.. java:method:: public void exportModel(String fileName)
+   :outertype: AMPL
+
+   Writes the declarations in the current AMPL instance to file
+
+   :param fileName: The file to write
+
+finalize
+^^^^^^^^
+
+.. java:method:: @Override protected void finalize()
+   :outertype: AMPL
+
+getBoolOption
+^^^^^^^^^^^^^
+
+.. java:method:: public boolean getBoolOption(String name)
+   :outertype: AMPL
+
+   Get the current value of the specified boolean option. In AMPL, boolean options are represented as integer: 0 for false, 1 for true
+
+   :param name: Option name
+   :throws NumberFormatException: If the option did not have a value which could be casted to boolean
+   :throws IllegalArgumentException: if the option name is not valid or not existent
+   :return: Value of the option (boolean)
+
+getConstraint
+^^^^^^^^^^^^^
+
+.. java:method:: public Constraint getConstraint(String name)
+   :outertype: AMPL
+
+   Get constraint with the corresponding name
+
+   :param name: Constraint name
+   :return: Constraint, null if specified constraint does not exist
+
+getConstraints
+^^^^^^^^^^^^^^
+
+.. java:method:: public EntityMap<Constraint> getConstraints()
+   :outertype: AMPL
+
+   Get all the currently defined constraints
+
+   :return: An :java:ref:`EntityMap` with all the constraints
+
+getCurrentObjectiveName
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. java:method:: public String getCurrentObjectiveName()
+   :outertype: AMPL
+
+getData
+^^^^^^^
+
+.. java:method:: public DataFrame getData(String... displayStatements)
+   :outertype: AMPL
+
+   Get the data corresponding to the display statements. The statements can be AMPL expressions, or entities. It captures the equivalent of the command:
+
+   .. parsed-literal::
+
+      display ds1, ..., dsn;
+
+   where ds1, ..., dsn are the ``displayStatements`` with which the function is called.
+
+   As only one DataFrame is returned, the operation will fail if the results of the display statements cannot be indexed over the same set. As a result, any attempt to get data from more than one set, or to get data for multiple parameters with a different number of indexing sets will fail.
+
+   :param displayStatements: The display statements to be fetched.
+   :throws Exception: if the AMPL visualisation command does not succeed for one of the reasons listed above.
+   :return: A :java:ref:`DataFrame` capturing the output of the display command in tabular form.
+
+getDblOption
+^^^^^^^^^^^^
+
+.. java:method:: public double getDblOption(String name)
+   :outertype: AMPL
+
+   Get the current value of the specified double option
+
+   :param name: Option name
+   :throws NumberFormatException: If the option did not have a value which could be casted to double
+   :throws IllegalArgumentException: if the option name is not valid or not existent
+   :return: Value of the option (double)
+
+getEntity
+^^^^^^^^^
+
+.. java:method:: public Entity getEntity(String name)
+   :outertype: AMPL
+
+   Get entity corresponding to the specified name (looks for it in all types of entities)
+
+   :param name: Name of the entity
+   :throws IllegalArgumentException: if the specified entity does not exist
+   :return: The AMPL entity with the specified name
+
+getErrorHandler
+^^^^^^^^^^^^^^^
+
+.. java:method:: public ErrorHandler getErrorHandler()
+   :outertype: AMPL
+
+   Get the current error handler
+
+   :return: The currently used :java:ref:`ErrorHandler`.
+
+getIntOption
+^^^^^^^^^^^^
+
+.. java:method:: public int getIntOption(String name)
+   :outertype: AMPL
+
+   Get the current value of the specified integer option
+
+   :param name: Option name (alphanumeric)
+   :throws NumberFormatException: If the option did not have a value which could be casted to integer
+   :throws IllegalArgumentException: if the option name is not valid or not existent
+   :return: Value of the option (integer)
+
+getObjective
+^^^^^^^^^^^^
+
+.. java:method:: public Objective getObjective(String name)
+   :outertype: AMPL
+
+   Get objective with the corresponding name
+
+   :param name: Objective name
+   :return: Objective, null if specified objective does not exist
+
+getObjectives
+^^^^^^^^^^^^^
+
+.. java:method:: public EntityMap<Objective> getObjectives()
+   :outertype: AMPL
+
+   Get all the currently defined objectives
+
+   :return: An :java:ref:`EntityMap` with all the objectives
+
+getOption
+^^^^^^^^^
+
+.. java:method:: public String getOption(String name)
+   :outertype: AMPL
+
+   Get the current value of the specified option
+
+   :param name: Option name (alphanumeric)
+   :throws IllegalArgumentException: if the option name is not valid
+   :return: Value of the option, as a string. Returns ``null`` if an option with that name is not defined.
+
+getOutput
+^^^^^^^^^
+
+.. java:method:: public String getOutput(String s)
+   :outertype: AMPL
+
+   Equivalent to :java:ref:`AMPL.eval` but returns the output as a string.
+
+   :param s: A collection of AMPL statements to be passed to the interpreter
+   :throws IllegalArgumentException: if the input is not a complete AMPL statement
+
+getOutputHandler
+^^^^^^^^^^^^^^^^
+
+.. java:method:: public OutputHandler getOutputHandler()
+   :outertype: AMPL
+
+   Get the current output handler. See :java:ref:`setOutputHandler`.
+
+   :return: The current outputHandler
+
+getParameter
+^^^^^^^^^^^^
+
+.. java:method:: public Parameter getParameter(String name)
+   :outertype: AMPL
+
+   Get parameter with the corresponding name
+
+   :param name: Parameter name
+   :return: Parameter, null if specified parameter does not exist
+
+getParameters
+^^^^^^^^^^^^^
+
+.. java:method:: public EntityMap<Parameter> getParameters()
+   :outertype: AMPL
+
+   Get all the currently defined parameters
+
+   :return: An :java:ref:`EntityMap` with all the parameters
+
+getSet
+^^^^^^
+
+.. java:method:: public Set getSet(String name)
+   :outertype: AMPL
+
+   Get set with the corresponding name
+
+   :param name: Set name
+   :return: Set, null if specified set does not exist
+
+getSets
+^^^^^^^
+
+.. java:method:: public EntityMap<Set> getSets()
+   :outertype: AMPL
+
+   Get all the currently defined sets
+
+   :return: An :java:ref:`EntityMap` with all the sets
+
+getValue
+^^^^^^^^
+
+.. java:method:: public Object getValue(String scalarValueExpression)
+   :outertype: AMPL
+
+   Get a scalar value from the underlying AMPL interpreter, as a double or a string.
+
+   :param scalarValueExpression: An AMPL expression which evaluates to a scalar value
+   :return: A string or a double number which represent the value of the expression
+
+getVariable
+^^^^^^^^^^^
+
+.. java:method:: public Variable getVariable(String name)
+   :outertype: AMPL
+
+   Get variable with the corresponding name
+
+   :param name: Variable name
+   :return: Variable, null if specified variable does not exist
+
+getVariables
+^^^^^^^^^^^^
+
+.. java:method:: public EntityMap<Variable> getVariables()
+   :outertype: AMPL
+
+   Get all the currently defined variables
+
+   :return: An :java:ref:`EntityMap` with all the variables
+
+interrupt
+^^^^^^^^^
+
+.. java:method:: public void interrupt()
+   :outertype: AMPL
+
+   Interrupt an underlying asynchronous operation (execution of AMPL code by the AMPL interpreter). An asynchronous operation can be started via evalAsync(), solveAsync(), readAsync() and readDataAsync(). Does nothing if the engine or the solver are not busy. Note that on Windows interrupting is only possible when AMPLSig.dll is loaded in the underlying AMPL interpreter. It is started automatically when the AMPL API is instantiated if present in the AMPL executable directory
+
+isBusy
+^^^^^^
+
+.. java:method:: public boolean isBusy()
+   :outertype: AMPL
+
+   Check if the engine is busy doing an async operation
+
+   :return: True if busy
+
+isRunning
+^^^^^^^^^
+
+.. java:method:: public boolean isRunning()
+   :outertype: AMPL
+
+   Check if the underlying engine is running
+
+   :return: True if it is running
+
+loadLibrary
+^^^^^^^^^^^
+
+.. java:method:: static void loadLibrary()
+   :outertype: AMPL
+
+read
+^^^^
+
+.. java:method:: public void read(String fileName) throws IOException
+   :outertype: AMPL
+
+   Interprets the specified file (script or model or mixed) As a side effect, it invalidates all entities (as the passed file can contain any arbitrary command); the lists of entities will be re-populated lazily (at first access)
+
+   :param fileName: Full path to the file
+   :throws IOException: In case the file does not exist
+
+readAsync
+^^^^^^^^^
+
+.. java:method:: public void readAsync(String fileName, java.lang.Runnable callback)
+   :outertype: AMPL
+
+   Interprets the specified file asynchronously, interpreting it as a model or a script file. As a side effect, it invalidates all entities (as the passed file can contain any arbitrary command); the lists of entities will be re-populated lazily (at first access)
+
+   :param fileName: Full path to the file
+   :param callback: Callback to be executed when the file has been interpreted
+   :throws IOException: In case the file does not exist
+
+readData
+^^^^^^^^
+
+.. java:method:: public void readData(String fileName) throws IOException
+   :outertype: AMPL
+
+   Interprets the specified file as data file The underlying AMPL instance will be set back to "model" mode after the execution. As a side effect, it invalidates all entities (as the passed file can contain any arbitrary command); the lists of entities will be re-populated lazily (at first access)
+
+   :param fileName: Full path to the file
+   :throws IOException: In case the file does not exist
+
+readDataAsync
+^^^^^^^^^^^^^
+
+.. java:method:: public void readDataAsync(String fileName, java.lang.Runnable callback)
+   :outertype: AMPL
+
+   Interprets the specified data file asynchronously. When interpreting is over, the specified callback is called. The file is interpreted as data. As a side effect, it invalidates all entities (as the passed file can contain any arbitrary command); the lists of entities will be re-populated lazily (at first access)
+
+   :param fileName: Full path to the file
+   :param callback: Callback to be executed when the file has been interpreted
+   :throws IOException: In case the file does not exist
+
+readTable
+^^^^^^^^^
+
+.. java:method:: public void readTable(String tableName)
+   :outertype: AMPL
+
+   Read the table corresponding to the specified name, equivalent to the AMPL statement:
+
+   .. parsed-literal::
+
+      read table tableName;
+
+   :param tableName: Name of the table to be read
+
+reset
+^^^^^
+
+.. java:method:: public void reset()
+   :outertype: AMPL
+
+   Clears all entities in the underlying AMPL interpreter, clears all maps and invalidates all entities
+
+setBoolOption
+^^^^^^^^^^^^^
+
+.. java:method:: public void setBoolOption(String name, boolean value)
+   :outertype: AMPL
+
+   Set an AMPL option to a specified boolean value. Note that in AMPL, boolean options are represented as integer: 0 for false, 1 for true
+
+   :param name: Name of the option to be set
+   :param value: The boolean value the option must be set to
+   :throws IllegalArgumentException: if the option name is not valid
+
+setData
+^^^^^^^
+
+.. java:method:: public void setData(DataFrame df)
+   :outertype: AMPL
+
+   Assign the data in the dataframe to the AMPL entities with the corresponding names. The indices values are not assigned; equivalent to:
+
+   .. parsed-literal::
+
+      setData(df, null);
+
+   :param df: The dataframe containing the data to be assigned
+   :throws Exception: If the data assignment procedure was not successful.
+
+setData
+^^^^^^^
+
+.. java:method:: public void setData(DataFrame df, String setName)
+   :outertype: AMPL
+
+   Assign the data in the dataframe to the AMPL entities with the names corresponding to the column names. If setName is null, only the parameters value will be assigned. If the dataframe has only index columns, it can be used to assign values to an AMPL set, which name must be specified in setName.
+
+   :param df: The dataframe containing the data to be assigned
+   :param setName: The name of the set to which the indices values of the DataFrame are to be assigned
+   :throws Exception: If the data assignment procedure was not successful.
+
+setDblOption
+^^^^^^^^^^^^
+
+.. java:method:: public void setDblOption(String name, double value)
+   :outertype: AMPL
+
+   Set an AMPL option to a specified double value.
+
+   :param name: Name of the option to be set
+   :param value: The double value the option must be set to
+   :throws IllegalArgumentException: if the option name is not valid
+
+setErrorHandler
+^^^^^^^^^^^^^^^
+
+.. java:method:: public void setErrorHandler(ErrorHandler errorHandler)
+   :outertype: AMPL
+
+   Set error handler. An error handler could for example redirect all error messages to stdout, or throw exception at all errors and print to console in case of warnings (see :java:ref:`ErrorHandler`).
+
+   :param errorHandler: :java:ref:`ErrorHandler` to be used
+
+setIntOption
+^^^^^^^^^^^^
+
+.. java:method:: public void setIntOption(String name, int value)
+   :outertype: AMPL
+
+   Set an AMPL option to a specified integer value.
+
+   :param name: Name of the option to be set
+   :param value: The integer value the option must be set to
+   :throws IllegalArgumentException: if the option name is not valid
+
+setOption
+^^^^^^^^^
+
+.. java:method:: public void setOption(String name, String value)
+   :outertype: AMPL
+
+   Set an AMPL option to a specified value.
+
+   :param name: Name of the option to be set (alphanumeric without spaces)
+   :param value: String representing the value the option must be set to
+   :throws IllegalArgumentException: if the option name is not valid
+
+setOutputHandler
+^^^^^^^^^^^^^^^^
+
+.. java:method:: public void setOutputHandler(OutputHandler outputHandler)
+   :outertype: AMPL
+
+   Set the AMPL output handler. Every time AMPL executes a statement, the output is passed to this handler for processing (see :java:ref:`OutputHandler`). The default handler prints to stdout.
+
+   :param outputHandler: The outputHandler to set
+   :throws ConcurrentModificationException: If called while the engine is busy doing an async operation
+
+show
+^^^^
+
+.. java:method:: public void show(Entity... entities)
+   :outertype: AMPL
+
+   Writes on the current :java:ref:`OutputHandler` the outcome of the AMPL statement
+
+   .. parsed-literal::
+
+      show e1, e2, .., en;
+
+   where \ ``e1...en``\  are the objects passed to the procedure.
+
+   :param entities: Entities to show.
+   :throws IllegalArgumentException: if an empty array of objects is passed
+
+show
+^^^^
+
+.. java:method:: public void show(Writer out, Entity... entities) throws IOException
+   :outertype: AMPL
+
+   Writes in the writer \ ``out``\  the output of the AMPL statement
+
+   .. parsed-literal::
+
+      show e1, e2, .., en;
+
+   where \ ``e1...en``\  are the entites passed to the procedure.
+
+   :param out: Writer to output the \ ``show``\  command to
+   :param entities: Entities to write
+   :throws IllegalArgumentException: if an empty array of objects is passed
+   :throws IOException: from the writer
+
+solve
+^^^^^
+
+.. java:method:: public void solve()
+   :outertype: AMPL
+
+   Solve the current model
+
+solveAsync
+^^^^^^^^^^
+
+.. java:method:: public void solveAsync(java.lang.Runnable callback)
+   :outertype: AMPL
+
+   Solve the current model asynchronously
+
+   :param callback: Function to be called when solver is done
+
+toString
+^^^^^^^^
+
+.. java:method:: public String toString()
+   :outertype: AMPL
+
+   Get a string describing the object. Returns the version of the interpreter or the message "AMPL is not running" if the interpreter is not running (e.g. due to unexpected internal error or to a call to :java:ref:`AMPL.close`)
+
+writeTable
+^^^^^^^^^^
+
+.. java:method:: public void writeTable(String tableName)
+   :outertype: AMPL
+
+   Write the table corresponding to the specified name, equivalent to the AMPL statement
+
+   .. parsed-literal::
+
+      write table tableName;
+
+   :param tableName: Name of the table to be written
+

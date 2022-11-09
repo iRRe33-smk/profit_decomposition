@@ -1,0 +1,210 @@
+ConstraintInstance
+==================
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class ConstraintInstance extends BasicInstance<ConstraintInstanceBase>
+
+   This class represent an instance of a constraint.
+
+   In general, all AMPL suffixes for a constraint are available through methods with the same name in this class. See http://www.ampl.com/NEW/suffbuiltin.html for a list of the available suffixes.
+
+   Note that, since this class represents instances of both algebraic and logical constraints, some suffixes might not be available for every instance. If a wrong suffix for the specific class of constraint is accessed, an :java:ref:`UnsupportedOperationException` is thrown.
+
+   All the accessors in this class throw a :java:ref:`IllegalArgumentException` if the instance has been deleted in the underlying AMPL interpreter.
+
+Constructors
+------------
+ConstraintInstance
+^^^^^^^^^^^^^^^^^^
+
+.. java:constructor::  ConstraintInstance(ConstraintInstanceBase impl)
+   :outertype: ConstraintInstance
+
+Methods
+-------
+astatus
+^^^^^^^
+
+.. java:method:: public String astatus()
+   :outertype: ConstraintInstance
+
+   Get the current AMPL status (dropped, presolved, or substituted out)
+
+body
+^^^^
+
+.. java:method:: public double body()
+   :outertype: ConstraintInstance
+
+   Get the current value of the constraint's body
+
+defvar
+^^^^^^
+
+.. java:method:: public int defvar()
+   :outertype: ConstraintInstance
+
+   Get the index in \ ``_var``\  of "defined variable" substituted out by the constraint
+
+dinit
+^^^^^
+
+.. java:method:: public double dinit()
+   :outertype: ConstraintInstance
+
+   Get the current initial guess for the constraint's dual variable
+
+dinit0
+^^^^^^
+
+.. java:method:: public double dinit0()
+   :outertype: ConstraintInstance
+
+   Get the original initial guess for the constraint's dual variable
+
+drop
+^^^^
+
+.. java:method:: public void drop()
+   :outertype: ConstraintInstance
+
+   Drop this constraint instance
+
+dual
+^^^^
+
+.. java:method:: public double dual()
+   :outertype: ConstraintInstance
+
+   Get the current value of the constraint's dual variable.
+
+   Note that dual values are often reset by the underlying AMPL interpreter by the presolve functionalities triggered by some methods. A possible workaround is to set the option \ ``presolve``\  to ``false`` (see :java:ref:`AMPL.setBoolOption`).
+
+impl
+^^^^
+
+.. java:method::  ConstraintInstanceBase impl()
+   :outertype: ConstraintInstance
+
+lb
+^^
+
+.. java:method:: public double lb()
+   :outertype: ConstraintInstance
+
+   Get the current value of the constraint's lower bound
+
+lbs
+^^^
+
+.. java:method:: public double lbs()
+   :outertype: ConstraintInstance
+
+   Get the constraint lower bound sent to the solver (reflecting adjustment for fixed variables)
+
+ldual
+^^^^^
+
+.. java:method:: public double ldual()
+   :outertype: ConstraintInstance
+
+   Get the current dual value associated with the lower bound
+
+lslack
+^^^^^^
+
+.. java:method:: public double lslack()
+   :outertype: ConstraintInstance
+
+   Get the slack at lower bound \ ``body - lb``\
+
+restore
+^^^^^^^
+
+.. java:method:: public void restore()
+   :outertype: ConstraintInstance
+
+   Restore this constraint instance (if it had been dropped, no effect otherwise)
+
+setDual
+^^^^^^^
+
+.. java:method:: public void setDual(double dual)
+   :outertype: ConstraintInstance
+
+   Set the value of the dual variable associated to this constraint (valid only if the constraint is scalar). Equivalent to the AMPL statement:
+
+   .. parsed-literal::
+
+      let c := dual;
+
+   Note that dual values are often reset by the underlying AMPL interpreter by the presolve functionalities triggered by some methods. A possible workaround is to set the option \ ``presolve``\  to ``false`` (see :java:ref:`AMPL.setBoolOption`).
+
+   :param dual: The value to be assigned to the dual variable
+
+slack
+^^^^^
+
+.. java:method:: public double slack()
+   :outertype: ConstraintInstance
+
+   Constraint slack (the lesser of lslack and uslack)
+
+sstatus
+^^^^^^^
+
+.. java:method:: public String sstatus()
+   :outertype: ConstraintInstance
+
+   Get the solver status (basis status of constraint's slack or artificial variable)
+
+status
+^^^^^^
+
+.. java:method:: public String status()
+   :outertype: ConstraintInstance
+
+   Get the AMPL status if not \ ``in``\ , otherwise solver status
+
+ub
+^^
+
+.. java:method:: public double ub()
+   :outertype: ConstraintInstance
+
+   Get the current value of the constraint's upper bound
+
+ubs
+^^^
+
+.. java:method:: public double ubs()
+   :outertype: ConstraintInstance
+
+   Get the constraint upper bound sent to the solver (reflecting adjustment for fixed variables)
+
+udual
+^^^^^
+
+.. java:method:: public double udual()
+   :outertype: ConstraintInstance
+
+   Get the current dual value associated with the upper bounds
+
+uslack
+^^^^^^
+
+.. java:method:: public double uslack()
+   :outertype: ConstraintInstance
+
+   Get the slack at upper bound \ ``ub - body``\
+
+val
+^^^
+
+.. java:method:: public double val()
+   :outertype: ConstraintInstance
+
+   Get the AMPL val suffix. Valid only for logical constraints.
+

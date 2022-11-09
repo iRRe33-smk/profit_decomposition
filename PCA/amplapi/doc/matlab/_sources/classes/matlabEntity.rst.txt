@@ -1,0 +1,181 @@
+.. _secMATLABrefEntity:
+
+Entity
+======
+
+.. mat:class:: Entity
+
+This is the base class for all entities (:mat:class:`Variable` , :mat:class:`Constraint`, :mat:class:`Objective`,
+:mat:class:`Parameter`, :mat:class:`Set`).
+It can be used directly in methods such as :mat:meth:`AMPL.getEntity`, and it has the basic functionality 
+shared for all Entity classes. 
+
+
+get(key)
+--------
+
+.. mat:classmethod:: Entity.get(key)
+
+**Syntax**
+~~~~~~~~~~
+
+``v = get(key)``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``v = get(key)`` returns the instance corresponding to the specified key. Examples will be given for each specialized
+Entity class. Note that the same effect can be achieved using MATLAB's indexing operator (round brackets).
+
+**Input Arguments**
+~~~~~~~~~~~~~~~~~~~
+
+``key`` 
+   The key of the instance to look up.
+
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``v``
+   The specified instance
+   
+
+getValues
+---------
+
+.. mat:classmethod:: Entity.getValues()
+
+**Syntax**
+~~~~~~~~~~
+
+``df = c.getValues()``
+
+``df = c.getValues(suffixes)``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+These functions return a dataframe with all the specified values of the entity, decoupled from the underlying AMPL. 
+To gain access to the data, see :mat:class:`DataFrame`.
+
+``c.getValues()`` gets the AMPL value (the default suffix for the current entity)
+
+``c.getValues(suffixes)`` allows the user to specify which suffixes to get 
+
+
+**Input Arguments**
+~~~~~~~~~~~~~~~~~~~
+
+``suffixes``
+   Strings specifying which suffixes of the entity to get (see `AMPL built-in suffixes <http://www.ampl.com/NEW/suffbuiltin.html>`_).
+
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+``df``
+   A dataframe containing all the specified values of the entity and its indices
+   
+
+hasIndexing
+-----------
+
+.. mat:classmethod:: Entity.hasIndexing()
+
+**Syntax**
+~~~~~~~~~~
+
+``bool = hasIndexing``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``hasIndexing`` check whether this entity has indexing or is scalar
+  
+
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``bool``
+   1 if the entity has indexing, 0 if it is scalar
+        
+
+indexarity
+----------
+
+.. mat:classmethod:: Entity.indexarity()
+
+**Syntax**
+~~~~~~~~~~
+
+``integer = indexarity``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``indexarity`` Get the indexarity of this entity
+
+
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``integer``
+   The indexarity of this function, defined as the number of items 
+   necessary to access an instance of this entity
+
+**Example**
+~~~~~~~~~~~
+     
+Indexarity of some functions:
+
+.. code-block:: matlab
+
+   ampl.eval('var x; var y{1..10}; var z{1..2, 3..4, 4..5};');
+   ampl.getEntity('x').indexarity
+   ampl.getEntity('y').indexarity
+   ampl.getEntity('z').indexarity
+   
+gives::
+
+    ans = 0
+	ans = 1
+	ans = 3
+    
+
+
+name
+----
+
+.. mat:classmethod:: Entity.name()
+
+**Syntax**
+~~~~~~~~~~
+
+``n = name``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``name`` Access the name of this entity
+
+
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``n``
+   The AMPL name (without indexing) of this entity
+      
+
+getIndices
+----------
+
+.. mat:classmethod:: Entity.getIndices()
+
+**Syntax**
+~~~~~~~~~~
+
+``indices = getIndices`` 
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``getIndices`` get a cell array containing all the indices over which this entity is currently istantiated 

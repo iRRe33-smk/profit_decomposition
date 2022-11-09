@@ -1,0 +1,400 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Objective &#8212; AMPL API 2.0.3-0 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../_static/ampl.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ObjectiveInstance" href="matlabObjectiveInstance.html" />
+    <link rel="prev" title="EntityList" href="matlabEntityList.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="matlabObjectiveInstance.html" title="ObjectiveInstance"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="matlabEntityList.html" title="EntityList"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" accesskey="U">MATLAB API reference</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Objective</a><ul>
+<li><a class="reference internal" href="#get-key">get(key)</a></li>
+<li><a class="reference internal" href="#getvalues">getValues</a></li>
+<li><a class="reference internal" href="#value">value()</a></li>
+<li><a class="reference internal" href="#astatus">astatus</a></li>
+<li><a class="reference internal" href="#exitcode">exitcode</a></li>
+<li><a class="reference internal" href="#message">message</a></li>
+<li><a class="reference internal" href="#result">result</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="matlabEntityList.html"
+                        title="previous chapter">EntityList</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="matlabObjectiveInstance.html"
+                        title="next chapter">ObjectiveInstance</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/classes/matlabObjective.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="objective">
+<span id="secmatlabrefobjective"></span><h1>Objective<a class="headerlink" href="#objective" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Objective">
+<em class="property">class </em><code class="descname">Objective</code><a class="headerlink" href="#Objective" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Represents an AMPL objective. It can contain multiple objective instances, or can be scalar.
+Generally, numerical values are available for each specific instance, which are accessible through the
+function <a class="reference internal" href="#Objective.get" title="Objective.get"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Objective.get</span></code></a>. For scalar objective (e.g. single objective problems), direct accessors
+to the values are available (see functions <a class="reference internal" href="#Objective.value" title="Objective.value"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Objective.value</span></code></a> or <a class="reference internal" href="#Objective.message" title="Objective.message"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Objective.message</span></code></a> below).</p>
+<p>For ease of use, values for the entire algebraic entity can be accessed and assigned to MATLAB vectors using the
+<a class="reference internal" href="matlabDataFrame.html#DataFrame" title="DataFrame"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> object. To get the values use <a class="reference internal" href="#Objective.getValues" title="Objective.getValues"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Objective.getValues</span></code></a>.</p>
+<div class="section" id="get-key">
+<h2>get(key)<a class="headerlink" href="#get-key" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="Objective.get">
+<em class="property">classmethod </em><code class="descclassname">Objective.</code><code class="descname">get</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#Objective.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">o</span> <span class="pre">=</span> <span class="pre">get(key)</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">o</span> <span class="pre">=</span> <span class="pre">get(key)</span></code> returns the <a class="reference internal" href="matlabObjectiveInstance.html#ObjectiveInstance" title="ObjectiveInstance"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">ObjectiveInstance</span></code></a> corresponding to the specified key.
+Note that the same effect can be achieved using MATLAB’s indexing operator (round brackets).</p>
+<p><strong>Input Arguments</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">key</span></code></dt>
+<dd>The key of the objective instance to look up.</dd>
+</dl>
+<p><strong>Output Arguments</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">o</span></code></dt>
+<dd>The specified objective instance.</dd>
+</dl>
+<p><strong>Example</strong></p>
+<p>Create an indexed objective, get a reference to an instance and explore its properties</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{i in 1..2} &lt;= i;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;maximize z{i in 1..2}: x[i];&#39;</span><span class="p">);</span>
+<span class="n">z</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getObjective</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">);</span>
+<span class="n">instance</span> <span class="p">=</span> <span class="n">z</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">solve</span><span class="p">;</span>
+<span class="n">instance</span><span class="p">.</span><span class="n">value</span>
+<span class="n">instance</span><span class="p">.</span><span class="n">result</span>
+<span class="n">instance</span><span class="p">.</span><span class="n">message</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">ans</span> <span class="o">=</span>
+<span class="mi">1</span>
+
+    <span class="n">ans</span> <span class="o">=</span>
+    <span class="n">solved</span>
+
+    <span class="n">ans</span> <span class="o">=</span>
+    <span class="n">CBC</span> <span class="mf">2.8</span><span class="o">.</span><span class="mi">2</span> <span class="n">optimal</span><span class="p">,</span> <span class="n">objective</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="mi">0</span> <span class="n">iterations</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getvalues">
+<h2>getValues<a class="headerlink" href="#getvalues" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="Objective.getValues">
+<em class="property">classmethod </em><code class="descclassname">Objective.</code><code class="descname">getValues</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Objective.getValues" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">=</span> <span class="pre">getValues()</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">=</span> <span class="pre">getValues(suffixes)</span></code></p>
+<p><strong>Description</strong></p>
+<p>These functions return a dataframe with all the specified suffixes of the objective, decoupled from the underlying AMPL entity.
+To gain access to the data, see <a class="reference internal" href="matlabDataFrame.html#DataFrame" title="DataFrame"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">o.getValues()</span></code> gets the AMPL value (equivalent to the suffix <code class="docutils literal notranslate"><span class="pre">val</span></code>)</p>
+<p><code class="docutils literal notranslate"><span class="pre">o.getValues(suffixes)</span></code> allows the user to specify which suffixes to get</p>
+<p><strong>Input Arguments</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">suffixes</span></code></dt>
+<dd>Strings specifying which suffixes of the objective to get (see <a class="reference external" href="http://www.ampl.com/NEW/suffbuiltin.html">AMPL built-in suffixes</a>).</dd>
+</dl>
+<p><strong>Output Arguments</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">df</span></code></dt>
+<dd>A dataframe containing all the specified values of the objective and its indices</dd>
+</dl>
+<p><strong>Example</strong></p>
+<p>Create an indexed cosntraint in AMPL, then get all the values for all the suffixes for all instances in a DataFrame and display it.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{i in 1..2} &lt;= i;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;maximize z{i in 1..2}: x[i];&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">solve</span><span class="p">;</span>
+
+<span class="n">z</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getObjective</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">);</span>
+<span class="n">df</span> <span class="p">=</span> <span class="n">z</span><span class="p">.</span><span class="n">getValues</span><span class="p">(</span><span class="s">&#39;val&#39;</span><span class="p">,</span> <span class="s">&#39;astatus&#39;</span><span class="p">,</span> <span class="s">&#39;result&#39;</span><span class="p">,</span> <span class="s">&#39;exitcode&#39;</span><span class="p">);</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>i in 1 .. 2  |  value  astatus  result  exitcode
+1.0          |  1.0    in       solved  0
+2.0          |  2.0    in       ?       -1
+</pre></div>
+</div>
+</div>
+<div class="section" id="value">
+<h2>value()<a class="headerlink" href="#value" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="Objective.value">
+<em class="property">classmethod </em><code class="descclassname">Objective.</code><code class="descname">value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Objective.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">=</span> <span class="pre">value()</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">=</span> <span class="pre">value()</span></code>  Get the current value of the objective. Valid for scalar objectives only.</p>
+<p><strong>Output Arguments</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">v</span></code></dt>
+<dd>The current value of the objective.</dd>
+</dl>
+<p><strong>Example</strong></p>
+<p>Create an objective z and display its value. Then solve the problem and display the value again.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{i in 1..2} &lt;= i;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;maximize z: sum{i in 1..2} x[i];&#39;</span><span class="p">);</span>
+<span class="n">z</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getObjective</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">)</span>
+<span class="n">z</span><span class="p">.</span><span class="n">value</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">solve</span>
+<span class="n">z</span><span class="p">.</span><span class="n">value</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ans</span> <span class="o">=</span>
+<span class="mi">0</span>
+
+<span class="n">ans</span> <span class="o">=</span>
+<span class="n">CBC</span> <span class="mf">2.8</span><span class="o">.</span><span class="mi">2</span> <span class="n">optimal</span><span class="p">,</span> <span class="n">objective</span> <span class="o">-</span><span class="mi">3</span>
+<span class="mi">0</span> <span class="n">iterations</span>
+
+<span class="n">ans</span> <span class="o">=</span>
+<span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="astatus">
+<h2>astatus<a class="headerlink" href="#astatus" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="Objective.astatus">
+<em class="property">classmethod </em><code class="descclassname">Objective.</code><code class="descname">astatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Objective.astatus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">=</span> <span class="pre">astatus</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">astatus</span></code> Return the AMPL status for this objective.  Valid for scalar objectives only.</p>
+<p><strong>Output Arguments</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">v</span></code></dt>
+<dd>The AMPL status for this objective.</dd>
+</dl>
+<p><strong>Example</strong></p>
+<p>Create an objective z and display its status. Then solve the problem and display it again.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{i in 1..2} &lt;= i;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;maximize z: sum{i in 1..2} x[i];&#39;</span><span class="p">);</span>
+<span class="n">z</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getObjective</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">)</span>
+<span class="n">z</span><span class="p">.</span><span class="n">astatus</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">solve</span><span class="p">;</span>
+<span class="n">z</span><span class="p">.</span><span class="n">astatus</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ans</span> <span class="o">=</span>
+<span class="ow">in</span>
+
+<span class="n">ans</span> <span class="o">=</span>
+<span class="ow">in</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exitcode">
+<h2>exitcode<a class="headerlink" href="#exitcode" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="Objective.exitcode">
+<em class="property">classmethod </em><code class="descclassname">Objective.</code><code class="descname">exitcode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Objective.exitcode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">=</span> <span class="pre">exitcode</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">exitcode</span></code> Get exit code returned by solver after most recent solve with this objective. Valid for scalar objectives only.</p>
+<p><strong>Output Arguments</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">v</span></code></dt>
+<dd>The exit code returned by solver after most recent solve with this objective.</dd>
+</dl>
+<p><strong>Example</strong></p>
+<p>Create an objective z and display its exitcode. Then solve the problem and display it again.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{i in 1..2} &lt;= i;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;maximize z: sum{i in 1..2} x[i];&#39;</span><span class="p">);</span>
+<span class="n">z</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getObjective</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">)</span>
+<span class="n">z</span><span class="p">.</span><span class="n">exitcode</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">solve</span><span class="p">;</span>
+<span class="n">z</span><span class="p">.</span><span class="n">exitcode</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ans</span> <span class="o">=</span>
+    <span class="o">-</span><span class="mi">1</span>
+
+<span class="n">ans</span> <span class="o">=</span>
+     <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="message">
+<h2>message<a class="headerlink" href="#message" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="Objective.message">
+<em class="property">classmethod </em><code class="descclassname">Objective.</code><code class="descname">message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Objective.message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">=</span> <span class="pre">message</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">message</span></code> Get the result message returned by solver after most recent solve with this objective. Valid for scalar objectives only.</p>
+<p><strong>Output Arguments</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">v</span></code></dt>
+<dd>The result message returned by solver after the most recent solve with this objective</dd>
+</dl>
+<p><strong>Example</strong></p>
+<p>Create an objective z and display its message. Then solve the problem and display it again.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{i in 1..2} &lt;= i;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;maximize z: sum{i in 1..2} x[i];&#39;</span><span class="p">);</span>
+<span class="n">z</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getObjective</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">)</span>
+<span class="n">z</span><span class="p">.</span><span class="n">message</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">solve</span><span class="p">;</span>
+<span class="n">z</span><span class="p">.</span><span class="n">message</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ans =
+?
+
+ans =
+CBC 2.8.2 optimal, objective -3
+0 iterations
+</pre></div>
+</div>
+</div>
+<div class="section" id="result">
+<h2>result<a class="headerlink" href="#result" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="Objective.result">
+<em class="property">classmethod </em><code class="descclassname">Objective.</code><code class="descname">result</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Objective.result" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">=</span> <span class="pre">result</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">result</span></code> Get the result string returned by solver after most recent solve with this objective. Valid for scalar objectives only.</p>
+<p><strong>Output Arguments</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">v</span></code></dt>
+<dd>The result string returned by solver after most recent solve with this objective.</dd>
+</dl>
+<p><strong>Example</strong></p>
+<p>Create an objective z and display its result string. Then solve the problem and display it again.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{i in 1..2} &lt;= i;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;maximize z: sum{i in 1..2} x[i];&#39;</span><span class="p">);</span>
+<span class="n">z</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getObjective</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">)</span>
+<span class="n">z</span><span class="p">.</span><span class="n">result</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">solve</span><span class="p">;</span>
+<span class="n">z</span><span class="p">.</span><span class="n">result</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ans =
+?
+
+ans =
+solved
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="matlabObjectiveInstance.html" title="ObjectiveInstance"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="matlabEntityList.html" title="EntityList"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" >MATLAB API reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013-2017, AMPL Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.
+    </div>
+  </body>
+</html>

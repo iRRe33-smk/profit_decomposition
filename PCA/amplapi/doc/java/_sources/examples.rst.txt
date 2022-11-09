@@ -1,0 +1,89 @@
+.. _secExamplesJava:
+
+Java API examples
+=================
+
+This section lists a few examples in Java.
+These are the same files that can be found in the *examples* directory of the distribution, and show the basic usage of the Java API.
+
+Example 1: First steps
+----------------------
+
+:download:`FirstExample.java <../../cpp/swig/java/src/examples/main/FirstExample.java>`
+
+This example shows how to
+
+* read an AMPL model
+* reassign values to parameters
+* solve the model
+* display the objective function value
+
+
+Example 2: Get and set AMPL options
+-----------------------------------
+
+:download:`OptionsExample.java <../../cpp/swig/java/src/examples/main/OptionsExample.java>`
+
+This example shows how to:
+
+* get and set AMPL options
+
+Example 3: Use AMPL asynchronously
+----------------------------------
+
+:download:`AsyncExample.java <../../cpp/swig/java/src/examples/main/AsyncExample.java>`
+
+This example shows how to:
+
+* set a callback for AMPL async operation
+* start and interrupt async operations
+
+Example 4: Get and set data through DataFrames
+----------------------------------------------
+
+:download:`DataFrameExample.java <../../cpp/swig/java/src/examples/main/DataFrameExample.java>`
+
+This example shows how to:
+
+* Use DataFrame objects to assign values to sets and parameters
+* Use a DataFrame object to fetch and decouple values from a variable
+
+Example 5: Operate with multidimensional data
+---------------------------------------------
+
+:download:`MultiDimensionalExample.java <../../cpp/swig/java/src/examples/main/MultiDimensionalExample.java>`
+
+This example shows how to:
+
+* Use a DataFrame to assign values to multidimensional parameters
+
+
+Example 6: Assign all data to a model and solve it
+--------------------------------------------------
+
+:download:`DietModel.java <../../cpp/swig/java/src/examples/main/DietModel.java>`
+
+This example shows how to:
+
+* Assign all the data necessary to generate a model instance programmatically
+
+
+
+Example 7: Build an efficient frontier
+--------------------------------------
+
+:download:`EfficientFrontier.java <../../cpp/swig/java/src/examples/main/EfficientFrontier.java>`
+
+This example shows how to:
+
+* build an efficient frontier by repeteatly solve a portfolio problem in AMPL
+
+Example 8: Simple heuristic
+---------------------------
+
+:download:`TrackingModel.java <../../cpp/swig/java/src/examples/main/TrackingModel.java>`
+
+This example shows how to:
+
+* Do a simple heuristics for solving a QMIP problem, using the relaxed solution as a hint
+

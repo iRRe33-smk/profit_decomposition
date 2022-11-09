@@ -1,0 +1,17 @@
+.. _ref::Tuple:
+
+Tuple
+-----
+
+.. doxygenclass:: ampl::Tuple
+   :members:
+   :undoc-members:
+
+   
+.. _ref::TupleRef:
+
+TupleRef
+--------
+
+.. doxygentypedef:: ampl::TupleRef
+   

@@ -1,0 +1,41 @@
+.. java:import:: java.util Iterator
+
+.. java:import:: java.util NoSuchElementException
+
+ObjectiveMap.MyObjectiveMapIterator
+===================================
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class MyObjectiveMapIterator implements Iterator<Objective>
+   :outertype: ObjectiveMap
+
+Constructors
+------------
+MyObjectiveMapIterator
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. java:constructor:: public MyObjectiveMapIterator(EntityMapObjective impl)
+   :outertype: ObjectiveMap.MyObjectiveMapIterator
+
+Methods
+-------
+hasNext
+^^^^^^^
+
+.. java:method:: @Override public boolean hasNext()
+   :outertype: ObjectiveMap.MyObjectiveMapIterator
+
+next
+^^^^
+
+.. java:method:: @Override public Objective next()
+   :outertype: ObjectiveMap.MyObjectiveMapIterator
+
+remove
+^^^^^^
+
+.. java:method:: @Override public void remove()
+   :outertype: ObjectiveMap.MyObjectiveMapIterator
+

@@ -1,0 +1,76 @@
+Instance
+========
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class Instance
+
+   Represent an instance of a modelling entity
+
+Fields
+------
+_impl
+^^^^^
+
+.. java:field::  InstanceBase _impl
+   :outertype: Instance
+
+Constructors
+------------
+Instance
+^^^^^^^^
+
+.. java:constructor::  Instance(InstanceBase impl)
+   :outertype: Instance
+
+   Constructor
+
+Methods
+-------
+delete
+^^^^^^
+
+.. java:method:: public void delete()
+   :outertype: Instance
+
+entity
+^^^^^^
+
+.. java:method:: public Entity entity()
+   :outertype: Instance
+
+   :return: Get the algebraic entity this instance is part of
+
+key
+^^^
+
+.. java:method:: public TupleBase key()
+   :outertype: Instance
+
+   :return: The instance's key
+
+name
+^^^^
+
+.. java:method:: public String name()
+   :outertype: Instance
+
+   :return: The instance's name
+
+toString
+^^^^^^^^
+
+.. java:method:: public String toString()
+   :outertype: Instance
+
+   Returns a string representation of the instance.
+
+   For constraints and objective instances it is equivalent to the AMPL statement:
+
+   .. parsed-literal::
+
+      expand instanceName;
+
+   For set and variable instances see the documentation for the specific class.
+

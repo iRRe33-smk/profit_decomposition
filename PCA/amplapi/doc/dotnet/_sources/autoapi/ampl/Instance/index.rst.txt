@@ -1,0 +1,159 @@
+
+
+Instance Class
+==============
+
+
+
+
+
+
+Represent an instance of a modelling entity
+
+
+Namespace
+    :dn:ns:`ampl`
+Assemblies
+    * AMPL
+
+----
+
+.. contents::
+   :local:
+
+
+
+Inheritance Hierarchy
+---------------------
+
+
+* :dn:cls:`System.Object`
+* :dn:cls:`ampl.Instance`
+
+
+
+
+
+
+
+
+Syntax
+------
+
+.. code-block:: csharp
+
+    public class Instance : IDisposable
+
+
+
+
+
+
+
+
+.. dn:class:: ampl.Instance
+    :hidden:
+
+.. dn:class:: ampl.Instance
+
+Fields
+------
+
+.. dn:class:: ampl.Instance
+    :noindex:
+    :hidden:
+
+    
+    .. dn:field:: ampl.Instance.swigCMemOwn
+
+        
+        :rtype: System.Boolean
+
+        
+        .. code-block:: csharp
+
+            protected bool swigCMemOwn
+    
+
+Methods
+-------
+
+.. dn:class:: ampl.Instance
+    :noindex:
+    :hidden:
+
+    
+    .. dn:method:: ampl.Instance.Dispose()
+
+        
+
+        
+        .. code-block:: csharp
+
+            public virtual void Dispose()
+    
+    .. dn:method:: ampl.Instance.Finalize()
+
+        
+
+        
+        .. code-block:: csharp
+
+            protected void Finalize()
+    
+    .. dn:method:: ampl.Instance.ToString()
+
+        
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public override string ToString()
+    
+    .. dn:method:: ampl.Instance.key()
+
+        
+        :rtype: TupleBase
+
+        
+        .. code-block:: csharp
+
+            public TupleBase key()
+    
+
+Properties
+----------
+
+.. dn:class:: ampl.Instance
+    :noindex:
+    :hidden:
+
+    
+    .. dn:property:: ampl.Instance.Entity
+
+        
+
+        
+        Gets the parent entity
+
+
+        
+        :rtype: ampl.Entities.Entity
+
+        
+        .. code-block:: csharp
+
+            public Entity Entity { get; }
+    
+    .. dn:property:: ampl.Instance.Name
+
+        
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public string Name { get; }
+    
+

@@ -1,0 +1,115 @@
+
+
+Row Class
+=========
+
+
+
+
+
+Namespace
+    :dn:ns:`ampl.DataFrame`
+Assemblies
+    * AMPL
+
+----
+
+.. contents::
+   :local:
+
+
+
+Inheritance Hierarchy
+---------------------
+
+
+* :dn:cls:`System.Object`
+* :dn:cls:`ampl.DataFrame.Row`
+
+
+
+
+
+
+
+
+Syntax
+------
+
+.. code-block:: csharp
+
+    public class Row : IEnumerable<VariantRef>, IEnumerable
+
+
+
+
+
+
+
+
+.. dn:class:: ampl.DataFrame.Row
+    :hidden:
+
+.. dn:class:: ampl.DataFrame.Row
+
+Methods
+-------
+
+.. dn:class:: ampl.DataFrame.Row
+    :noindex:
+    :hidden:
+
+    
+    .. dn:method:: ampl.DataFrame.Row.GetEnumerator()
+
+        
+        :rtype: System.Collections.Generic.IEnumerator<System.Collections.Generic.IEnumerator`1>{ampl.VariantRef<ampl.VariantRef>}
+
+        
+        .. code-block:: csharp
+
+            public IEnumerator<VariantRef> GetEnumerator()
+    
+    .. dn:method:: ampl.DataFrame.Row.System.Collections.IEnumerable.GetEnumerator()
+
+        
+        :rtype: System.Collections.IEnumerator
+
+        
+        .. code-block:: csharp
+
+            IEnumerator IEnumerable.GetEnumerator()
+    
+
+Properties
+----------
+
+.. dn:class:: ampl.DataFrame.Row
+    :noindex:
+    :hidden:
+
+    
+    .. dn:property:: ampl.DataFrame.Row.Item[System.Int32]
+
+        
+
+        
+        :type index: System.Int32
+        :rtype: ampl.VariantRef
+
+        
+        .. code-block:: csharp
+
+            public VariantRef this[int index] { get; }
+    
+    .. dn:property:: ampl.DataFrame.Row.Size
+
+        
+        :rtype: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public int Size { get; }
+    
+

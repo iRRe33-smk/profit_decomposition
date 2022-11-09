@@ -1,0 +1,25 @@
+.. highlight:: java
+
+AMPL MATLAB API
+===============
+
+Contents
+--------
+
+.. toctree::
+   :maxdepth: 2
+
+   intro
+   getting-started
+   class-structure
+   quick-start
+   examples
+   reference
+   
+
+Indices and tables
+------------------
+
+* :ref:`genindex`
+* :ref:`search`
+

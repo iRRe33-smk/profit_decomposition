@@ -1,0 +1,8 @@
+.. _ref::Set:
+
+Set
+---
+
+.. doxygenclass:: ampl::Set
+   :members:
+   :undoc-members:
