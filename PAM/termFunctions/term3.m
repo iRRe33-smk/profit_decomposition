@@ -5,14 +5,12 @@ function [T3] = term3(h, D, df)
 %   df = daily changes of FX-rate
 
 
-szD = size(D);
-numCurrencies = szD(2);
+[nP, nC] = size(D);
 
-T3 = zeros(numCurrencies,1);
-for c = 1:numCurrencies
-    T3 = T3 + D(:,1,c) * df(c);
+H = repmat(h,1,nC);
+dF = repmat(df',nP,1);
 
-end
+T3 = H.* D.* dF;
 
 
 
