@@ -1,0 +1,178 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>MATLAB API examples &#8212; AMPL API 2.0.3-0 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/ampl.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="MATLAB API reference" href="reference.html" />
+    <link rel="prev" title="MATLAB quick start" href="quick-start.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="reference.html" title="MATLAB API reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="quick-start.html" title="MATLAB quick start"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">MATLAB API examples</a><ul>
+<li><a class="reference internal" href="#example-1-first-steps">Example 1: First steps</a></li>
+<li><a class="reference internal" href="#example-2-execute-arbitrary-statements">Example 2: Execute arbitrary statements</a></li>
+<li><a class="reference internal" href="#example-3-passing-data">Example 3: Passing data</a></li>
+<li><a class="reference internal" href="#example-4-assign-data-to-a-model-and-solve-it">Example 4: Assign data to a model and solve it</a></li>
+<li><a class="reference internal" href="#example-5-compound-sets">Example 5: Compound sets</a></li>
+<li><a class="reference internal" href="#example-6-simple-heuristic">Example 6: Simple heuristic</a></li>
+<li><a class="reference internal" href="#example-7-efficient-frontier">Example 7: Efficient frontier</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="quick-start.html"
+                        title="previous chapter">MATLAB quick start</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="reference.html"
+                        title="next chapter">MATLAB API reference</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/examples.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="matlab-api-examples">
+<span id="secexamplesmatlab"></span><h1>MATLAB API examples<a class="headerlink" href="#matlab-api-examples" title="Permalink to this headline">¶</a></h1>
+<p>This section lists a few examples in MATLAB. These are the same files that can be found in the <em>examples</em> directory of the distribution.</p>
+<div class="section" id="example-1-first-steps">
+<h2>Example 1: First steps<a class="headerlink" href="#example-1-first-steps" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference download internal" href="_downloads/firstExample.m" download=""><code class="xref download docutils literal notranslate"><span class="pre">FirstExample.m</span></code></a></p>
+<p>This example shows how to</p>
+<ul class="simple">
+<li>read an AMPL model</li>
+<li>reassign values to parameters</li>
+<li>solve the model</li>
+<li>display the objective function value</li>
+</ul>
+</div>
+<div class="section" id="example-2-execute-arbitrary-statements">
+<h2>Example 2: Execute arbitrary statements<a class="headerlink" href="#example-2-execute-arbitrary-statements" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference download internal" href="_downloads/exampleInterpreting.m" download=""><code class="xref download docutils literal notranslate"><span class="pre">ExampleInterpreting.m</span></code></a></p>
+<p>This example shows how to:</p>
+<ul class="simple">
+<li>interpret arbitrary AMPL Statements from MATLAB</li>
+<li>get the MATLAB representation of the underlying AMPL algebraic entities</li>
+</ul>
+</div>
+<div class="section" id="example-3-passing-data">
+<h2>Example 3: Passing data<a class="headerlink" href="#example-3-passing-data" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference download internal" href="_downloads/dataFrameExample.m" download=""><code class="xref download docutils literal notranslate"><span class="pre">DataFrameExample.m</span></code></a></p>
+<p>This example shows how to:</p>
+<ul class="simple">
+<li>use the dataframe object to communicate data between MATLAB and AMPL</li>
+</ul>
+</div>
+<div class="section" id="example-4-assign-data-to-a-model-and-solve-it">
+<h2>Example 4: Assign data to a model and solve it<a class="headerlink" href="#example-4-assign-data-to-a-model-and-solve-it" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference download internal" href="_downloads/dietModel.m" download=""><code class="xref download docutils literal notranslate"><span class="pre">DietModel.m</span></code></a></p>
+<p>This example shows how to:</p>
+<ul class="simple">
+<li>read an AMPL model (diet model from the AMPL book)</li>
+<li>assign all the needed data from the API, using various forms of communication</li>
+</ul>
+</div>
+<div class="section" id="example-5-compound-sets">
+<h2>Example 5: Compound sets<a class="headerlink" href="#example-5-compound-sets" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference download internal" href="_downloads/compoundSet.m" download=""><code class="xref download docutils literal notranslate"><span class="pre">CompoundSet.m</span></code></a></p>
+<p>This example shows how to operate with compound sets</p>
+</div>
+<div class="section" id="example-6-simple-heuristic">
+<h2>Example 6: Simple heuristic<a class="headerlink" href="#example-6-simple-heuristic" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference download internal" href="_downloads/trackingModel.m" download=""><code class="xref download docutils literal notranslate"><span class="pre">TrackingModel.m</span></code></a></p>
+<p>This example shows how to:</p>
+<ul class="simple">
+<li>implement a simple heuristic to speed up the solution of a QMIP problem</li>
+<li>set AMPL options from the API</li>
+</ul>
+</div>
+<div class="section" id="example-7-efficient-frontier">
+<h2>Example 7: Efficient frontier<a class="headerlink" href="#example-7-efficient-frontier" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference download internal" href="_downloads/efficientFrontier.m" download=""><code class="xref download docutils literal notranslate"><span class="pre">EfficientFrontier.m</span></code></a></p>
+<p>This example shows how to:</p>
+<ul class="simple">
+<li>build an efficient frontier by repeteatly solve a portfolio problem in AMPL</li>
+<li>plot the resulting frontier</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="reference.html" title="MATLAB API reference"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="quick-start.html" title="MATLAB quick start"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013-2017, AMPL Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.
+    </div>
+  </body>
+</html>

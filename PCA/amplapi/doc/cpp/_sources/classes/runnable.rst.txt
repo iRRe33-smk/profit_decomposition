@@ -1,0 +1,7 @@
+.. _ref::Runnable:
+
+Runnable
+--------
+
+.. doxygenclass:: ampl::Runnable
+   :members:

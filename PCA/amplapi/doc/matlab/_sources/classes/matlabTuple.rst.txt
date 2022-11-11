@@ -1,0 +1,151 @@
+.. _secMATLABrefTuple:
+
+Tuple
+=====
+
+.. mat:class:: Tuple
+
+An object of this class represent an AMPL tuple. It can be used as an index for accessing instances for entities indexed over multiple sets
+or to assigning values to multidimensional sets (sets of tuples).
+
+It offers a nice visual representation of a Tuple, although since all the methods of
+the AMPL API to gain access to instances and to assign data to sets accept cell arrays
+as well as Tuple structures, its use is somewhat limited.
+ 
+
+
+Tuple
+-----
+
+.. mat:classmethod:: Tuple.Tuple()
+
+**Syntax**
+~~~~~~~~~~
+``t = Tuple(elements)``
+
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``t = Tuple(elements)`` is the constructor for the Tuple structure.
+
+**Input Arguments**
+~~~~~~~~~~~~~~~~~~~
+``elements``
+   A cell array containing the elements to be placed in the Tuple
+
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``t``
+   The created Tuple
+   
+**Example**
+~~~~~~~~~~~
+     
+Create a tuple of three elements and assign it to a three dimensional set.
+
+.. code-block:: matlab
+
+   ampl.eval('set A dimen 3;');  
+   t = Tuple({'a', 1, '2'})
+   A = ampl.getSet('A');
+   A.arity
+   A.setValues(t)
+   A.get()
+ 
+ gives:: 
+
+   ans =
+    set A = {('a',1.0,2.0)};
+    
+    
+elements
+--------
+
+.. mat:classmethod:: Tuple.elements()
+
+**Syntax**
+~~~~~~~~~~
+``t = elements()``
+
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``t = elements()`` returns the elements in the tuple
+
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``t``
+   The elements in the tuple as a Java array
+   
+**Example**
+~~~~~~~~~~~
+     
+Create a tuple and get its elements back. Uses the *cell* function to 
+convert the Java array to a MATLAB cell array. 
+
+.. code-block:: matlab
+
+   t = Tuple({'a', 1, '2', 2.0});
+   javaArray = t.elements
+   matlabArray = cell(javaArray)
+   
+ 
+ gives:: 
+
+   javaArray =
+   java.lang.Object[]:
+    'a'
+    [1]
+    '2'
+    [2]
+
+   matlabArray = 
+    'a'
+    [1]
+    '2'
+    [2]
+
+size
+----
+
+.. mat:classmethod:: Tuple.size()
+
+**Syntax**
+~~~~~~~~~~
+``s = size()``
+
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``s = size()`` returns the number of elements in the tuple
+
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``s``
+   The number of elements in the tuple 
+   
+**Example**
+~~~~~~~~~~~
+     
+Create a tuple and get the number of elements.
+
+.. code-block:: matlab
+
+   t = Tuple({'a', 1, '2', 2.0});
+   t.size
+ 
+ gives:: 
+
+   ans = 
+   4
+
+
+
+
+

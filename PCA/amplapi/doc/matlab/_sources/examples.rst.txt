@@ -1,0 +1,84 @@
+.. _secExamplesMATLAB:
+
+MATLAB API examples
+===================
+
+This section lists a few examples in MATLAB. These are the same files that can be found in the *examples* directory of the distribution. 
+
+Example 1: First steps
+----------------------
+
+:download:`FirstExample.m <../../matlab/examples/firstExample.m>`
+
+This example shows how to
+ 
+* read an AMPL model
+* reassign values to parameters 
+* solve the model 
+* display the objective function value
+
+   
+Example 2: Execute arbitrary statements
+---------------------------------------
+
+:download:`ExampleInterpreting.m <../../matlab/examples/exampleInterpreting.m>`
+
+This example shows how to:
+
+* interpret arbitrary AMPL Statements from MATLAB
+* get the MATLAB representation of the underlying AMPL algebraic entities
+   
+Example 3: Passing data
+-----------------------
+
+:download:`DataFrameExample.m <../../matlab/examples/dataFrameExample.m>`
+
+This example shows how to:
+
+* use the dataframe object to communicate data between MATLAB and AMPL
+
+
+Example 4: Assign data to a model and solve it
+----------------------------------------------
+
+:download:`DietModel.m <../../matlab/examples/dietModel.m>`
+
+This example shows how to:
+
+* read an AMPL model (diet model from the AMPL book)
+* assign all the needed data from the API, using various forms of communication
+ 
+   
+   
+Example 5: Compound sets
+------------------------
+
+:download:`CompoundSet.m <../../matlab/examples/compoundSet.m>`
+
+This example shows how to operate with compound sets
+ 
+
+   
+
+Example 6: Simple heuristic
+---------------------------
+
+:download:`TrackingModel.m <../../matlab/examples/trackingModel.m>`
+
+
+This example shows how to:
+
+* implement a simple heuristic to speed up the solution of a QMIP problem
+* set AMPL options from the API
+
+   
+Example 7: Efficient frontier
+-----------------------------
+
+:download:`EfficientFrontier.m <../../matlab/examples/efficientFrontier.m>`
+
+This example shows how to:
+
+* build an efficient frontier by repeteatly solve a portfolio problem in AMPL
+* plot the resulting frontier 
+

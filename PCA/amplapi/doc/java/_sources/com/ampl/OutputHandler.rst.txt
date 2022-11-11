@@ -1,0 +1,25 @@
+OutputHandler
+=============
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public interface OutputHandler
+
+   Implement this interface to handle the outputs from the calls to any function that causes the underlying %AMPL interpreter to display a message.
+
+   Note that errors and warnings are not passed through this interface, see ampl::ErrorHandler for more information.
+
+Methods
+-------
+output
+^^^^^^
+
+.. java:method:: public void output(Kind kind, String msg)
+   :outertype: OutputHandler
+
+   This method is called when %AMPL sends some output derived from executing a statement
+
+   :param kind: kind of the output of the %AMPL interpreter
+   :param msg: text of the output by the %AMPL interpreter
+

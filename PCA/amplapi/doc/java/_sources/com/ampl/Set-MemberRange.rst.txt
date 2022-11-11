@@ -1,0 +1,21 @@
+.. java:import:: java.util Collection
+
+.. java:import:: java.util Iterator
+
+Set.MemberRange
+===============
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class MemberRange implements Iterable<Object>
+   :outertype: Set
+
+Methods
+-------
+iterator
+^^^^^^^^
+
+.. java:method:: @Override public Iterator<Object> iterator()
+   :outertype: Set.MemberRange
+

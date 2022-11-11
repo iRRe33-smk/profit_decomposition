@@ -1,0 +1,227 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Tuple &#8212; AMPL API 2.0.3-0 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="BasicVariant" href="variant.html" />
+    <link rel="prev" title="Runnable" href="runnable.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="variant.html" title="BasicVariant"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="runnable.html" title="Runnable"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" accesskey="U">C++ API reference</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tuple</a></li>
+<li><a class="reference internal" href="#tupleref">TupleRef</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="runnable.html"
+                        title="previous chapter">Runnable</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="variant.html"
+                        title="next chapter">BasicVariant</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/classes/tuple.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="tuple">
+<span id="ref-tuple"></span><h1>Tuple<a class="headerlink" href="#tuple" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="_CPPv3N4ampl5TupleE">
+<span id="_CPPv2N4ampl5TupleE"></span><span id="ampl::Tuple"></span><span class="target" id="classampl_1_1_tuple"></span><em class="property">class </em><code class="descname">Tuple</code> : <em class="property">public</em> ampl::BasicTuple&lt;true&gt;<a class="headerlink" href="#_CPPv3N4ampl5TupleE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Represents a tuple with ownership semantics (owns all the data it contains) </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Constructors</p>
+<p>Constructors for <a class="reference internal" href="#classampl_1_1_tuple"><span class="std std-ref">Tuple</span></a> objects. </p>
+<dl class="function">
+<dt id="_CPPv3N4ampl5Tuple5TupleEv">
+<span id="_CPPv2N4ampl5Tuple5TupleEv"></span><span id="ampl::Tuple::Tuple"></span><span class="target" id="classampl_1_1_tuple_1a5fcdac0f880d765d150263f956bdf13d"></span><code class="descname">Tuple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl5Tuple5TupleEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct an empty <a class="reference internal" href="#classampl_1_1_tuple"><span class="std std-ref">Tuple</span></a>. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl5Tuple5TupleEA_7VariantNSt6size_tE">
+<span id="_CPPv2N4ampl5Tuple5TupleEA_7VariantNSt6size_tE"></span><span id="ampl::Tuple::Tuple__VariantA.std::s"></span><span class="target" id="classampl_1_1_tuple_1a2e536f449cf2ab776a3594e4b2e8bd1e"></span><code class="descname">Tuple</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl7VariantE" title="ampl::Variant">Variant</a> <em>arguments</em>[], std::size_t <em>N</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl5Tuple5TupleEA_7VariantNSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct a n-Tuple from an array of variants. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl5Tuple5TupleE8TupleRef">
+<span id="_CPPv2N4ampl5Tuple5TupleE8TupleRef"></span><span id="ampl::Tuple::Tuple__TupleRef"></span><span class="target" id="classampl_1_1_tuple_1a55e323f3464732837ccadb1c90546e54"></span><code class="descname">Tuple</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv3N4ampl8TupleRefE" title="ampl::TupleRef">TupleRef</a> <em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl5Tuple5TupleE8TupleRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct a <a class="reference internal" href="#classampl_1_1_tuple"><span class="std std-ref">Tuple</span></a> from a TupleRef. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Constructors from variants</p>
+<p>Constructors from ampl::Variant objects. </p>
+<dl class="function">
+<dt id="_CPPv3N4ampl5Tuple5TupleE10VariantRef">
+<span id="_CPPv2N4ampl5Tuple5TupleE10VariantRef"></span><span id="ampl::Tuple::Tuple__VariantRef"></span><span class="target" id="classampl_1_1_tuple_1a028ec0022e39ee0c4b5fd88a63b3c668"></span><code class="descname">Tuple</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v1</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl5Tuple5TupleE10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl5Tuple5TupleE10VariantRef10VariantRef">
+<span id="_CPPv2N4ampl5Tuple5TupleE10VariantRef10VariantRef"></span><span id="ampl::Tuple::Tuple__VariantRef.VariantRef"></span><span class="target" id="classampl_1_1_tuple_1a63ed0297190b44b5e710f87c624c2ea1"></span><code class="descname">Tuple</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v1</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v2</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl5Tuple5TupleE10VariantRef10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl5Tuple5TupleE10VariantRef10VariantRef10VariantRef">
+<span id="_CPPv2N4ampl5Tuple5TupleE10VariantRef10VariantRef10VariantRef"></span><span id="ampl::Tuple::Tuple__VariantRef.VariantRef.VariantRef"></span><span class="target" id="classampl_1_1_tuple_1acca77519b04faba44e2b15bed8c59ffe"></span><code class="descname">Tuple</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v1</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v2</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v3</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl5Tuple5TupleE10VariantRef10VariantRef10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl5Tuple5TupleE10VariantRef10VariantRef10VariantRef10VariantRef">
+<span id="_CPPv2N4ampl5Tuple5TupleE10VariantRef10VariantRef10VariantRef10VariantRef"></span><span id="ampl::Tuple::Tuple__VariantRef.VariantRef.VariantRef.VariantRef"></span><span class="target" id="classampl_1_1_tuple_1ae9c696e1f8582b071bbe8c5282588fd6"></span><code class="descname">Tuple</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v1</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v2</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v3</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v4</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl5Tuple5TupleE10VariantRef10VariantRef10VariantRef10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct tuples from variants. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">v1</span></code>: First element </li>
+<li><code class="docutils literal notranslate"><span class="pre">v2</span></code>: Second element </li>
+<li><code class="docutils literal notranslate"><span class="pre">v3</span></code>: Third element </li>
+<li><code class="docutils literal notranslate"><span class="pre">v4</span></code>: Fourth element </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv3N4ampl5Tuple5TupleEN8internal5TupleE">
+<span id="_CPPv2N4ampl5Tuple5TupleEN8internal5TupleE"></span><span id="ampl::Tuple::Tuple__internal::Tuple"></span><span class="target" id="classampl_1_1_tuple_1ab9d19b9a4422f0791e701be99984e345"></span><code class="descname">Tuple</code><span class="sig-paren">(</span>internal::Tuple <em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl5Tuple5TupleEN8internal5TupleE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct a tuple from an internal struct (infrastructure) </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl10BasicTuple4implEv">
+<span id="_CPPv2NK4ampl10BasicTuple4implEv"></span><span id="ampl::BasicTuple::implC"></span><span class="target" id="classampl_1_1_basic_tuple_1a9474169f47a137723adc84586ded3e13"></span>internal::Tuple <code class="descname">impl</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl10BasicTuple4implEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get access to the inner immutable object (infrastructure). </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl10BasicTuple4sizeEv">
+<span id="_CPPv2NK4ampl10BasicTuple4sizeEv"></span><span id="ampl::BasicTuple::sizeC"></span><span class="target" id="classampl_1_1_basic_tuple_1a8ca6c1dddd3c923dd74af7f59c58094c"></span>std::size_t <code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl10BasicTuple4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the number of Elements in this tuple. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl10BasicTuple8toStringEv">
+<span id="_CPPv2NK4ampl10BasicTuple8toStringEv"></span><span id="ampl::BasicTuple::toStringC"></span><span class="target" id="classampl_1_1_basic_tuple_1a0a91599239775557d0250fe53b8f023e"></span>std::string <code class="descname">toString</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl10BasicTuple8toStringEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return a string representation of this tuple. </p>
+<p>All elements are formatted as in BasicVariant::toString and comma separated. An empty tuple is returned as “()”. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl10BasicTupleixENSt6size_tE">
+<span id="_CPPv2NK4ampl10BasicTupleixENSt6size_tE"></span><span id="ampl::BasicTuple::subscript-operator__std::sC"></span><span class="target" id="classampl_1_1_basic_tuple_1ad83cdc791e805c97ddf20fb8ae397cb8"></span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <code class="descname">operator[]</code><span class="sig-paren">(</span>std::size_t <em>index</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl10BasicTupleixENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Accessor for elements of the tuple. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Static Functions</p>
+<dl class="function">
+<dt id="_CPPv3N4ampl5Tuple4joinE8TupleRef8TupleRef">
+<span id="_CPPv2N4ampl5Tuple4joinE8TupleRef8TupleRef"></span><span id="ampl::Tuple::join__TupleRef.TupleRef"></span><span class="target" id="classampl_1_1_tuple_1ad19ae4f9d142a9a530ce17dd2e18157b"></span><em class="property">static</em> <a class="reference internal" href="#_CPPv3N4ampl5TupleE" title="ampl::Tuple">Tuple</a> <code class="descname">join</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv3N4ampl8TupleRefE" title="ampl::TupleRef">TupleRef</a> <em>t1</em>, <a class="reference internal" href="#_CPPv3N4ampl8TupleRefE" title="ampl::TupleRef">TupleRef</a> <em>t2</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl5Tuple4joinE8TupleRef8TupleRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Join two tuples together and forms a new one copying all data. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="tupleref">
+<span id="ref-tupleref"></span><h1>TupleRef<a class="headerlink" href="#tupleref" title="Permalink to this headline">¶</a></h1>
+<dl class="type">
+<dt id="_CPPv3N4ampl8TupleRefE">
+<span id="_CPPv2N4ampl8TupleRefE"></span><span id="ampl::TupleRef"></span><span class="target" id="tuple_8h_1ac35cea7391e778742d73542774ab4f02"></span><em class="property">typedef </em>BasicTuple&lt;false&gt; <code class="descclassname">ampl<code class="descclassname">::</code></code><code class="descname">TupleRef</code><a class="headerlink" href="#_CPPv3N4ampl8TupleRefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Not owning <a class="reference internal" href="#classampl_1_1_tuple"><span class="std std-ref">Tuple</span></a>. </p>
+<p>A public typedef of BasicTuple without ownership semantics. It can be used both as a return type when the ownership semantics is not needed (e.g. returning a reference to a tuple stored in a container) and as an argument type to provide implicit conversions and reduce the number of required overloads. </p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="variant.html" title="BasicVariant"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="runnable.html" title="Runnable"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" >C++ API reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013-2017, AMPL Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.
+    </div>
+  </body>
+</html>

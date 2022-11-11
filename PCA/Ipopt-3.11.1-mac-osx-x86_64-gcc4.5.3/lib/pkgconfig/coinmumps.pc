@@ -1,0 +1,12 @@
+prefix=/Users/distrib/stefan/Ipopt-3.11.1/build2
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/coin/ThirdParty
+
+Name: Mumps
+Description: Multifrontal Massively Parallel sparse direct Solver
+URL: https://projects.coin-or.org/BuildTools
+Version: 1.4.8
+Libs: -L${libdir} -lcoinmumps -framework vecLib -lpthread  -L/usr/local/lib/gcc/x86_64-apple-darwin11.2.0/4.5.3 -L/usr/local/lib/gcc/x86_64-apple-darwin11.2.0/4.5.3/../../.. /usr/local/lib/gcc/x86_64-apple-darwin11.2.0/4.5.3/../../../libgfortran.a -lgcc_eh -lSystem
+Cflags: -I${includedir}
+Requires: 

@@ -1,0 +1,141 @@
+
+
+MemberRange Class
+=================
+
+
+
+
+
+Namespace
+    :dn:ns:`ampl.SetInstance`
+Assemblies
+    * AMPL
+
+----
+
+.. contents::
+   :local:
+
+
+
+Inheritance Hierarchy
+---------------------
+
+
+* :dn:cls:`System.Object`
+* :dn:cls:`ampl.SetInstance.MemberRange`
+
+
+
+
+
+
+
+
+Syntax
+------
+
+.. code-block:: csharp
+
+    public class MemberRange : IDisposable
+
+
+
+
+
+
+
+
+.. dn:class:: ampl.SetInstance.MemberRange
+    :hidden:
+
+.. dn:class:: ampl.SetInstance.MemberRange
+
+Fields
+------
+
+.. dn:class:: ampl.SetInstance.MemberRange
+    :noindex:
+    :hidden:
+
+    
+    .. dn:field:: ampl.SetInstance.MemberRange.swigCMemOwn
+
+        
+        :rtype: System.Boolean
+
+        
+        .. code-block:: csharp
+
+            protected bool swigCMemOwn
+    
+
+Constructors
+------------
+
+.. dn:class:: ampl.SetInstance.MemberRange
+    :noindex:
+    :hidden:
+
+    
+    .. dn:constructor:: ampl.SetInstance.MemberRange.MemberRange(ampl.SetInstance)
+
+        
+
+        
+        :type impl_: ampl.SetInstance
+
+        
+        .. code-block:: csharp
+
+            public MemberRange(SetInstance impl_)
+    
+
+Methods
+-------
+
+.. dn:class:: ampl.SetInstance.MemberRange
+    :noindex:
+    :hidden:
+
+    
+    .. dn:method:: ampl.SetInstance.MemberRange.Dispose()
+
+        
+
+        
+        .. code-block:: csharp
+
+            public virtual void Dispose()
+    
+    .. dn:method:: ampl.SetInstance.MemberRange.Finalize()
+
+        
+
+        
+        .. code-block:: csharp
+
+            protected void Finalize()
+    
+    .. dn:method:: ampl.SetInstance.MemberRange.begin()
+
+        
+        :rtype: ampl.SetInstance.MemberRange.iterator
+
+        
+        .. code-block:: csharp
+
+            public SetInstance.MemberRange.iterator begin()
+    
+    .. dn:method:: ampl.SetInstance.MemberRange.end()
+
+        
+        :rtype: ampl.SetInstance.MemberRange.iterator
+
+        
+        .. code-block:: csharp
+
+            public SetInstance.MemberRange.iterator end()
+    
+

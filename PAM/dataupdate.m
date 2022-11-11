@@ -1,6 +1,6 @@
 %% Datauppdatering
 
-function [h, x_s, x_b, P, R, f, deltaT, S,  Dividends] = dataupdate(h, x_s, x_b, P, R, f, deltaT, S,  Dividends,currencies)
+function [h, x_s, x_b, P, R, f, deltaT, Dividends] = dataupdate(h, x_s, x_b, P, R, f, deltaT, Dividends)
 
 % mängder:
 %     assetIDN I

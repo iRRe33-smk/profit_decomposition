@@ -1,0 +1,582 @@
+
+
+Variable Class
+==============
+
+
+
+
+
+
+Represents an AMPL variable. Note that, in case of a scalar variable, all
+the properties (corresponding to AMPL suffixes) of the variable instance can
+be accessed through corresponding properties on the Variable itself.
+The properties have the same name of the corresponding
+AMPL suffixes. See http://www.ampl.com/NEW/suffbuiltin.html
+for a list of the available suffixes.
+An `ArgumentException` is thrown if one of such methods is called for
+a non-scalar variable.
+An `ArgumentOutOfRangeException` is thrown if any property of an entity which has been
+deleted from the underlying interpreter is accessed.
+The instances, represented by the class :dn:class:`ampl.VariableInstance` can be accessed via
+the indexing operator, via the method :dn:method:`ampl.Entities.Variable.Get` or via the iterator provided.
+To gain access to all the values in an entity (for all instances and all
+suffixes for that entities), see :dn:method:`ampl.Entities.Entity.GetValues` and the
+:dn:class:`ampl.DataFrame` class.
+
+
+Namespace
+    :dn:ns:`ampl.Entities`
+Assemblies
+    * AMPL
+
+----
+
+.. contents::
+   :local:
+
+
+
+Inheritance Hierarchy
+---------------------
+
+
+* :dn:cls:`System.Object`
+* :dn:cls:`ampl.Entities.Entity`
+* :dn:cls:`ampl.Entities.Entity{ampl.VariableInstance}`
+* :dn:cls:`ampl.Entities.Variable`
+
+
+
+
+
+
+
+
+Syntax
+------
+
+.. code-block:: csharp
+
+    public class Variable : Entity<VariableInstance>, IEnumerable<VariableInstance>, IEnumerable
+
+
+
+
+
+
+
+
+.. dn:class:: ampl.Entities.Variable
+    :hidden:
+
+.. dn:class:: ampl.Entities.Variable
+
+Properties
+----------
+
+.. dn:class:: ampl.Entities.Variable
+    :noindex:
+    :hidden:
+
+    
+    .. dn:property:: ampl.Entities.Variable.Astatus
+
+        
+
+        
+        Get the AMPL status of this variable (fixed, presolved or substituted) (valid for scalar variables only)
+
+
+        
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public string Astatus { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Defeqn
+
+        
+
+        
+        Get the index in ``_con`` of "definining constraint" used to substitute
+        this variable out (valid for scalar variables only)
+
+
+        
+        :rtype: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public int Defeqn { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Dual
+
+        
+
+        
+        Get the dual value on the defining constraint of this variable
+        (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Dual { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Init
+
+        
+
+        
+        Get the current initial guess (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Init { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Init0
+
+        
+
+        
+        Get the original initial guess (set by ``:=`` or by a ``default`` instruction or
+        a data statement (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Init0 { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Item[ampl.Tuple]
+
+        
+
+        
+        Get the instance with the specified index
+
+
+        
+
+        
+        :type t: ampl.Tuple
+        :rtype: ampl.VariableInstance
+
+        
+        .. code-block:: csharp
+
+            public VariableInstance this[Tuple t] { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Lb
+
+        
+
+        
+        Get the current lower bound (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Lb { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Lb0
+
+        
+
+        
+        Get the initial lower bound (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Lb0 { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Lb1
+
+        
+
+        
+        Get the weaker lower bound from AMPL's presolve phase
+        (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Lb1 { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Lb2
+
+        
+
+        
+        Get the stronger lower bound from AMPL's presolve phase
+        (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Lb2 { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Lrc
+
+        
+
+        
+        Get the reduced cost at lower bound 
+        (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Lrc { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Lslack
+
+        
+
+        
+        Get the slack at lower bound ``val - lb``
+        (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Lslack { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Rc
+
+        
+
+        
+        Get the reduced cost at the nearer bound
+        (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Rc { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Slack
+
+        
+
+        
+        Get the bound slack which is the lesser of :dn:property:`ampl.Entities.Variable.Lslack` 
+        or :dn:property:`ampl.Entities.Variable.Uslack` (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Slack { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Sstatus
+
+        
+
+        
+        Solver status (basis status of variable).
+        Valid for scalar variables only.
+
+
+        
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public string Sstatus { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Status
+
+        
+
+        
+        AMPL status if not ``in``, otherwise solver status
+        (valid for scalar variables only)
+
+
+        
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public string Status { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Ub
+
+        
+
+        
+        Get the current upper bound (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Ub { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Ub0
+
+        
+
+        
+        Get the initial upper bound (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Ub0 { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Ub1
+
+        
+
+        
+        Get the weaker upper bound from AMPL's presolve phase
+        (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Ub1 { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Ub2
+
+        
+
+        
+        Get the stronger upper bound from AMPL's presolve phase
+        (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Ub2 { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Urc
+
+        
+
+        
+        Get the reduced cost at upper bound
+        (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Urc { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Uslack
+
+        
+
+        
+        Get the slack at upper bound ``ub - val`` 
+        (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Uslack { get; }
+    
+    .. dn:property:: ampl.Entities.Variable.Value
+
+        
+
+        
+        Get or set the current value of this variable (valid for scalar variables only)
+
+
+        
+        :rtype: System.Double
+
+        
+        .. code-block:: csharp
+
+            public double Value { get; set; }
+    
+
+Methods
+-------
+
+.. dn:class:: ampl.Entities.Variable
+    :noindex:
+    :hidden:
+
+    
+    .. dn:method:: ampl.Entities.Variable.Fix()
+
+        
+
+        
+        Fix all instances of this variable to their current value
+
+
+        
+
+        
+        .. code-block:: csharp
+
+            public void Fix()
+    
+    .. dn:method:: ampl.Entities.Variable.Fix(System.Double)
+
+        
+
+        
+        Fix this variable to the specified value (valid for scalar variables only)
+
+
+        
+
+        
+        :param value: Value to fix the variable to
+        
+        :type value: System.Double
+
+        
+        .. code-block:: csharp
+
+            public void Fix(double value)
+    
+    .. dn:method:: ampl.Entities.Variable.Get(System.Object[])
+
+        
+
+        
+        Get the instance with the specified index
+
+
+        
+
+        
+        :type index: System.Object<System.Object>[]
+        :rtype: ampl.VariableInstance
+
+        
+        .. code-block:: csharp
+
+            public VariableInstance Get(params object[] index)
+    
+    .. dn:method:: ampl.Entities.Variable.Get(ampl.Tuple)
+
+        
+
+        
+        Get the instance with the specified index
+
+
+        
+
+        
+        :type t: ampl.Tuple
+        :rtype: ampl.VariableInstance
+
+        
+        .. code-block:: csharp
+
+            public override VariableInstance Get(Tuple t = null)
+    
+    .. dn:method:: ampl.Entities.Variable.GetEnumerator()
+
+        
+
+        
+        Get an enumerator to iterate through the instances in this entity
+
+
+        
+        :rtype: System.Collections.Generic.IEnumerator<System.Collections.Generic.IEnumerator`1>{ampl.VariableInstance<ampl.VariableInstance>}
+
+        
+        .. code-block:: csharp
+
+            public override IEnumerator<VariableInstance> GetEnumerator()
+    
+    .. dn:method:: ampl.Entities.Variable.Unfix()
+
+        
+
+        
+        Unfix all instances of this variable
+
+
+        
+
+        
+        .. code-block:: csharp
+
+            public void Unfix()
+    
+

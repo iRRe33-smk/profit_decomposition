@@ -1,0 +1,26 @@
+.. _ref::Variant:
+
+BasicVariant
+------------
+
+.. doxygenclass:: ampl::BasicVariant
+   :members:
+   :undoc-members:
+
+
+Variant
+--------
+
+.. doxygentypedef:: ampl::Variant
+
+
+VariantRef
+----------
+
+.. doxygentypedef:: ampl::VariantRef
+
+
+Type
+----
+
+.. doxygenenum:: ampl::Type

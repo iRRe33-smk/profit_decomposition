@@ -1,0 +1,368 @@
+
+
+ampl Namespace
+==============
+
+
+
+
+
+
+
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+
+   
+   
+   /autoapi/ampl/AMPL/index
+   
+   
+   
+   /autoapi/ampl/ConstraintInstance/index
+   
+   
+   
+   /autoapi/ampl/DataFrame/index
+   
+   
+   
+   /autoapi/ampl/DataFrame/Column/index
+   
+   
+   
+   /autoapi/ampl/DataFrame/Row/index
+   
+   
+   
+   /autoapi/ampl/Environment/index
+   
+   
+   
+   /autoapi/ampl/Instance/index
+   
+   
+   
+   /autoapi/ampl/ObjectiveInstance/index
+   
+   
+   
+   /autoapi/ampl/SetInstance/index
+   
+   
+   
+   /autoapi/ampl/SetInstance/MemberRange/index
+   
+   
+   
+   /autoapi/ampl/SetInstance/MemberRange/iterator/index
+   
+   
+   
+   /autoapi/ampl/Tuple/index
+   
+   
+   
+   /autoapi/ampl/VariableInstance/index
+   
+   
+   
+   /autoapi/ampl/Variant/index
+   
+   
+   
+   /autoapi/ampl/VariantRef/index
+   
+   
+
+
+
+
+
+
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+
+
+
+
+.. dn:namespace:: ampl
+
+
+    .. rubric:: Classes
+
+
+    class :dn:cls:`AMPL`
+        .. object: type=class name=ampl.AMPL
+
+        
+        An AMPL translator. An object of this class can be used to do the following tasks:
+
+        Run AMPL code. See :dn:method:`ampl.AMPL.Eval` and :dn:method:`ampl.AMPL.EvalAsync`.
+
+        Read models and data from files. See :dn:method:`ampl.AMPL.read`,
+        :dn:method:`ampl.AMPL.ReadData`, :dn:method:`ampl.AMPL.ReadAsync` and
+        :dn:method:`ampl.AMPL.ReadDataAsync`.
+
+        Solve optimization problems constructed from model and data (see
+        :dn:method:`ampl.AMPL.Solve` and :dn:method:`ampl.AMPL.SolveAsync`).
+
+        Access single elements of an optimization problem. See the generic
+        :dn:method:`ampl.AMPL.GetEntity` and the generic :dn:method:`ampl.AMPL.GetVariable`,
+        :dn:method:`ampl.AMPL.GetObjective`, :dn:method:`ampl.AMPL.GetConstraint`,
+        :dn:method:`ampl.AMPL.GetSet` and :dn:method:`ampl.AMPL.GetParameter`.
+
+        Access lists of available elements of an optimization problem. See
+        :dn:method:`ampl.AMPL.GetVariables`, :dn:method:`ampl.AMPL.GetObjectives`,
+        :dn:method:`ampl.AMPL.GetConstraints`, :dn:method:`ampl.AMPL.GetSets` and
+        :dn:method:`ampl.AMPL.GetParameters`.
+
+        AMPL stores one or more problems which may consume substantial amount of
+        memory. An AMPL object without any references to it will eventually be freed
+        by the Java garbage collector and all the memory and other resources
+        associated with it will be released. This includes any resources which are
+        out of scope of the garbage collector such as open files or memory managed by
+        the native code. Call :dn:method:`ampl.AMPL.Close` to release these resources
+        explicitly.
+
+        The initialisation of the Java representation of the AMPL entities (any class
+        derived from :dn:class:`ampl.Entities.Entity`) is lazy and consists of two steps. When a
+        function listing available elements is called, only a shallow list with
+        names, types and declarations of the elements is populated. The same happens
+        when a reference to a Java representation of one entity is obtained (through
+        a call to :dn:method:`ampl.AMPL.GetEntity` or any other single entity factory
+        function). When accessing any instance of an entity (through the methods
+        'get' of any class), the (memory hungry) list of instances for that entity is
+        created.
+
+        Consistency is maintained automatically. Any command issued to the translator
+        through :dn:method:`ampl.AMPL.Eval` and similar functions invalidates all entities,
+        and any further access to any entity will require communication between the
+        native translator and the Java code. Conversely, any operation called through
+        the Java equivalent function, like fixing variables or solving the model will
+        invalidate only the entities involved. A list of dependencies between
+        entities is automatically updated.
+
+        Error handling is two-faced:
+
+        1. Errors coming from the underlying AMPL translator (e.g. syntax errors and
+        warnings obtained calling the :dn:method:`ampl.AMPL.Eval` method) are handled by
+        the event :dn:event:`ampl.AMPL.Error`. Note that by default the event is 
+        disabled. To enable it, call :dn:method:`ampl.AMPL.EnableErrorAndWarningRouting`.
+
+        2. Generic errors coming from misusing the API, which are detected in .NET,
+        are thrown as exceptions.
+
+        The default implementation of the error handler throws exceptions on errors
+        and prints to console on warnings.
+
+        The output of every user interaction with the underlying translator is
+        handled by the event :dn:event:`ampl.AMPL.Output`, which is called at each 
+        block of output from the translator after the function :dn:method:`ampl.AMPL.EnableOutputRouting`
+        is called.
+
+
+
+    class :dn:cls:`ConstraintInstance`
+        .. object: type=class name=ampl.ConstraintInstance
+
+        
+        Represents a constraint instance and allows access to all the AMPL suffixes of the related instance. For documentation on the properties see :dn:class:`ampl.Entities.Constraint`.
+
+
+
+    class :dn:cls:`DataFrame`
+        .. object: type=class name=ampl.DataFrame
+
+        
+        A DataFrame object, used to communicate data to and from the AMPL entities.
+
+        An object of this class can be used to do the following tasks:
+
+        Assign values to AMPL entities (once the DataFrame is populated,
+        use :dn:method:`ampl.AMPL.SetData` to assign its values to the modelling entities in its
+        columns)
+
+        Get values from AMPL, decoupling the values from the AMPL entities they
+        originate via :dn:method:`ampl.Entities.Entity.GetValues`.
+
+        A DataFrame object can be created in various ways via the various constructors:
+        create a skeleton manually specifiying the number of indexing columns and the column headers;
+        get column names (and number of indexing columns) from entities of the API passing them directly
+        to the appropriate constructor,
+        get values from AMPL, decoupling the values from the AMPL entities they
+        originate from (via :dn:method:`ampl.Entities.Entity.GetValues()`).
+
+        Populating a DataFrame object can be done adding row by row to a
+        pre-existing skeleton via :dn:method:`ampl.DataFrame.AddRow`, setting whole columns of a
+        pre-existing skeleton via :dn:method:`ampl.DataFrame.SetColumn` or adding columns (including
+        indexing columns) via :dn:method:`ampl.DataFrame.AddColumn`.
+        Modifying a DataFrame object can be done via :dn:method:`ampl.DataFrame.SetColumn` or
+        via :dn:method:`ampl.DataFrame.SetArray` or :dn:method:`ampl.DataFrame.SetMatrix`
+        Accessing data in a DataFrame can be done row by row using
+        :dn:method:`ampl.DataFrame.GetRow` or by column via :dn:method:`ampl.DataFrame.GetColumn`.
+
+
+
+    class :dn:cls:`Column`
+        .. object: type=class name=ampl.DataFrame.Column
+
+        
+
+
+    class :dn:cls:`Row`
+        .. object: type=class name=ampl.DataFrame.Row
+
+        
+
+
+    class :dn:cls:`Environment`
+        .. object: type=class name=ampl.Environment
+
+        
+        This class provides access to the environment variables and provides
+        facilities to specify where to load the underlying AMPL interpreter.
+
+
+
+    class :dn:cls:`Instance`
+        .. object: type=class name=ampl.Instance
+
+        
+        Represent an instance of a modelling entity
+
+
+
+    class :dn:cls:`ObjectiveInstance`
+        .. object: type=class name=ampl.ObjectiveInstance
+
+        
+        Represents an objective instance and allows access to all the AMPL suffixes of the related instance. For documentation on the properties see :dn:class:`ampl.Entities.Objective`.
+
+
+
+    class :dn:cls:`SetInstance`
+        .. object: type=class name=ampl.SetInstance
+
+        
+        A SetInstance object stores the information regarding a specific instance of
+        a set.The instances can be accessed through the function :dn:method:`ampl.Entities.Set.Get`
+        of the parent entity or through its indexer.
+
+
+
+    class :dn:cls:`MemberRange`
+        .. object: type=class name=ampl.SetInstance.MemberRange
+
+        
+
+
+    class :dn:cls:`iterator`
+        .. object: type=class name=ampl.SetInstance.MemberRange.iterator
+
+        
+
+
+    class :dn:cls:`Tuple`
+        .. object: type=class name=ampl.Tuple
+
+        
+        AMPL immutable tuple
+
+
+
+    class :dn:cls:`VariableInstance`
+        .. object: type=class name=ampl.VariableInstance
+
+        
+        Represents a variable instance and allows access to all the AMPL suffixes of the related instance. For documentation on the properties see :dn:class:`ampl.Entities.Variable`.
+
+
+
+    class :dn:cls:`Variant`
+        .. object: type=class name=ampl.Variant
+
+        
+        AMPL base type, can store a number or a string
+
+
+
+    class :dn:cls:`VariantRef`
+        .. object: type=class name=ampl.VariantRef
+
+        
+        AMPL base type, can store a number or a string
+
+
+

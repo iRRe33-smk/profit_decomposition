@@ -1,0 +1,410 @@
+.. _secClassStructure:
+
+Class structure
+===============
+
+AMPL API library consists of a collection of classes to interact with the underlying AMPL interpreter and to access
+its inputs and outputs. It uses generic collections to represent the various entities which comprise a mathematical
+model. The structure of these entities is explained in this section.
+
+The main class used to interact with AMPL, instantiate and interrogate the models is :java:ref:`AMPL`. One object of
+this class represents an execution of an AMPL translator, and is the first class that has to be instantiated when
+developing a solution based on AMPL API. It allows the interaction with the underlying AMPL translator, issuing commands,
+getting diagnostics and controlling the process.
+
+The model entities are represented by a set of classes, schematized in figure :ref:`figCDModelEntities`. These classes
+represent the optimisation model being created and allow some manipulation and data assignments operations on such entities
+and will be presented more in detail in the section :ref:`secModellingClasses`.
+
+
+.. _figCDModelEntities:
+
+.. figure:: ../common/images/ClassDiagramModelEntitiesNew.*
+   :align: center
+   :width: 757 px
+   :height: 375 px
+   :alt: Model entities class diagram
+   :figClass: align-center
+
+   Model entities classes overview
+
+
+.. _secAMPLClass:
+
+AMPL class
+----------
+
+For all calculations, AMPL API uses an underlying AMPL execution engine, which is wrapped by the class :java:ref:`AMPL`.
+Thus, one instance of this class is the first object to be created when writing a program which uses the AMPL API
+library. The object is quite resource-heavy, therefore it should be explicitly closed as soon as it is not needed anymore,
+with a call to :java:ref:`AMPL.close`.
+
+All the model creation and structural alteration operations are to be expressed in AMPL language through the
+AMPL main object; moreover, the class provides access to the current state represented via the classes derived
+from :java:ref:`Entity`, as shown in section :ref:`secModellingClasses` and provides several other functionalities
+( Java reference at  :ref:`secJavaAMPLClassesReference`).
+
+The functions can be split in three groups: direct AMPL interaction, model interrogation and commands.
+
+Direct interaction with AMPL
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The methods available to input AMPL commands are :java:ref:`AMPL.eval`, :java:ref:`AMPL.read` and :java:ref:`AMPL.readData`;
+they send the strings specified (or the specified files) to the AMPL engine for interpretation.
+Their async versions: :java:ref:`AMPL.evalAsync`, :java:ref:`AMPL.readAsync` and :java:ref:`AMPL.readDataAsync`,
+permit the calling program to continue the execution while the underlying AMPL process is busy in some time consuming operation,
+and to define a callback to be executed when the operation is over.
+
+
+Model interrogation
+~~~~~~~~~~~~~~~~~~~
+
+Evaluating AMPL files or statements creates various kind of entities in the underlying AMPL process.
+To get the Java (or, in general, programmatic) representation of such entities, the programmer can follow two main courses.
+
+* Get an :java:ref:`EntityMap` of all available entities, to iterate through them. The methods to obtain such lists are:
+
+  * :java:ref:`AMPL.getVariables` gets the :java:ref:`EntityMap` of all the defined variables
+  * :java:ref:`AMPL.getConstraints` gets the :java:ref:`EntityMap` of all the defined constraints
+  * :java:ref:`AMPL.getObjectives` gets the :java:ref:`EntityMap` of all the defined objectives
+  * :java:ref:`AMPL.getSets` gets the :java:ref:`EntityMap` of all the defined sets
+  * :java:ref:`AMPL.getParameters` gets the :java:ref:`EntityMap` of all the defined parameters
+
+* Knowing the AMPL name of an entity, use commands to get the specific entity directly:
+
+  * the generic :java:ref:`AMPL.getEntity` returns the :java:ref:`~ampl.Entity` with the specified name, if it exist. It can be any of the five entities, but the returned object needs to be cast to the specific class for further usage
+  * :java:ref:`AMPL.getVariable` returns the :java:ref:`~ampl.Variable` representing the AMPL variable with the specified name, if it exists
+  * :java:ref:`AMPL.getConstraint` returns the :java:ref:`~ampl.Constraint` representing the AMPL constraint with the specified name, if it exists
+  * :java:ref:`AMPL.getObjective` returns the :java:ref:`~ampl.Objective` representing the AMPL objective with the specified name, if it exists
+  * :java:ref:`AMPL.getParameter` returns the :java:ref:`~ampl.Parameter` representing the AMPL parameter with the specified name, if it exists
+  * :java:ref:`AMPL.getSet` returns the :java:ref:`~ampl.Set` representing the AMPL set with the specified name, if it exists
+
+
+Once the desired entities have been created, it is possible to use their properties and methods to manipulate the model
+and to extract or assign data. Updating the state of the programmatic entities is implemented lazily and uses proper
+dependency handling. Communication with the underlying engine is therefore executed only when an entity's properties
+are being accessed and only when necessary.
+An entity is invalidated (needs refreshing) if one of the entities it depends from has been manipulated or if a generic
+AMPL statement evaluation is performed (through :java:ref:`AMPL.eval` or similar routines). This is one of the reasons
+why it is generally better to use the embedded functionalities (e.g. fixing a variable through the corresponding API
+function call) than using AMPL statements: in the latter case, the API invalidates all entities, as the effects of
+such generic statements cannot be predicted.
+Refreshing is transparent to the user, but must be taken into account when implementing functions
+which access data or modify entities frequently.
+
+
+Commands and options
+~~~~~~~~~~~~~~~~~~~~
+
+Some AMPL commands are encapsulated by functions in the :java:ref:`AMPL` class for ease of access.
+These comprise :java:ref:`AMPL.solve` and others.
+To access and set options in AMPL, the functions :java:ref:`AMPL.setOption` and :java:ref:`AMPL.getOption` are provided.
+Together with their type-safe alternatives (e.g. :java:ref:`AMPL.getBoolOption` and :java:ref:`AMPL.setBoolOption`), these functions
+provide an easier programmatic access to the AMPL options.
+In general, when an encapsulation is available for an AMPL command, the programmatic access to it is to be preferred to calling the same command using
+:java:ref:`AMPL.eval`.
+
+
+Output and errors handling
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The output from the AMPL translator is handled implementing the interface :java:ref:`OutputHandler`.
+The method :java:ref:`OutputHandler.output` is called at each block of output from the translator. The current output handler
+can be accessed and set via :java:ref:`AMPL.getOutputHandler` and :java:ref:`AMPL.setOutputHandler`;
+the default output handler prints each block to stdout.
+
+Error handling is two-faced:
+
+* Errors coming from the underlying AMPL translator (e.g. syntax errors and warnings obtained calling the :java:ref:`AMPL.eval` method) are handled by the :java:ref:`ErrorHandler` which can be set and get via :java:ref:`AMPL.getErrorHandler()` and :java:ref:`AMPL.setErrorHandler()`.
+* Generic errors coming from the API, which are detected outside the translator are thrown as exceptions.
+
+The default implementation of the error handler throws exceptions on errors and prints the warnings to stdout.
+
+
+
+.. _secModellingClasses:
+
+Modelling entities classes
+--------------------------
+
+This group of classes represents the basic entities of an AMPL optimisation
+model: variables, constraints, objectives, parameters and sets.
+They are used to access the current state of the AMPL translator
+(e.g. to find the values of a variable), and to some extent they can be
+used for data input (e.g. assign values to a parameter, fix a variable).
+
+Objects of these classes cannot be created programmatically by the user: the model creation and structural
+modification is handled in AMPL (see section :ref:`secAMPLClass`), through the methods :java:ref:`AMPL.eval`
+and :java:ref:`AMPL.read`. The two base classes are :java:ref:`Entity` and :java:ref:`Instance`.
+
+The classes derived from :java:ref:`~ampl.Entity` represent algebraic entites
+(e.g. a variable indexed over a set in AMPL), and are implemented as a map
+from an object (number, string or tuple) to an :java:ref:`Instance` which allow access
+to its instances (method :java:ref:`~ampl.BasicEntity.get`).
+The case of scalar entities (like the AMPL entity defined by ``var x;``) is handled at Entity level, and will be
+illustrated in the paragraph regarding instances below.
+The derived classes are: :java:ref:`~ampl.Variable`, :java:ref:`~ampl.Constraint`, :java:ref:`~ampl.Parameter`,
+:java:ref:`~ampl.Objective` and :java:ref:`~ampl.Set`.
+
+Any object of a class derived from :java:ref:`Instance` represents a single instance of an algebraic entity
+(e.g.  the value of a variable for a specific value of its indexing set).
+The derived classes are: :java:ref:`VariableInstance`, :java:ref:`ConstraintInstance`,
+:java:ref:`ObjectiveInstance` and :java:ref:`SetInstance`.
+The composition of these classes can be described as shown below:
+
+.. _figEntityInstance:
+
+.. figure:: ../common/images/EntityMapItem.*
+   :align: center
+   :width: 560 px
+   :height: 137 px
+   :alt: Relationship between Entity and Instance
+   :figClass: align-center
+
+   Relationship between Entity and Instance
+
+
+The UML diagram in figure :ref:`figEntityInstance` illustrates that each :java:ref:`Entity` (algebraic entity in AMPL)
+can contain various :java:ref:`Instance` (instances in AMPL), while each Instance has to be part of exactly one Entity.
+The exact methods and properties of the entity depend on the particular kind of entity under consideration
+(i.e. variable, constraint, parameter).
+
+As an example, the class :java:ref:`~ampl.Variable` has functionalities like :java:ref:`Variable.fix` and :java:ref:`Variable.unfix`,
+which would fix or unfix all instances which are part of the algebraic entity, and its corresponding instance class :java:ref:`VariableInstance` has properties
+like :java:ref:`VariableInstance.value` and :java:ref:`VariableInstance.dual` (together with instance level fix and unfix methods).
+
+The class :java:ref:`~ampl.Constraint` has functionalities like :java:ref:`Constraint.drop` and :java:ref:`Constraint.restore`,
+and its instance level class :java:ref:`ConstraintInstance` properties like :java:ref:`ConstraintInstance.body` and :java:ref:`ConstraintInstance.dual`
+(and methods like drop and restore for the single instance).
+
+Note that the class :java:ref:`Parameter`, which represent an algebraic parameter, does not have
+an instance level class; its instances are represented by objects instead (typically double numbers or strings).
+
+
+.. _secAccessInstancesAndValues:
+
+Access to instances and values
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The instances can be accessed from the parent Entity through the function :java:ref:`BasicEntity.get`; all data
+corresponding to the entity can be accessed through the instances, but the computational overhead of such kind of
+access is quite considerable. To avoid this, the user can gain bulk data access through a :java:ref:`DataFrame` object;
+reference to these object can be obtained using :java:ref:`BasicEntity.getValues` methods.
+In case of scalar entities (e.g. the entity declared in AMPL with the statement ``var x;``), all the instance specific methods are
+replicated at Entity level, to allow the code fragment ``value = x.value();`` instead of the more explicit ``value = x.get().value()``.
+See example below:
+
+
+.. code-block:: java
+
+   double value;
+   AMPL ampl = new AMPL();
+   try{
+      ampl.eval("var x;");
+      Variable x = ampl.getVariable("x");
+      value = x.value();       // Compact access to scalar entities
+      value = x.get().value(); // Access through explicit reference to the instance
+   } finally {
+      ampl.close();
+   }
+
+
+Indexed entities are central in modelling via AMPL. This is why the :java:ref:`BasicEntity.get` method has various overloads and can be
+used in multiple ways, to adapt to specific use cases. These will be presented below, by mean of some Java examples.
+
+
+
+**Scalar Entities** -> :java:ref:`BasicEntity.get` In general, as seen above, access to an instance of a scalar entity is not needed, as all functionalities of the instance are replicated at entity level in this case. Anyway,
+to gain explicit access to an instance, the function :java:ref:`BasicEntity.get` can be used, as shown below.
+
+.. code-block:: java
+
+   ampl.eval("var x;");
+   VariableInstance x = ampl.getVariable("x").get();
+
+**Indexed Entities** -> :java:ref:`BasicEntity.get(Object... key)` and :java:ref:`BasicEntity.get(Tuple key)`. To gain access to instances in indexed entities,
+these functions can be used, depending on the context. For specialised conversion of indices, see the function :java:ref:`Tuple.join`.
+
+
+See the examples below (note that the results of the four acesses are identical).
+
+* *Each item is a index value*\ : Each item passed to the function is interpreted as the value of one of its indices
+* *The (only) item is an array  containing all the indices*\
+* *The (only) item is a*\  :java:ref:`Tuple` *representing all the indices*\
+* *Indices values are available in mixed formats*\  (tuples, arrays and single elements)
+
+.. code-block:: java
+
+      ampl.eval("var x{1..2, 4..5, 7..8};");
+
+      // Each item an index
+      VariableInstance x = ampl.getVariable("x").get(1,4,7);
+
+      // The item is an array
+      x = ampl.getVariable("x").get(new Object[]{1,4,7});
+
+      // The item is a tuple
+      Tuple t = new Tuple(1,4,7);
+      x = ampl.getVariable("x").get(t);
+
+      // Mixed indices types, use Tuple.join to create a Tuple
+      t = Tuple.join(new Tuple(1), new Object[]{4}, 7);
+      x = ampl.getVariable("x").get(t);
+
+
+
+
+
+The currently defined entities are obtained from the various get methods of the :java:ref:`AMPL` object
+(see section :ref:`secAMPLClass`). Once a reference to an entity is created, the entity is automatically kept up-to-date
+with the corresponding entity in the AMPL interpeter. That is, if a reference to a newly created AMPL variable
+is obtained by means of :java:ref:`AMPL.getVariable`, and the model the variable is part of is then solved
+by means of :java:ref:`AMPL.solve`, the values of the instances of the variable will automatically be updated.
+The following Java code snippet should demonstrate the concept.
+
+.. code-block:: java
+
+   AMPL ampl = new AMPL();
+   try{
+      ampl.eval("var x;");
+      ampl.eval("maximize z: x;");
+      ampl.eval("subject to c: x<=10;");
+      Variable x = ampl.getVariable("x");
+
+      // At this point x.value() evaluates to 0
+      System.out.println(x.value()); // prints 0
+
+      ampl.solve();
+
+      // At this point x.value() evaluates to 10
+      System.out.println(x.value()); // prints 10
+   } finally {
+      ampl.close();
+   }
+
+
+Relation between entities and data
+----------------------------------
+
+The entities and instances in AMPL store data (numbers or strings) and can be indexed, hence the instances available depend
+on the values in the indexing set(s).  The order in which these indexing sets is handled in the AMPL entities is
+not always consistent with the ordering in which the data for such sets is defined, so it is often desirable, even when interested
+in only data (decoupled from the AMPL entities) to keep track of the indexing values which corresponds to each value.
+
+Moreover, when dealing with AMPL entities (like :java:ref:`Variable`), consistency is guaranteed for every instance.
+This means that, if a reference to an instance is kept and in the underlying AMPL interpreter the value of the instance
+is changed, the value read from the instance object will be always consistent with the AMPL value and, if an instance is
+deleted in AMPL, an exception will be thrown when accessing it. This has the obvious benefit of allowing the user to rely
+on the values of the instances, but has a price in terms of computational overhead. For example, accessing in this way the value
+of 1000 instances:
+
+.. code-block:: java
+
+   AMPL ampl = new AMPL();
+   try {
+       ampl.eval(
+         "set A := 1..1000;" +
+         "param c{i in A} default 0; " +
+         "var x{i in 1..1000} := c[i];");
+
+       // Enumerate through all the instances of c and set their values
+       Parameter c = ampl.getParameter("c");
+       for (int i = 1; i <= c.numInstances(); i++)
+         c.set(i, i * 1.1);
+       // Enumerate through all the instances and print their values
+       Variable x = ampl.getVariable("x");
+       for (int i = 1; i <= x.numInstances(); i++)
+         System.out.println(x.get(i).value());
+   } finally {
+       ampl.close();
+   }
+
+will check at each access if the referenced instance is valid or not, resulting in a computational overhead. Moreover,
+in a multi-threaded environment (like when using :java:ref:`AMPL.evalAsync`), the value of the underlying collection of instances
+could be be changed by the interpreter while the main program is iterating through them, leading to undetermined results.
+
+To ease data communication and handling, the class :java:ref:`DataFrame` is provided. Its usage is two-fold:
+
+* It allows definition of data for multiple parameters in one single call to the underlying interpterer
+* It decouples data and entities, reducing the computational overhead and risks related to concurrency
+
+:java:ref:`DataFrame` objects should therefore be used in these circumnstances, together with the methods :java:ref:`AMPL.setData` and
+:java:ref:`BasicEntity.getValues`, as shown in the code below:
+
+.. code-block:: java
+
+   // Create a new dataframe with one indexing column (A) and another column (c)
+   DataFrame df = new DataFrame(1, "A", "c");
+   for (int i = 1; i <= 1000; i++)
+       df.addRow(i, i * 1.1);
+
+   AMPL ampl = new AMPL();
+   try {
+       ampl.eval(
+         "set A;" +
+         "param c{i in A} default 0;"+
+         "var x{i in A} := c[i];");
+       // Assign data to the set A and the parameter c in one line
+       ampl.setData(df, "A");
+       // Get the variable x
+       Variable x = ampl.getVariable("x");
+       // From the following line onwards, df is uncoupled from the
+       // modelling system,
+       df = x.getValues();
+
+   } finally {
+       ampl.close();
+   }
+   // Enumerate through all the instances and print their values
+   for (Object[] row: df)
+       System.out.format("%f %f%n", row[0], row[1]);
+
+The underlying AMPL interpreter does not need to be open when using the dataframe object, but it maintains all the correspondance between
+indexing set and actual value of the instances.
+
+
+.. _secAccessToScalars:
+
+Access to scalar values
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Simplified access to scalar values, like the value of a scalar variable or parameter or, in general, any
+AMPL expression that can be evaluated to a single string or number, is possible using the convenience method :java:ref:`AMPL.getValue`.
+This method will fail if called on an AMPL expression which does not evaluate to a single value. See below for an example:
+
+
+.. code-block:: java
+
+   AMPL ampl = new AMPL();
+   try {
+       ampl.eval("var x{i in 1..3} := i;");
+       ampl.eval("param p symbolic := 'test';");
+       ampl.eval("param pp := 4;");
+       // x2 will have the value 2
+       Object x2 = ampl.getValue("x[2]");
+       // p will have the value "test"
+       Object p = ampl.getValue("p");
+       // pp will have the value 4
+       Object pp = ampl.getValue("pp");
+   } finally {
+       ampl.close();
+   }
+
+.. _secVariableSuffixesNotes:
+
+Note on variables suffixes
+--------------------------
+
+For AMPL versions prior to 20150516, there was a glitch with
+v.lb, v.ub, v.lslack, v.uslack, and v.slack where v is a variable
+instantiated without need of presolve and after one or more
+other variables have been instantiated.  Example:
+
+.. code-block:: ampl
+
+    var x <= 0;
+    var y <= 0;
+    display y.lb;
+    display x.ub;
+    # x.ub was wrong (with separate display commands)
+    # but all went well with "display y.lb, x.ub;"

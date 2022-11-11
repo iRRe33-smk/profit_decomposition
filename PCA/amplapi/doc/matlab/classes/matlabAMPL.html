@@ -1,0 +1,1035 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AMPL &#8212; AMPL API 2.0.3-0 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../_static/ampl.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="AMPLOutput" href="matlabAMPLOutput.html" />
+    <link rel="prev" title="MATLAB API reference" href="../reference.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="matlabAMPLOutput.html" title="AMPLOutput"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../reference.html" title="MATLAB API reference"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" accesskey="U">MATLAB API reference</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">AMPL</a><ul>
+<li><a class="reference internal" href="#eval">eval</a></li>
+<li><a class="reference internal" href="#read">read</a></li>
+<li><a class="reference internal" href="#readdata">readData</a></li>
+<li><a class="reference internal" href="#solve">solve</a></li>
+<li><a class="reference internal" href="#getvalue">getValue</a></li>
+<li><a class="reference internal" href="#getdata">getData</a></li>
+<li><a class="reference internal" href="#setdata">setData</a></li>
+<li><a class="reference internal" href="#cd">cd</a></li>
+<li><a class="reference internal" href="#close">close</a></li>
+<li><a class="reference internal" href="#getconstraints">getConstraints</a></li>
+<li><a class="reference internal" href="#getvariables">getVariables</a></li>
+<li><a class="reference internal" href="#getobjectives">getObjectives</a></li>
+<li><a class="reference internal" href="#getparameters">getParameters</a></li>
+<li><a class="reference internal" href="#getsets">getSets</a></li>
+<li><a class="reference internal" href="#getentity">getEntity</a></li>
+<li><a class="reference internal" href="#getconstraint">getConstraint</a></li>
+<li><a class="reference internal" href="#getobjective">getObjective</a></li>
+<li><a class="reference internal" href="#getparameter">getParameter</a></li>
+<li><a class="reference internal" href="#getset">getSet</a></li>
+<li><a class="reference internal" href="#getvariable">getVariable</a></li>
+<li><a class="reference internal" href="#isrunning">isRunning</a></li>
+<li><a class="reference internal" href="#reset">reset</a></li>
+<li><a class="reference internal" href="#display">display</a></li>
+<li><a class="reference internal" href="#show">show</a></li>
+<li><a class="reference internal" href="#expand">expand</a></li>
+<li><a class="reference internal" href="#getoption">getOption</a></li>
+<li><a class="reference internal" href="#setoption">setOption</a></li>
+<li><a class="reference internal" href="#initializeevents">initializeEvents</a></li>
+<li><a class="reference internal" href="#output">Output</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../reference.html"
+                        title="previous chapter">MATLAB API reference</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="matlabAMPLOutput.html"
+                        title="next chapter">AMPLOutput</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/classes/matlabAMPL.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ampl">
+<span id="secmatlabrefampl"></span><h1>AMPL<a class="headerlink" href="#ampl" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="AMPL">
+<em class="property">class </em><code class="descname">AMPL</code><a class="headerlink" href="#AMPL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>The AMPL object is central to the MATLAB API for AMPL. All usage of the API
+starts from the creation of an AMPL object.
+It represent an underlying interpreter, and can be used to issue commands and to
+gain access to the created entities.</p>
+<div class="section" id="eval">
+<h2>eval<a class="headerlink" href="#eval" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.eval">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">eval</code><span class="sig-paren">(</span><em>amplstring</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">eval(amplstring)</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">eval(amplstring)</span></code> interprets the string given as an argument through the underlying
+AMPL interpeter. It accepts only AMPL statements and the output of the interpreter is
+displayed on the MATLAB console.</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">amplstring</span></code>    A sequence of AMPL statements</p>
+<p><strong>Example</strong></p>
+<p>Create a variable x and a simple objective function in the underlying
+AMPL object, and use its functionalities to show the equational form
+of the objective function.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x {1..3} &gt;= 0; minimize o: sum {j in 1..3} x[j];&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;expand o;&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The object <code class="docutils literal notranslate"><span class="pre">output</span></code> stores now the output of the interpreter when
+subject to those statements. To display it in MATLAB, simply execute:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">output</span> <span class="o">=</span>
+<span class="n">minimize</span> <span class="n">o</span><span class="p">:</span>
+   <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="read">
+<h2>read<a class="headerlink" href="#read" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.read">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">read</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">read(filename)</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">read(filename)</span></code> reads the file specified by its parameter as a model file. The output coming from the interpreter will be
+printed on the console. Equivalent to the AMPL statement <code class="docutils literal notranslate"><span class="pre">model</span> <span class="pre">filename;</span></code>.</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">filename</span></code>    A path to an AMPL file. Can be absolute or relative to the AMPL’s current
+working directory (as given by <a class="reference internal" href="#AMPL.cd" title="AMPL.cd"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.cd</span></code></a>).</p>
+<p><strong>Example</strong></p>
+<p>Reads a model file called test.mod placed in the subdirectory “/models” of the current
+working directory.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="s">&#39;models/test.mod&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="readdata">
+<h2>readData<a class="headerlink" href="#readdata" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.readData">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">readData</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.readData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">o</span> <span class="pre">=</span> <span class="pre">readData(filename)</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">o</span> <span class="pre">=</span> <span class="pre">readData(filename)</span></code> reads the file specified by its parameter as a data file.
+Equivalent to the AMPL statement <code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">filename;</span></code>.</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">filename</span></code>    A path to an AMPL data file (.dat). Can be absolute or relative to the AMPL’s current
+working directory (as given by <a class="reference internal" href="#AMPL.cd" title="AMPL.cd"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.cd</span></code></a>).</p>
+<p><strong>Example</strong></p>
+<p>Reads a model file called test.mod placed in the subdirectory “/models” of the current
+working directory and a data file called dataset1.dat in the current directory.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="s">&#39;models/test.mod&#39;</span><span class="p">);</span>
+<span class="n">o</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">readData</span><span class="p">(</span><span class="s">&#39;dataset1.dat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="solve">
+<h2>solve<a class="headerlink" href="#solve" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.solve">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">solve</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.solve" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">solve()</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">solve</span></code> starts the solution process, on the current model instance and with the
+current options. It is equivalent to issuing <code class="docutils literal notranslate"><span class="pre">eval('solve;');</span></code>.</p>
+<p><strong>Example</strong></p>
+<p>Create a simple model and solve it:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;maximize z: x;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;subject to c: x&lt;=5;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">solve</span><span class="p">();</span>
+<span class="n">o</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getObjective</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">);</span>
+<span class="n">v</span> <span class="p">=</span> <span class="n">o</span><span class="p">.</span><span class="n">value</span>
+</pre></div>
+</div>
+<p>This will give:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getvalue">
+<h2>getValue<a class="headerlink" href="#getvalue" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.getValue">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">getValue</code><span class="sig-paren">(</span><em>scalarExpression</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.getValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">=</span> <span class="pre">getValue(scalarExpression)</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">=</span> <span class="pre">getValue(scalarExpression)</span></code>  Get a (single) value corresponding to the evaluation of the
+given expression in the underlying AMPL interpreter.</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">scalarExpression</span></code> A string representing an AMPL expression which evaluates to a single value.</p>
+<p><strong>Output Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">v</span></code> A number or a string containing the value of the AMPL expression</p>
+<p><strong>Example</strong> 1: Get value of a scalar variable</p>
+<p>Get the value of a scalar variable in a very compact way:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x := 3;&#39;</span><span class="p">)</span>
+<span class="n">v</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getValue</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">=</span>
+<span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getdata">
+<h2>getData<a class="headerlink" href="#getdata" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.getData">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">getData</code><span class="sig-paren">(</span><em>displayExpressions</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.getData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">=</span> <span class="pre">getData(displayExpressions)</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">=</span> <span class="pre">getData(displayExpression)</span></code>  Get the data corresponding to the display statements in a <a class="reference internal" href="matlabDataFrame.html#DataFrame" title="DataFrame"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>. The statements can be AMPL expressions or entities. It captures the equivalent of the command:
+<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ds1,</span> <span class="pre">...,</span> <span class="pre">dsn;</span></code> where <code class="docutils literal notranslate"><span class="pre">ds1,</span> <span class="pre">...,</span> <span class="pre">dsn</span></code> are the strings passed to the function. As only one DataFrame is returned, the operation will fail if the results of the display statements
+cannot be indexed over the same set. As a result, any attempt to get data from more than one set, or to get data for multiple parameters with a different number of indexing sets will fail.</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">displayExpression</span></code> A list of strings representing the display expression(s) to be fetched into the DataFrame.</p>
+<p><strong>Output Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">df</span></code> A <a class="reference internal" href="matlabDataFrame.html#DataFrame" title="DataFrame"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> containig the values returned by the display expression</p>
+<p><strong>Example</strong> 1</p>
+<p>Get values of an AMPL expression into a dataframe</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{i in 1..100} := i;);</span>
+<span class="s">df = ampl.getData(&#39;</span><span class="p">{</span><span class="nb">i</span> <span class="n">in</span> <span class="mf">1.</span><span class="p">.</span><span class="mi">100</span> <span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="nb">i</span><span class="p">]</span> <span class="o">&gt;</span><span class="p">=</span> <span class="mi">98</span><span class="p">}</span> <span class="n">x</span><span class="p">[</span><span class="nb">i</span><span class="p">]</span><span class="o">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span>
+
+<span class="n">index0</span>  <span class="o">|</span>  <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="mf">98.0</span>    <span class="o">|</span>  <span class="mf">98.0</span>
+<span class="mf">99.0</span>    <span class="o">|</span>  <span class="mf">99.0</span>
+<span class="mf">100.0</span>   <span class="o">|</span>  <span class="mf">100.0</span>
+</pre></div>
+</div>
+<p><strong>Example</strong> 2</p>
+<p>Fetch multiple values in the same dataframe</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{i in 1..2, j in 3..4} := i+10*j;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var y{i in 2..4, j in 4..5} := i*j;&#39;</span><span class="p">);</span>
+<span class="n">df</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getData</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>will give:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span>
+<span class="n">index0</span>  <span class="n">index1</span>  <span class="o">|</span>  <span class="n">x</span>     <span class="n">y</span>
+<span class="mf">1.0</span>     <span class="mf">3.0</span>     <span class="o">|</span>  <span class="mf">31.0</span>
+<span class="mf">1.0</span>     <span class="mf">4.0</span>     <span class="o">|</span>  <span class="mf">41.0</span>
+<span class="mf">2.0</span>     <span class="mf">3.0</span>     <span class="o">|</span>  <span class="mf">32.0</span>
+<span class="mf">2.0</span>     <span class="mf">4.0</span>     <span class="o">|</span>  <span class="mf">42.0</span>  <span class="mf">8.0</span>
+<span class="mf">2.0</span>     <span class="mf">5.0</span>     <span class="o">|</span>        <span class="mf">10.0</span>
+<span class="mf">3.0</span>     <span class="mf">4.0</span>     <span class="o">|</span>        <span class="mf">12.0</span>
+<span class="mf">3.0</span>     <span class="mf">5.0</span>     <span class="o">|</span>        <span class="mf">15.0</span>
+<span class="mf">4.0</span>     <span class="mf">4.0</span>     <span class="o">|</span>        <span class="mf">16.0</span>
+<span class="mf">4.0</span>     <span class="mf">5.0</span>     <span class="o">|</span>        <span class="mf">20.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setdata">
+<h2>setData<a class="headerlink" href="#setdata" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.setData">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">setData</code><span class="sig-paren">(</span><em>dataframe</em>, <em>assignSets</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.setData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">setData(dataframe)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">setData(dataframe,</span> <span class="pre">setName)</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">setData(dataframe)</span></code> ` assigns the data in the dataframe to the AMPL entities with the corresponding names</p>
+<p><code class="docutils literal notranslate"><span class="pre">setData(dataframe,</span> <span class="pre">setName)</span></code> assigns the data in the dataframe to the AMPL entities with the corresponding names (and the indexing columns to the specified set)</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">dataframe</span></code> A <a class="reference internal" href="matlabDataFrame.html#DataFrame" title="DataFrame"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> with columns which names correspond to entities currently defined in the underlying AMPL interpreter.</p>
+<p><code class="docutils literal notranslate"><span class="pre">setName</span></code>  The name of the set to which the indices values of the DataFrame are to be assigned.
+Note that at most one set can be assigned at the same time as the parameters (for <a class="reference internal" href="matlabDataFrame.html#DataFrame" title="DataFrame"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> with multiple indexing columns)</p>
+<p><strong>Example</strong> 1</p>
+<p>Create DataFrame with one indexing column and arbitrary column names, populate it and set the values into the parameters</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;PROD&#39;</span><span class="p">,</span> <span class="s">&#39;price&#39;</span><span class="p">,</span> <span class="s">&#39;cost&#39;</span><span class="p">});</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addRow</span><span class="p">(</span><span class="s">&#39;shirts&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addRow</span><span class="p">(</span><span class="s">&#39;skirts&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>  <span class="mi">6</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;set PROD; param price{PROD}; param cost{PROD};&#39;</span><span class="p">)</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">setData</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="s">&#39;PROD&#39;</span><span class="p">);</span>
+<span class="c">% now the AMPL parameters price and cost, as well as the set PROD are assigned the listed values</span>
+</pre></div>
+</div>
+<p><strong>Example</strong> 2</p>
+<p>Create a DataFrame object inferring the table structure from the AMPL entities. It is mandatory for sets to be listed first.
+Do not assign the set values to AMPL (it is not supported for multiple sets at once).</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;set PROD; set COLOUR; param price{PROD, COLOUR};&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;data; set PROD := shirts skirts; set COLOUR := red blue; model;&#39;</span><span class="p">);</span>
+<span class="n">PROD</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getSet</span><span class="p">(</span><span class="s">&#39;PROD&#39;</span><span class="p">);</span>
+<span class="n">COLOUR</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getSet</span><span class="p">(</span><span class="s">&#39;COLOUR&#39;</span><span class="p">);</span>
+<span class="n">price</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s">&#39;price&#39;</span><span class="p">);</span>
+<span class="n">d</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">([</span><span class="n">PROD</span><span class="p">,</span> <span class="n">COLOUR</span><span class="p">,</span> <span class="n">price</span><span class="p">]);</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">addRow</span><span class="p">({</span><span class="s">&#39;shirts&#39;</span><span class="p">,</span> <span class="s">&#39;red&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">});</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addRow</span><span class="p">({</span><span class="s">&#39;shirts&#39;</span><span class="p">,</span> <span class="s">&#39;blue&#39;</span><span class="p">,</span>  <span class="mf">4.5</span><span class="p">});</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addRow</span><span class="p">({</span><span class="s">&#39;skirts&#39;</span><span class="p">,</span> <span class="s">&#39;blue&#39;</span><span class="p">,</span>  <span class="mf">5.5</span><span class="p">});</span>
+
+<span class="n">ampl</span><span class="p">.</span><span class="n">setData</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+<span class="c">% now the AMPL parameter cost will have the assigned value</span>
+<span class="n">price</span><span class="p">.</span><span class="n">display</span>
+</pre></div>
+</div>
+<p>will give:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ans</span> <span class="o">=</span>
+
+<span class="n">price</span> <span class="p">:</span><span class="o">=</span>
+<span class="n">shirts</span> <span class="n">blue</span>   <span class="mf">4.5</span>
+<span class="n">shirts</span> <span class="n">red</span>    <span class="mi">5</span>
+<span class="n">skirts</span> <span class="n">blue</span>   <span class="mf">5.5</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cd">
+<h2>cd<a class="headerlink" href="#cd" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.cd">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">cd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.cd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">workingdir</span> <span class="pre">=</span> <span class="pre">cd</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">cd(directory)</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">cd</span></code> changes or displays the current working directory of the underlying AMPL interpreter.</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">directory</span></code> the directory to change to</p>
+<p><strong>Output Arguments</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">workingdir</span></code></dt>
+<dd>The current working directory of the underlying AMPL interpreter. Can be different from MATLAB’s
+current directory.</dd>
+</dl>
+<p><strong>Example</strong></p>
+<p>Display the current working directory and then change it to be the same as MATLAB’s.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">workingdir</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">cd</span> <span class="c">% display AMPL&#39;s current working directory</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">cd</span><span class="p">(</span><span class="n">pwd</span><span class="p">)</span>         <span class="c">% changes AMPL working directory to MATLAB&#39;s (and displays it)</span>
+</pre></div>
+</div>
+<p>This will give:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">workingdir</span> <span class="o">=</span>
+<span class="n">d</span><span class="p">:</span>\
+
+<span class="n">ans</span> <span class="o">=</span>
+<span class="n">D</span><span class="p">:</span>\<span class="n">Development</span>\<span class="n">AMPLApi</span>\<span class="n">git</span>\<span class="n">distribution</span>\<span class="n">target</span>\<span class="n">distribution</span><span class="o">-</span><span class="mf">0.1</span><span class="o">-</span><span class="nb">bin</span>\<span class="n">matlab</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="close">
+<h2>close<a class="headerlink" href="#close" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.close">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">close</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">close</span></code> stops the  underlying AMPL process and releases all the resources it uses.</p>
+<p><strong>Example</strong></p>
+<p>Close all resources:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">close</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">isRunning</span>
+</pre></div>
+</div>
+<p>This will give:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ans</span> <span class="o">=</span>
+      <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getconstraints">
+<h2>getConstraints<a class="headerlink" href="#getconstraints" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.getConstraints">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">getConstraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.getConstraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">names</span> <span class="pre">=</span> <span class="pre">getConstraints</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">names</span> <span class="pre">=</span> <span class="pre">getConstraints</span></code> gets the <a class="reference internal" href="matlabEntityList.html#EntityList" title="EntityList"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">EntityList</span></code></a> of constraints currently defined. Once
+a reference to the list is obtained, is automatically kept in sync with the AMPL interpreter.</p>
+<p><strong>Example</strong></p>
+<p>Get the list of constraints defined in a model:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{1..3}; c{i in 1..2}: x[i] &lt;= i; c2: x[3] &lt;= 10;&#39;</span><span class="p">);</span>
+<span class="n">names</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getConstraints</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This will give:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span>
+
+<span class="n">List</span> <span class="n">of</span> <span class="n">defined</span> <span class="n">constraints</span><span class="p">:</span>
+<span class="n">c2</span>
+<span class="n">c</span>
+</pre></div>
+</div>
+<p>To prove that is kept in sync, executing:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;c3: x[1]&lt;=0;&#39;</span><span class="p">)</span>
+<span class="n">names</span>
+</pre></div>
+</div>
+<p>Will then give:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span>
+
+<span class="n">List</span> <span class="n">of</span> <span class="n">defined</span> <span class="n">constraints</span><span class="p">:</span>
+<span class="n">c2</span>
+<span class="n">c</span>
+<span class="n">c3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getvariables">
+<h2>getVariables<a class="headerlink" href="#getvariables" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.getVariables">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">getVariables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.getVariables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">names</span> <span class="pre">=</span> <span class="pre">getVariables</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">names</span> <span class="pre">=</span> <span class="pre">getVariables</span></code> gets the <a class="reference internal" href="matlabEntityList.html#EntityList" title="EntityList"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">EntityList</span></code></a> of variables currently defined. Once
+a reference to the list is obtained, is automatically kept in sync with the AMPL interpreter.</p>
+<p><strong>Example</strong></p>
+<p>Get the list of variables defined in a model:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{1..3}; var y;&#39;</span><span class="p">);</span>
+<span class="n">names</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getVariables</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This will give:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span>
+
+<span class="n">List</span> <span class="n">of</span> <span class="n">defined</span> <span class="n">variables</span><span class="p">:</span>
+<span class="n">x</span>
+<span class="n">y</span>
+</pre></div>
+</div>
+<p>To prove that is kept in sync, executing:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x;&#39;</span><span class="p">)</span>
+<span class="n">names</span>
+</pre></div>
+</div>
+<p>Will then give:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span>
+
+<span class="n">List</span> <span class="n">of</span> <span class="n">defined</span> <span class="n">constraints</span><span class="p">:</span>
+<span class="n">x</span>
+<span class="n">y</span>
+<span class="n">z</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getobjectives">
+<h2>getObjectives<a class="headerlink" href="#getobjectives" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.getObjectives">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">getObjectives</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.getObjectives" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">names</span> <span class="pre">=</span> <span class="pre">getObjectives</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">names</span> <span class="pre">=</span> <span class="pre">getObjectives</span></code> gets the <a class="reference internal" href="matlabEntityList.html#EntityList" title="EntityList"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">EntityList</span></code></a> of objectives currently defined. Once
+a reference to the list is obtained, is automatically kept in sync with the AMPL interpreter.</p>
+<p><strong>Example</strong></p>
+<p>Get the list of objectives defined in a model:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{1..3} &lt;= 4; maximize obj: sum{i in 1..3} x[i];&#39;</span><span class="p">);</span>
+<span class="n">names</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getObjectives</span><span class="p">()</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;maximize newobj: sum{i in 1..3} x[i]/i;&#39;</span><span class="p">);</span>
+<span class="n">names</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;delete obj;&#39;</span><span class="p">);</span>
+<span class="n">names</span>
+</pre></div>
+</div>
+<p>will give:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span>
+<span class="n">List</span> <span class="n">of</span> <span class="n">defined</span> <span class="n">objectives</span><span class="p">:</span>
+   <span class="n">obj</span>
+
+<span class="n">names</span> <span class="o">=</span>
+<span class="n">List</span> <span class="n">of</span> <span class="n">defined</span> <span class="n">objectives</span><span class="p">:</span>
+   <span class="n">newobj</span>
+   <span class="n">obj</span>
+
+<span class="n">names</span> <span class="o">=</span>
+<span class="n">List</span> <span class="n">of</span> <span class="n">defined</span> <span class="n">objectives</span><span class="p">:</span>
+   <span class="n">newobj</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getparameters">
+<h2>getParameters<a class="headerlink" href="#getparameters" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.getParameters">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">getParameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.getParameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">names</span> <span class="pre">=</span> <span class="pre">getParameters</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">names</span> <span class="pre">=</span> <span class="pre">getParameters</span></code> gets the <a class="reference internal" href="matlabEntityList.html#EntityList" title="EntityList"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">EntityList</span></code></a> of parameters currently defined. Once
+a reference to the list is obtained, is automatically kept in sync with the AMPL interpreter.</p>
+<p><strong>Example</strong></p>
+<p>Get the list of parameters defined in a model:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;param a; param b symbolic;&#39;</span><span class="p">);</span>
+<span class="n">names</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getParameters</span><span class="p">();</span>
+<span class="n">names</span>
+</pre></div>
+</div>
+<p>will give:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span>
+ <span class="n">List</span> <span class="n">of</span> <span class="n">defined</span> <span class="n">parameters</span><span class="p">:</span>
+   <span class="n">b</span>
+   <span class="n">a</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getsets">
+<h2>getSets<a class="headerlink" href="#getsets" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.getSets">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">getSets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.getSets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">names</span> <span class="pre">=</span> <span class="pre">getSets</span></code></p>
+<p><strong>Description</strong></p>
+<p>a reference to the list is obtained, is automatically kept in sync with the AMPL interpreter.</p>
+<p><strong>Example</strong></p>
+<p>Get the list of sets defined in a model:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;set A; set B{A};&#39;</span><span class="p">);</span>
+<span class="n">names</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getSets</span><span class="p">();</span>
+<span class="n">names</span>
+</pre></div>
+</div>
+<p>will give:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span>
+ <span class="n">List</span> <span class="n">of</span> <span class="n">defined</span> <span class="n">sets</span><span class="p">:</span>
+   <span class="n">B</span>
+   <span class="n">A</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getentity">
+<h2>getEntity<a class="headerlink" href="#getentity" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.getEntity">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">getEntity</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.getEntity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">entity</span> <span class="pre">=</span> <span class="pre">getEntity(name)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">cons</span> <span class="pre">=</span> <span class="pre">getConstraint(name)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">var</span> <span class="pre">=</span> <span class="pre">getVariable(name)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">=</span> <span class="pre">getSet(name)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">param</span> <span class="pre">=</span> <span class="pre">getParameter(name)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">obj</span> <span class="pre">=</span> <span class="pre">getObjective(name)</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">getEntity</span></code> is the generic version of all the specialised functions below, and gets any AMPL entity which has the specified name.</p>
+<p><code class="docutils literal notranslate"><span class="pre">getConstraint</span></code> gets the constraint entity corresponding to the specified name,</p>
+<p><code class="docutils literal notranslate"><span class="pre">getVariable</span></code> gets the variable entity corresponding to the specified name,</p>
+<p><code class="docutils literal notranslate"><span class="pre">getParameter</span></code> gets the parameter entity corresponding to the specified name,</p>
+<p><code class="docutils literal notranslate"><span class="pre">getSet</span></code> gets the set entity corresponding to the specified name and</p>
+<p><code class="docutils literal notranslate"><span class="pre">getObjective</span></code> gets the objective entity corresponding to the specified name.</p>
+<p><strong>Output Arguments</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">entity</span></code></dt>
+<dd>The <a class="reference internal" href="matlabEntity.html#Entity" title="Entity"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">Entity</span></code></a> corresponding to the name, its type is resolved dynamically by MATLAB</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">var</span></code></dt>
+<dd>The <a class="reference internal" href="matlabVariable.html#Variable" title="Variable"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">Variable</span></code></a> corresponding to the name</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">set</span></code></dt>
+<dd>The <a class="reference internal" href="matlabSet.html#Set" title="Set"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">Set</span></code></a> set corresponding to the name</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">param</span></code></dt>
+<dd>The <a class="reference internal" href="matlabParameter.html#Parameter" title="Parameter"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">Parameter</span></code></a> corresponding to the name</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">obj</span></code></dt>
+<dd>The <a class="reference internal" href="matlabObjective.html#Objective" title="Objective"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">Objective</span></code></a> corresponding to the name</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">cons</span></code></dt>
+<dd>The <a class="reference internal" href="matlabConstraint.html#Constraint" title="Constraint"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">Constraint</span></code></a> corresponding to the name</dd>
+</dl>
+<p><strong>Example</strong></p>
+<p>Declare a model and gain programmatic access to various entities:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;param a := 5; set A = 1..3; var x{A} &gt;= 0;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;maximize z: sum{i in A} x[i]; c{i in A}: x[i] &lt;= a;&#39;</span><span class="p">);</span>
+<span class="n">a</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">);</span>
+<span class="n">A</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getSet</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">);</span>
+<span class="n">x</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getVariable</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">);</span>
+<span class="n">z</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getObjective</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">);</span>
+<span class="n">c</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getConstraint</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">display</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">display</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">display</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">display</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">display</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will give:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ans</span> <span class="o">=</span>
+   <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="n">ans</span> <span class="o">=</span>
+   <span class="nb">set</span> <span class="n">A</span> <span class="p">:</span><span class="o">=</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">;</span>
+
+<span class="n">ans</span> <span class="o">=</span>
+   <span class="n">x</span> <span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="p">:</span><span class="o">=</span>
+   <span class="mi">1</span>  <span class="mi">0</span>
+   <span class="mi">2</span>  <span class="mi">0</span>
+   <span class="mi">3</span>  <span class="mi">0</span>
+   <span class="p">;</span>
+
+<span class="n">ans</span> <span class="o">=</span>
+   <span class="n">z</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">ans</span> <span class="o">=</span>
+   <span class="n">c</span> <span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="p">:</span><span class="o">=</span>
+   <span class="mi">1</span>  <span class="mi">0</span>
+   <span class="mi">2</span>  <span class="mi">0</span>
+   <span class="mi">3</span>  <span class="mi">0</span>
+   <span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getconstraint">
+<h2>getConstraint<a class="headerlink" href="#getconstraint" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.getConstraint">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">getConstraint</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.getConstraint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>See  <a class="reference internal" href="#AMPL.getEntity" title="AMPL.getEntity"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.getEntity</span></code></a> .</p>
+</div>
+<div class="section" id="getobjective">
+<h2>getObjective<a class="headerlink" href="#getobjective" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.getObjective">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">getObjective</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.getObjective" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>See  <a class="reference internal" href="#AMPL.getEntity" title="AMPL.getEntity"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.getEntity</span></code></a>.</p>
+</div>
+<div class="section" id="getparameter">
+<h2>getParameter<a class="headerlink" href="#getparameter" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.getParameter">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">getParameter</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.getParameter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>See  <a class="reference internal" href="#AMPL.getEntity" title="AMPL.getEntity"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.getEntity</span></code></a>.</p>
+</div>
+<div class="section" id="getset">
+<h2>getSet<a class="headerlink" href="#getset" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.getSet">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">getSet</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.getSet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>See  <a class="reference internal" href="#AMPL.getEntity" title="AMPL.getEntity"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.getEntity</span></code></a>.</p>
+</div>
+<div class="section" id="getvariable">
+<h2>getVariable<a class="headerlink" href="#getvariable" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.getVariable">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">getVariable</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.getVariable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>See  <a class="reference internal" href="#AMPL.getEntity" title="AMPL.getEntity"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.getEntity</span></code></a>.</p>
+</div>
+<div class="section" id="isrunning">
+<h2>isRunning<a class="headerlink" href="#isrunning" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.isRunning">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">isRunning</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.isRunning" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">isRunning</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">isRunning</span></code> returns 1 if the underlying AMPL intepreter is running and ready to accepts commands.</p>
+<p><strong>Output Arguments</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">b</span></code></dt>
+<dd>1 if the underlying engine is running, 0 otherwise (if the engine had been stopped with <a class="reference internal" href="#AMPL.close" title="AMPL.close"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.close</span></code></a> or if it had not been
+started due to other problems.</dd>
+</dl>
+<p><strong>Example</strong></p>
+<p>Start AMPL and check if it is running</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span> <span class="p">=</span> <span class="n">initAMPL</span><span class="p">;</span>
+<span class="n">b</span> <span class="p">=</span> <span class="n">isRunning</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span>
+   <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reset">
+<h2>reset<a class="headerlink" href="#reset" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.reset">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">reset</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">reset</span></code> resets the underlying AMPL interpreter. Equivalent to the AMPL statement <code class="docutils literal notranslate"><span class="pre">reset;</span></code>.</p>
+<p><strong>Example</strong></p>
+<p>Start AMPL and check if it is running</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">reset</span><span class="p">;</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{1..3};&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>does not give an error because the variable x has been deleted from AMPL by the reset command.</p>
+</div>
+<div class="section" id="display">
+<h2>display<a class="headerlink" href="#display" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.display">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">display</code><span class="sig-paren">(</span><em>displayExpressions</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">display(displayExpression)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">display(displayExpressions)</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">display(displayExpression)</span></code>  Prints on screen the result of calling the AMPL <code class="docutils literal notranslate"><span class="pre">display</span></code> command
+on the display expression.</p>
+<p><code class="docutils literal notranslate"><span class="pre">display(displayExpressions)</span></code> Prints on screen the result of calling the AMPL <code class="docutils literal notranslate"><span class="pre">display</span></code> command
+on a series of expressions.</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">displayExpression</span></code> A string containing the display expression to be displayed</p>
+<p><code class="docutils literal notranslate"><span class="pre">displayExpressions</span></code> A list of display expression(s) to be displayed</p>
+<p><strong>Example</strong> 1</p>
+<p>Prints the values of an AMPL expression: and of two expressions.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{i in 1..100} := i;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">display</span><span class="p">(</span><span class="s">&#39;{i in 1..100 : x[i] &gt;= 98} x[i]&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">display</span><span class="p">(</span><span class="s">&#39;{i in 95..98} i&#39;</span><span class="p">,</span> <span class="s">&#39;{i in 1..100 : x[i] &gt;= 98} x[i]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span>      <span class="n">i</span>    <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>    <span class="p">:</span><span class="o">=</span>
+<span class="mi">95</span>    <span class="mi">95</span>      <span class="o">.</span>
+<span class="mi">96</span>    <span class="mi">96</span>      <span class="o">.</span>
+<span class="mi">97</span>    <span class="mi">97</span>      <span class="o">.</span>
+<span class="mi">98</span>    <span class="mi">98</span>      <span class="mi">98</span>
+<span class="mi">99</span>      <span class="o">.</span>     <span class="mi">99</span>
+<span class="mi">100</span>     <span class="o">.</span>    <span class="mi">100</span>
+<span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="show">
+<h2>show<a class="headerlink" href="#show" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.show">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">show</code><span class="sig-paren">(</span><em>showExpressions</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">show(entity)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">show(entities)</span></code></p>
+<p><strong>Description</strong></p>
+<p>The AMPL <code class="docutils literal notranslate"><span class="pre">show</span></code> command fetches the declaration of an entity. It can be used
+on single entities or list of entities</p>
+<p><code class="docutils literal notranslate"><span class="pre">show(entity)</span></code>  Prints on screen the result of calling the AMPL <code class="docutils literal notranslate"><span class="pre">show</span></code> command
+on the specified entity</p>
+<p><code class="docutils literal notranslate"><span class="pre">show(entities)</span></code> Prints on screen the result of calling the AMPL <code class="docutils literal notranslate"><span class="pre">show</span></code> command
+on a series of entities.</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">entity</span></code> An AMPL entity</p>
+<p><code class="docutils literal notranslate"><span class="pre">entities</span></code> A list of AMPL entities</p>
+<p><strong>Example</strong> 1</p>
+<p>Prints the declaration of an AMPL expression and an entity</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{i in 1..100}; maximize z: sum{i in 1..100} x[i];&#39;</span><span class="p">);</span>
+<span class="n">x</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getVariable</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">);</span>
+<span class="n">z</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getObjective</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="n">x</span><span class="p">{</span><span class="n">i</span> <span class="ow">in</span> <span class="mi">1</span> <span class="o">..</span> <span class="mi">100</span><span class="p">}</span>
+<span class="n">maximize</span> <span class="n">z</span><span class="p">:</span> <span class="nb">sum</span><span class="p">{</span><span class="n">i</span> <span class="ow">in</span> <span class="mi">1</span> <span class="o">..</span> <span class="mi">100</span><span class="p">}</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="expand">
+<h2>expand<a class="headerlink" href="#expand" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.expand">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">expand</code><span class="sig-paren">(</span><em>expandExpressions</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.expand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">expand(entity)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">expand(entities)</span></code></p>
+<p><strong>Description</strong></p>
+<p>The AMPL <code class="docutils literal notranslate"><span class="pre">expand</span></code> command expands an entity, visualizing all its instances. It can be used
+on single entities or list of entities</p>
+<p><code class="docutils literal notranslate"><span class="pre">expand(entity)</span></code>  Prints on screen the result of calling the AMPL <code class="docutils literal notranslate"><span class="pre">expand</span></code> command
+on the specified entity.</p>
+<p><code class="docutils literal notranslate"><span class="pre">expand(entities)</span></code> Prints on screen the result of calling the AMPL <code class="docutils literal notranslate"><span class="pre">expand</span></code> command
+on all the entieis.</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">entity</span></code> An AMPL entity</p>
+<p><code class="docutils literal notranslate"><span class="pre">entities</span></code> A list of AMPL entities</p>
+<p><strong>Example</strong> 1</p>
+<p>Expands the entities in this model:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{i in 1..3}; maximize z: sum{i in 1..3} x[i];&#39;</span><span class="p">);</span>
+<span class="n">x</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getVariable</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">);</span>
+<span class="n">z</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getObjective</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">expand</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Coefficients</span> <span class="n">of</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+   <span class="n">z</span>  <span class="mi">1</span>
+<span class="n">Coefficients</span> <span class="n">of</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+   <span class="n">z</span>  <span class="mi">1</span>
+<span class="n">Coefficients</span> <span class="n">of</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+   <span class="n">z</span>  <span class="mi">1</span>
+<span class="n">maximize</span> <span class="n">z</span><span class="p">:</span>
+   <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getoption">
+<h2>getOption<a class="headerlink" href="#getoption" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.getOption">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">getOption</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.getOption" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">stringvalue</span> <span class="pre">=</span> <span class="pre">getOption(name)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">intvalue</span> <span class="pre">=</span> <span class="pre">getIntOption(name)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">dblvalue</span> <span class="pre">=</span> <span class="pre">getDblOption(name)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">boolvalue</span> <span class="pre">=</span> <span class="pre">getBoolOption(name)</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">getOption</span></code>, <code class="docutils literal notranslate"><span class="pre">getIntOption</span></code>, <code class="docutils literal notranslate"><span class="pre">getDblOption</span></code>, <code class="docutils literal notranslate"><span class="pre">getBoolOption</span></code> get values of the specified options in the underlying AMPL interpreter,
+casted to the specified data structure.</p>
+<p><strong>Output Arguments</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">stringvalue</span></code></dt>
+<dd>The value of the specified option as a string</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">intvalue</span></code></dt>
+<dd>The value of the specified option as an integer</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">dblvalue</span></code></dt>
+<dd>The value of the specified option as a floating point nubmer</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">boolvalue</span></code></dt>
+<dd>The value of the specified option as a boolean (mapped in MATLAB to an integer, 0 if true, 1 otherwise)</dd>
+</dl>
+<p><strong>Example</strong></p>
+<p>Shows the version of the underlying AMPL interpreter, the current random seed and the current relax_integrality status.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">version</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getOption</span><span class="p">(</span><span class="s">&#39;version&#39;</span><span class="p">)</span>                <span class="c">% Get the value of option version</span>
+<span class="nb">eps</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getDblOption</span><span class="p">(</span><span class="s">&#39;display_eps&#39;</span><span class="p">)</span>             <span class="c">% Get the value of display_eps</span>
+<span class="n">randseed</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getIntOption</span><span class="p">(</span><span class="s">&#39;randseed&#39;</span><span class="p">)</span>           <span class="c">% Get the value of randseed</span>
+<span class="n">relaxed</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getBoolOption</span><span class="p">(</span><span class="s">&#39;relax_integrality&#39;</span><span class="p">)</span>  <span class="c">% Get the value of relax_integrality</span>
+</pre></div>
+</div>
+<p>This will give:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">version</span> <span class="o">=</span>
+   <span class="n">AMPL</span> <span class="n">OptiRisk</span> <span class="n">Version</span> <span class="mi">20130625</span> <span class="p">(</span><span class="n">MS</span> <span class="n">VC</span><span class="o">++</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mi">64</span><span class="o">-</span><span class="n">bit</span><span class="p">)</span>
+<span class="n">eps</span> <span class="o">=</span>
+   <span class="mi">0</span>
+<span class="n">randseed</span> <span class="o">=</span>
+   <span class="mi">1</span>
+<span class="n">relaxed</span> <span class="o">=</span>
+   <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setoption">
+<h2>setOption<a class="headerlink" href="#setoption" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.setOption">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">setOption</code><span class="sig-paren">(</span><em>optionname</em><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.setOption" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">setOption(optionname,</span> <span class="pre">stringvalue)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">setDblOption(optionname,</span> <span class="pre">numericvalue)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">setIntOption(optionname,</span> <span class="pre">integervalue)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">setBoolOption(optionname,</span> <span class="pre">booleanvalue)</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">setOption(optionname,</span> <span class="pre">stringvalue)</span></code> Set the value of the specified option to the specified string</p>
+<p><code class="docutils literal notranslate"><span class="pre">setDblOption(optionname,</span> <span class="pre">value)</span></code> Set the value of the specified option to the specified value</p>
+<p><code class="docutils literal notranslate"><span class="pre">setIntOption(optionname,</span> <span class="pre">value)</span></code> Set the value of the specified option to the specified integer value</p>
+<p><code class="docutils literal notranslate"><span class="pre">setBoolOption(optionname,</span> <span class="pre">boolvalue)</span></code> Set the value of the specified option to the specified boolean value</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">optionname</span></code> The name of the option to be set</p>
+<p><code class="docutils literal notranslate"><span class="pre">stringvalue</span></code> The string to set the option’s value to</p>
+<p><code class="docutils literal notranslate"><span class="pre">value</span></code> The number to set the option’s value to</p>
+<p><code class="docutils literal notranslate"><span class="pre">boolvalue</span></code> The boolean value (<cite>true</cite> or <cite>false</cite>) to set the option’s value to. MATLAB maps 0 to <cite>false</cite> and 1 to <cite>true</cite></p>
+<p><strong>Example</strong></p>
+<p>Get and set values of various options</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">getDblOption</span><span class="p">(</span><span class="s">&#39;presolve&#39;</span><span class="p">)</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">setDblOption</span><span class="p">(</span><span class="s">&#39;presolve&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">getDblOption</span><span class="p">(</span><span class="s">&#39;presolve&#39;</span><span class="p">)</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">setBoolOption</span><span class="p">(</span><span class="s">&#39;presolve&#39;</span><span class="p">,</span> <span class="n">true</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">getBoolOption</span><span class="p">(</span><span class="s">&#39;presolve&#39;</span><span class="p">)</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">setOption</span><span class="p">(</span><span class="s">&#39;mystringoption&#39;</span><span class="p">,</span> <span class="s">&#39;mystringvalue&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">getOption</span><span class="p">(</span><span class="s">&#39;mystringoption&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ans</span> <span class="o">=</span>
+  <span class="mi">10</span>
+
+<span class="n">ans</span> <span class="o">=</span>
+   <span class="mi">0</span>
+
+<span class="n">ans</span> <span class="o">=</span>
+   <span class="mi">1</span>
+
+<span class="n">ans</span> <span class="o">=</span>
+   <span class="n">mystringvalue</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="initializeevents">
+<h2>initializeEvents<a class="headerlink" href="#initializeevents" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="AMPL.initializeEvents">
+<em class="property">classmethod </em><code class="descclassname">AMPL.</code><code class="descname">initializeEvents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AMPL.initializeEvents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Description</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">initializeEvents()</span></code> enables output redirection for the current session.</dt>
+<dd>After this functions is called, the event <a class="reference internal" href="#AMPL.Output" title="AMPL.Output"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">AMPL.Output</span></code></a> will be
+fired every time the interpreter outputs something on screen.
+See <a class="reference internal" href="matlabAMPLOutput.html#AMPLOutput" title="AMPLOutput"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">AMPLOutput</span></code></a>.
+Note that the java library must be statically added to classpath for this to work
+(see <a class="reference external" href="https://uk.mathworks.com/help/matlab/matlab_external/jar-file-classes.html?s_tid=gn_loc_drop">https://uk.mathworks.com/help/matlab/matlab_external/jar-file-classes.html?s_tid=gn_loc_drop</a>)</dd>
+</dl>
+<p><strong>Example</strong></p>
+<p>Redirect AMPL output</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span> <span class="p">=</span> <span class="n">AMPL</span><span class="p">;</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">initializeEvents</span><span class="p">;</span>
+<span class="n">addlistener</span><span class="p">(</span><span class="n">ampl</span><span class="p">,</span> <span class="s">&#39;Output&#39;</span><span class="p">,</span> <span class="p">@(</span><span class="n">h</span><span class="p">,</span><span class="n">e</span><span class="p">)</span><span class="nb">disp</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">msg</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>At this point, every AMPL output will be redirected to the anonymous function (<code class="docutils literal notranslate"><span class="pre">disp(e.msg)</span></code>)</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<dl class="attribute">
+<dt id="AMPL.Output">
+<code class="descclassname">AMPL.</code><code class="descname">Output</code><a class="headerlink" href="#AMPL.Output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Description</strong></p>
+<p>After initialization with <a class="reference internal" href="#AMPL.initializeEvents" title="AMPL.initializeEvents"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.initializeEvents</span></code></a>, this event is fired whenever
+the underlying AMPL interpreter prints somethig on screen.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="matlabAMPLOutput.html" title="AMPLOutput"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../reference.html" title="MATLAB API reference"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" >MATLAB API reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013-2017, AMPL Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.
+    </div>
+  </body>
+</html>

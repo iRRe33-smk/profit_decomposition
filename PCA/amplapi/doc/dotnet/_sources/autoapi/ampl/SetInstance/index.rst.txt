@@ -1,0 +1,282 @@
+
+
+SetInstance Class
+=================
+
+
+
+
+
+
+A SetInstance object stores the information regarding a specific instance of
+a set.The instances can be accessed through the function :dn:method:`ampl.Entities.Set.Get`
+of the parent entity or through its indexer.
+
+
+Namespace
+    :dn:ns:`ampl`
+Assemblies
+    * AMPL
+
+----
+
+.. contents::
+   :local:
+
+
+
+Inheritance Hierarchy
+---------------------
+
+
+* :dn:cls:`System.Object`
+* :dn:cls:`ampl.Instance`
+* :dn:cls:`ampl.SetInstance`
+
+
+
+
+
+
+
+
+Syntax
+------
+
+.. code-block:: csharp
+
+    public class SetInstance : Instance, IDisposable, IEnumerable<Tuple>, IEnumerable
+
+
+
+
+
+
+
+
+.. dn:class:: ampl.SetInstance
+    :hidden:
+
+.. dn:class:: ampl.SetInstance
+
+Methods
+-------
+
+.. dn:class:: ampl.SetInstance
+    :noindex:
+    :hidden:
+
+    
+    .. dn:method:: ampl.SetInstance.Contains(TupleBase)
+
+        
+
+        
+        Check whether this set instance contains the specified Tuple.
+
+
+        
+
+        
+        :param t: Tuple to be found
+        
+        :type t: TupleBase
+        :rtype: System.Boolean
+
+        
+        .. code-block:: csharp
+
+            public bool Contains(TupleBase t)
+    
+    .. dn:method:: ampl.SetInstance.Dispose()
+
+        
+
+        
+        .. code-block:: csharp
+
+            public override void Dispose()
+    
+    .. dn:method:: ampl.SetInstance.Finalize()
+
+        
+
+        
+        .. code-block:: csharp
+
+            protected void Finalize()
+    
+    .. dn:method:: ampl.SetInstance.GetEnumerator()
+
+        
+
+        
+        Get the enumerator to this set instance contents
+
+
+        
+        :rtype: System.Collections.Generic.IEnumerator<System.Collections.Generic.IEnumerator`1>{ampl.Tuple<ampl.Tuple>}
+
+        
+        .. code-block:: csharp
+
+            public IEnumerator<Tuple> GetEnumerator()
+    
+    .. dn:method:: ampl.SetInstance.GetValues()
+
+        
+
+        
+        Get all the tuples in this set in a DataFrame.
+        Valid only for non indexed sets.
+
+
+        
+        :rtype: ampl.DataFrame
+        :return: A DataFrame containing all the tuples in this set
+
+        
+        .. code-block:: csharp
+
+            public DataFrame GetValues()
+    
+    .. dn:method:: ampl.SetInstance.SetValues(System.Double[])
+
+        
+
+        
+        Set the tuples to this set instance using a flattened array.
+        The size of the array must be a multiple of the arity of this
+        set, and each `arity` elements in the array will be
+        grouped into a Tuple.
+
+
+        
+
+        
+        :type values: System.Double<System.Double>[]
+
+        
+        .. code-block:: csharp
+
+            public void SetValues(double[] values)
+    
+    .. dn:method:: ampl.SetInstance.SetValues(System.String[])
+
+        
+
+        
+        Set the tuples to this set instance using a flattened array.
+        The size of the array must be a multiple of the arity of this
+        set, and each `arity` elements in the array will be
+        grouped into a Tuple.
+
+
+        
+
+        
+        :type values: System.String<System.String>[]
+
+        
+        .. code-block:: csharp
+
+            public void SetValues(string[] values)
+    
+    .. dn:method:: ampl.SetInstance.SetValues(ampl.DataFrame)
+
+        
+
+        
+        Set the values in this set to the indexing values of
+        the passed DataFrame.The number of indexing columns of the
+        parameter must be equal to the arity of this set instance.
+
+        For example, considering the following AMPL entities and corresponding
+        C# objects:
+
+        `set A := 1..2;`
+
+        `param p { i in A } := i+10;`
+
+        `set AA;`
+
+        The following is valid:
+
+        `Set A = ampl.GetSet("A");`
+
+        `Set AA = ampl.GetSet("AA");`
+
+        `AA.SetValues(A.GetValues()); // A has now the members {1, 2}`
+
+
+
+        
+
+        
+        :type df: ampl.DataFrame
+
+        
+        .. code-block:: csharp
+
+            public void SetValues(DataFrame df)
+    
+    .. dn:method:: ampl.SetInstance.SetValues(ampl.Tuple[])
+
+        
+
+        
+        Set the tuples in this set instance.
+
+
+        
+
+        
+        :type values: ampl.Tuple<ampl.Tuple>[]
+
+        
+        .. code-block:: csharp
+
+            public void SetValues(Tuple[] values)
+    
+    .. dn:method:: ampl.SetInstance.System.Collections.IEnumerable.GetEnumerator()
+
+        
+
+        
+        Get the enumerator to this set instance contents
+
+
+        
+        :rtype: System.Collections.IEnumerator
+
+        
+        .. code-block:: csharp
+
+            IEnumerator IEnumerable.GetEnumerator()
+    
+
+Properties
+----------
+
+.. dn:class:: ampl.SetInstance
+    :noindex:
+    :hidden:
+
+    
+    .. dn:property:: ampl.SetInstance.Size
+
+        
+
+        
+        Get the number of tuples in this set instance
+
+
+        
+        :rtype: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public int Size { get; }
+    
+

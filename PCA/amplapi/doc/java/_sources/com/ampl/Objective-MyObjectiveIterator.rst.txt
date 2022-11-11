@@ -1,0 +1,39 @@
+.. java:import:: java.util Iterator
+
+Objective.MyObjectiveIterator
+=============================
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class MyObjectiveIterator implements Iterator<ObjectiveInstance>
+   :outertype: Objective
+
+Constructors
+------------
+MyObjectiveIterator
+^^^^^^^^^^^^^^^^^^^
+
+.. java:constructor:: public MyObjectiveIterator(ObjectiveBase impl)
+   :outertype: Objective.MyObjectiveIterator
+
+Methods
+-------
+hasNext
+^^^^^^^
+
+.. java:method:: @Override public boolean hasNext()
+   :outertype: Objective.MyObjectiveIterator
+
+next
+^^^^
+
+.. java:method:: @Override public ObjectiveInstance next()
+   :outertype: Objective.MyObjectiveIterator
+
+remove
+^^^^^^
+
+.. java:method:: @Override public void remove()
+   :outertype: Objective.MyObjectiveIterator
+

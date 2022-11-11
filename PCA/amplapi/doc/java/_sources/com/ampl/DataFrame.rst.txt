@@ -1,0 +1,487 @@
+.. java:import:: java.util Arrays
+
+.. java:import:: java.util Collection
+
+.. java:import:: java.util Iterator
+
+.. java:import:: java.util NoSuchElementException
+
+DataFrame
+=========
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class DataFrame implements Iterable<Object[]>
+
+   A DataFrame object, used to communicate data to and from the AMPL entities. An object of this class can be used to do the following tasks:
+
+   ..
+
+   * Assign values to AMPL entities (once the DataFrame is populated, use the :java:ref:`AMPL.setData` to assign its values to the modelling entities in its columns)
+   * Get values from AMPL, decoupling the values from the AMPL entities they originate from (via :java:ref:`Entity.getValues`)
+
+   A DataFrame object can be created in various ways.
+
+   ..
+
+   * Create a skeleton via :java:ref:`DataFrame.DataFrame(int numberOfIndexColumns, String... headers)`, specifiying manually the number of indexing columns and the column headers.
+   * Get column names (and number of indexing columns) from entities of the API, using the constructor :java:ref:`DataFrame.DataFrame(Entity... headers)`.
+   * Get values from AMPL, decoupling the values from the AMPL entities they originate from (via :java:ref:`Entity.getValues`)
+
+   Populating a DataFrame object can be done adding row by row to a pre-existing skeleton via :java:ref:`DataFrame.addRow`, setting whole columns of a pre-existing skeleton via :java:ref:`DataFrame.setColumn` or adding columns (including indexing columns) via :java:ref:`DataFrame.addColumn`.
+
+   Modifying a DataFrame object can be done via :java:ref:`DataFrame.setColumn` or, item by item, via :java:ref:`DataFrame.setValue`.
+
+   Accessing data in a DataFrame can be done row by row using :java:ref:`DataFrame.getRow` or by column via :java:ref:`DataFrame.getColumn`. Automated casting of columns is provided via :java:ref:`DataFrame.getColumnAsDoubles` and :java:ref:`DataFrame.getColumnAsStrings`.
+
+Fields
+------
+_impl
+^^^^^
+
+.. java:field::  DataFrameBase _impl
+   :outertype: DataFrame
+
+Constructors
+------------
+DataFrame
+^^^^^^^^^
+
+.. java:constructor::  DataFrame(DataFrameBase impl)
+   :outertype: DataFrame
+
+DataFrame
+^^^^^^^^^
+
+.. java:constructor::  DataFrame(int numberOfIndexColumns)
+   :outertype: DataFrame
+
+   Create a new DataFrame with the specified number of indices.
+
+   :throws IllegalArgumentException: If a negative number of column is specified
+
+DataFrame
+^^^^^^^^^
+
+.. java:constructor:: public DataFrame(Entity... headers)
+   :outertype: DataFrame
+
+   Create a new DataFrame with the specified entities as column headers.
+
+   :param headers: The columns headers to be used; since they are AMPL entities, sets are automatically considered indices and have to be placed first in the constructor
+   :throws IllegalArgumentException: if sets are not put first while using this constructor
+
+DataFrame
+^^^^^^^^^
+
+.. java:constructor:: public DataFrame(int numberOfIndexColumns, String... headers)
+   :outertype: DataFrame
+
+   Create a new DataFrame where the specified number of columns are an index and with the specified strings as column headers.
+
+   :param numberOfIndexColumns: Number of columns to be considered as index for this table (>=0)
+   :param headers: The columns headers to be used.
+   :throws IllegalArgumentException: If a non-valid number of keys is specified
+
+Methods
+-------
+addColumn
+^^^^^^^^^
+
+.. java:method:: public void addColumn(Object header)
+   :outertype: DataFrame
+
+   Add a new (empty) column to the DataFrame. Data can then be reassigned with :java:ref:`DataFrame.setColumn`
+
+   :param header: The header for the new column to be added
+   :throws IllegalArgumentException: If a column with the same name exists already or if a set column is added after a data column has been added already.
+
+addColumn
+^^^^^^^^^
+
+.. java:method:: public void addColumn(Object header, Collection<?> values)
+   :outertype: DataFrame
+
+   Add a new column to the dataframe, with the corresponding data. *
+
+   :param header: The header for the new column to be added
+   :throws IllegalArgumentException: if the size of \ ``values``\  is not the same as the number of indices in the DataFrame, if a column with the same name exists already or if a set column is added after a data column has been added already.
+
+addColumn
+^^^^^^^^^
+
+.. java:method:: public <T> void addColumn(Object header, T[] values) throws IllegalArgumentException, ArrayIndexOutOfBoundsException
+   :outertype: DataFrame
+
+   Add a new column to the dataframe, with the corresponding data.
+
+   :param header: The header for the new column to be added
+   :throws IllegalArgumentException: if the cardinality of values is not the same as the number of indices in the DataFrame, if a column with the same name exists already or if a set column is added after a data column has been added already.
+
+addColumn
+^^^^^^^^^
+
+.. java:method:: public void addColumn(Object header, int[] values) throws IllegalArgumentException, ArrayIndexOutOfBoundsException
+   :outertype: DataFrame
+
+   Add a new column to the dataframe, with the corresponding data.
+
+   :param header: The header for the new column to be added
+   :throws IllegalArgumentException: if the cardinality of values is not the same as the number of indices in the DataFrame, if a column with the same name exists already or if a set column is added after a data column has been added already.
+
+addColumn
+^^^^^^^^^
+
+.. java:method:: public void addColumn(Object header, double[] values) throws IllegalArgumentException
+   :outertype: DataFrame
+
+   Add a new column to the dataframe, with the corresponding data.
+
+   :param header: The header for the new column to be added
+   :throws IllegalArgumentException: if the cardinality of values is incompatible with the dataframe structure or if a column with the same name exists already
+
+addColumn
+^^^^^^^^^
+
+.. java:method:: public void addColumn(Object header, long[] values) throws IllegalArgumentException, ArrayIndexOutOfBoundsException
+   :outertype: DataFrame
+
+   Add a new column to the dataframe, with the corresponding data.
+
+   :param header: The header for the new column to be added
+   :throws IllegalArgumentException: if the cardinality of values is not the same as the number of indices in the DataFrame, if a column with the same name exists already or if a set column is added after a data column has been added already.
+
+addColumn
+^^^^^^^^^
+
+.. java:method:: public void addColumn(Object header, float[] values) throws IllegalArgumentException, ArrayIndexOutOfBoundsException
+   :outertype: DataFrame
+
+   Add a new column to the dataframe, with the corresponding data.
+
+   :param header: The header for the new column to be added
+   :throws IllegalArgumentException: if the cardinality of values is not the same as the number of indices in the DataFrame, if a column with the same name exists already or if a set column is added after a data column has been added already.
+
+addRow
+^^^^^^
+
+.. java:method:: public void addRow(Object... items)
+   :outertype: DataFrame
+
+   Add a row to the current table. The first \ ``numberOfIndexColumns``\  columns (decided at object creation time) are treated as indices
+
+   :param items: Items of the row to be added
+   :throws IllegalArgumentException: if the number of items in the row is not equal to the number of columns, if a row is added to a DataFrame with no indices or if a row with the same indices exists already.
+
+equals
+^^^^^^
+
+.. java:method:: @Override public boolean equals(Object obj)
+   :outertype: DataFrame
+
+getColumn
+^^^^^^^^^
+
+.. java:method:: public Object[] getColumn(Object header)
+   :outertype: DataFrame
+
+   Get the data corresponding to the specified column
+
+   :param header: Column to be returned
+   :return: Data corresponding to the column, null if the specified column does not exist.
+
+getColumnAsDoubles
+^^^^^^^^^^^^^^^^^^
+
+.. java:method:: public double[] getColumnAsDoubles(Object header)
+   :outertype: DataFrame
+
+   Get the data corresponding to the specified column as an array of double numbers
+
+   :param header: Column to be returned
+   :return: Data corresponding to the column, null if the specified column does not exist.
+
+getColumnAsStrings
+^^^^^^^^^^^^^^^^^^
+
+.. java:method:: public String[] getColumnAsStrings(Object header)
+   :outertype: DataFrame
+
+   Get the data corresponding to the specified column as an array of strings
+
+   :param header: Column to be returned
+   :throws IllegalArgumentException: If the header specified does not correspond to any column
+   :return: Data corresponding to the column, null if the specified column does not exist.
+
+getHeaders
+^^^^^^^^^^
+
+.. java:method:: public String[] getHeaders()
+   :outertype: DataFrame
+
+   Get the column headers of this DataFrame
+
+   :return: Header names
+
+getNumCols
+^^^^^^^^^^
+
+.. java:method:: public int getNumCols()
+   :outertype: DataFrame
+
+   Get the number of columns in the table
+
+   :return: Number of columns
+
+getNumIndices
+^^^^^^^^^^^^^
+
+.. java:method:: public int getNumIndices()
+   :outertype: DataFrame
+
+   Get the number of indices in the table
+
+   :return: Number of indices
+
+getNumRows
+^^^^^^^^^^
+
+.. java:method:: public int getNumRows()
+   :outertype: DataFrame
+
+   Get the number of rows in the table
+
+   :return: Number of rows
+
+getRow
+^^^^^^
+
+.. java:method:: public Object[] getRow(Object... index)
+   :outertype: DataFrame
+
+   Get the specified row (by values of the indexing columns)
+
+   :param index: Indices for the row
+   :throws IllegalArgumentException: If the number of indices specified is wrong for the DataFrame
+   :return: The specified row, or 'null' if the row was not found
+
+getRowByIndex
+^^^^^^^^^^^^^
+
+.. java:method:: public Object[] getRowByIndex(int index)
+   :outertype: DataFrame
+
+   Get the specified row
+
+   :param index: 0-based numeric index
+   :throws IndexOutOfBoundsException: If the index is < 0 or greater than the number of rows in the DataFrame.
+
+hashCode
+^^^^^^^^
+
+.. java:method:: @Override public int hashCode()
+   :outertype: DataFrame
+
+iterator
+^^^^^^^^
+
+.. java:method:: @Override public Iterator<Object[]> iterator()
+   :outertype: DataFrame
+
+setColumn
+^^^^^^^^^
+
+.. java:method:: public void setColumn(Object header, int[] values)
+   :outertype: DataFrame
+
+   Set (all) the values for a specific column.
+
+   :param column: Column identifier
+   :param values: Values to be assigned
+   :throws IllegalArgumentException: if the cardinality of values is not the same as the number of indices in the DataFrame or if a column with the same name exists already.
+
+setColumn
+^^^^^^^^^
+
+.. java:method:: public void setColumn(Object header, float[] values)
+   :outertype: DataFrame
+
+   Set (all) the values for a specific column.
+
+   :param header: Column identifier
+   :param values: Values to be assigned
+   :throws IllegalArgumentException: if the cardinality of values is not the same as the number of indices in the DataFrame or if a column with the same name exists already.
+
+setColumn
+^^^^^^^^^
+
+.. java:method:: public void setColumn(Object header, double[] values)
+   :outertype: DataFrame
+
+   Set (all) the values for a specific column.
+
+   :param header: Column identifier
+   :param values: Values to be assigned
+   :throws IllegalArgumentException: if the cardinality of values is not the same as the number of indices in the DataFrame or if a column with the same name exists already.
+
+setColumn
+^^^^^^^^^
+
+.. java:method:: public void setColumn(Object header, long[] values)
+   :outertype: DataFrame
+
+   Set (all) the values for a specific column.
+
+   :param header: Column identifier
+   :param values: Values to be assigned
+   :throws IllegalArgumentException: if the cardinality of values is not the same as the number of indices in the DataFrame or if a column with the same name exists already.
+
+setColumn
+^^^^^^^^^
+
+.. java:method:: public <T> void setColumn(Object header, T[] values)
+   :outertype: DataFrame
+
+   Set (all) the values for a specific column.
+
+   :param header: Column identifier
+   :param values: Values to be assigned
+   :throws IllegalArgumentException: if the cardinality of values is not the same as the number of indices in the DataFrame or if a column with the same name exists already.
+
+setColumn
+^^^^^^^^^
+
+.. java:method:: public void setColumn(Object header, Collection<?> values)
+   :outertype: DataFrame
+
+   Set (all) the values for a specific column.
+
+   :param column: Column identifier
+   :param header: Values to be assigned
+   :throws IllegalArgumentException: if the cardinality of values is not the same as the number of indices in the DataFrame or if a column with the same name exists already.
+
+setMatrix
+^^^^^^^^^
+
+.. java:method:: public void setMatrix(Object values, Object[]... indices)
+   :outertype: DataFrame
+
+   Set the multidimensional array \ ``values``\  as data column for this DataFrame, and all the vectors in \ ``indices``\  as indices values.
+
+   For example, the code snippet (which does not include the arrays initialization):
+
+   .. parsed-literal::
+
+      double[][][][] fourdimensions = new double[][][][] {...};
+      String[] firstIndex = new String[]{...};
+      String[] secondIndex = new String[]{...};
+      String[] thirdIndex = new String[]{...};
+      String[] fourthIndex = new String[]{...};
+      setMatrix(fourdimensions, firstIndex, secondIndex, thirdIndex, fourthIndex);
+
+   is valid.
+
+   :param values: A multidimensional array, can be either \ ``double[]..[]``\ , \ ``String[]..[]``\  or \ ``Object[]..[]``\ . The arrays can be anything from 1 to 6 dimensional. Items in \ ``Object``\  arrays are converted to AMPL datatypes, so any numeric type is converted to double, anything else to String.
+   :param indices: Vectors containing the indices values for each dimension of the \ ``values``\  array.
+   :throws IllegalArgumentException: If the number of indices is not equal to the arity of the values array, or if the arity is not supported.
+
+setMatrix
+^^^^^^^^^
+
+.. java:method:: public void setMatrix(double[] values, double[] rowindices, double[] colindices)
+   :outertype: DataFrame
+
+setMatrix
+^^^^^^^^^
+
+.. java:method:: public void setMatrix(double[] values, String[] rowindices, double[] colindices)
+   :outertype: DataFrame
+
+setMatrix
+^^^^^^^^^
+
+.. java:method:: public void setMatrix(double[] values, double[] rowindices, String[] colindices)
+   :outertype: DataFrame
+
+setMatrix
+^^^^^^^^^
+
+.. java:method:: public void setMatrix(double[] values, String[] rowindices, String[] colindices)
+   :outertype: DataFrame
+
+setMatrix
+^^^^^^^^^
+
+.. java:method:: public void setMatrix(String[] values, double[] rowindices, double[] colindices)
+   :outertype: DataFrame
+
+setMatrix
+^^^^^^^^^
+
+.. java:method:: public void setMatrix(String[] values, String[] rowindices, double[] colindices)
+   :outertype: DataFrame
+
+setMatrix
+^^^^^^^^^
+
+.. java:method:: public void setMatrix(String[] values, double[] rowindices, String[] colindices)
+   :outertype: DataFrame
+
+setMatrix
+^^^^^^^^^
+
+.. java:method:: public void setMatrix(String[] values, String[] rowindices, String[] colindices)
+   :outertype: DataFrame
+
+setMatrixPacked
+^^^^^^^^^^^^^^^
+
+.. java:method:: public void setMatrixPacked(Object values, Object indices)
+   :outertype: DataFrame
+
+   Set the multidimensional array \ ``values``\  as data column for this DataFrame, and all the vectors in \ ``indices``\  as indices values. Packed version, usable to pass an Object representing all the arrays of indices.
+
+setValue
+^^^^^^^^
+
+.. java:method:: public void setValue(Object... values)
+   :outertype: DataFrame
+
+   Set a single value in the DataFrame object.
+
+   :param values: The first objects are the row indices, followed by the column index, and finally by the value to be assigned
+   :throws IllegalArgumentException: if the specified column or row is not in the dataframe or if the number of arguments is wrong
+
+setValue
+^^^^^^^^
+
+.. java:method:: public void setValue(int rowIndex, int colIndex, double value)
+   :outertype: DataFrame
+
+setValue
+^^^^^^^^
+
+.. java:method:: public void setValue(int rowIndex, int colIndex, String value)
+   :outertype: DataFrame
+
+setValue
+^^^^^^^^
+
+.. java:method:: public void setValue(Tuple rowIndex, String colHeader, double value)
+   :outertype: DataFrame
+
+setValue
+^^^^^^^^
+
+.. java:method:: public void setValue(Tuple rowIndex, String colHeader, String value)
+   :outertype: DataFrame
+
+toString
+^^^^^^^^
+
+.. java:method:: @Override public String toString()
+   :outertype: DataFrame
+
+   Gives a tabular string representation of the dataframe object
+

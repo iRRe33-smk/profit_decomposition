@@ -1,0 +1,159 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Optional &#8212; AMPL API 2.0.3-0 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="OutputHandler" href="outputhandler.html" />
+    <link rel="prev" title="ErrorHandler" href="errorhandler.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="outputhandler.html" title="OutputHandler"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="errorhandler.html" title="ErrorHandler"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" accesskey="U">C++ API reference</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="errorhandler.html"
+                        title="previous chapter">ErrorHandler</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="outputhandler.html"
+                        title="next chapter">OutputHandler</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/classes/optional.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="optional">
+<span id="ref-optional"></span><h1>Optional<a class="headerlink" href="#optional" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="_CPPv3N4ampl8OptionalE">
+<span id="_CPPv2N4ampl8OptionalE"></span><span id="ampl::Optional"></span><span class="target" id="classampl_1_1_optional"></span><em class="property">template </em>&lt;<em class="property">typename</em> T&gt;<br /><em class="property">class </em><code class="descname">Optional</code><a class="headerlink" href="#_CPPv3N4ampl8OptionalE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This class encapsulates values which can be tested for null-ness. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv3N4ampl8Optional8OptionalEv">
+<span id="_CPPv2N4ampl8Optional8OptionalEv"></span><span id="ampl::Optional::Optional"></span><span class="target" id="classampl_1_1_optional_1aab3b1527724722ae5b5e39b95f2642af"></span><code class="descname">Optional</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl8Optional8OptionalEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructor of an empty instance. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl8Optional8OptionalERK1T">
+<span id="_CPPv2N4ampl8Optional8OptionalERK1T"></span><span id="ampl::Optional::Optional__TCR"></span><span class="target" id="classampl_1_1_optional_1ae43bec66429880d1e00f2d3d48507e20"></span><code class="descname">Optional</code><span class="sig-paren">(</span><em class="property">const</em> T &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl8Optional8OptionalERK1T" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructor. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8OptionalcvbEv">
+<span id="_CPPv2NK4ampl8OptionalcvbEv"></span><span id="ampl::Optional::castto-b-operatorC"></span><span class="target" id="classampl_1_1_optional_1ac9259fcefb5013cec81ed1062b2a0641"></span>AMPL_EXPLICIT <code class="descname">operator bool</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8OptionalcvbEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The cast to bool returns true if the instance has a value, false otherwise. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8OptionalmlEv">
+<span id="_CPPv2NK4ampl8OptionalmlEv"></span><span id="ampl::Optional::mul-operatorC"></span><span class="target" id="classampl_1_1_optional_1a2548d7606688f9466ca40ead9dde072b"></span><em class="property">const</em> T &amp;<code class="descname">operator*</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8OptionalmlEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Accesses the contained value, returns a reference to the contained value. </p>
+<p>The behaviour is undefined if the object does not contain a value. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8OptionalptEv">
+<span id="_CPPv2NK4ampl8OptionalptEv"></span><span id="ampl::Optional::pointer-operatorC"></span><span class="target" id="classampl_1_1_optional_1aae40f2c4c8fa235a6830d2e68ac29688"></span><em class="property">const</em> T *<code class="descname">operator-&gt;</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8OptionalptEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Accesses the contained value, returns a pointer to the contained value. </p>
+<p>The behaviour is undefined if the object does not contain a value. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Optional5valueEv">
+<span id="_CPPv2NK4ampl8Optional5valueEv"></span><span id="ampl::Optional::valueC"></span><span class="target" id="classampl_1_1_optional_1ad5a69d9dd01e5a7b9871556726c1fa30"></span><em class="property">const</em> T &amp;<code class="descname">value</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Optional5valueEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Accesses the contained value, returns a reference to the contained value. </p>
+<p><dl class="docutils">
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">std::runtime_error</span></code>: if the object does not contain a value </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="outputhandler.html" title="OutputHandler"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="errorhandler.html" title="ErrorHandler"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" >C++ API reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013-2017, AMPL Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.
+    </div>
+  </body>
+</html>

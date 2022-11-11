@@ -1,0 +1,10 @@
+.. _secMATLABrefEntityList:
+
+EntityList
+==========
+
+.. mat:class:: EntityList
+
+Represents a not modifiable list of entities which is automatically syncronised with
+the underlying AMPL interpreter.
+

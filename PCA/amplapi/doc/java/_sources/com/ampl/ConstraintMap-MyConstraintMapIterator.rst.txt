@@ -1,0 +1,41 @@
+.. java:import:: java.util Iterator
+
+.. java:import:: java.util NoSuchElementException
+
+ConstraintMap.MyConstraintMapIterator
+=====================================
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class MyConstraintMapIterator implements Iterator<Constraint>
+   :outertype: ConstraintMap
+
+Constructors
+------------
+MyConstraintMapIterator
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. java:constructor:: public MyConstraintMapIterator(EntityMapConstraint impl)
+   :outertype: ConstraintMap.MyConstraintMapIterator
+
+Methods
+-------
+hasNext
+^^^^^^^
+
+.. java:method:: @Override public boolean hasNext()
+   :outertype: ConstraintMap.MyConstraintMapIterator
+
+next
+^^^^
+
+.. java:method:: @Override public Constraint next()
+   :outertype: ConstraintMap.MyConstraintMapIterator
+
+remove
+^^^^^^
+
+.. java:method:: @Override public void remove()
+   :outertype: ConstraintMap.MyConstraintMapIterator
+

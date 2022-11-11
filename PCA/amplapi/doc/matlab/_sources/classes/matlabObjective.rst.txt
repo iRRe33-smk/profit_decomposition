@@ -1,0 +1,364 @@
+.. _secMATLABrefObjective:
+
+Objective
+=========
+
+.. mat:class:: Objective
+
+Represents an AMPL objective. It can contain multiple objective instances, or can be scalar. 
+Generally, numerical values are available for each specific instance, which are accessible through the 
+function :mat:meth:`Objective.get`. For scalar objective (e.g. single objective problems), direct accessors 
+to the values are available (see functions :mat:meth:`Objective.value` or :mat:meth:`Objective.message` below).
+
+For ease of use, values for the entire algebraic entity can be accessed and assigned to MATLAB vectors using the 
+:mat:class:`DataFrame` object. To get the values use :mat:meth:`Objective.getValues`. 
+
+
+
+get(key)
+--------
+
+.. mat:classmethod:: Objective.get(key)
+
+**Syntax**
+
+
+``o = get(key)``
+ 
+**Description**
+
+
+``o = get(key)`` returns the :mat:class:`ObjectiveInstance` corresponding to the specified key.
+Note that the same effect can be achieved using MATLAB's indexing operator (round brackets).
+
+**Input Arguments**
+
+
+``key`` 
+   The key of the objective instance to look up.
+
+**Output Arguments**
+
+
+``o``
+   The specified objective instance.
+   
+**Example**
+
+     
+Create an indexed objective, get a reference to an instance and explore its properties 
+
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..2} <= i;');
+   ampl.eval('maximize z{i in 1..2}: x[i];');
+   z = ampl.getObjective('z');
+   instance = z.get(1);
+   ampl.solve;
+   instance.value
+   instance.result
+   instance.message
+   
+gives:: 
+
+   	ans =
+    1
+
+	ans =
+	solved
+ 
+	ans =
+	CBC 2.8.2 optimal, objective -1
+	0 iterations
+
+
+
+getValues
+---------
+
+.. mat:classmethod:: Objective.getValues()
+
+**Syntax**
+
+
+``df = getValues()``
+
+``df = getValues(suffixes)``
+ 
+**Description**
+
+
+These functions return a dataframe with all the specified suffixes of the objective, decoupled from the underlying AMPL entity. 
+To gain access to the data, see :mat:class:`DataFrame`.
+
+``o.getValues()`` gets the AMPL value (equivalent to the suffix ``val``)
+
+``o.getValues(suffixes)`` allows the user to specify which suffixes to get 
+
+
+**Input Arguments**
+
+
+``suffixes``
+   Strings specifying which suffixes of the objective to get (see `AMPL built-in suffixes <http://www.ampl.com/NEW/suffbuiltin.html>`_).
+
+**Output Arguments**
+
+
+``df``
+   A dataframe containing all the specified values of the objective and its indices
+   
+**Example**
+
+     
+Create an indexed cosntraint in AMPL, then get all the values for all the suffixes for all instances in a DataFrame and display it.
+
+.. code-block:: matlab
+ 
+   ampl.eval('var x{i in 1..2} <= i;');
+   ampl.eval('maximize z{i in 1..2}: x[i];');
+   ampl.solve;
+   
+   z = ampl.getObjective('z');
+   df = z.getValues('val', 'astatus', 'result', 'exitcode'); 
+   df 
+   
+gives::
+
+   i in 1 .. 2  |  value  astatus  result  exitcode                                       
+   1.0          |  1.0    in       solved  0         
+   2.0          |  2.0    in       ?       -1       
+   
+   
+
+value()
+-------
+
+.. mat:classmethod:: Objective.value()
+
+**Syntax**
+
+
+``v = value()``
+ 
+**Description**
+
+
+``v = value()``  Get the current value of the objective. Valid for scalar objectives only. 
+
+**Output Arguments**
+
+
+``v``
+   The current value of the objective.
+   
+**Example**
+
+     
+Create an objective z and display its value. Then solve the problem and display the value again. 
+
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..2} <= i;');
+   ampl.eval('maximize z: sum{i in 1..2} x[i];');
+   z = ampl.getObjective('z')
+   z.value
+   ampl.solve
+   z.value
+   
+   
+   
+gives::
+
+   ans =
+   0
+ 
+   ans =
+   CBC 2.8.2 optimal, objective -3
+   0 iterations
+   
+   ans =
+   3
+
+
+
+astatus
+-------
+
+.. mat:classmethod:: Objective.astatus()
+
+**Syntax**
+
+
+``v = astatus``
+ 
+**Description**
+
+
+``astatus`` Return the AMPL status for this objective.  Valid for scalar objectives only. 
+
+
+**Output Arguments**
+
+
+``v``
+   The AMPL status for this objective.
+
+**Example**
+
+     
+Create an objective z and display its status. Then solve the problem and display it again. 
+
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..2} <= i;');
+   ampl.eval('maximize z: sum{i in 1..2} x[i];');
+   z = ampl.getObjective('z')
+   z.astatus
+   ampl.solve;
+   z.astatus
+   
+gives::
+
+   ans =
+   in
+    
+   ans =
+   in
+
+
+exitcode
+--------
+
+.. mat:classmethod:: Objective.exitcode()
+
+**Syntax**
+
+
+``v = exitcode``
+ 
+**Description**
+
+
+``exitcode`` Get exit code returned by solver after most recent solve with this objective. Valid for scalar objectives only. 
+
+
+**Output Arguments**
+
+
+``v``
+   The exit code returned by solver after most recent solve with this objective.
+
+**Example**
+
+     
+Create an objective z and display its exitcode. Then solve the problem and display it again. 
+
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..2} <= i;');
+   ampl.eval('maximize z: sum{i in 1..2} x[i];');
+   z = ampl.getObjective('z')
+   z.exitcode
+   ampl.solve;
+   z.exitcode
+   
+gives::
+
+   ans =
+       -1
+   
+   ans =
+        0
+    
+
+message
+-------
+
+.. mat:classmethod:: Objective.message()
+
+**Syntax**
+
+
+``v = message``
+ 
+**Description**
+
+
+``message`` Get the result message returned by solver after most recent solve with this objective. Valid for scalar objectives only. 
+
+
+**Output Arguments**
+
+
+``v``
+   The result message returned by solver after the most recent solve with this objective
+
+**Example**
+
+     
+Create an objective z and display its message. Then solve the problem and display it again. 
+
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..2} <= i;');
+   ampl.eval('maximize z: sum{i in 1..2} x[i];');
+   z = ampl.getObjective('z')
+   z.message
+   ampl.solve;
+   z.message
+   
+gives::
+
+   ans =
+   ?
+    
+   ans =
+   CBC 2.8.2 optimal, objective -3
+   0 iterations
+
+
+result
+------
+
+.. mat:classmethod:: Objective.result()
+
+**Syntax**
+
+
+``v = result``
+ 
+**Description**
+
+
+``result`` Get the result string returned by solver after most recent solve with this objective. Valid for scalar objectives only. 
+
+
+**Output Arguments**
+
+
+``v``
+   The result string returned by solver after most recent solve with this objective.
+
+**Example**
+
+     
+Create an objective z and display its result string. Then solve the problem and display it again. 
+
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..2} <= i;');
+   ampl.eval('maximize z: sum{i in 1..2} x[i];');
+   z = ampl.getObjective('z')
+   z.result
+   ampl.solve;
+   z.result
+   
+gives::
+
+   ans =
+   ?
+    
+   ans =
+   solved
+   

@@ -1,0 +1,1 @@
+set(AMPL_LIBRARY_NAME ampl)

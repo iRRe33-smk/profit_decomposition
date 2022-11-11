@@ -1,0 +1,39 @@
+.. java:import:: java.util Iterator
+
+Variable.MyVariableIterator
+===========================
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class MyVariableIterator implements Iterator<VariableInstance>
+   :outertype: Variable
+
+Constructors
+------------
+MyVariableIterator
+^^^^^^^^^^^^^^^^^^
+
+.. java:constructor:: public MyVariableIterator(VariableBase impl)
+   :outertype: Variable.MyVariableIterator
+
+Methods
+-------
+hasNext
+^^^^^^^
+
+.. java:method:: @Override public boolean hasNext()
+   :outertype: Variable.MyVariableIterator
+
+next
+^^^^
+
+.. java:method:: @Override public VariableInstance next()
+   :outertype: Variable.MyVariableIterator
+
+remove
+^^^^^^
+
+.. java:method:: @Override public void remove()
+   :outertype: Variable.MyVariableIterator
+

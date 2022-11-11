@@ -1,0 +1,1028 @@
+
+
+DataFrame Class
+===============
+
+
+
+
+
+
+A DataFrame object, used to communicate data to and from the AMPL entities.
+
+An object of this class can be used to do the following tasks:
+
+Assign values to AMPL entities (once the DataFrame is populated,
+use :dn:method:`ampl.AMPL.SetData` to assign its values to the modelling entities in its
+columns)
+
+Get values from AMPL, decoupling the values from the AMPL entities they
+originate via :dn:method:`ampl.Entities.Entity.GetValues`.
+
+A DataFrame object can be created in various ways via the various constructors:
+create a skeleton manually specifiying the number of indexing columns and the column headers;
+get column names (and number of indexing columns) from entities of the API passing them directly
+to the appropriate constructor,
+get values from AMPL, decoupling the values from the AMPL entities they
+originate from (via :dn:method:`ampl.Entities.Entity.GetValues()`).
+
+Populating a DataFrame object can be done adding row by row to a
+pre-existing skeleton via :dn:method:`ampl.DataFrame.AddRow`, setting whole columns of a
+pre-existing skeleton via :dn:method:`ampl.DataFrame.SetColumn` or adding columns (including
+indexing columns) via :dn:method:`ampl.DataFrame.AddColumn`.
+Modifying a DataFrame object can be done via :dn:method:`ampl.DataFrame.SetColumn` or
+via :dn:method:`ampl.DataFrame.SetArray` or :dn:method:`ampl.DataFrame.SetMatrix`
+Accessing data in a DataFrame can be done row by row using
+:dn:method:`ampl.DataFrame.GetRow` or by column via :dn:method:`ampl.DataFrame.GetColumn`.
+
+
+Namespace
+    :dn:ns:`ampl`
+Assemblies
+    * AMPL
+
+----
+
+.. contents::
+   :local:
+
+
+
+Inheritance Hierarchy
+---------------------
+
+
+* :dn:cls:`System.Object`
+* :dn:cls:`ampl.DataFrame`
+
+
+
+
+
+
+
+
+Syntax
+------
+
+.. code-block:: csharp
+
+    public class DataFrame : IEnumerable<DataFrame.Row>, IEnumerable
+
+
+
+
+
+
+
+
+.. dn:class:: ampl.DataFrame
+    :hidden:
+
+.. dn:class:: ampl.DataFrame
+
+Constructors
+------------
+
+.. dn:class:: ampl.DataFrame
+    :noindex:
+    :hidden:
+
+    
+    .. dn:constructor:: ampl.DataFrame.DataFrame(System.Int32)
+
+        
+
+        
+        Create a new DataFrame with the specified number of indices
+
+
+        
+
+        
+        :type numberOfIndexColumns: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public DataFrame(int numberOfIndexColumns)
+    
+    .. dn:constructor:: ampl.DataFrame.DataFrame(System.Int32, System.String[])
+
+        
+
+        
+        Create a new DataFrame with the specified number of indices and the specified headers
+
+
+        
+
+        
+        :param numberOfIndexColumns: Number of columns to be considered as index for this table (&gt;=0)
+        
+        :type numberOfIndexColumns: System.Int32
+
+        
+        :param headers: Headers (column names)
+        
+        :type headers: System.String<System.String>[]
+
+        
+        .. code-block:: csharp
+
+            public DataFrame(int numberOfIndexColumns, params string[] headers)
+    
+    .. dn:constructor:: ampl.DataFrame.DataFrame(ampl.Entities.Entity[])
+
+        
+
+        
+        Create a new DataFrame with the specified entities as column headers.
+
+
+        
+
+        
+        :param headers: The columns headers to be used; since they are AMPL entities, sets are automatically considered indices and have to be placed first in the constructor.
+        
+        :type headers: ampl.Entities.Entity<ampl.Entities.Entity>[]
+
+        
+        .. code-block:: csharp
+
+            public DataFrame(params Entity[] headers)
+    
+
+Methods
+-------
+
+.. dn:class:: ampl.DataFrame
+    :noindex:
+    :hidden:
+
+    
+    .. dn:method:: ampl.DataFrame.AddColumn(System.String)
+
+        
+
+        
+        Add a new empty column with the corresponding header
+
+
+        
+
+        
+        :param header: The header
+        
+        :type header: System.String
+
+        
+        .. code-block:: csharp
+
+            public void AddColumn(string header)
+    
+    .. dn:method:: ampl.DataFrame.AddColumn(System.String, System.Double[])
+
+        
+
+        
+        Add a new column with the corresponding header and values to the dataframe
+
+
+        
+
+        
+        :param header: The name of the new column
+        
+        :type header: System.String
+
+        
+        :param values: An array of size NumRows with all the values of the new
+            column
+        
+        :type values: System.Double<System.Double>[]
+
+        
+        .. code-block:: csharp
+
+            public void AddColumn(string header, double[] values)
+    
+    .. dn:method:: ampl.DataFrame.AddColumn(System.String, System.String[])
+
+        
+
+        
+        Add a new column with the corresponding header and values to the dataframe
+
+
+        
+
+        
+        :param header: The name of the new column
+        
+        :type header: System.String
+
+        
+        :param values: An array of size NumRows with all the values of the new
+            column
+        
+        :type values: System.String<System.String>[]
+
+        
+        .. code-block:: csharp
+
+            public void AddColumn(string header, string[] values)
+    
+    .. dn:method:: ampl.DataFrame.AddRow(System.Object[])
+
+        
+
+        
+        Add a row to the DataFrame. The size of the tuple must be equal to the total
+        number of columns in the dataframe.
+
+
+        
+
+        
+        :param values: A collectiong containing all the values for the row to be
+            added
+        
+        :type values: System.Object<System.Object>[]
+
+        
+        .. code-block:: csharp
+
+            public void AddRow(params object[] values)
+    
+    .. dn:method:: ampl.DataFrame.AddRow(ampl.Tuple)
+
+        
+
+        
+        Add a row to the DataFrame. The size of the tuple must be equal to the total
+        number of columns in the dataframe.
+
+
+        
+
+        
+        :param value: A tuple containing all the values for the row to be
+            added
+        
+        :type value: ampl.Tuple
+
+        
+        .. code-block:: csharp
+
+            public void AddRow(Tuple value)
+    
+    .. dn:method:: ampl.DataFrame.AddRow(ampl.VariantRef)
+
+        
+
+        
+        Add a value to a DataFrame composed of only one column
+
+
+        
+
+        
+        :param a1: The value to add
+        
+        :type a1: ampl.VariantRef
+
+        
+        .. code-block:: csharp
+
+            public void AddRow(VariantRef a1)
+    
+    .. dn:method:: ampl.DataFrame.AddRow(ampl.VariantRef, ampl.VariantRef)
+
+        
+
+        
+        Add a value to a DataFrame composed of two columns.
+
+
+        
+
+        
+        :param a1: Value for the first column
+        
+        :type a1: ampl.VariantRef
+
+        
+        :param a2: Value for the second column
+        
+        :type a2: ampl.VariantRef
+
+        
+        .. code-block:: csharp
+
+            public void AddRow(VariantRef a1, VariantRef a2)
+    
+    .. dn:method:: ampl.DataFrame.AddRow(ampl.VariantRef, ampl.VariantRef, ampl.VariantRef)
+
+        
+
+        
+        Add a value to a DataFrame composed of two columns.
+
+
+        
+
+        
+        :param a1: Value for the first column
+        
+        :type a1: ampl.VariantRef
+
+        
+        :param a2: Value for the second column
+        
+        :type a2: ampl.VariantRef
+
+        
+        :param a3: Value for the third column
+        
+        :type a3: ampl.VariantRef
+
+        
+        .. code-block:: csharp
+
+            public void AddRow(VariantRef a1, VariantRef a2, VariantRef a3)
+    
+    .. dn:method:: ampl.DataFrame.AddRow(ampl.VariantRef, ampl.VariantRef, ampl.VariantRef, ampl.VariantRef)
+
+        
+
+        
+        Add a value to a DataFrame composed of two columns.
+
+
+        
+
+        
+        :param a1: Value for the first column
+        
+        :type a1: ampl.VariantRef
+
+        
+        :param a2: Value for the second column
+        
+        :type a2: ampl.VariantRef
+
+        
+        :param a3: Value for the third column
+        
+        :type a3: ampl.VariantRef
+
+        
+        :param a4: Value for the fourth column
+        
+        :type a4: ampl.VariantRef
+
+        
+        .. code-block:: csharp
+
+            public void AddRow(VariantRef a1, VariantRef a2, VariantRef a3, VariantRef a4)
+    
+    .. dn:method:: ampl.DataFrame.GetColumn(System.String)
+
+        
+
+        
+        Get the specified column as a view object
+
+
+        
+
+        
+        :param header: The column name
+        
+        :type header: System.String
+        :rtype: ampl.DataFrame.Column
+
+        
+        .. code-block:: csharp
+
+            public DataFrame.Column GetColumn(string header)
+    
+    .. dn:method:: ampl.DataFrame.GetEnumerator()
+
+        
+        :rtype: System.Collections.Generic.IEnumerator<System.Collections.Generic.IEnumerator`1>{ampl.DataFrame.Row<ampl.DataFrame.Row>}
+
+        
+        .. code-block:: csharp
+
+            public IEnumerator<DataFrame.Row> GetEnumerator()
+    
+    .. dn:method:: ampl.DataFrame.GetHeaders()
+
+        
+
+        
+        Get headers of all columns
+
+
+        
+        :rtype: System.String<System.String>[]
+
+        
+        .. code-block:: csharp
+
+            public string[] GetHeaders()
+    
+    .. dn:method:: ampl.DataFrame.GetRow(System.Object[])
+
+        
+
+        
+        Get a row by value of the indexing columns. If the index is not specified, gets
+        the only row of a dataframe with no indexing columns.
+
+
+        
+
+        
+        :param index: Collection of objects representing the index of the desired row
+        
+        :type index: System.Object<System.Object>[]
+        :rtype: ampl.DataFrame.Row
+
+        
+        .. code-block:: csharp
+
+            public DataFrame.Row GetRow(params object[] index)
+    
+    .. dn:method:: ampl.DataFrame.GetRow(ampl.Tuple)
+
+        
+
+        
+        Get a row by value of the indexing columns. If the index is not specified, gets
+        the only row of a dataframe with no indexing columns.
+
+
+        
+
+        
+        :param index: Tuple representing the index of the desired row
+        
+        :type index: ampl.Tuple
+        :rtype: ampl.DataFrame.Row
+
+        
+        .. code-block:: csharp
+
+            public DataFrame.Row GetRow(Tuple index)
+    
+    .. dn:method:: ampl.DataFrame.GetRowByIndex(System.Int32)
+
+        
+
+        
+        Get row by numeric index
+
+
+        
+
+        
+        :param index: Zero-based index of the row to get
+        
+        :type index: System.Int32
+        :rtype: ampl.DataFrame.Row
+        :return: Corresponding row
+
+        
+        .. code-block:: csharp
+
+            public DataFrame.Row GetRowByIndex(int index)
+    
+    .. dn:method:: ampl.DataFrame.Reserve(System.Int32)
+
+        
+
+        
+        Reserve space for the given number of rows. 
+        NOTE that the rows cannot be accessed, they still have to be added via DataFrame.AddRow.
+
+
+        
+
+        
+        :param numRows: Number of rows to be resetved
+        
+        :type numRows: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public void Reserve(int numRows)
+    
+    .. dn:method:: ampl.DataFrame.SetArray(System.Double[], System.Double[])
+
+        
+
+        
+        Set the values of a DataFrame from an array of doubles. The DataFrame must have
+        one index and one data column.
+
+
+        
+
+        
+        :param indices: The indices of the values to set
+        
+        :type indices: System.Double<System.Double>[]
+
+        
+        :param values: An array containing the values to be set
+        
+        :type values: System.Double<System.Double>[]
+
+        
+        .. code-block:: csharp
+
+            public void SetArray(double[] indices, double[] values)
+    
+    .. dn:method:: ampl.DataFrame.SetArray(System.Double[], System.String[])
+
+        
+
+        
+        Set the values of a DataFrame from an array of strings. The DataFrame must have
+        one index and one data column.
+
+
+        
+
+        
+        :param indices: The indices of the values to set
+        
+        :type indices: System.Double<System.Double>[]
+
+        
+        :param values: An array containing the values to be set
+        
+        :type values: System.String<System.String>[]
+
+        
+        .. code-block:: csharp
+
+            public void SetArray(double[] indices, string[] values)
+    
+    .. dn:method:: ampl.DataFrame.SetArray(System.String[], System.Double[])
+
+        
+
+        
+        Set the values of a DataFrame from an array of doubles. The DataFrame must have
+        one index and one data column.
+
+
+        
+
+        
+        :param indices: The indices of the values to set
+        
+        :type indices: System.String<System.String>[]
+
+        
+        :param values: An array containing the values to be set
+        
+        :type values: System.Double<System.Double>[]
+
+        
+        .. code-block:: csharp
+
+            public void SetArray(string[] indices, double[] values)
+    
+    .. dn:method:: ampl.DataFrame.SetArray(System.String[], System.String[])
+
+        
+
+        
+        Set the values of a DataFrame from an array of strings. The DataFrame must have
+        one index and one data column.
+
+
+        
+
+        
+        :param indices: The indices of the values to set
+        
+        :type indices: System.String<System.String>[]
+
+        
+        :param values: An array containing the values to be set
+        
+        :type values: System.String<System.String>[]
+
+        
+        .. code-block:: csharp
+
+            public void SetArray(string[] indices, string[] values)
+    
+    .. dn:method:: ampl.DataFrame.SetColumn(System.String, System.Double[])
+
+        
+
+        
+        Set the values of a column
+
+
+        
+
+        
+        :param header: The header of the column to be set
+        
+        :type header: System.String
+
+        
+        :param values: The values to be set
+        
+        :type values: System.Double<System.Double>[]
+
+        
+        .. code-block:: csharp
+
+            public void SetColumn(string header, params double[] values)
+    
+    .. dn:method:: ampl.DataFrame.SetColumn(System.String, System.String[])
+
+        
+
+        
+        Set the values of a column
+
+
+        
+
+        
+        :param header: The header of the column to be set
+        
+        :type header: System.String
+
+        
+        :param values: The values to be set
+        
+        :type values: System.String<System.String>[]
+
+        
+        .. code-block:: csharp
+
+            public void SetColumn(string header, params string[] values)
+    
+    .. dn:method:: ampl.DataFrame.SetMatrix(System.Double[], System.Double[], System.Double[,])
+
+        
+
+        
+        Set a matrix of doubles to an empty DataFrame. The DataFrame must have two
+        indices and one data column.
+
+
+        
+
+        
+        :param indices0: The values of the first indexing column
+        
+        :type indices0: System.Double<System.Double>[]
+
+        
+        :param indices1: The values of the second indexing column
+        
+        :type indices1: System.Double<System.Double>[]
+
+        
+        :param values: A 2d-array of doubles
+        
+        :type values: System.Double<System.Double>[,]
+
+        
+        .. code-block:: csharp
+
+            public void SetMatrix(double[] indices0, double[] indices1, double[, ] values)
+    
+    .. dn:method:: ampl.DataFrame.SetMatrix(System.Double[], System.Double[], System.String[,])
+
+        
+
+        
+        Set a matrix of strings to an empty DataFrame. The DataFrame must have two
+        indices and one data column.
+
+
+        
+
+        
+        :param indices0: The values of the first indexing column
+        
+        :type indices0: System.Double<System.Double>[]
+
+        
+        :param indices1: The values of the second indexing column
+        
+        :type indices1: System.Double<System.Double>[]
+
+        
+        :param values: A 2d-array of strings
+        
+        :type values: System.String<System.String>[,]
+
+        
+        .. code-block:: csharp
+
+            public void SetMatrix(double[] indices0, double[] indices1, string[, ] values)
+    
+    .. dn:method:: ampl.DataFrame.SetMatrix(System.Double[], System.String[], System.Double[,])
+
+        
+
+        
+        Set a matrix of doubles to an empty DataFrame. The DataFrame must have two
+        indices and one data column.
+
+
+        
+
+        
+        :param indices0: The values of the first indexing column
+        
+        :type indices0: System.Double<System.Double>[]
+
+        
+        :param indices1: The values of the second indexing column
+        
+        :type indices1: System.String<System.String>[]
+
+        
+        :param values: A 2d-array of doubles
+        
+        :type values: System.Double<System.Double>[,]
+
+        
+        .. code-block:: csharp
+
+            public void SetMatrix(double[] indices0, string[] indices1, double[, ] values)
+    
+    .. dn:method:: ampl.DataFrame.SetMatrix(System.Double[], System.String[], System.String[,])
+
+        
+
+        
+        Set a matrix of strings to an empty DataFrame. The DataFrame must have two
+        indices and one data column.
+
+
+        
+
+        
+        :param indices0: The values of the first indexing column
+        
+        :type indices0: System.Double<System.Double>[]
+
+        
+        :param indices1: The values of the second indexing column
+        
+        :type indices1: System.String<System.String>[]
+
+        
+        :param values: A 2d-array of strings
+        
+        :type values: System.String<System.String>[,]
+
+        
+        .. code-block:: csharp
+
+            public void SetMatrix(double[] indices0, string[] indices1, string[, ] values)
+    
+    .. dn:method:: ampl.DataFrame.SetMatrix(System.String[], System.Double[], System.Double[,])
+
+        
+
+        
+        Set a matrix of doubles to an empty DataFrame. The DataFrame must have two
+        indices and one data column.
+
+
+        
+
+        
+        :param indices0: The values of the first indexing column
+        
+        :type indices0: System.String<System.String>[]
+
+        
+        :param indices1: The values of the second indexing column
+        
+        :type indices1: System.Double<System.Double>[]
+
+        
+        :param values: A 2d-array of doubles
+        
+        :type values: System.Double<System.Double>[,]
+
+        
+        .. code-block:: csharp
+
+            public void SetMatrix(string[] indices0, double[] indices1, double[, ] values)
+    
+    .. dn:method:: ampl.DataFrame.SetMatrix(System.String[], System.Double[], System.String[,])
+
+        
+
+        
+        Set a matrix of strings to an empty DataFrame. The DataFrame must have two
+        indices and one data column.
+
+
+        
+
+        
+        :param indices0: The values of the first indexing column
+        
+        :type indices0: System.String<System.String>[]
+
+        
+        :param indices1: The values of the second indexing column
+        
+        :type indices1: System.Double<System.Double>[]
+
+        
+        :param values: A 2d-array of strings
+        
+        :type values: System.String<System.String>[,]
+
+        
+        .. code-block:: csharp
+
+            public void SetMatrix(string[] indices0, double[] indices1, string[, ] values)
+    
+    .. dn:method:: ampl.DataFrame.SetMatrix(System.String[], System.String[], System.Double[,])
+
+        
+
+        
+        Set a matrix of doubles to an empty DataFrame. The DataFrame must have two
+        indices and one data column.
+
+
+        
+
+        
+        :param indices0: The values of the first indexing column
+        
+        :type indices0: System.String<System.String>[]
+
+        
+        :param indices1: The values of the second indexing column
+        
+        :type indices1: System.String<System.String>[]
+
+        
+        :param values: A 2d-array of doubles
+        
+        :type values: System.Double<System.Double>[,]
+
+        
+        .. code-block:: csharp
+
+            public void SetMatrix(string[] indices0, string[] indices1, double[, ] values)
+    
+    .. dn:method:: ampl.DataFrame.SetMatrix(System.String[], System.String[], System.String[,])
+
+        
+
+        
+        Set a matrix of strings to an empty DataFrame. The DataFrame must have two
+        indices and one data column.
+
+
+        
+
+        
+        :param indices0: The values of the first indexing column
+        
+        :type indices0: System.String<System.String>[]
+
+        
+        :param indices1: The values of the second indexing column
+        
+        :type indices1: System.String<System.String>[]
+
+        
+        :param values: A 2d-array of strings
+        
+        :type values: System.String<System.String>[,]
+
+        
+        .. code-block:: csharp
+
+            public void SetMatrix(string[] indices0, string[] indices1, string[, ] values)
+    
+    .. dn:method:: ampl.DataFrame.System.Collections.IEnumerable.GetEnumerator()
+
+        
+        :rtype: System.Collections.IEnumerator
+
+        
+        .. code-block:: csharp
+
+            IEnumerator IEnumerable.GetEnumerator()
+    
+    .. dn:method:: ampl.DataFrame.ToString()
+
+        
+
+        
+        Return a tabular string representation of the dataframe object.
+
+
+        
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public override string ToString()
+    
+
+Properties
+----------
+
+.. dn:class:: ampl.DataFrame
+    :noindex:
+    :hidden:
+
+    
+    .. dn:property:: ampl.DataFrame.Item[System.Object[]]
+
+        
+
+        
+        Get the row corresponding to the specified index
+
+
+        
+
+        
+        :type index: System.Object<System.Object>[]
+        :rtype: ampl.DataFrame.Row
+
+        
+        .. code-block:: csharp
+
+            public DataFrame.Row this[params object[] index] { get; }
+    
+    .. dn:property:: ampl.DataFrame.NumCols
+
+        
+
+        
+        Get the total number of columns in this dataframe (indexarity + number of values)
+
+
+        
+        :rtype: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public int NumCols { get; }
+    
+    .. dn:property:: ampl.DataFrame.NumIndices
+
+        
+
+        
+        Get the number of indices (indexarity) of this dataframe
+
+
+        
+        :rtype: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public int NumIndices { get; }
+    
+    .. dn:property:: ampl.DataFrame.NumRows
+
+        
+
+        
+        Get the number of data rows in this dataframe
+
+
+        
+        :rtype: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public int NumRows { get; }
+    
+

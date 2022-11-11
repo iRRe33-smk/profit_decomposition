@@ -1,0 +1,276 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Tuple &#8212; AMPL API 2.0.3-0 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../_static/ampl.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Variable" href="matlabVariable.html" />
+    <link rel="prev" title="SetInstance" href="matlabSetInstance.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="matlabVariable.html" title="Variable"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="matlabSetInstance.html" title="SetInstance"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" accesskey="U">MATLAB API reference</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tuple</a><ul>
+<li><a class="reference internal" href="#id1">Tuple</a><ul>
+<li><a class="reference internal" href="#syntax"><strong>Syntax</strong></a></li>
+<li><a class="reference internal" href="#description"><strong>Description</strong></a></li>
+<li><a class="reference internal" href="#input-arguments"><strong>Input Arguments</strong></a></li>
+<li><a class="reference internal" href="#output-arguments"><strong>Output Arguments</strong></a></li>
+<li><a class="reference internal" href="#example"><strong>Example</strong></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#elements">elements</a><ul>
+<li><a class="reference internal" href="#id2"><strong>Syntax</strong></a></li>
+<li><a class="reference internal" href="#id3"><strong>Description</strong></a></li>
+<li><a class="reference internal" href="#id4"><strong>Output Arguments</strong></a></li>
+<li><a class="reference internal" href="#id5"><strong>Example</strong></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#size">size</a><ul>
+<li><a class="reference internal" href="#id6"><strong>Syntax</strong></a></li>
+<li><a class="reference internal" href="#id7"><strong>Description</strong></a></li>
+<li><a class="reference internal" href="#id8"><strong>Output Arguments</strong></a></li>
+<li><a class="reference internal" href="#id9"><strong>Example</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="matlabSetInstance.html"
+                        title="previous chapter">SetInstance</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="matlabVariable.html"
+                        title="next chapter">Variable</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/classes/matlabTuple.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="tuple">
+<span id="secmatlabreftuple"></span><h1>Tuple<a class="headerlink" href="#tuple" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Tuple">
+<em class="property">class </em><code class="descname">Tuple</code><a class="headerlink" href="#Tuple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>An object of this class represent an AMPL tuple. It can be used as an index for accessing instances for entities indexed over multiple sets
+or to assigning values to multidimensional sets (sets of tuples).</p>
+<p>It offers a nice visual representation of a Tuple, although since all the methods of
+the AMPL API to gain access to instances and to assign data to sets accept cell arrays
+as well as Tuple structures, its use is somewhat limited.</p>
+<div class="section" id="id1">
+<h2>Tuple<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="Tuple.Tuple">
+<em class="property">classmethod </em><code class="descclassname">Tuple.</code><code class="descname">Tuple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Tuple.Tuple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="section" id="syntax">
+<h3><strong>Syntax</strong><a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">Tuple(elements)</span></code></p>
+</div>
+<div class="section" id="description">
+<h3><strong>Description</strong><a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">Tuple(elements)</span></code> is the constructor for the Tuple structure.</p>
+</div>
+<div class="section" id="input-arguments">
+<h3><strong>Input Arguments</strong><a class="headerlink" href="#input-arguments" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">elements</span></code></dt>
+<dd>A cell array containing the elements to be placed in the Tuple</dd>
+</dl>
+</div>
+<div class="section" id="output-arguments">
+<h3><strong>Output Arguments</strong><a class="headerlink" href="#output-arguments" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">t</span></code></dt>
+<dd>The created Tuple</dd>
+</dl>
+</div>
+<div class="section" id="example">
+<h3><strong>Example</strong><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p>Create a tuple of three elements and assign it to a three dimensional set.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span>  <span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;set A dimen 3;&#39;</span><span class="p">);</span>
+  <span class="n">t</span> <span class="p">=</span> <span class="n">Tuple</span><span class="p">({</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;2&#39;</span><span class="p">})</span>
+  <span class="n">A</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getSet</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">);</span>
+  <span class="n">A</span><span class="p">.</span><span class="n">arity</span>
+  <span class="n">A</span><span class="p">.</span><span class="n">setValues</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+  <span class="n">A</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
+
+<span class="n">gives</span><span class="p">::</span>
+
+  <span class="nb">ans</span> <span class="p">=</span>
+   <span class="n">set</span> <span class="n">A</span> <span class="p">=</span> <span class="p">{(</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">)};</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="elements">
+<h2>elements<a class="headerlink" href="#elements" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="Tuple.elements">
+<em class="property">classmethod </em><code class="descclassname">Tuple.</code><code class="descname">elements</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Tuple.elements" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="section" id="id2">
+<h3><strong>Syntax</strong><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">elements()</span></code></p>
+</div>
+<div class="section" id="id3">
+<h3><strong>Description</strong><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">elements()</span></code> returns the elements in the tuple</p>
+</div>
+<div class="section" id="id4">
+<h3><strong>Output Arguments</strong><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">t</span></code></dt>
+<dd>The elements in the tuple as a Java array</dd>
+</dl>
+</div>
+<div class="section" id="id5">
+<h3><strong>Example</strong><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>Create a tuple and get its elements back. Uses the <em>cell</em> function to
+convert the Java array to a MATLAB cell array.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span>  <span class="n">t</span> <span class="p">=</span> <span class="n">Tuple</span><span class="p">({</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;2&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">});</span>
+  <span class="n">javaArray</span> <span class="p">=</span> <span class="n">t</span><span class="p">.</span><span class="n">elements</span>
+  <span class="n">matlabArray</span> <span class="p">=</span> <span class="n">cell</span><span class="p">(</span><span class="n">javaArray</span><span class="p">)</span>
+
+
+<span class="n">gives</span><span class="p">::</span>
+
+  <span class="n">javaArray</span> <span class="p">=</span>
+  <span class="n">java</span><span class="p">.</span><span class="n">lang</span><span class="p">.</span><span class="n">Object</span><span class="p">[]:</span>
+   <span class="s">&#39;a&#39;</span>
+   <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+   <span class="s">&#39;2&#39;</span>
+   <span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+  <span class="n">matlabArray</span> <span class="p">=</span>
+   <span class="s">&#39;a&#39;</span>
+   <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+   <span class="s">&#39;2&#39;</span>
+   <span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="size">
+<h2>size<a class="headerlink" href="#size" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="Tuple.size">
+<em class="property">classmethod </em><code class="descclassname">Tuple.</code><code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Tuple.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="section" id="id6">
+<h3><strong>Syntax</strong><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">=</span> <span class="pre">size()</span></code></p>
+</div>
+<div class="section" id="id7">
+<h3><strong>Description</strong><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">=</span> <span class="pre">size()</span></code> returns the number of elements in the tuple</p>
+</div>
+<div class="section" id="id8">
+<h3><strong>Output Arguments</strong><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">s</span></code></dt>
+<dd>The number of elements in the tuple</dd>
+</dl>
+</div>
+<div class="section" id="id9">
+<h3><strong>Example</strong><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>Create a tuple and get the number of elements.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span>  <span class="n">t</span> <span class="p">=</span> <span class="n">Tuple</span><span class="p">({</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;2&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">});</span>
+  <span class="n">t</span><span class="p">.</span><span class="nb">size</span>
+
+<span class="n">gives</span><span class="p">::</span>
+
+  <span class="nb">ans</span> <span class="p">=</span>
+  <span class="mi">4</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="matlabVariable.html" title="Variable"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="matlabSetInstance.html" title="SetInstance"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" >MATLAB API reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013-2017, AMPL Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.
+    </div>
+  </body>
+</html>

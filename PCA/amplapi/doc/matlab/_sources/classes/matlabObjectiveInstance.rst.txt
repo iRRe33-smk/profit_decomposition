@@ -1,0 +1,244 @@
+.. _secMATLABrefObjectiveInstance:
+
+ObjectiveInstance
+=================
+
+.. mat:class:: ObjectiveInstance
+
+
+The ObjectiveInstance object stores the information regarding a specific instance of an objective.
+The instances can be accessed through the function :mat:meth:`Objective.get` of the parent
+entity.  
+
+
+value()
+-------
+
+.. mat:classmethod:: ObjectiveInstance.value()
+
+**Syntax**
+~~~~~~~~~~
+
+``v = value()``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``v = value()`` Get the current value of the objective instance 
+
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``v``
+   The current value of the objective instance
+   
+**Example**
+~~~~~~~~~~~
+     
+Create an indexed objective z, get an instance and display its value. Then solve the problem and display the value again. 
+
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..2} <= i;');
+   ampl.eval('maximize z{i in 1..2}: x[i];');
+   z = ampl.getObjective('z');
+   instance = z.get(1);
+   instance.value
+   ampl.solve;
+   instance.value
+   
+gives::
+
+   ans =
+     0
+
+   ans =
+     1
+
+
+astatus
+-------
+
+.. mat:classmethod:: ObjectiveInstance.astatus()
+
+**Syntax**
+~~~~~~~~~~
+
+``v = astatus``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``astatus`` Return the AMPL status for this objective instance. 
+
+
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``v``
+   The AMPL status for this objective instance.
+
+**Example**
+~~~~~~~~~~~
+     
+Create an indexed objective z, get an instance and display its status. Then solve the problem and display it again. 
+
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..2} <= i;');
+   ampl.eval('maximize z{i in 1..2}: x[i];');
+   z = ampl.getObjective('z');
+   instance = z.get(1);
+   instance.astatus
+   ampl.solve;
+   instance.astatus
+   
+gives::
+
+   ans =
+   in
+  
+   ans =
+   in
+
+
+
+exitcode
+--------
+
+.. mat:classmethod:: ObjectiveInstance.exitcode()
+
+**Syntax**
+~~~~~~~~~~
+
+``v = exitcode``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``exitcode`` Get exit code returned by solver after most recent solve with this objective. 
+
+
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``v``
+   The exit code returned by solver after most recent solve with this objective.
+
+**Example**
+~~~~~~~~~~~
+     
+Create an indexed objective z, get an instance and display its exitcode. Then solve the problem and display it again. 
+
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..2} <= i;');
+   ampl.eval('maximize z{i in 1..2}: x[i];');
+   z = ampl.getObjective('z');
+   instance = z.get(1);
+   instance.exitcode
+   ampl.solve;
+   instance.exitcode
+   
+gives::
+
+   ans =
+   0
+  
+   ans =
+   0
+    
+
+message
+-------
+
+.. mat:classmethod:: ObjectiveInstance.message()
+
+**Syntax**
+~~~~~~~~~~
+
+``v = message``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``message`` Get the result message returned by solver after most recent solve with this objective.  
+
+
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``v``
+   The result message returned by solver after most recent solve with this objective
+
+**Example**
+~~~~~~~~~~~
+     
+Create an indexed objective z, get an instance and display the solver message. Then solve the problem and display it again. 
+
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..2} <= i;');
+   ampl.eval('maximize z{i in 1..2}: x[i];');
+   z = ampl.getObjective('z');
+   instance = z.get(1);
+   instance.message
+   ampl.solve;
+   instance.message
+   
+gives::
+
+   ans =
+   ?
+  
+   ans = 
+   CBC 2.8.2 optimal, objective -1
+   0 iterations 
+
+
+
+result
+------
+
+.. mat:classmethod:: ObjectiveInstance.result()
+
+**Syntax**
+~~~~~~~~~~
+
+``v = result``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``result`` Get the result string returned by solver after most recent solve with this objective.  
+
+
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``v``
+   The result string returned by solver after most recent solve with this objective.
+
+**Example**
+~~~~~~~~~~~
+     
+Create an indexed objective z, get an instance and display its result string. Then solve the problem and display it again. 
+
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..2} <= i;');
+   ampl.eval('maximize z{i in 1..2}: x[i];');
+   z = ampl.getObjective('z');
+   instance = z.get(1);
+   instance.result
+   ampl.solve;
+   instance.result
+   
+gives::
+
+   ans =
+   ?
+ 
+   ans =
+   solved
+   

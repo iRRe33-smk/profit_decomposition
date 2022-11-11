@@ -1,0 +1,131 @@
+
+
+EntityMap<ENTITY> Class
+=======================
+
+
+
+
+
+
+A generic enumerable map storing entities 
+
+
+Namespace
+    :dn:ns:`ampl.Entities`
+Assemblies
+    * AMPL
+
+----
+
+.. contents::
+   :local:
+
+
+
+Inheritance Hierarchy
+---------------------
+
+
+* :dn:cls:`System.Object`
+* :dn:cls:`ampl.Entities.EntityMap\<ENTITY>`
+
+
+
+
+
+
+
+
+Syntax
+------
+
+.. code-block:: csharp
+
+    public class EntityMap<ENTITY> : IEnumerable<ENTITY>, IEnumerable
+
+
+
+
+
+
+
+
+.. dn:class:: ampl.Entities.EntityMap`1
+    :hidden:
+
+.. dn:class:: ampl.Entities.EntityMap<ENTITY>
+
+Methods
+-------
+
+.. dn:class:: ampl.Entities.EntityMap<ENTITY>
+    :noindex:
+    :hidden:
+
+    
+    .. dn:method:: ampl.Entities.EntityMap<ENTITY>.GetEnumerator()
+
+        
+        :rtype: System.Collections.Generic.IEnumerator<System.Collections.Generic.IEnumerator`1>{ENTITY}
+
+        
+        .. code-block:: csharp
+
+            public virtual IEnumerator<ENTITY> GetEnumerator()
+    
+    .. dn:method:: ampl.Entities.EntityMap<ENTITY>.OnKeyNotFound(System.String)
+
+        
+
+        
+        :type name: System.String
+
+        
+        .. code-block:: csharp
+
+            protected void OnKeyNotFound(string name)
+    
+    .. dn:method:: ampl.Entities.EntityMap<ENTITY>.System.Collections.IEnumerable.GetEnumerator()
+
+        
+        :rtype: System.Collections.IEnumerator
+
+        
+        .. code-block:: csharp
+
+            IEnumerator IEnumerable.GetEnumerator()
+    
+
+Properties
+----------
+
+.. dn:class:: ampl.Entities.EntityMap<ENTITY>
+    :noindex:
+    :hidden:
+
+    
+    .. dn:property:: ampl.Entities.EntityMap<ENTITY>.Item[System.String]
+
+        
+
+        
+        :type name: System.String
+        :rtype: ENTITY
+
+        
+        .. code-block:: csharp
+
+            public virtual ENTITY this[string name] { get; }
+    
+    .. dn:property:: ampl.Entities.EntityMap<ENTITY>.Size
+
+        
+        :rtype: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public virtual int Size { get; }
+    
+

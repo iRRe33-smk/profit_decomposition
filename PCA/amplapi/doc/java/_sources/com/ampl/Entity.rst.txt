@@ -1,0 +1,155 @@
+.. java:import:: java.util HashSet
+
+.. java:import:: java.util Iterator
+
+.. java:import:: java.util List
+
+.. java:import:: java.util Map
+
+.. java:import:: java.util Set
+
+Entity
+======
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class Entity
+
+   An AMPL entity such as a parameter or a variable. An entity can either represent a single instance of an AMPL algebraic entity or, if the corresponding declaration has an indexing expression, a mapping from keys to instances. In the derived classes, it has methods to access instance-level properties which can be used in case the represented entity is scalar. To gain access to all the values in an entity (for all instances and all suffixes for that entities), use :java:ref:`getValues`.
+
+Fields
+------
+_impl
+^^^^^
+
+.. java:field::  EntityBase _impl
+   :outertype: Entity
+
+Constructors
+------------
+Entity
+^^^^^^
+
+.. java:constructor::  Entity(EntityBase impl)
+   :outertype: Entity
+
+   Constructor
+
+Methods
+-------
+getIndexingSets
+^^^^^^^^^^^^^^^
+
+.. java:method:: public String[] getIndexingSets()
+   :outertype: Entity
+
+   Get the AMPL string representation of the sets on which this entity is indexed.
+
+   :return: The string representation of the indexing sets for this entity or an empty array if the entity is scalar
+
+getIndices
+^^^^^^^^^^
+
+.. java:method:: @Deprecated public Set<Tuple> getIndices()
+   :outertype: Entity
+
+   Get all the keys in this entity. Not modifiable as a collection.
+
+   :return: All the keys currently in the entity.
+
+getValues
+^^^^^^^^^
+
+.. java:method:: public DataFrame getValues()
+   :outertype: Entity
+
+   Get the principal values of this entity as a :java:ref:`DataFrame`. For variables and objectives it returns their suffix \ ``val``\  for parameters it returns their values for constraints it returns the suffix \ ``dual``\  for sets it returns all the members of the set
+
+   :return: All instances
+
+getValues
+^^^^^^^^^
+
+.. java:method:: public DataFrame getValues(String... suffixes)
+   :outertype: Entity
+
+   Get all the specified values for this entity as a DataFrame object. The valid strings are all AMPL built-in suffixes for the entity under consideration.
+
+   :param suffixes: A list of suffixes to be returned
+   :throws IllegalArgumentException: if the specified suffix does not exist.
+   :return: A :java:ref:`DataFrame` object with a column for each indexing set and a column for each one of the specified suffixes.
+
+hasIndexing
+^^^^^^^^^^^
+
+.. java:method:: @Deprecated public boolean hasIndexing()
+   :outertype: Entity
+
+   Check whether this entity is indexed over any set. Equivalent to testing whether :java:ref:`Entity.indexarity` is greater than zero.
+
+   :return: True if the entity is not scalar (is indexed over a set)
+
+indexarity
+^^^^^^^^^^
+
+.. java:method:: public int indexarity()
+   :outertype: Entity
+
+   Get the indexarity of this entity (sum of the dimensions of the indexing sets). This value indicates how many elements are to be passed to the method :java:ref:`BasicEntity.get` in order to access an instance of this entity.
+
+   See the following AMPL examples:
+
+   .. parsed-literal::
+
+      var x;               # indexarity = 0
+      var y {1..2};        # indexarity = 1
+      var z {1..2,3..4};   # indexarity = 2
+      var zz {{(1, 2)}};   # indexarity = 2
+
+   :return: The sum of the dimensions of the indexing sets or 0 if the entity is not indexed
+
+isScalar
+^^^^^^^^
+
+.. java:method:: public boolean isScalar()
+   :outertype: Entity
+
+   Check whether this entity is scalar. Equivalent to testing whether :java:ref:`Entity.indexarity` is equal to zero.
+
+   :return: True if the entity is scalar (not indexed over any set)
+
+name
+^^^^
+
+.. java:method:: public final String name()
+   :outertype: Entity
+
+   Get the AMPL name of this entity
+
+numInstances
+^^^^^^^^^^^^
+
+.. java:method:: public int numInstances()
+   :outertype: Entity
+
+   Get the number of instances in this entity
+
+setValues
+^^^^^^^^^
+
+.. java:method:: public void setValues(DataFrame data)
+   :outertype: Entity
+
+   Set the values of this entiy to the correponding values of a DataFrame indexed over the same sets (or a subset). This function assigns the values in the first data column of the passed dataframe to the entity the function is called from. In particular, the statement:: x.setValues(y.getValues()); is semantically equivalent to the AMPL statement:: let {s in S} x[s] := y[s]; *
+
+   :param data:
+
+toString
+^^^^^^^^
+
+.. java:method:: @Override public String toString()
+   :outertype: Entity
+
+   Get a string representation of this entity; for all entity types, it returns the AMPL declaration.
+

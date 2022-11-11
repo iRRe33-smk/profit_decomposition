@@ -1,0 +1,288 @@
+.. java:import:: java.util Iterator
+
+Parameter
+=========
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class Parameter extends BasicEntity<Object>
+
+   Represents an AMPL parameter. The values can be Double or String (in case of symbolic parameters).
+
+   Data can be assigned to the parameter using the methods :java:ref:`set`, :java:ref:`setValues` directly from objects of this class or using :java:ref:`AMPL.setData` and a :java:ref:`DataFrame` object.
+
+Constructors
+------------
+Parameter
+^^^^^^^^^
+
+.. java:constructor:: public Parameter(Entity entity)
+   :outertype: Parameter
+
+   Constructor
+
+Parameter
+^^^^^^^^^
+
+.. java:constructor:: protected Parameter(ParameterBase impl)
+   :outertype: Parameter
+
+Methods
+-------
+get
+^^^
+
+.. java:method:: public Object get()
+   :outertype: Parameter
+
+   Get the value of a scalar parameter.
+
+   :throws UnsupportedOperationException: if this parameter is not scalar.
+   :throws IllegalStateException: if the entity has been deleted in the underlying AMPL
+
+get
+^^^
+
+.. java:method:: public Object get(Object... key)
+   :outertype: Parameter
+
+   Get the value corresponding to key. The value will be a string or a double if the parameter is symbolic, a double otherwise. See :ref:`secAccessInstancesAndValues` for further information on how the key can be specified.
+
+   :param key: The key to be found
+   :throws IllegalArgumentException: if trying to access an instance with the wrong number of keys (see :java:ref:`Entity.indexarity`)
+   :throws IllegalStateException: if the entity has been deleted in the underlying AMPL interpreter
+   :return: The value of the parameter for the corresponding key (String or double) or ``null`` if the specified key is not found
+
+get
+^^^
+
+.. java:method:: public Object get(Tuple key)
+   :outertype: Parameter
+
+   Get the value corresponding to key (passed as a Tuple). The value will be a string or a double if the parameter is symbolic, a double otherwise. See :ref:`secAccessInstancesAndValues` for further information on how the key can be specified.
+
+   :param key: The key (as a tuple) to be found
+   :throws IllegalArgumentException: if trying to access an instance with the wrong number of keys (see :java:ref:`Entity.indexarity`)
+   :throws IllegalStateException: if the entity has been deleted in the underlying AMPL interpreter
+   :return: The value of the parameter for the corresponding key (String or double) or ``null`` if the specified key is not found
+
+hasDefault
+^^^^^^^^^^
+
+.. java:method:: public boolean hasDefault()
+   :outertype: Parameter
+
+   Check if the parameter has a default initial value. In case of the following AMPL code:
+
+   .. parsed-literal::
+
+      param a;
+      param b default a;
+
+   the function will return true for parameter \ ``b``\ .
+
+   :return: True if the parameter has a default initial value. Please note that if the parameter has a default expression which refers to another parameter which value is not defined, this will return true.
+
+impl
+^^^^
+
+.. java:method::  ParameterBase impl()
+   :outertype: Parameter
+
+isSymbolic
+^^^^^^^^^^
+
+.. java:method:: public boolean isSymbolic()
+   :outertype: Parameter
+
+   Check if the parameter is symbolic (aka can store strings)
+
+   :return: True if the parameter is symbolic
+
+iterator
+^^^^^^^^
+
+.. java:method:: @Override public Iterator<Object> iterator()
+   :outertype: Parameter
+
+set
+^^^
+
+.. java:method:: public void set(double index, double value)
+   :outertype: Parameter
+
+   Assign a value to the parameter at the specified index, equivalent to the AMPL code
+
+   .. parsed-literal::
+
+      let par[index] := value;
+
+   :param index: Index (key) of instance to be set, can be a :java:ref:`Tuple` or an array for multidimensional parameters.
+   :param value: Value to set.
+   :throws UnsupportedOperationException: If called on a scalar parameter
+
+set
+^^^
+
+.. java:method:: public void set(String index, double value)
+   :outertype: Parameter
+
+set
+^^^
+
+.. java:method:: public void set(Tuple index, double value)
+   :outertype: Parameter
+
+set
+^^^
+
+.. java:method:: public void set(double index, String value)
+   :outertype: Parameter
+
+   Assign a string to the parameter at the specified index, equivalent to the AMPL code:
+
+   .. parsed-literal::
+
+      let par[index] := value;
+
+   :param index: Index (key) of instance to be set, can be a :java:ref:`Tuple` or an array for multidimensional parameters.
+   :param value: Value to set.
+   :throws UnsupportedOperationException: If called on a scalar parameter
+
+set
+^^^
+
+.. java:method:: public void set(String index, String value)
+   :outertype: Parameter
+
+set
+^^^
+
+.. java:method:: public void set(Tuple index, String value)
+   :outertype: Parameter
+
+set
+^^^
+
+.. java:method:: public void set(double value)
+   :outertype: Parameter
+
+   Set the value of a scalar parameter.
+
+   :throws UnsupportedOperationException: if this parameter is not scalar.
+   :throws IllegalStateException: if the entity has been deleted in the underlying AMPL
+
+set
+^^^
+
+.. java:method:: public void set(String value)
+   :outertype: Parameter
+
+   Set the value of a scalar parameter.
+
+   :throws UnsupportedOperationException: if the entity is not scalar.
+   :throws IllegalStateException: if the entity has been deleted in the underlying AMPL
+
+setValues
+^^^^^^^^^
+
+.. java:method:: public void setValues(Tuple[] indices, double[] values)
+   :outertype: Parameter
+
+   Assign the (double) values to the parameter instances with the specified indices, equivalent to the AMPL code:
+
+   .. parsed-literal::
+
+      let {i in indices} par[i] := values[i];
+
+   :param indices: Index (key) of instance to be set. Each item in the array can be a :java:ref:`Tuple` or an array of objects, in case of multidimensional array.
+   :param values: Values to set.
+   :throws UnsupportedOperationException: If called on a scalar parameter
+   :throws IllegalArgumentException: if the dimension of some of the indices does not match the dimension of the indices of the parameter
+
+setValues
+^^^^^^^^^
+
+.. java:method:: public void setValues(Tuple[] indices, String[] values)
+   :outertype: Parameter
+
+   Assign the values (string or double) to the parameter instances with the specified indices, equivalent to the AMPL code:
+
+   .. parsed-literal::
+
+      let {i in indices} par[i] := values[i];
+
+   :param indices: Index (key) of instance to be set. Each item in the array can be a :java:ref:`Tuple` or an array of objects, in case of multidimensional array.
+   :param values: Values to set.
+   :throws UnsupportedOperationException: If called on a scalar parameter
+   :throws IllegalArgumentException: If called with some string values on a non symbolic parameter or if the dimension of some of the indices does not match the dimension of the indices of the parameter
+
+setValues
+^^^^^^^^^
+
+.. java:method:: public void setValues(double[] rowindices, double[] colindices, double[][] values, boolean transpose)
+   :outertype: Parameter
+
+   Assign the specified values to a 2-d parameter, using the two dimensions as two indices.
+
+   For example, the :math:`m \times n` matrix: :math:`A = \left( \begin{array}{cccc} a_{11} & a_{12} & ... & a_{1n} \\ a_{21} & a_{22} & ... & a_{2n} \\ ... & ... & ... & ... \\ a_{m1} & a_{m2} & ... & a_{mn} \end{array} \right)`
+
+   can be assigned to the AMPL parameter: \ ``param A {1..m, 1..n};``\  with the statement \ ``setValues(A, false)``\ .
+
+   As an example, to assign the matrix: :math:`A = \left( \begin{array}{cccc} 11 & 12 \\ 21 & 22 \\ 31 & 32 \end{array} \right)`
+
+   to the AMPL paramater: \ ``param A{1..3, 1..2};``\  we can use the following code.
+
+   .. parsed-literal::
+
+      ampl.eval("param a{1..3, 1..2};");
+      Parameter a = ampl.getParameter("a");
+      double[][] values = new double[3][2];
+      for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 2; j++)
+          values[i][j] = (i + 1) * 10 + (j + 1);
+      a.setValues(values, false);
+
+   :param values: Values to be assigned
+   :param transpose: True to transpose the values in the matrix
+   :throws UnsupportedOperationException: If the method is called on a parameter which is not two-dimensional
+   :throws IllegalArgumentException: If the passed array of values is not rectangular or if the sizes of 'values' do not correspond to the sizes of the underlying indices
+
+setValues
+^^^^^^^^^
+
+.. java:method:: public void setValues(String[] rowindices, String[] colindices, double[][] values, boolean transpose)
+   :outertype: Parameter
+
+setValues
+^^^^^^^^^
+
+.. java:method:: public void setValues(String... values)
+   :outertype: Parameter
+
+   Assign the specified values to this parameter, assigning them to the parameter in the same order as the indices in the entity.
+
+   The number of values in the array must be of the same size of the parameter, as this function will try to assign all values.
+
+   :param values: Values to be assigned.
+   :throws IllegalArgumentException: If multiple values are assigned to a scalar parameter, if the size of the ``values`` array is not equal to the size (number of instances) of the parameter or if trying to assign a string to a non symbolic parameter
+
+setValues
+^^^^^^^^^
+
+.. java:method:: public void setValues(double... values)
+   :outertype: Parameter
+
+toString
+^^^^^^^^
+
+.. java:method:: @Override public String toString()
+   :outertype: Parameter
+
+   Returns a string representation of this parameter. Equivalent to the AMPL statement:
+
+   .. parsed-literal::
+
+      show parameterName;
+

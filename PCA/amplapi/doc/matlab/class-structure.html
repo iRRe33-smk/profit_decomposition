@@ -1,0 +1,441 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Class structure &#8212; AMPL API 2.0.3-0 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/ampl.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="MATLAB quick start" href="quick-start.html" />
+    <link rel="prev" title="Getting started" href="getting-started.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="quick-start.html" title="MATLAB quick start"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="getting-started.html" title="Getting started"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Class structure</a><ul>
+<li><a class="reference internal" href="#ampl-class">AMPL class</a><ul>
+<li><a class="reference internal" href="#direct-interaction-with-ampl">Direct interaction with AMPL</a></li>
+<li><a class="reference internal" href="#model-interrogation">Model interrogation</a></li>
+<li><a class="reference internal" href="#commands-and-options">Commands and options</a></li>
+<li><a class="reference internal" href="#output-and-errors-handling">Output and errors handling</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#modelling-entities-classes">Modelling entities classes</a><ul>
+<li><a class="reference internal" href="#access-to-instances-and-values">Access to instances and values</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#relation-between-entities-and-data">Relation between entities and data</a><ul>
+<li><a class="reference internal" href="#access-to-scalar-values">Access to scalar values</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#note-on-variables-suffixes">Note on variables suffixes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="getting-started.html"
+                        title="previous chapter">Getting started</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="quick-start.html"
+                        title="next chapter">MATLAB quick start</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/class-structure.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="class-structure">
+<span id="secclassstructure"></span><h1>Class structure<a class="headerlink" href="#class-structure" title="Permalink to this headline">¶</a></h1>
+<p>AMPL API library consists of a collection of classes to interact with the underlying AMPL interpreter and to access
+its inputs and outputs. It uses generic collections to represent the various entities which comprise a mathematical
+model. The structure of these entities is explained in this section.</p>
+<p>The main class used to interact with AMPL, instantiate and interrogate the models is <a class="reference internal" href="classes/matlabAMPL.html#AMPL" title="AMPL"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">AMPL</span></code></a>. One object of
+this class represents an execution of an AMPL translator, and is the first class that has to be instantiated when
+developing a solution based on AMPL API. It allows the interaction with the underlying AMPL translator, issuing commands,
+getting diagnostics and controlling the process.</p>
+<p>The model entities are represented by a set of classes, schematized in figure <a class="reference internal" href="#figcdmodelentities"><span class="std std-ref">Model entities classes overview</span></a>. These classes
+represent the optimisation model being created and allow some manipulation and data assignments operations on such entities
+and will be presented more in detail in the section <a class="reference internal" href="#secmodellingclasses"><span class="std std-ref">Modelling entities classes</span></a>.</p>
+<div class="align-center figure" id="id1">
+<span id="figcdmodelentities"></span><a class="reference internal image-reference" href="_images/ClassDiagramModelEntitiesNew.PNG"><img alt="Model entities class diagram" src="_images/ClassDiagramModelEntitiesNew.PNG" style="width: 757px; height: 375px;" /></a>
+<p class="caption"><span class="caption-text">Model entities classes overview</span></p>
+</div>
+<div class="section" id="ampl-class">
+<span id="secamplclass"></span><h2>AMPL class<a class="headerlink" href="#ampl-class" title="Permalink to this headline">¶</a></h2>
+<p>For all calculations, AMPL API uses an underlying AMPL execution engine, which is wrapped by the class <a class="reference internal" href="classes/matlabAMPL.html#AMPL" title="AMPL"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">AMPL</span></code></a>.
+Thus, one instance of this class is the first object to be created when writing a program which uses the AMPL API
+library. The object is quite resource-heavy, therefore it should be explicitly closed as soon as it is not needed anymore,
+with a call to <a class="reference internal" href="classes/matlabAMPL.html#AMPL.close" title="AMPL.close"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.close</span></code></a>.</p>
+<p>All the model creation and structural alteration operations are to be expressed in AMPL language through the
+AMPL main object; moreover, the class provides access to the current state represented via the classes derived
+from <cite>Entity</cite>, as shown in section <a class="reference internal" href="#secmodellingclasses"><span class="std std-ref">Modelling entities classes</span></a> and provides several other functionalities
+(see the reference at  <a class="reference internal" href="reference.html#secmatlabamplclassesreference"><span class="std std-ref">AMPL classes</span></a>).</p>
+<p>The functions can be split in three groups: direct AMPL interaction, model interrogation and commands.</p>
+<div class="section" id="direct-interaction-with-ampl">
+<h3>Direct interaction with AMPL<a class="headerlink" href="#direct-interaction-with-ampl" title="Permalink to this headline">¶</a></h3>
+<p>The methods available to input AMPL commands are <a class="reference internal" href="classes/matlabAMPL.html#AMPL.eval" title="AMPL.eval"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.eval</span></code></a>, <a class="reference internal" href="classes/matlabAMPL.html#AMPL.read" title="AMPL.read"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.read</span></code></a> and <a class="reference internal" href="classes/matlabAMPL.html#AMPL.readData" title="AMPL.readData"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.readData</span></code></a>;
+they send the strings specified (or the specified files) to the AMPL engine for interpretation.</p>
+</div>
+<div class="section" id="model-interrogation">
+<h3>Model interrogation<a class="headerlink" href="#model-interrogation" title="Permalink to this headline">¶</a></h3>
+<p>Evaluating AMPL files or statements creates various kind of entities in the underlying AMPL process.
+To get the Java (or, in general, programmatic) representation of such entities, the programmer can follow two main courses.</p>
+<ul class="simple">
+<li>Get an <a class="reference internal" href="classes/matlabEntityList.html#EntityList" title="EntityList"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">EntityList</span></code></a> of all available entities, to iterate through them. The methods to obtain such lists are:<ul>
+<li><a class="reference internal" href="classes/matlabAMPL.html#AMPL.getVariables" title="AMPL.getVariables"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.getVariables</span></code></a> gets the <a class="reference internal" href="classes/matlabEntityList.html#EntityList" title="EntityList"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">EntityList</span></code></a> of all the defined variables</li>
+<li><a class="reference internal" href="classes/matlabAMPL.html#AMPL.getConstraints" title="AMPL.getConstraints"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.getConstraints</span></code></a> gets the <a class="reference internal" href="classes/matlabEntityList.html#EntityList" title="EntityList"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">EntityList</span></code></a> of all the defined constraints</li>
+<li><a class="reference internal" href="classes/matlabAMPL.html#AMPL.getObjectives" title="AMPL.getObjectives"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.getObjectives</span></code></a> gets the <a class="reference internal" href="classes/matlabEntityList.html#EntityList" title="EntityList"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">EntityList</span></code></a> of all the defined objectives</li>
+<li><a class="reference internal" href="classes/matlabAMPL.html#AMPL.getSets" title="AMPL.getSets"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.getSets</span></code></a> gets the <a class="reference internal" href="classes/matlabEntityList.html#EntityList" title="EntityList"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">EntityList</span></code></a> of all the defined sets</li>
+<li><a class="reference internal" href="classes/matlabAMPL.html#AMPL.getParameters" title="AMPL.getParameters"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.getParameters</span></code></a> gets the <a class="reference internal" href="classes/matlabEntityList.html#EntityList" title="EntityList"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">EntityList</span></code></a> of all the defined parameters</li>
+</ul>
+</li>
+<li>Knowing the AMPL name of an entity, use the function <a class="reference internal" href="classes/matlabAMPL.html#AMPL.getEntity" title="AMPL.getEntity"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.getEntity</span></code></a> in its various incarnations to gain access to the entity itself.</li>
+</ul>
+<p>Once the desired entities have been created, it is possible to use their properties and methods to manipulate the model
+and to extract or assign data. Updating the state of the programmatic entities is implemented lazily and uses proper
+dependency handling. Communication with the underlying engine is therefore executed only when an entity’s properties
+are being accessed and only when necessary.
+An entity is invalidated (needs refreshing) if one of the entities it depends from has been manipulated or if a generic
+AMPL statement evaluation is performed (through <a class="reference internal" href="classes/matlabAMPL.html#AMPL.eval" title="AMPL.eval"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.eval</span></code></a> or similar routines). This is one of the reasons
+why it is generally better to use the embedded functionalities (e.g. fixing a variable through the corresponding API
+function call) than using AMPL statements: in the latter case, the API invalidates all entities, as the effects of
+such generic statements cannot be predicted.
+Refreshing is transparent to the user, but must be taken into account when implementing functions
+which access data or modify entities frequently.</p>
+</div>
+<div class="section" id="commands-and-options">
+<h3>Commands and options<a class="headerlink" href="#commands-and-options" title="Permalink to this headline">¶</a></h3>
+<p>Some AMPL commands are encapsulated by functions in the <a class="reference internal" href="classes/matlabAMPL.html#AMPL" title="AMPL"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">AMPL</span></code></a> class for ease of access.
+These comprise <a class="reference internal" href="classes/matlabAMPL.html#AMPL.solve" title="AMPL.solve"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.solve</span></code></a> and others.
+To access and set options in AMPL, the functions <a class="reference internal" href="classes/matlabAMPL.html#AMPL.setOption" title="AMPL.setOption"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.setOption</span></code></a> and <a class="reference internal" href="classes/matlabAMPL.html#AMPL.getOption" title="AMPL.getOption"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.getOption</span></code></a> are provided.
+In general, when an encapsulation is available for an AMPL command, the programmatic access to it is to be preferred to calling the same command using
+<a class="reference internal" href="classes/matlabAMPL.html#AMPL.eval" title="AMPL.eval"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.eval</span></code></a>.</p>
+</div>
+<div class="section" id="output-and-errors-handling">
+<h3>Output and errors handling<a class="headerlink" href="#output-and-errors-handling" title="Permalink to this headline">¶</a></h3>
+<p>The output of every user interaction with the underlying translator is printed to the MATLAB console. The normal AMPL options control this output.
+Regarding errors, by default errors throw exceptions whilst warnings are printed to the MATLAB console.</p>
+</div>
+</div>
+<div class="section" id="modelling-entities-classes">
+<span id="secmodellingclasses"></span><h2>Modelling entities classes<a class="headerlink" href="#modelling-entities-classes" title="Permalink to this headline">¶</a></h2>
+<p>This group of classes represents the basic entities of an AMPL optimisation
+model: variables, constraints, objectives, parameters and sets.
+They are used to access the current state of the AMPL translator
+(e.g. to find the values of a variable), and to some extent they can be
+used for data input (e.g. assign values to a parameter, fix a variable).</p>
+<p>Objects of these classes cannot be created programmatically by the user: the model creation and structural
+modification is handled in AMPL (see section <a class="reference internal" href="classes/matlabAMPL.html#AMPL" title="AMPL"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">AMPL</span></code></a>), through the methods <a class="reference internal" href="classes/matlabAMPL.html#AMPL.eval" title="AMPL.eval"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.eval</span></code></a>
+and <a class="reference internal" href="classes/matlabAMPL.html#AMPL.read" title="AMPL.read"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.read</span></code></a>.</p>
+<p>The case of scalar entities (like the AMPL entity defined by <code class="docutils literal notranslate"><span class="pre">var</span> <span class="pre">x;</span></code>) is handled at Entity level, and will be
+illustrated in the paragraph regarding instances below.
+The following classes represent algebraic entites (e.g. a variable indexed over a set in AMPL), and are implemented as a map
+from an object (number, string or tuple) to an instance, which allow access
+to its instances (method <a class="reference internal" href="classes/matlabVariable.html#Variable.get" title="Variable.get"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Variable.get</span></code></a> and similar for all other entities). Such classes are: <a class="reference internal" href="classes/matlabVariable.html#Variable" title="Variable"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">Variable</span></code></a>,
+<a class="reference internal" href="classes/matlabConstraint.html#Constraint" title="Constraint"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">Constraint</span></code></a>, <a class="reference internal" href="classes/matlabParameter.html#Parameter" title="Parameter"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">Parameter</span></code></a>,
+<a class="reference internal" href="classes/matlabObjective.html#Objective" title="Objective"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">Objective</span></code></a> and <a class="reference internal" href="classes/matlabSet.html#Set" title="Set"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">Set</span></code></a>.</p>
+<p>Any instance level object represents a single instance of an algebraic entity
+(e.g.  the value of a variable for a specific value of its indexing set).
+Such classes are: <a class="reference internal" href="classes/matlabVariableInstance.html#VariableInstance" title="VariableInstance"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">VariableInstance</span></code></a>, <a class="reference internal" href="classes/matlabConstraintInstance.html#ConstraintInstance" title="ConstraintInstance"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">ConstraintInstance</span></code></a>,
+<a class="reference internal" href="classes/matlabObjectiveInstance.html#ObjectiveInstance" title="ObjectiveInstance"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">ObjectiveInstance</span></code></a> and <a class="reference internal" href="classes/matlabSetInstance.html#SetInstance" title="SetInstance"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">SetInstance</span></code></a>.
+The composition of these classes can be described as shown below:</p>
+<div class="align-center figure" id="id2">
+<span id="figentityinstance"></span><a class="reference internal image-reference" href="_images/EntityMapItem.png"><img alt="Relationship between Entity and Instance" src="_images/EntityMapItem.png" style="width: 560px; height: 137px;" /></a>
+<p class="caption"><span class="caption-text">Relationship between Entity and Instance</span></p>
+</div>
+<p>The UML diagram in figure <a class="reference internal" href="#figentityinstance"><span class="std std-ref">Relationship between Entity and Instance</span></a> illustrates that each <cite>Entity</cite> (algebraic entity in AMPL)
+can contain various instances, while each Instance has to be part of exactly one Entity.
+The exact methods and properties of the entity depend on the particular kind of entity under consideration
+(i.e. variable, constraint, parameter).</p>
+<p>As an example, the class <a class="reference internal" href="classes/matlabVariable.html#Variable" title="Variable"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">Variable</span></code></a> has functionalities like <a class="reference internal" href="classes/matlabVariable.html#Variable.fix" title="Variable.fix"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Variable.fix</span></code></a> and <a class="reference internal" href="classes/matlabVariable.html#Variable.unfix" title="Variable.unfix"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Variable.unfix</span></code></a>,
+which would fix or unfix all instances which are part of the algebraic entity, and its corresponding instance class <a class="reference internal" href="classes/matlabVariableInstance.html#VariableInstance" title="VariableInstance"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">VariableInstance</span></code></a> has properties
+like <a class="reference internal" href="classes/matlabVariableInstance.html#VariableInstance.value" title="VariableInstance.value"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">VariableInstance.value</span></code></a> and <a class="reference internal" href="classes/matlabVariableInstance.html#VariableInstance.dual" title="VariableInstance.dual"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">VariableInstance.dual</span></code></a> (together with instance level fix and unfix methods).</p>
+<p>The class <a class="reference internal" href="classes/matlabConstraint.html#Constraint" title="Constraint"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">Constraint</span></code></a> has functionalities like <a class="reference internal" href="classes/matlabConstraint.html#Constraint.drop" title="Constraint.drop"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Constraint.drop</span></code></a> and <a class="reference internal" href="classes/matlabConstraint.html#Constraint.restore" title="Constraint.restore"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Constraint.restore</span></code></a>,
+and its instance level class <a class="reference internal" href="classes/matlabConstraintInstance.html#ConstraintInstance" title="ConstraintInstance"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">ConstraintInstance</span></code></a> properties like <a class="reference internal" href="classes/matlabConstraintInstance.html#ConstraintInstance.body" title="ConstraintInstance.body"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">ConstraintInstance.body</span></code></a> and <a class="reference internal" href="classes/matlabConstraintInstance.html#ConstraintInstance.dual" title="ConstraintInstance.dual"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">ConstraintInstance.dual</span></code></a>
+(and methods like drop and restore for the single instance).</p>
+<p>Note that the class <a class="reference internal" href="classes/matlabParameter.html#Parameter" title="Parameter"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">Parameter</span></code></a>, which represent an algebraic parameter, does not have
+an instance level class; its instances are represented by objects instead (typically double numbers or strings).</p>
+<div class="section" id="access-to-instances-and-values">
+<span id="secaccessinstancesandvalues"></span><h3>Access to instances and values<a class="headerlink" href="#access-to-instances-and-values" title="Permalink to this headline">¶</a></h3>
+<p>The instances can be accessed from the parent Entity through the functions <a class="reference internal" href="classes/matlabVariable.html#Variable.get" title="Variable.get"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Variable.get</span></code></a>, <a class="reference internal" href="classes/matlabConstraint.html#Constraint.get" title="Constraint.get"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Constraint.get</span></code></a>, <a class="reference internal" href="classes/matlabObjective.html#Objective.get" title="Objective.get"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Objective.get</span></code></a>
+and <a class="reference internal" href="classes/matlabSet.html#Set.get" title="Set.get"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Set.get</span></code></a>; all data
+corresponding to the entity can be accessed through the instances, but the computational overhead of such kind of
+access is quite considerable. To avoid this, the user can gain bulk data access through a <a class="reference internal" href="classes/matlabDataFrame.html#DataFrame" title="DataFrame"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> object;
+reference to these object can be obtained using <a class="reference internal" href="classes/matlabVariable.html#Variable.getValues" title="Variable.getValues"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Variable.getValues</span></code></a> and similar method for other entities.
+In case of scalar entities (e.g. the entity declared in AMPL with the statement <code class="docutils literal notranslate"><span class="pre">var</span> <span class="pre">x;</span></code>), all the instance specific methods are
+replicated at Entity level, to allow the code fragment <code class="docutils literal notranslate"><span class="pre">value</span> <span class="pre">=</span> <span class="pre">x.value();</span></code> instead of the more explicit <code class="docutils literal notranslate"><span class="pre">value</span> <span class="pre">=</span> <span class="pre">x.get().value()</span></code>.
+See example below:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span> <span class="p">=</span> <span class="n">AMPL</span><span class="p">;</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x := 42;&#39;</span><span class="p">);</span>
+<span class="n">x</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getVariable</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">);</span>
+
+<span class="c">% Compact access to scalar entities</span>
+<span class="n">value</span> <span class="p">=</span> <span class="n">x</span><span class="p">.</span><span class="n">value</span>
+
+<span class="c">% Access through explicit reference to the instance via get function</span>
+<span class="n">value</span> <span class="p">=</span> <span class="n">x</span><span class="p">.</span><span class="n">get</span><span class="p">().</span><span class="n">value</span>
+
+<span class="c">% Access through explicit reference to the instance via indexing operator</span>
+<span class="n">value</span> <span class="p">=</span> <span class="n">x</span><span class="p">().</span><span class="n">value</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">close</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Indexed entities are central in modelling via AMPL. Generally, an entity is indexed over zero or more sets; this  menas that
+to access a specific instance, the user il need to provide a tuple composed of an appropriate number of items
+The AMPL API for MATLAB provides overloads to the indexing operators, hence allowing a simple access to the entities.  A few examples of
+accessing indexing entities are presented below.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{1..2, 4..5, {&quot;a&quot;, &quot;b&quot;}};&#39;</span><span class="p">);</span>
+
+<span class="n">x</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getVariable</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">);</span>
+
+<span class="c">% Each item a member of the Tuple</span>
+<span class="n">instance</span> <span class="p">=</span> <span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="s">&#39;a&#39;</span><span class="p">);</span>
+
+<span class="c">% The item is a cell array</span>
+<span class="n">index</span> <span class="p">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">};</span>
+<span class="n">instance</span> <span class="p">=</span>  <span class="n">x</span><span class="p">(</span><span class="n">index</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Scalar Entities</strong> -&gt; <a class="reference internal" href="classes/matlabVariable.html#Variable.get" title="Variable.get"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Variable.get</span></code></a> (or indexing operator without index) In general, as seen above, access to an instance of a scalar entity is not needed, as all functionalities of the instance are replicated at entity level in this case.
+To gain explicit access to an instance anyway, the function <a class="reference internal" href="classes/matlabVariable.html#Variable.get" title="Variable.get"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Variable.get</span></code></a> or the indexing operator with no parameterrs (and similar functions for other entities) can be used, as shown below.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x;&#39;</span><span class="p">);</span>
+<span class="c">% Get function</span>
+<span class="n">instance</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getVariable</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">).</span><span class="n">get</span><span class="p">();</span>
+<span class="c">% Indexing operator</span>
+<span class="n">x</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getVariable</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">instance</span> <span class="o">-</span> <span class="n">x</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><strong>Indexed Entities</strong> -&gt; indexing operator, <a class="reference internal" href="classes/matlabVariable.html#Variable.get" title="Variable.get"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Variable.get</span></code></a> and alikes.
+To gain access to instances in indexed entities,
+these functions can be used, depending on the context.</p>
+<p>See the example below.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{1..2, 4..5};&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var y{1..2, {&quot;a&quot;, &quot;b&quot;}};&#39;</span><span class="p">);</span>
+
+<span class="n">x</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getVariable</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">);</span>
+<span class="n">y</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getVariable</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">);</span>
+
+<span class="c">% Numeric indices</span>
+<span class="n">instance</span> <span class="p">=</span> <span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+<span class="c">% Numeric indices from array</span>
+<span class="n">index</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">4</span><span class="p">;</span> <span class="mi">2</span> <span class="mi">5</span><span class="p">];</span>
+<span class="c">% Using the first row of the matrix created above as index</span>
+<span class="n">instance</span> <span class="p">=</span> <span class="n">x</span><span class="p">(</span><span class="n">index</span><span class="p">(</span><span class="mi">1</span><span class="p">,:));</span>
+
+<span class="c">% Mixed types indices</span>
+<span class="n">instance</span> <span class="p">=</span> <span class="n">y</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;a&#39;</span><span class="p">);</span>
+<span class="c">% Mixed instances from cell array</span>
+<span class="n">index</span> <span class="p">=</span> <span class="p">{</span><span class="mi">1</span> <span class="s">&#39;a&#39;</span><span class="p">;</span> <span class="mi">2</span> <span class="s">&#39;b&#39;</span><span class="p">};</span>
+<span class="n">instance</span> <span class="p">=</span> <span class="n">y</span><span class="p">(</span><span class="n">index</span><span class="p">(</span><span class="mi">1</span><span class="p">,:));</span>
+</pre></div>
+</div>
+<p>The currently defined entities are obtained from the various get methods of the <a class="reference internal" href="classes/matlabAMPL.html#AMPL" title="AMPL"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">AMPL</span></code></a> object
+(see section <a class="reference internal" href="#secamplclass"><span class="std std-ref">AMPL class</span></a>). Once a reference to an entity is created, the entity is automatically kept up-to-date
+with the corresponding entity in the AMPL interpeter. That is, if a reference to a newly created AMPL variable
+is obtained by means of <a class="reference internal" href="classes/matlabAMPL.html#AMPL.getVariable" title="AMPL.getVariable"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.getVariable</span></code></a>, and the model the variable is part of is then solved
+by means of <a class="reference internal" href="classes/matlabAMPL.html#AMPL.solve" title="AMPL.solve"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.solve</span></code></a>, the values of the instances of the variable will automatically be updated.
+The following code snippet should demonstrate the concept.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span> <span class="p">=</span> <span class="n">initAMPL</span><span class="p">;</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;maximize z: x;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;subject to c: x&lt;=10;&#39;</span><span class="p">);</span>
+<span class="n">x</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getVariable</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">);</span>
+
+<span class="c">% At this point x.value evaluates to 0</span>
+<span class="n">x</span><span class="p">.</span><span class="n">value</span>
+
+<span class="c">% Solve</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">solve</span><span class="p">;</span>
+
+<span class="c">% At this point x.value evaluates to 10</span>
+<span class="n">x</span><span class="p">.</span><span class="n">value</span>
+
+<span class="c">% Close ampl</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">close</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="relation-between-entities-and-data">
+<h2>Relation between entities and data<a class="headerlink" href="#relation-between-entities-and-data" title="Permalink to this headline">¶</a></h2>
+<p>The entities and instances in AMPL store data (numbers or strings) and can be indexed, hence the instances available depend
+on the values in the indexing set(s).  The order in which these indexing sets is handled in the AMPL entities is
+not always consistent with the ordering in which the data for such sets is defined, so it is often desirable, even when interested
+in only data (decoupled from the AMPL entities) to keep track of the indexing values which corresponds to each value.</p>
+<p>Moreover, when dealing with AMPL entities (like <a class="reference internal" href="classes/matlabVariable.html#Variable" title="Variable"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">Variable</span></code></a>), consistency is guaranteed for every instance.
+This means that, if a reference to an instance is kept and in the underlying AMPL interpreter the value of the instance
+is changed, the value read from the instance object will be always consistent with the AMPL value and, if an instance is
+deleted in AMPL, an exception will be thrown when accessing it. This has the obvious benefit of allowing the user to rely
+on the values of the instances, but has a price in terms of computational overhead. For example, accessing in this way the value
+of 1000 instances:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span> <span class="p">=</span> <span class="n">AMPL</span><span class="p">;</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;set A := 1..1000;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;param c{i in A} default 0;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{i in 1..1000} := c[i];&#39;</span><span class="p">);</span>
+
+<span class="c">% Enumerate through all the instances of c and set their values</span>
+<span class="n">c</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">);</span>
+<span class="k">for</span> <span class="nb">i</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">c</span><span class="p">.</span><span class="n">numInstances</span><span class="p">,</span>
+  <span class="n">c</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="nb">i</span><span class="p">,</span> <span class="nb">i</span> <span class="o">*</span> <span class="mf">1.1</span><span class="p">);</span>
+<span class="k">end</span>
+<span class="c">% Enumerate through all the instances and print their values</span>
+<span class="n">x</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getVariable</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">);</span>
+<span class="k">for</span> <span class="nb">i</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">x</span><span class="p">.</span><span class="n">numInstances</span><span class="p">,</span>
+  <span class="n">x</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="nb">i</span><span class="p">).</span><span class="n">value</span>
+<span class="k">end</span>
+
+<span class="n">ampl</span><span class="p">.</span><span class="n">close</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>will check at each access if the referenced instance is valid or not, resulting in a computational overhead.
+To ease data communication and handling, the class <a class="reference internal" href="classes/matlabDataFrame.html#DataFrame" title="DataFrame"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> is provided. Its usage is two-fold:</p>
+<ul class="simple">
+<li>It allows definition of data for multiple parameters in one single call to the underlying interpterer</li>
+<li>It decouples data and entities, reducing the computational overhead</li>
+</ul>
+<p><a class="reference internal" href="classes/matlabDataFrame.html#DataFrame" title="DataFrame"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> objects should therefore be used in these circumnstances, together with the methods <a class="reference internal" href="classes/matlabAMPL.html#AMPL.setData" title="AMPL.setData"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.setData</span></code></a> and
+<a class="reference internal" href="classes/matlabVariable.html#Variable.getValues" title="Variable.getValues"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">Variable.getValues</span></code></a> (and similar), as shown in the code below:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Create a new dataframe with one indexing column (A) and another column (c)</span>
+<span class="n">df</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">);</span>
+<span class="k">for</span> <span class="nb">i</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">df</span><span class="p">.</span><span class="n">addRow</span><span class="p">(</span><span class="nb">i</span><span class="p">,</span> <span class="nb">i</span> <span class="o">*</span> <span class="mf">1.1</span><span class="p">);</span>
+<span class="k">end</span>
+
+<span class="n">ampl</span> <span class="p">=</span> <span class="n">AMPL</span><span class="p">;</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;set A;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;param c{i in A} default 0;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{i in A} := c[i];&#39;</span><span class="p">);</span>
+
+ <span class="c">% Assign data to the set A and the parameter c in one line</span>
+ <span class="n">ampl</span><span class="p">.</span><span class="n">setData</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">);</span>
+ <span class="c">% Get the variable x</span>
+ <span class="n">x</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getVariable</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">);</span>
+ <span class="c">% From the following line onwards, df is uncoupled from the</span>
+ <span class="c">% modelling system,</span>
+ <span class="n">df</span> <span class="p">=</span> <span class="n">x</span><span class="p">.</span><span class="n">getValues</span><span class="p">;</span>
+
+ <span class="n">ampl</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+ <span class="c">% Enumerate through all the instances and print their values</span>
+
+
+ <span class="k">for</span> <span class="nb">i</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">df</span><span class="p">.</span><span class="n">getNumRows</span><span class="p">,</span>
+    <span class="n">df</span><span class="p">.</span><span class="n">getRow</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span>
+ <span class="k">end</span>
+</pre></div>
+</div>
+<p>The underlying AMPL interpreter does not need to be open when using the dataframe object, but it maintains all the correspondance between
+indexing set and actual value of the instances.</p>
+<div class="section" id="access-to-scalar-values">
+<span id="secaccesstoscalars"></span><h3>Access to scalar values<a class="headerlink" href="#access-to-scalar-values" title="Permalink to this headline">¶</a></h3>
+<p>To simplify accessing to scalar values, like the value of a scalar variable or parameter or, in general, any
+AMPL expression that can be evaluated to a single string or number, the convenience method <a class="reference internal" href="classes/matlabAMPL.html#AMPL.getValue" title="AMPL.getValue"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.getValue</span></code></a> is provided.
+This method will fail if called on an AMPL expression which does not evaluate to a single value. See below for an example:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span> <span class="p">=</span> <span class="n">AMPL</span><span class="p">;</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;var x{i in 1..3} := i;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;param p symbolic := &quot;test&quot;;&#39;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;param pp := 4;&#39;</span><span class="p">);</span>
+
+<span class="c">% x2 will have the value 2</span>
+<span class="n">x2</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getValue</span><span class="p">(</span><span class="s">&#39;x[2]&#39;</span><span class="p">)</span>
+<span class="c">% p will have the value &#39;test&#39;</span>
+<span class="n">p</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getValue</span><span class="p">(</span><span class="s">&#39;p&#39;</span><span class="p">)</span>
+<span class="c">% pp will have the value 4</span>
+<span class="n">pp</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getValue</span><span class="p">(</span><span class="s">&#39;pp&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="note-on-variables-suffixes">
+<span id="secvariablesuffixesnotes"></span><h2>Note on variables suffixes<a class="headerlink" href="#note-on-variables-suffixes" title="Permalink to this headline">¶</a></h2>
+<p>For AMPL versions prior to 20150516, there was a glitch with
+v.lb, v.ub, v.lslack, v.uslack, and v.slack where v is a variable
+instantiated without need of presolve and after one or more
+other variables have been instantiated.  Example:</p>
+<div class="highlight-ampl notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nv">x</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nv">y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kr">display</span><span class="w"> </span><span class="nv">y</span><span class="p">.</span><span class="kr">lb</span><span class="p">;</span>
+<span class="kr">display</span><span class="w"> </span><span class="nv">x</span><span class="p">.</span><span class="kr">ub</span><span class="p">;</span>
+<span class="c1"># x.ub was wrong (with separate display commands)</span>
+<span class="c1"># but all went well with &quot;display y.lb, x.ub;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="quick-start.html" title="MATLAB quick start"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="getting-started.html" title="Getting started"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013-2017, AMPL Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+.. java:import:: java.lang.reflect Field
+
+OSUtils
+=======
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: final class OSUtils
+
+Methods
+-------
+getOsName
+^^^^^^^^^
+
+.. java:method:: public static String getOsName()
+   :outertype: OSUtils
+
+getPID
+^^^^^^
+
+.. java:method:: public static int getPID(Process p)
+   :outertype: OSUtils
+
+isUnix
+^^^^^^
+
+.. java:method:: public static boolean isUnix()
+   :outertype: OSUtils
+
+isWindows
+^^^^^^^^^
+
+.. java:method:: public static boolean isWindows()
+   :outertype: OSUtils
+

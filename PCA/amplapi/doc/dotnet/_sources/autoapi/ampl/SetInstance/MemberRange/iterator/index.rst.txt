@@ -1,0 +1,159 @@
+
+
+iterator Class
+==============
+
+
+
+
+
+Namespace
+    :dn:ns:`ampl.SetInstance.MemberRange`
+Assemblies
+    * AMPL
+
+----
+
+.. contents::
+   :local:
+
+
+
+Inheritance Hierarchy
+---------------------
+
+
+* :dn:cls:`System.Object`
+* :dn:cls:`ampl.SetInstance.MemberRange.iterator`
+
+
+
+
+
+
+
+
+Syntax
+------
+
+.. code-block:: csharp
+
+    public class iterator : IDisposable
+
+
+
+
+
+
+
+
+.. dn:class:: ampl.SetInstance.MemberRange.iterator
+    :hidden:
+
+.. dn:class:: ampl.SetInstance.MemberRange.iterator
+
+Fields
+------
+
+.. dn:class:: ampl.SetInstance.MemberRange.iterator
+    :noindex:
+    :hidden:
+
+    
+    .. dn:field:: ampl.SetInstance.MemberRange.iterator.swigCMemOwn
+
+        
+        :rtype: System.Boolean
+
+        
+        .. code-block:: csharp
+
+            protected bool swigCMemOwn
+    
+
+Methods
+-------
+
+.. dn:class:: ampl.SetInstance.MemberRange.iterator
+    :noindex:
+    :hidden:
+
+    
+    .. dn:method:: ampl.SetInstance.MemberRange.iterator.Dispose()
+
+        
+
+        
+        .. code-block:: csharp
+
+            public virtual void Dispose()
+    
+    .. dn:method:: ampl.SetInstance.MemberRange.iterator.Finalize()
+
+        
+
+        
+        .. code-block:: csharp
+
+            protected void Finalize()
+    
+    .. dn:method:: ampl.SetInstance.MemberRange.iterator.__ref__()
+
+        
+        :rtype: TupleRefBase
+
+        
+        .. code-block:: csharp
+
+            public TupleRefBase __ref__()
+    
+    .. dn:method:: ampl.SetInstance.MemberRange.iterator.differs(ampl.SetInstance.MemberRange.iterator)
+
+        
+
+        
+        :type other: ampl.SetInstance.MemberRange.iterator
+        :rtype: System.Boolean
+
+        
+        .. code-block:: csharp
+
+            public bool differs(SetInstance.MemberRange.iterator other)
+    
+    .. dn:method:: ampl.SetInstance.MemberRange.iterator.equals(ampl.SetInstance.MemberRange.iterator)
+
+        
+
+        
+        :type other: ampl.SetInstance.MemberRange.iterator
+        :rtype: System.Boolean
+
+        
+        .. code-block:: csharp
+
+            public bool equals(SetInstance.MemberRange.iterator other)
+    
+    .. dn:method:: ampl.SetInstance.MemberRange.iterator.postIncrement()
+
+        
+        :rtype: ampl.SetInstance.MemberRange.iterator
+
+        
+        .. code-block:: csharp
+
+            public SetInstance.MemberRange.iterator postIncrement()
+    
+    .. dn:method:: ampl.SetInstance.MemberRange.iterator.postIncrementBy(System.Int32)
+
+        
+
+        
+        :type arg0: System.Int32
+        :rtype: ampl.SetInstance.MemberRange.iterator
+
+        
+        .. code-block:: csharp
+
+            public SetInstance.MemberRange.iterator postIncrementBy(int arg0)
+    
+

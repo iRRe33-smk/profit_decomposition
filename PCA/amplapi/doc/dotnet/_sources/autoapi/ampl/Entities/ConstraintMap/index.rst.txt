@@ -1,0 +1,110 @@
+
+
+ConstraintMap Class
+===================
+
+
+
+
+
+
+Enables iterable access to the constraints
+
+
+Namespace
+    :dn:ns:`ampl.Entities`
+Assemblies
+    * AMPL
+
+----
+
+.. contents::
+   :local:
+
+
+
+Inheritance Hierarchy
+---------------------
+
+
+* :dn:cls:`System.Object`
+* :dn:cls:`ampl.Entities.EntityMap{ampl.Entities.Constraint}`
+* :dn:cls:`ampl.Entities.ConstraintMap`
+
+
+
+
+
+
+
+
+Syntax
+------
+
+.. code-block:: csharp
+
+    public class ConstraintMap : EntityMap<Constraint>, IEnumerable<Constraint>, IEnumerable
+
+
+
+
+
+
+
+
+.. dn:class:: ampl.Entities.ConstraintMap
+    :hidden:
+
+.. dn:class:: ampl.Entities.ConstraintMap
+
+Methods
+-------
+
+.. dn:class:: ampl.Entities.ConstraintMap
+    :noindex:
+    :hidden:
+
+    
+    .. dn:method:: ampl.Entities.ConstraintMap.GetEnumerator()
+
+        
+        :rtype: System.Collections.Generic.IEnumerator<System.Collections.Generic.IEnumerator`1>{ampl.Entities.Constraint<ampl.Entities.Constraint>}
+
+        
+        .. code-block:: csharp
+
+            public override IEnumerator<Constraint> GetEnumerator()
+    
+
+Properties
+----------
+
+.. dn:class:: ampl.Entities.ConstraintMap
+    :noindex:
+    :hidden:
+
+    
+    .. dn:property:: ampl.Entities.ConstraintMap.Item[System.String]
+
+        
+
+        
+        :type name: System.String
+        :rtype: ampl.Entities.Constraint
+
+        
+        .. code-block:: csharp
+
+            public Constraint this[string name] { get; }
+    
+    .. dn:property:: ampl.Entities.ConstraintMap.Size
+
+        
+        :rtype: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public override int Size { get; }
+    
+

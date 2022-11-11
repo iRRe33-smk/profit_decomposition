@@ -1,0 +1,11 @@
+.. highlight:: c++
+
+.. _ref::OutputHandler:
+
+OutputHandler
+-------------
+
+.. doxygenclass:: ampl::OutputHandler
+   :members:
+
+.. doxygenenum:: ampl::output::Kind

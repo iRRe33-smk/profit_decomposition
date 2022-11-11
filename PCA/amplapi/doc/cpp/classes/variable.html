@@ -1,0 +1,458 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Variable &#8212; AMPL API 2.0.3-0 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="VariableInstance" href="variableinstance.html" />
+    <link rel="prev" title="SetInstance" href="setinstance.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="variableinstance.html" title="VariableInstance"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="setinstance.html" title="SetInstance"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" accesskey="U">C++ API reference</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="setinstance.html"
+                        title="previous chapter">SetInstance</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="variableinstance.html"
+                        title="next chapter">VariableInstance</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/classes/variable.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="variable">
+<span id="ref-variable"></span><h1>Variable<a class="headerlink" href="#variable" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="_CPPv3N4ampl8VariableE">
+<span id="_CPPv2N4ampl8VariableE"></span><span id="ampl::Variable"></span><span class="target" id="classampl_1_1_variable"></span><em class="property">class </em><code class="descname">Variable</code> : <em class="property">public</em> ampl::BasicEntity&lt;<a class="reference internal" href="variableinstance.html#_CPPv3N4ampl16VariableInstanceE" title="ampl::VariableInstance">VariableInstance</a>&gt;<a class="headerlink" href="#_CPPv3N4ampl8VariableE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Represents an AMPL decision variable. </p>
+<p>Note that, in case of a scalar variable, all the properties of the variable instance can be accessed through methods like <a class="reference internal" href="#classampl_1_1_variable_1a636ddf8d7fdeccfc5b216f466a1fce57"><span class="std std-ref">Variable.value</span></a>. The methods have the same name of the corresponding AMPL suffixes. See <a class="reference external" href="http://www.ampl.com/NEW/suffbuiltin.html">http://www.ampl.com/NEW/suffbuiltin.html</a> for a list of the available suffixes. </p>
+<p>All these methods throw an std::logic_error if called for an entity which is not scalar and an std::runtime_error if the entity has been deleted. </p>
+<p>The instances, represented by the class <a class="reference internal" href="variableinstance.html#classampl_1_1_variable_instance"><span class="std std-ref">VariableInstance</span></a> can be accessed via the operator Variable::operator[](), via the methods <a class="reference internal" href="#classampl_1_1_basic_entity_1a32e82de65ec87aadc2879e2164d45f1b"><span class="std std-ref">Variable::get()</span></a> or via the iterators provided. </p>
+<p>To gain access to all the values in an entity (for all instances and all suffixes for that entities), see <a class="reference internal" href="entity.html#classampl_1_1_entity_1abe3f0475205ed08ffa1f1036ef7c50df"><span class="std std-ref">Entity::getValues()</span></a> and the <a class="reference internal" href="dataframe.html#classampl_1_1_data_frame"><span class="std std-ref">DataFrame</span></a> class. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Instance access</p>
+<p>Methods to access the instances which are part of this <a class="reference internal" href="entity.html#classampl_1_1_entity"><span class="std std-ref">Entity</span></a> </p>
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity3getEv">
+<span id="_CPPv2NK4ampl11BasicEntity3getEv"></span><span id="ampl::BasicEntity::getC"></span><span class="target" id="classampl_1_1_basic_entity_1a32e82de65ec87aadc2879e2164d45f1b"></span><a class="reference internal" href="variableinstance.html#_CPPv3N4ampl16VariableInstanceE" title="ampl::VariableInstance">VariableInstance</a> <code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><br /></dt>
+<dd><p>Get the instance corresponding to a scalar entity. </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>The corresponding instance. </dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">runtime_error</span></code>: if the entity has been deleted in the underlying AMPL interpreter </li>
+<li><code class="docutils literal notranslate"><span class="pre">logic_error</span></code>: if the entity is not scalar </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity3getE8TupleRef">
+<span id="_CPPv2NK4ampl11BasicEntity3getE8TupleRef"></span><span id="ampl::BasicEntity::get__TupleRefC"></span><span class="target" id="classampl_1_1_basic_entity_1a79b4d8fa9c4feaaffa9351fe14aec1d2"></span><a class="reference internal" href="variableinstance.html#_CPPv3N4ampl16VariableInstanceE" title="ampl::VariableInstance">VariableInstance</a> <code class="descname">get</code><span class="sig-paren">(</span><a class="reference internal" href="tuple.html#_CPPv3N4ampl8TupleRefE" title="ampl::TupleRef">TupleRef</a> <em>index</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl11BasicEntity3getE8TupleRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the instance with the specified index. </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>The corresponding instance </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">index</span></code>: The tuple specifying the index </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">out_of_range</span></code>: if an instance with the specified index does not exist </li>
+<li><code class="docutils literal notranslate"><span class="pre">out_of_range</span></code>: if the entity has been deleted in the underlying AMPL interpreter </li>
+<li><code class="docutils literal notranslate"><span class="pre">ampl::UnsupportedOperationException</span></code>: if the entity is scalar </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity3getE10VariantRef">
+<span id="_CPPv2NK4ampl11BasicEntity3getE10VariantRef"></span><span id="ampl::BasicEntity::get__VariantRefC"></span><span class="target" id="classampl_1_1_basic_entity_1a524b86e742c0218025b4a627dc4d3a71"></span><a class="reference internal" href="variableinstance.html#_CPPv3N4ampl16VariableInstanceE" title="ampl::VariableInstance">VariableInstance</a> <code class="descname">get</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v1</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl11BasicEntity3getE10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the instance with the specified index. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity3getE10VariantRef10VariantRef">
+<span id="_CPPv2NK4ampl11BasicEntity3getE10VariantRef10VariantRef"></span><span id="ampl::BasicEntity::get__VariantRef.VariantRefC"></span><span class="target" id="classampl_1_1_basic_entity_1adb93aae81826b66f8295326c1f0288db"></span><a class="reference internal" href="variableinstance.html#_CPPv3N4ampl16VariableInstanceE" title="ampl::VariableInstance">VariableInstance</a> <code class="descname">get</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v1</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v2</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl11BasicEntity3getE10VariantRef10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the instance with the specified index. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity3getE10VariantRef10VariantRef10VariantRef">
+<span id="_CPPv2NK4ampl11BasicEntity3getE10VariantRef10VariantRef10VariantRef"></span><span id="ampl::BasicEntity::get__VariantRef.VariantRef.VariantRefC"></span><span class="target" id="classampl_1_1_basic_entity_1a1ef0e5388e35b9afcccd7b57c40cdf91"></span><a class="reference internal" href="variableinstance.html#_CPPv3N4ampl16VariableInstanceE" title="ampl::VariableInstance">VariableInstance</a> <code class="descname">get</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v1</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v2</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v3</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl11BasicEntity3getE10VariantRef10VariantRef10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the instance with the specified index. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity3getE10VariantRef10VariantRef10VariantRef10VariantRef">
+<span id="_CPPv2NK4ampl11BasicEntity3getE10VariantRef10VariantRef10VariantRef10VariantRef"></span><span id="ampl::BasicEntity::get__VariantRef.VariantRef.VariantRef.VariantRefC"></span><span class="target" id="classampl_1_1_basic_entity_1a73666582a6547219a6c43312b02e49f1"></span><a class="reference internal" href="variableinstance.html#_CPPv3N4ampl16VariableInstanceE" title="ampl::VariableInstance">VariableInstance</a> <code class="descname">get</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v1</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v2</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v3</em>, <a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v4</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl11BasicEntity3getE10VariantRef10VariantRef10VariantRef10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the instance with the specified index. </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>The corresponding instance </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">v1</span></code>: The VariantRef specifying the first element of the indexing tuple </li>
+<li><code class="docutils literal notranslate"><span class="pre">v2</span></code>: The VariantRef specifying the second element of the indexing tuple </li>
+<li><code class="docutils literal notranslate"><span class="pre">v3</span></code>: The VariantRef specifying the third element of the indexing tuple </li>
+<li><code class="docutils literal notranslate"><span class="pre">v4</span></code>: The VariantRef specifying the fourth element of the indexing tuple </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">out_of_range</span></code>: if an instance with the specified index does not exist </li>
+<li><code class="docutils literal notranslate"><span class="pre">runtime_error</span></code>: if the entity has been deleted in the underlying AMPL interpreter </li>
+<li><code class="docutils literal notranslate"><span class="pre">ampl::UnsupportedOperationException</span></code>: if the entity is scalar </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntityixE8TupleRef">
+<span id="_CPPv2NK4ampl11BasicEntityixE8TupleRef"></span><span id="ampl::BasicEntity::subscript-operator__TupleRefC"></span><span class="target" id="classampl_1_1_basic_entity_1a1708e6623ea6233e2f42e2289fa5ff19"></span><a class="reference internal" href="variableinstance.html#_CPPv3N4ampl16VariableInstanceE" title="ampl::VariableInstance">VariableInstance</a> <code class="descname">operator[]</code><span class="sig-paren">(</span><a class="reference internal" href="tuple.html#_CPPv3N4ampl8TupleRefE" title="ampl::TupleRef">TupleRef</a> <em>index</em><span class="sig-paren">)</span> <em class="property">const</em><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntityixE10VariantRef">
+<span id="_CPPv2NK4ampl11BasicEntityixE10VariantRef"></span><span id="ampl::BasicEntity::subscript-operator__VariantRefC"></span><span class="target" id="classampl_1_1_basic_entity_1a87f1d642f78075924ef2ce2cb8052120"></span><a class="reference internal" href="variableinstance.html#_CPPv3N4ampl16VariableInstanceE" title="ampl::VariableInstance">VariableInstance</a> <code class="descname">operator[]</code><span class="sig-paren">(</span><a class="reference internal" href="variant.html#_CPPv3N4ampl10VariantRefE" title="ampl::VariantRef">VariantRef</a> <em>v1</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl11BasicEntityixE10VariantRef" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Types</p>
+<dl class="type">
+<dt id="_CPPv3N4ampl11BasicEntity8iteratorE">
+<span id="_CPPv2N4ampl11BasicEntity8iteratorE"></span><span id="ampl::BasicEntity::iterator"></span><span class="target" id="classampl_1_1_basic_entity_1af07a6d71c9f2a1cf30569f1410ea1607"></span><em class="property">typedef </em>internal::CountedIterator&lt;internal::EntityWrapper&lt;<a class="reference internal" href="variableinstance.html#_CPPv3N4ampl16VariableInstanceE" title="ampl::VariableInstance">VariableInstance</a>&gt;&gt; <code class="descname">iterator</code><br /></dt>
+<dd><p>Iterator for entities, represented by an iterator pointing to elements of type std::pair&lt;TupleRef, InstanceClass&gt; </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable5valueEv">
+<span id="_CPPv2NK4ampl8Variable5valueEv"></span><span id="ampl::Variable::valueC"></span><span class="target" id="classampl_1_1_variable_1a636ddf8d7fdeccfc5b216f466a1fce57"></span>double <code class="descname">value</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable5valueEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the current value of this variable. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable11integralityEv">
+<span id="_CPPv2NK4ampl8Variable11integralityEv"></span><span id="ampl::Variable::integralityC"></span><span class="target" id="classampl_1_1_variable_1a16d25db3f4aaa4c77865276b748dee8a"></span>var::<a class="reference internal" href="#_CPPv3N4ampl3var11IntegralityE" title="ampl::var::Integrality">Integrality</a> <code class="descname">integrality</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable11integralityEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the integrality type for this variable. </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>Type of integrality (integer, binary, continuous) </dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl8Variable3fixEv">
+<span id="_CPPv2N4ampl8Variable3fixEv"></span><span id="ampl::Variable::fix"></span><span class="target" id="classampl_1_1_variable_1a40e67851980ceddebcd175f4e9d6c39f"></span>void <code class="descname">fix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl8Variable3fixEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Fix all instances of this variable to their current value. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl8Variable3fixEd">
+<span id="_CPPv2N4ampl8Variable3fixEd"></span><span id="ampl::Variable::fix__double"></span><span class="target" id="classampl_1_1_variable_1a7dce16136d5905ff1824cdb9631c3214"></span>void <code class="descname">fix</code><span class="sig-paren">(</span>double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl8Variable3fixEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Fix all instances of this variable to the specified value. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl8Variable5unfixEv">
+<span id="_CPPv2N4ampl8Variable5unfixEv"></span><span id="ampl::Variable::unfix"></span><span class="target" id="classampl_1_1_variable_1af1077f0d0d2840b606b2d5de659e5a56"></span>void <code class="descname">unfix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl8Variable5unfixEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Unfix this variable instances. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N4ampl8Variable8setValueEd">
+<span id="_CPPv2N4ampl8Variable8setValueEd"></span><span id="ampl::Variable::setValue__double"></span><span class="target" id="classampl_1_1_variable_1ab611eb18cef94648c1cbf0122be7ee6d"></span>void <code class="descname">setValue</code><span class="sig-paren">(</span>double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N4ampl8Variable8setValueEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><a class="reference internal" href="set.html#classampl_1_1_set"><span class="std std-ref">Set</span></a> the current value of this variable (does not fix it), equivalent to the AMPL command <code class="docutils literal notranslate"><span class="pre">let</span></code> </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">value</span></code>: Value to be set </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable7astatusEv">
+<span id="_CPPv2NK4ampl8Variable7astatusEv"></span><span id="ampl::Variable::astatusC"></span><span class="target" id="classampl_1_1_variable_1a6e05a8926d43059e70ce8e0dbec48a9a"></span>std::string <code class="descname">astatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable7astatusEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the AMPL status (fixed, presolved, or substituted out) </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable6defeqnEv">
+<span id="_CPPv2NK4ampl8Variable6defeqnEv"></span><span id="ampl::Variable::defeqnC"></span><span class="target" id="classampl_1_1_variable_1a153b12adb1cf707661ec15277911e50e"></span>int <code class="descname">defeqn</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable6defeqnEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the index in <code class="docutils literal notranslate"><span class="pre">_con</span></code> of “defining constraint” used to substitute variable out. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable4dualEv">
+<span id="_CPPv2NK4ampl8Variable4dualEv"></span><span id="ampl::Variable::dualC"></span><span class="target" id="classampl_1_1_variable_1abed80a73b0276f7a0559ba7b6ee18ea5"></span>double <code class="descname">dual</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable4dualEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the dual value on defining constraint of variable substituted out. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable4initEv">
+<span id="_CPPv2NK4ampl8Variable4initEv"></span><span id="ampl::Variable::initC"></span><span class="target" id="classampl_1_1_variable_1a39af37562f13704d4f6b22562481daf1"></span>double <code class="descname">init</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable4initEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the current initial guess. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable5init0Ev">
+<span id="_CPPv2NK4ampl8Variable5init0Ev"></span><span id="ampl::Variable::init0C"></span><span class="target" id="classampl_1_1_variable_1a957d57392fd7009a158115cfe5fcd847"></span>double <code class="descname">init0</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable5init0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the original initial guess (set by <code class="docutils literal notranslate"><span class="pre">:=</span></code> or<code class="docutils literal notranslate"><span class="pre">default</span></code> or by a data statement) </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable2lbEv">
+<span id="_CPPv2NK4ampl8Variable2lbEv"></span><span id="ampl::Variable::lbC"></span><span class="target" id="classampl_1_1_variable_1a368a1209907bae61da3bb7a5ef5c4929"></span>double <code class="descname">lb</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable2lbEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><p>Returns the current lower bound. See <a class="reference internal" href="../class-structure.html#secvariablesuffixesnotes"><span class="std std-ref">Note on variables suffixes</span></a>.</p>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable2ubEv">
+<span id="_CPPv2NK4ampl8Variable2ubEv"></span><span id="ampl::Variable::ubC"></span><span class="target" id="classampl_1_1_variable_1a31d8d47fe013131102f0430f6a577b66"></span>double <code class="descname">ub</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable2ubEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><p>Returns the current lower bound. See <a class="reference internal" href="../class-structure.html#secvariablesuffixesnotes"><span class="std std-ref">Note on variables suffixes</span></a>.</p>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable3lb0Ev">
+<span id="_CPPv2NK4ampl8Variable3lb0Ev"></span><span id="ampl::Variable::lb0C"></span><span class="target" id="classampl_1_1_variable_1a8dade4fd9201eac3848d3c91b38c7b05"></span>double <code class="descname">lb0</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable3lb0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the initial lower bounds, from the var declaration. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable3ub0Ev">
+<span id="_CPPv2NK4ampl8Variable3ub0Ev"></span><span id="ampl::Variable::ub0C"></span><span class="target" id="classampl_1_1_variable_1ae9e9276a0f47b3b9d4b7edf6ae3cab8d"></span>double <code class="descname">ub0</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable3ub0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the initial upper bound, from the var declaration. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable3lb1Ev">
+<span id="_CPPv2NK4ampl8Variable3lb1Ev"></span><span id="ampl::Variable::lb1C"></span><span class="target" id="classampl_1_1_variable_1af7e323d7dd8c5079ad1d2bb39cd0aff1"></span>double <code class="descname">lb1</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable3lb1Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the weaker lower bound from AMPL’s presolve phase. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable3ub1Ev">
+<span id="_CPPv2NK4ampl8Variable3ub1Ev"></span><span id="ampl::Variable::ub1C"></span><span class="target" id="classampl_1_1_variable_1ad9e5cd84d83a0ecc7cdaa3f2c3d7f36f"></span>double <code class="descname">ub1</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable3ub1Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the weaker upper bound from AMPL’s presolve phase. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable3lb2Ev">
+<span id="_CPPv2NK4ampl8Variable3lb2Ev"></span><span id="ampl::Variable::lb2C"></span><span class="target" id="classampl_1_1_variable_1a7698fb42371f2bad8bcf3a0e3d70780a"></span>double <code class="descname">lb2</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable3lb2Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the stronger lower bound from AMPL’s presolve phase. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable3ub2Ev">
+<span id="_CPPv2NK4ampl8Variable3ub2Ev"></span><span id="ampl::Variable::ub2C"></span><span class="target" id="classampl_1_1_variable_1ad744ab9bd2894d8fdfb12b97132f31ad"></span>double <code class="descname">ub2</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable3ub2Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the stronger upper bound from AMPL’s presolve phase. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable3lrcEv">
+<span id="_CPPv2NK4ampl8Variable3lrcEv"></span><span id="ampl::Variable::lrcC"></span><span class="target" id="classampl_1_1_variable_1ad8ca4ede40e8ebed9c166722181566a6"></span>double <code class="descname">lrc</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable3lrcEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the reduced cost at lower bound. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable3urcEv">
+<span id="_CPPv2NK4ampl8Variable3urcEv"></span><span id="ampl::Variable::urcC"></span><span class="target" id="classampl_1_1_variable_1aae396df60af66a7b1d7768676009f6a1"></span>double <code class="descname">urc</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable3urcEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the reduced cost at upper bound. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable6lslackEv">
+<span id="_CPPv2NK4ampl8Variable6lslackEv"></span><span id="ampl::Variable::lslackC"></span><span class="target" id="classampl_1_1_variable_1a240b6fc757aadddef16f11670967fa62"></span>double <code class="descname">lslack</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable6lslackEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><p>Return the slack at lower bound (<code class="docutils literal notranslate"><span class="pre">val</span> <span class="pre">-</span> <span class="pre">lb</span></code>). See <a class="reference internal" href="../class-structure.html#secvariablesuffixesnotes"><span class="std std-ref">Note on variables suffixes</span></a>.</p>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable6uslackEv">
+<span id="_CPPv2NK4ampl8Variable6uslackEv"></span><span id="ampl::Variable::uslackC"></span><span class="target" id="classampl_1_1_variable_1ab85c8e9c230f73a69f633f3266603c5b"></span>double <code class="descname">uslack</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable6uslackEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><p>Return the slack at upper bound (<code class="docutils literal notranslate"><span class="pre">ub</span> <span class="pre">-</span> <span class="pre">val</span></code>). See <a class="reference internal" href="../class-structure.html#secvariablesuffixesnotes"><span class="std std-ref">Note on variables suffixes</span></a>.</p>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable2rcEv">
+<span id="_CPPv2NK4ampl8Variable2rcEv"></span><span id="ampl::Variable::rcC"></span><span class="target" id="classampl_1_1_variable_1a22bd2fa68e5a2bfe4e0ce28d9dc083d8"></span>double <code class="descname">rc</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable2rcEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the reduced cost (at the nearer bound) </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable5slackEv">
+<span id="_CPPv2NK4ampl8Variable5slackEv"></span><span id="ampl::Variable::slackC"></span><span class="target" id="classampl_1_1_variable_1a2c1f5131fd717b19cdf6cd35c59710ff"></span>double <code class="descname">slack</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable5slackEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><p>Returns the bound slack which is the lesser of lslack() and
+uslack(). See <a class="reference internal" href="../class-structure.html#secvariablesuffixesnotes"><span class="std std-ref">Note on variables suffixes</span></a>.</p>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable7sstatusEv">
+<span id="_CPPv2NK4ampl8Variable7sstatusEv"></span><span id="ampl::Variable::sstatusC"></span><span class="target" id="classampl_1_1_variable_1a44be6241ab91c1ed92a7ad48c7b58b19"></span>std::string <code class="descname">sstatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable7sstatusEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Solver status (basis status of variable) </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl8Variable6statusEv">
+<span id="_CPPv2NK4ampl8Variable6statusEv"></span><span id="ampl::Variable::statusC"></span><span class="target" id="classampl_1_1_variable_1afed73d4530ddaa706bb6724f590aea01"></span>std::string <code class="descname">status</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK4ampl8Variable6statusEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>AMPL status if not <code class="docutils literal notranslate"><span class="pre">in</span></code>, otherwise solver status </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity5beginEv">
+<span id="_CPPv2NK4ampl11BasicEntity5beginEv"></span><span id="ampl::BasicEntity::beginC"></span><span class="target" id="classampl_1_1_basic_entity_1a83d585eb47d9739484509d1965df7d82"></span><a class="reference internal" href="constraint.html#_CPPv3N4ampl11BasicEntity8iteratorE" title="ampl::BasicEntity::iterator">iterator</a> <code class="descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><br /></dt>
+<dd><p>Get an iterator pointing to the first instance in this entity. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity3endEv">
+<span id="_CPPv2NK4ampl11BasicEntity3endEv"></span><span id="ampl::BasicEntity::endC"></span><span class="target" id="classampl_1_1_basic_entity_1a48cc62a70d97354be9be938b945fbc4b"></span><a class="reference internal" href="constraint.html#_CPPv3N4ampl11BasicEntity8iteratorE" title="ampl::BasicEntity::iterator">iterator</a> <code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><br /></dt>
+<dd><p>Get an iterator pointing after the last instance in this entity. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK4ampl11BasicEntity4findE8TupleRef">
+<span id="_CPPv2NK4ampl11BasicEntity4findE8TupleRef"></span><span id="ampl::BasicEntity::find__TupleRefC"></span><span class="target" id="classampl_1_1_basic_entity_1af4055bd9d8d8ab250d7569fc1c3c7c2c"></span><a class="reference internal" href="constraint.html#_CPPv3N4ampl11BasicEntity8iteratorE" title="ampl::BasicEntity::iterator">iterator</a> <code class="descname">find</code><span class="sig-paren">(</span><a class="reference internal" href="tuple.html#_CPPv3N4ampl8TupleRefE" title="ampl::TupleRef">TupleRef</a> <em>t</em><span class="sig-paren">)</span> <em class="property">const</em><br /></dt>
+<dd><p>Searches the current entity for an instance with the specified index. </p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>an iterator to the wanted entity if found, otherwise an iterator to BasicEntity::end. </dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv3N4ampl3var11IntegralityE">
+<span id="_CPPv2N4ampl3var11IntegralityE"></span><span id="ampl::var::Integrality"></span><span class="target" id="entity_8h_1aacd9ed55f156ac0fd5106f650d44eb5e"></span><em class="property">enum </em><code class="descclassname">ampl::var<code class="descclassname">::</code></code><code class="descname">Integrality</code><a class="headerlink" href="#_CPPv3N4ampl3var11IntegralityE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Integrality of variables. </p>
+<p><dl class="docutils">
+<dt><strong>See</strong></dt>
+<dd><a class="reference internal" href="#classampl_1_1_variable_1a16d25db3f4aaa4c77865276b748dee8a"><span class="std std-ref">Variable::integrality()</span></a> </dd>
+</dl>
+</p>
+<p><em>Values:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv3N4ampl3var10CONTINUOUSE">
+<span id="_CPPv2N4ampl3var10CONTINUOUSE"></span><span class="target" id="entity_8h_1aacd9ed55f156ac0fd5106f650d44eb5eaf17b5a68df6c94b3dabf0099901d156f"></span><code class="descname">CONTINUOUS</code><a class="headerlink" href="#_CPPv3N4ampl3var10CONTINUOUSE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Continuous variable. </p>
+</dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv3N4ampl3var6BINARYE">
+<span id="_CPPv2N4ampl3var6BINARYE"></span><span class="target" id="entity_8h_1aacd9ed55f156ac0fd5106f650d44eb5ea82572ed5e21703f2c77ab9c6c5b18e4f"></span><code class="descname">BINARY</code><a class="headerlink" href="#_CPPv3N4ampl3var6BINARYE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Binary variable. </p>
+</dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv3N4ampl3var7INTEGERE">
+<span id="_CPPv2N4ampl3var7INTEGERE"></span><span class="target" id="entity_8h_1aacd9ed55f156ac0fd5106f650d44eb5ea26a71e0637d040115e91bacaaf2edf04"></span><code class="descname">INTEGER</code><a class="headerlink" href="#_CPPv3N4ampl3var7INTEGERE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Integer variable. </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="variableinstance.html" title="VariableInstance"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="setinstance.html" title="SetInstance"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" >C++ API reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013-2017, AMPL Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.
+    </div>
+  </body>
+</html>

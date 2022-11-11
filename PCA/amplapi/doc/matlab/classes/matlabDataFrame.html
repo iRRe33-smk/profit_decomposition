@@ -1,0 +1,767 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Data Frame &#8212; AMPL API 2.0.3-0 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../_static/ampl.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Constraint" href="matlabConstraint.html" />
+    <link rel="prev" title="AMPLOutput" href="matlabAMPLOutput.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="matlabConstraint.html" title="Constraint"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="matlabAMPLOutput.html" title="AMPLOutput"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" accesskey="U">MATLAB API reference</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Data Frame</a><ul>
+<li><a class="reference internal" href="#creation">Creation</a></li>
+<li><a class="reference internal" href="#adding-data">Adding data</a></li>
+<li><a class="reference internal" href="#accessing-data">Accessing data</a></li>
+<li><a class="reference internal" href="#conversion-to-and-from-matlab-tables">Conversion to and from MATLAB tables</a></li>
+<li><a class="reference internal" href="#dataframe">DataFrame</a></li>
+<li><a class="reference internal" href="#addcolumn">addColumn</a></li>
+<li><a class="reference internal" href="#addrow">addRow</a></li>
+<li><a class="reference internal" href="#setcolumn">setColumn</a></li>
+<li><a class="reference internal" href="#getnumcols">getNumCols</a></li>
+<li><a class="reference internal" href="#getnumrows">getNumRows</a></li>
+<li><a class="reference internal" href="#getnumindices">getNumIndices</a></li>
+<li><a class="reference internal" href="#getrow">getRow</a></li>
+<li><a class="reference internal" href="#getcolumn">getColumn</a></li>
+<li><a class="reference internal" href="#setvalue">setValue</a></li>
+<li><a class="reference internal" href="#setmatrix">setMatrix</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="matlabAMPLOutput.html"
+                        title="previous chapter">AMPLOutput</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="matlabConstraint.html"
+                        title="next chapter">Constraint</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/classes/matlabDataFrame.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="data-frame">
+<span id="secmatlabrefdataframe"></span><h1>Data Frame<a class="headerlink" href="#data-frame" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="DataFrame">
+<em class="property">class </em><code class="descname">DataFrame</code><a class="headerlink" href="#DataFrame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>DataFrame objects are used to communicate data to and from AMPL entities. An object of this class can be used to do the following tasks:</p>
+<ul class="simple">
+<li>Assign values to AMPL entities (once the DataFrame is populated, use the <a class="reference internal" href="matlabAMPL.html#AMPL.setData" title="AMPL.setData"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.setData</span></code></a> to assign its values to the modelling entities in its columns)</li>
+<li>Get values from AMPL, decoupling the values from the AMPL entities they originate from the getData functions in Variables, Parameters, Constraints and Objectives</li>
+</ul>
+<div class="section" id="creation">
+<h2>Creation<a class="headerlink" href="#creation" title="Permalink to this headline">¶</a></h2>
+<p>A DataFrame object can be created in two ways.</p>
+<ul class="simple">
+<li>Create a scheleton via <code class="docutils literal notranslate"><span class="pre">DataFrame([amplEntities])</span></code>, in which the indexing columns are automatically detected depending on the AMPL entities used as headers.</li>
+<li>Create a scheleton via <code class="docutils literal notranslate"><span class="pre">DataFrame(int</span> <span class="pre">numberOfIndexColumns,</span> <span class="pre">header1,</span> <span class="pre">...,</span> <span class="pre">headern)</span></code>, where arbitrary objects can be used as column headers (they will be converted to their string representation when communicating with the AMPL interpreter).</li>
+</ul>
+</div>
+<div class="section" id="adding-data">
+<h2>Adding data<a class="headerlink" href="#adding-data" title="Permalink to this headline">¶</a></h2>
+<p>Populating a DataFrame object can be done adding row by row to a pre-existing scheleton via <a class="reference internal" href="#DataFrame.addRow" title="DataFrame.addRow"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">DataFrame.addRow</span></code></a>, setting whole columns
+of a pre-existing scheleton via <a class="reference internal" href="#DataFrame.setColumn" title="DataFrame.setColumn"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">DataFrame.setColumn</span></code></a> or adding columns (including indexing columns) via <a class="reference internal" href="#DataFrame.addColumn" title="DataFrame.addColumn"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">DataFrame.addColumn</span></code></a>.
+The function <a class="reference internal" href="#DataFrame.setMatrix" title="DataFrame.setMatrix"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">DataFrame.setMatrix</span></code></a> provides a way to populate a DataFrame with values from MATLAB n-dimensional  matrices and cell arrays.</p>
+<p>Modifying a DataFrame object can be done via <a class="reference internal" href="#DataFrame.setColumn" title="DataFrame.setColumn"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">DataFrame.setColumn</span></code></a> or, item by item, via <a class="reference internal" href="#DataFrame.setValue" title="DataFrame.setValue"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">DataFrame.setValue</span></code></a>.</p>
+</div>
+<div class="section" id="accessing-data">
+<h2>Accessing data<a class="headerlink" href="#accessing-data" title="Permalink to this headline">¶</a></h2>
+<p>Accessing data in a DataFrame can be done row by row using <a class="reference internal" href="#DataFrame.getRow" title="DataFrame.getRow"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">DataFrame.getRow</span></code></a> or by column via <a class="reference internal" href="#DataFrame.getColumn" title="DataFrame.getColumn"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">DataFrame.getColumn</span></code></a>, or by using
+MATLAB own indexing procedures.</p>
+<p>Access the dataframe by row by using MATLAB indexing:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">df(index1,</span> <span class="pre">...,</span> <span class="pre">indexn)</span></code> (where <code class="docutils literal notranslate"><span class="pre">index1,</span> <span class="pre">...,</span> <span class="pre">indexn</span></code> represent an indexing tuple for the current dataframe) is equivalent to calling <a class="reference internal" href="#DataFrame.getRow" title="DataFrame.getRow"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">DataFrame.getRow</span></code></a> with the same parameters</li>
+<li><code class="docutils literal notranslate"><span class="pre">df(startindex:endindex)</span></code>  where <code class="docutils literal notranslate"><span class="pre">startindex</span></code> and <code class="docutils literal notranslate"><span class="pre">endiindex</span></code> are numerical indices of rows (position) return a cell array composed of all the rows in the range</li>
+</ul>
+<p>Access the dataframe by column using table-like syntax:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">df.columnname</span></code> is equivalent to call df.getColumn(columnname)</li>
+</ul>
+</div>
+<div class="section" id="conversion-to-and-from-matlab-tables">
+<h2>Conversion to and from MATLAB tables<a class="headerlink" href="#conversion-to-and-from-matlab-tables" title="Permalink to this headline">¶</a></h2>
+<p>MATLAB tables are a very powerful tool for handling data, and are very similar to dataframes. In built routines are provided for converting a DataFrame to and from MATLAB tables.</p>
+<p>To create a DataFrame from a MATLAB tables, the static function <code class="docutils literal notranslate"><span class="pre">fromTable</span></code> can be used:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">table</span> <span class="pre">t;</span>
+<span class="pre">df</span> <span class="pre">=</span>&#160; <span class="pre">DataFrame.fromTable(t);</span>
+<span class="pre">`</span></code></p>
+<p>Whilst the opposite functionality is provided by the function <code class="docutils literal notranslate"><span class="pre">toTable</span></code>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">t</span> <span class="pre">=</span> <span class="pre">df.toTable();</span>
+<span class="pre">`</span></code></p>
+</div>
+<div class="section" id="dataframe">
+<h2>DataFrame<a class="headerlink" href="#dataframe" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="DataFrame.DataFrame">
+<em class="property">classmethod </em><code class="descclassname">DataFrame.</code><code class="descname">DataFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataFrame.DataFrame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">=</span> <span class="pre">DataFrame([amplEntities])</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">=</span> <span class="pre">DataFrame(int</span> <span class="pre">numberOfIndexColumns,</span> <span class="pre">header1,</span> <span class="pre">...,</span> <span class="pre">headern)</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">=</span> <span class="pre">DataFrame([amplEntities])</span></code> creates a skeleton structure, where the indexing columns are automatically inferred depending on the AMPL entities used as headers</p>
+<p><code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">=</span> <span class="pre">DataFrame(numberOfIndexColumns,</span> <span class="pre">header1,</span> <span class="pre">...,</span> <span class="pre">headern)</span></code>  creates a scheleton structure, where arbitrary objects can be used as column headers (they will be converted to their string representation when communicating with the AMPL interpreter).</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">numberOfIndexColumns</span></code>    The number of columns to be considered as indices in the table this object represents. Can be zero in case of DataFrames representing scalar data.</p>
+<p><code class="docutils literal notranslate"><span class="pre">amplEntities</span></code>           A vector of AMPL entities (obtained via one of the functions at <a class="reference internal" href="matlabAMPL.html#AMPL.getEntity" title="AMPL.getEntity"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.getEntity</span></code></a>). Sets should be listed first, as the have to be the first columns of the table.</p>
+<p><code class="docutils literal notranslate"><span class="pre">header1,...,headern</span></code>         A list of header to be used as column headers. These names will specify how the data will be then bound to AMPL entities when using <a class="reference internal" href="matlabAMPL.html#AMPL.setData" title="AMPL.setData"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.setData</span></code></a>.</p>
+<p><strong>Output Arguments</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">df</span></code></dt>
+<dd>A DataFrame object that can be used for assigning and manipulating data.</dd>
+</dl>
+<p><strong>Example</strong> 1</p>
+<p>Create a dataframe with two indexing columns starting from AMPL entities and
+populate them row by row:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;set PROD; set COLOUR; param price{PROD, COLOUR};&#39;</span><span class="p">);</span>
+<span class="n">PROD</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getSet</span><span class="p">(</span><span class="s">&#39;PROD&#39;</span><span class="p">);</span>
+<span class="n">COLOUR</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getSet</span><span class="p">(</span><span class="s">&#39;COLOUR&#39;</span><span class="p">);</span>
+<span class="n">price</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s">&#39;price&#39;</span><span class="p">);</span>
+
+<span class="n">df</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">PROD</span><span class="p">,</span> <span class="n">COLOUR</span><span class="p">,</span> <span class="n">price</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">addRow</span><span class="p">(</span><span class="s">&#39;shirts&#39;</span><span class="p">,</span> <span class="s">&#39;red&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">addRow</span><span class="p">(</span><span class="s">&#39;shirts&#39;</span><span class="p">,</span> <span class="s">&#39;blue&#39;</span><span class="p">,</span>  <span class="mf">4.5</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">addRow</span><span class="p">(</span><span class="s">&#39;skirts&#39;</span><span class="p">,</span> <span class="s">&#39;blue&#39;</span><span class="p">,</span>  <span class="mf">5.5</span><span class="p">);</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span>
+<span class="n">PROD</span>    <span class="n">COLOUR</span>  <span class="o">|</span>  <span class="n">price</span>
+<span class="n">shirts</span>  <span class="n">red</span>     <span class="o">|</span>  <span class="mf">5.0</span>
+<span class="n">shirts</span>  <span class="n">blue</span>    <span class="o">|</span>  <span class="mf">4.5</span>
+<span class="n">skirts</span>  <span class="n">blue</span>    <span class="o">|</span>  <span class="mf">5.5</span>
+</pre></div>
+</div>
+<p><strong>Example</strong> 2</p>
+<p>Create a dataframe with one indexing column and two data columns, start adding data row by row,
+then add a whole column with data</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;PROD&#39;</span><span class="p">,</span> <span class="s">&#39;price&#39;</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">addRow</span><span class="p">(</span><span class="s">&#39;shirts&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">addRow</span><span class="p">(</span><span class="s">&#39;skirts&#39;</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">addColumn</span><span class="p">(</span><span class="s">&#39;cost&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">4.5</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span>
+<span class="n">PROD</span>    <span class="o">|</span>  <span class="n">price</span>  <span class="n">cost</span>
+<span class="n">shirts</span>  <span class="o">|</span>  <span class="mf">5.0</span>    <span class="mf">4.5</span>
+<span class="n">skirts</span>  <span class="o">|</span>  <span class="mf">4.5</span>    <span class="mf">5.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="addcolumn">
+<h2>addColumn<a class="headerlink" href="#addcolumn" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="DataFrame.addColumn">
+<em class="property">classmethod </em><code class="descclassname">DataFrame.</code><code class="descname">addColumn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataFrame.addColumn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">addColumn(headerName)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">addColumn(amplEntity)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">addColumn(headerName,</span> <span class="pre">[values])</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">addColumn(amplEntity,</span> <span class="pre">[values])</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">addColumn(headerName)</span></code> add a new empty column with the specified header to the dataframe.</p>
+<p><code class="docutils literal notranslate"><span class="pre">addColumn(amplEntity)</span></code> add a new empty column with the specified header as the name of the AMPL entity to the dataframe</p>
+<p><code class="docutils literal notranslate"><span class="pre">addColumn(headerName,</span> <span class="pre">[values])</span></code> add a column with the specified header to the DataFrame, containing the listed values.
+If the added column is an indexing column, the indices will be populated with the cartesian product of all the members of the columns already populated.</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">headerName</span></code>    The name of the column to be added</p>
+<p><code class="docutils literal notranslate"><span class="pre">amplEntity</span></code>    An AMPL entity, its name will be used for the new column</p>
+<p><code class="docutils literal notranslate"><span class="pre">values</span></code>         A vector of values to be used in the column. It has to have the same cardinality as the DataFrame (accessible via <a class="reference internal" href="#DataFrame.getNumRows" title="DataFrame.getNumRows"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">DataFrame.getNumRows</span></code></a>) if
+the column is not an indexing column. Otherwise, the cardinality of the table will be modified to the cartesian product of the defined sets.</p>
+<p><strong>Example</strong> 1</p>
+<p>Create a dataframe with one indexing columns and add an empty column later. Populate then the column via <a class="reference internal" href="#DataFrame.setColumn" title="DataFrame.setColumn"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">DataFrame.setColumn</span></code></a>.
+row by row</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;PROD&#39;</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;PROD&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;shirts&#39;</span><span class="p">;</span> <span class="s">&#39;skirts&#39;</span><span class="p">});</span>
+<span class="n">df</span><span class="p">.</span><span class="n">addColumn</span><span class="p">(</span><span class="s">&#39;price&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;price&#39;</span><span class="p">,</span> <span class="p">{</span><span class="mf">6.5</span><span class="p">;</span> <span class="mf">5.5</span><span class="p">})</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PROD</span>    <span class="o">|</span>  <span class="n">price</span>
+<span class="n">shirts</span>  <span class="o">|</span>  <span class="mf">6.5</span>
+<span class="n">skirts</span>  <span class="o">|</span>  <span class="mf">5.5</span>
+</pre></div>
+</div>
+<p><strong>Example</strong> 2</p>
+<p>Create a dataframe with three indexing columns, and populate them.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">&#39;ORIGIN&#39;</span><span class="p">,</span> <span class="s">&#39;DEST&#39;</span><span class="p">,</span> <span class="s">&#39;MODE&#39;</span><span class="p">);</span>
+<span class="n">routes</span> <span class="p">=</span> <span class="p">{</span><span class="s">&#39;London&#39;</span><span class="p">,</span> <span class="s">&#39;New York&#39;</span><span class="p">;</span> <span class="s">&#39;London&#39;</span><span class="p">,</span> <span class="s">&#39;Milan&#39;</span><span class="p">}</span>
+<span class="n">modes</span> <span class="p">=</span> <span class="p">{</span><span class="s">&#39;air&#39;</span><span class="p">,</span> <span class="s">&#39;normal&#39;</span><span class="p">};</span>
+
+
+
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;ORIGIN&#39;</span><span class="p">,</span> <span class="n">routes</span><span class="p">(:,</span><span class="mi">1</span><span class="p">));</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;DEST&#39;</span> <span class="p">,</span> <span class="n">routes</span><span class="p">(:,</span><span class="mi">2</span><span class="p">));</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;MODE&#39;</span><span class="p">,</span> <span class="n">modes</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span>
+<span class="n">ORIGIN</span>  <span class="n">DEST</span>      <span class="n">MODE</span>    <span class="o">|</span>
+<span class="n">London</span>  <span class="n">New</span> <span class="n">York</span>  <span class="n">air</span>     <span class="o">|</span>
+<span class="n">London</span>  <span class="n">Milan</span>     <span class="n">normal</span>  <span class="o">|</span>
+</pre></div>
+</div>
+<p>then to add a column with travelling times (ordered as shown), it is sufficient to add:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">.</span><span class="n">addColumn</span><span class="p">(</span><span class="s">&#39;time&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">7</span> <span class="mi">15</span><span class="p">]);</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+<p>will list:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span>
+<span class="n">ORIGIN</span>  <span class="n">DEST</span>      <span class="n">MODE</span>    <span class="o">|</span>  <span class="n">time</span>
+<span class="n">London</span>  <span class="n">New</span> <span class="n">York</span>  <span class="n">air</span>     <span class="o">|</span>  <span class="mf">7.0</span>
+<span class="n">London</span>  <span class="n">Milan</span>     <span class="n">normal</span>  <span class="o">|</span>  <span class="mf">15.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="addrow">
+<h2>addRow<a class="headerlink" href="#addrow" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="DataFrame.addRow">
+<em class="property">classmethod </em><code class="descclassname">DataFrame.</code><code class="descname">addRow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataFrame.addRow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">addRow({colValues})</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">addRow({colValues})</span></code> adds a row to the DataFrame</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">{colValues}</span></code> A cell array of values, of cardinality <a class="reference internal" href="#DataFrame.getNumCols" title="DataFrame.getNumCols"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">DataFrame.getNumCols</span></code></a></p>
+<p><strong>Example</strong></p>
+<p>Construct a DataFrame row by row:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;set PROD; set COLOUR; param price{PROD, COLOUR};&#39;</span><span class="p">);</span>
+<span class="n">PROD</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getSet</span><span class="p">(</span><span class="s">&#39;PROD&#39;</span><span class="p">);</span>
+<span class="n">COLOUR</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getSet</span><span class="p">(</span><span class="s">&#39;COLOUR&#39;</span><span class="p">);</span>
+<span class="n">price</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s">&#39;price&#39;</span><span class="p">);</span>
+
+<span class="n">df</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">PROD</span><span class="p">,</span> <span class="n">COLOUR</span><span class="p">,</span> <span class="n">price</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">addRow</span><span class="p">(</span><span class="s">&#39;shirts&#39;</span><span class="p">,</span> <span class="s">&#39;red&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">addRow</span><span class="p">(</span><span class="s">&#39;shirts&#39;</span><span class="p">,</span> <span class="s">&#39;blue&#39;</span><span class="p">,</span>  <span class="mf">4.5</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">addRow</span><span class="p">(</span><span class="s">&#39;skirts&#39;</span><span class="p">,</span> <span class="s">&#39;blue&#39;</span><span class="p">,</span>  <span class="mf">5.5</span><span class="p">);</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span>
+<span class="n">PROD</span>    <span class="n">COLOUR</span>  <span class="o">|</span>  <span class="n">price</span>
+<span class="n">shirts</span>  <span class="n">red</span>     <span class="o">|</span>  <span class="mf">5.0</span>
+<span class="n">shirts</span>  <span class="n">blue</span>    <span class="o">|</span>  <span class="mf">4.5</span>
+<span class="n">skirts</span>  <span class="n">blue</span>    <span class="o">|</span>  <span class="mf">5.5</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setcolumn">
+<h2>setColumn<a class="headerlink" href="#setcolumn" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="DataFrame.setColumn">
+<em class="property">classmethod </em><code class="descclassname">DataFrame.</code><code class="descname">setColumn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataFrame.setColumn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">setColumn(headerName,</span> <span class="pre">[values])</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">setColumn(amplEntity,</span> <span class="pre">[values])</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">setColumn(headerName,</span> <span class="pre">[values])</span></code> sets the values of the column specified by headername to the given vector of values. Cannot be used to specify values of indexing columns if not the first one.</p>
+<p><code class="docutils literal notranslate"><span class="pre">setColumn(amplEntity,</span> <span class="pre">[values])</span></code> sets the values of the column inferred by the AMPL entity to the given vector of values. Cannot be used to specify values of indexing columns if not the first one.</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">headerName</span></code>    The name of the column to be added</p>
+<p><code class="docutils literal notranslate"><span class="pre">amplEntity</span></code>    An AMPL entity, its name will be used for the new column</p>
+<p><code class="docutils literal notranslate"><span class="pre">values</span></code>         A vector of values to be used in the column. It has to have the same cardinality as the DataFrame (accessible via <a class="reference internal" href="#DataFrame.getNumRows" title="DataFrame.getNumRows"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">DataFrame.getNumRows</span></code></a>).</p>
+<p><strong>Example</strong></p>
+<p>Create a dataframe with two columns and populate them.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;PROD&#39;</span><span class="p">,</span> <span class="s">&#39;price&#39;</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;PROD&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;shirts&#39;</span><span class="p">,</span> <span class="s">&#39;skirts&#39;</span><span class="p">})</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;price&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PROD</span>    <span class="o">|</span>  <span class="n">price</span>
+<span class="n">shirts</span>  <span class="o">|</span>  <span class="mf">6.5</span>
+<span class="n">skirts</span>  <span class="o">|</span>  <span class="mf">5.5</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getnumcols">
+<h2>getNumCols<a class="headerlink" href="#getnumcols" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="DataFrame.getNumCols">
+<em class="property">classmethod </em><code class="descclassname">DataFrame.</code><code class="descname">getNumCols</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataFrame.getNumCols" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p>nc = <code class="docutils literal notranslate"><span class="pre">getNumCols</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">getNumCols()</span></code> gets the number of columns in the current DataFrame.
+Note that MATLAB’s own size function can be used as well.</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">nc</span></code> The number of columns actually defined in the DataFrame</p>
+<p><strong>Example</strong></p>
+<p>Create a dataframe and keep adding columns</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;PROD&#39;</span><span class="p">,</span> <span class="s">&#39;COLOUR&#39;</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">getNumCols</span>
+<span class="n">df</span><span class="p">.</span><span class="n">addColumn</span><span class="p">(</span><span class="s">&#39;price&#39;</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">getNumCols</span>
+<span class="nb">size</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ans</span> <span class="o">=</span>
+     <span class="mi">2</span>
+<span class="n">ans</span> <span class="o">=</span>
+     <span class="mi">3</span>
+<span class="n">ans</span> <span class="o">=</span>
+  <span class="mi">0</span>     <span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getnumrows">
+<h2>getNumRows<a class="headerlink" href="#getnumrows" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="DataFrame.getNumRows">
+<em class="property">classmethod </em><code class="descclassname">DataFrame.</code><code class="descname">getNumRows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataFrame.getNumRows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p>nr = <code class="docutils literal notranslate"><span class="pre">getNumRows</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">getNumRows()</span></code> gets the number of rows in the current DataFrame.
+Note that MATLAB’s own size function can be used as well.</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">nr</span></code> The number of rows in the dataframe</p>
+<p><strong>Example</strong></p>
+<p>Create a dataframe by cartesian product and explore the number of rows</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">&#39;ORIGIN&#39;</span><span class="p">,</span> <span class="s">&#39;DEST&#39;</span><span class="p">,</span> <span class="s">&#39;MODE&#39;</span><span class="p">);</span>
+<span class="n">hubs</span> <span class="p">=</span> <span class="p">{</span><span class="s">&#39;London&#39;</span><span class="p">,</span> <span class="s">&#39;New York&#39;</span><span class="p">,</span> <span class="s">&#39;Delhi&#39;</span><span class="p">};</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;ORIGIN&#39;</span><span class="p">,</span> <span class="n">hubs</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;DEST&#39;</span><span class="p">,</span> <span class="n">hubs</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;MODE&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;air&#39;</span><span class="p">,</span> <span class="s">&#39;normal&#39;</span><span class="p">,</span> <span class="s">&#39;slow&#39;</span><span class="p">})</span>
+<span class="n">df</span><span class="p">.</span><span class="n">getNumRows</span>
+<span class="nb">size</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ans</span> <span class="o">=</span>
+  <span class="mi">3</span>
+<span class="n">ans</span> <span class="o">=</span>
+  <span class="mi">3</span>   <span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getnumindices">
+<h2>getNumIndices<a class="headerlink" href="#getnumindices" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="DataFrame.getNumIndices">
+<em class="property">classmethod </em><code class="descclassname">DataFrame.</code><code class="descname">getNumIndices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataFrame.getNumIndices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p>ni = <code class="docutils literal notranslate"><span class="pre">getNumIndices</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">getNumIndices()</span></code> gets the number of indexing columns in the current DataFrame</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">ni</span></code> The number of indexing columns in the dataframe</p>
+<p><strong>Example</strong></p>
+<p>Show the number of indexing columns of a DataFrame</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;index1&#39;</span><span class="p">,</span> <span class="s">&#39;index2&#39;</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">getNumIndices</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ans</span> <span class="o">=</span>
+  <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getrow">
+<h2>getRow<a class="headerlink" href="#getrow" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="DataFrame.getRow">
+<em class="property">classmethod </em><code class="descclassname">DataFrame.</code><code class="descname">getRow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataFrame.getRow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p>[row] = <code class="docutils literal notranslate"><span class="pre">getRow({rowindices})</span></code></p>
+<p>[row] = <code class="docutils literal notranslate"><span class="pre">getRowByIndex(index)</span></code></p>
+<p><strong>Description</strong></p>
+<p>[row] = <code class="docutils literal notranslate"><span class="pre">getRow({rowindices})</span></code> gets the row indicated by rowindices</p>
+<p>[row] = <code class="docutils literal notranslate"><span class="pre">getRowByIndex(index)</span></code> gets the row specified by the zero based index specified</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">rowindices</span></code> A cell array of indices values, of cardinality <a class="reference internal" href="#DataFrame.getNumIndices" title="DataFrame.getNumIndices"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">DataFrame.getNumIndices</span></code></a></p>
+<p><code class="docutils literal notranslate"><span class="pre">index</span></code>      The zero-based integer index of the wanted row</p>
+<p><strong>Output Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">row</span></code>  A cell array containing an horizontal “slice” of the DataFrame</p>
+<p><strong>Example</strong></p>
+<p>Extract rows by specifying the indices and by their ordinal number in the table</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">&#39;ORIGIN&#39;</span><span class="p">,</span> <span class="s">&#39;DEST&#39;</span><span class="p">,</span> <span class="s">&#39;MODE&#39;</span><span class="p">,</span> <span class="s">&#39;time&#39;</span><span class="p">);</span>
+<span class="n">origins</span> <span class="p">=</span> <span class="p">{</span><span class="s">&#39;London&#39;</span><span class="p">;</span> <span class="s">&#39;New York&#39;</span><span class="p">;</span> <span class="s">&#39;Milan&#39;</span><span class="p">;</span> <span class="s">&#39;London&#39;</span><span class="p">;</span> <span class="s">&#39;New York&#39;</span><span class="p">;</span> <span class="s">&#39;Milan&#39;</span><span class="p">}</span>
+<span class="n">destinations</span> <span class="p">=</span> <span class="p">{</span><span class="s">&#39;New York&#39;</span><span class="p">;</span> <span class="s">&#39;Milan&#39;</span><span class="p">;</span> <span class="s">&#39;London&#39;</span><span class="p">;</span> <span class="s">&#39;New York&#39;</span><span class="p">;</span> <span class="s">&#39;Milan&#39;</span><span class="p">;</span> <span class="s">&#39;London&#39;</span><span class="p">}</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;ORIGIN&#39;</span><span class="p">,</span> <span class="n">origins</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;DEST&#39;</span><span class="p">,</span> <span class="n">destinations</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;MODE&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;air&#39;</span><span class="p">;</span><span class="s">&#39;air&#39;</span><span class="p">;</span><span class="s">&#39;air&#39;</span><span class="p">;</span> <span class="s">&#39;normal&#39;</span><span class="p">;</span><span class="s">&#39;normal&#39;</span><span class="p">;</span><span class="s">&#39;normal&#39;</span><span class="p">})</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;time&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">20</span><span class="p">]);</span>
+<span class="c">% The two statements below refer to the same row</span>
+<span class="n">row1</span> <span class="p">=</span> <span class="n">df</span><span class="p">.</span><span class="n">getRow</span><span class="p">(</span><span class="s">&#39;London&#39;</span><span class="p">,</span> <span class="s">&#39;New York&#39;</span><span class="p">,</span> <span class="s">&#39;air&#39;</span><span class="p">);</span>
+<span class="n">row2</span> <span class="p">=</span> <span class="n">df</span><span class="p">.</span><span class="n">getRowByIndex</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="n">row1</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">row2</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ans</span> <span class="o">=</span>
+  <span class="mi">6</span>
+<span class="n">ans</span> <span class="o">=</span>
+  <span class="mi">6</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getcolumn">
+<h2>getColumn<a class="headerlink" href="#getcolumn" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="DataFrame.getColumn">
+<em class="property">classmethod </em><code class="descclassname">DataFrame.</code><code class="descname">getColumn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataFrame.getColumn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p>[column] = <code class="docutils literal notranslate"><span class="pre">getColumn(columnHeader)</span></code></p>
+<p>[columnvalues] = <code class="docutils literal notranslate"><span class="pre">getColumnAsDoubles(columnHeader)</span></code></p>
+<p>[columnstrings] = <code class="docutils literal notranslate"><span class="pre">getColumnAsStrings(columnHeader)</span></code></p>
+<p><strong>Description</strong></p>
+<p>[column] = <code class="docutils literal notranslate"><span class="pre">getColumn(columnHeader)</span></code> gets the specified column as a java array of objects</p>
+<p>[columnvalues] = <code class="docutils literal notranslate"><span class="pre">getColumnAsDoubles(columnHeader)</span></code> gets the specified column as a matlab vector of numbers</p>
+<p>[columnstrings] = <code class="docutils literal notranslate"><span class="pre">getColumnAsStrings(columnHeader)</span></code> gets the specified column as a vector of strings</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">columnHeader</span></code> The header of the column to be extracted</p>
+<p><strong>Output Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">column</span></code>  A cell array containing the values of the column</p>
+<p><code class="docutils literal notranslate"><span class="pre">columnvalues</span></code>  A vector containing the values of the column</p>
+<p><code class="docutils literal notranslate"><span class="pre">columnstrings</span></code>  A cell array containing the values of the column</p>
+<p><strong>Example</strong> 1</p>
+<p>Extract a column from a dataframe</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">&#39;ORIGIN&#39;</span><span class="p">,</span> <span class="s">&#39;DEST&#39;</span><span class="p">,</span> <span class="s">&#39;MODE&#39;</span><span class="p">,</span> <span class="s">&#39;time&#39;</span><span class="p">);</span>
+<span class="n">origins</span> <span class="p">=</span> <span class="p">{</span><span class="s">&#39;London&#39;</span><span class="p">;</span> <span class="s">&#39;New York&#39;</span><span class="p">;</span> <span class="s">&#39;Milan&#39;</span><span class="p">;</span> <span class="s">&#39;London&#39;</span><span class="p">;</span> <span class="s">&#39;New York&#39;</span><span class="p">;</span> <span class="s">&#39;Milan&#39;</span><span class="p">};</span>
+<span class="n">destinations</span> <span class="p">=</span> <span class="p">{</span><span class="s">&#39;New York&#39;</span><span class="p">;</span> <span class="s">&#39;Milan&#39;</span><span class="p">;</span> <span class="s">&#39;London&#39;</span><span class="p">;</span> <span class="s">&#39;New York&#39;</span><span class="p">;</span> <span class="s">&#39;Milan&#39;</span><span class="p">;</span> <span class="s">&#39;London&#39;</span><span class="p">};</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;ORIGIN&#39;</span><span class="p">,</span> <span class="n">origins</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;DEST&#39;</span><span class="p">,</span> <span class="n">destinations</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;MODE&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;air&#39;</span><span class="p">;</span><span class="s">&#39;air&#39;</span><span class="p">;</span><span class="s">&#39;air&#39;</span><span class="p">;</span> <span class="s">&#39;normal&#39;</span><span class="p">;</span><span class="s">&#39;normal&#39;</span><span class="p">;</span><span class="s">&#39;normal&#39;</span><span class="p">})</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setColumn</span><span class="p">(</span><span class="s">&#39;time&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">20</span><span class="p">]);</span>
+
+<span class="n">column</span><span class="p">=</span><span class="n">df</span><span class="p">.</span><span class="n">getColumnAsDoubles</span><span class="p">(</span><span class="s">&#39;time&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">column</span> <span class="o">=</span>
+  <span class="mi">6</span>
+  <span class="mi">7</span>
+  <span class="mi">2</span>
+ <span class="mi">60</span>
+ <span class="mi">60</span>
+ <span class="mi">20</span>
+</pre></div>
+</div>
+<p><strong>Example</strong> 2</p>
+<p>Extract values from an AMPL parameter as doubles, using a DataFrame as intermediary</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span> <span class="p">=</span> <span class="n">AMPL</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;param P{i in 1..4} := i;&#39;</span><span class="p">);</span>
+<span class="n">P</span> <span class="p">=</span> <span class="n">ampl</span><span class="p">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s">&#39;P&#39;</span><span class="p">);</span>
+<span class="n">df</span> <span class="p">=</span> <span class="n">P</span><span class="p">.</span><span class="n">getValues</span><span class="p">;</span>
+<span class="n">Pvalues</span> <span class="p">=</span> <span class="n">df</span><span class="p">.</span><span class="n">getColumnAsDoubles</span><span class="p">(</span><span class="s">&#39;val&#39;</span><span class="p">);</span>
+<span class="n">Pvalues</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pvalues</span> <span class="o">=</span>
+
+     <span class="mi">1</span>
+     <span class="mi">2</span>
+     <span class="mi">3</span>
+     <span class="mi">4</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setvalue">
+<h2>setValue<a class="headerlink" href="#setvalue" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="DataFrame.setValue">
+<em class="property">classmethod </em><code class="descclassname">DataFrame.</code><code class="descname">setValue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataFrame.setValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">setValue(columnHeader,</span> <span class="pre">{rowIndex},</span> <span class="pre">value))</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">setValue(columnHeader,</span> <span class="pre">{rowIndex},</span> <span class="pre">value))</span></code> sets the value of the specified column and row</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">columnHeader</span></code> The header of the column to be assigned</p>
+<p><code class="docutils literal notranslate"><span class="pre">{rowIndex}</span></code> A cell array containing the index of the row to be assigned</p>
+<p><code class="docutils literal notranslate"><span class="pre">value</span></code> The value to be assigned</p>
+<p><strong>Example</strong></p>
+<p>Modify a DataFrame a column from a table</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;PROD&#39;</span><span class="p">,</span> <span class="s">&#39;price&#39;</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">addRow</span><span class="p">(</span><span class="s">&#39;shirts&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">addRow</span><span class="p">(</span><span class="s">&#39;skirts&#39;</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">addColumn</span><span class="p">(</span><span class="s">&#39;cost&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">4.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]);</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&#39;shirts&#39;</span><span class="p">,</span> <span class="s">&#39;price&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span>
+<span class="n">PROD</span>    <span class="o">|</span>  <span class="n">price</span>  <span class="n">cost</span>
+<span class="n">shirts</span>  <span class="o">|</span>  <span class="mf">10.0</span>   <span class="mf">4.5</span>
+<span class="n">skirts</span>  <span class="o">|</span>  <span class="mf">4.5</span>    <span class="mf">5.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setmatrix">
+<h2>setMatrix<a class="headerlink" href="#setmatrix" title="Permalink to this headline">¶</a></h2>
+<dl class="classmethod">
+<dt id="DataFrame.setMatrix">
+<em class="property">classmethod </em><code class="descclassname">DataFrame.</code><code class="descname">setMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataFrame.setMatrix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">setMatrix(value,</span> <span class="pre">{indices1,</span> <span class="pre">...,</span> <span class="pre">indicesn})</span></code></p>
+<p><strong>Description</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">setMatrix(matrix,</span> <span class="pre">{indices1,</span> <span class="pre">...,</span> <span class="pre">indicesn})</span></code> assigns all the values of a MATLAB n-dimensional matrix to this DataFrame,
+together with the indices values.</p>
+<p><strong>Input Arguments</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">matrix</span></code> The matrix containing the values. It can be an n-dimensional cell array containing strings too.
+Note that, in the current version, matrices to up to six dimensions are supported.</p>
+<p><code class="docutils literal notranslate"><span class="pre">{indices1,</span> <span class="pre">...</span> <span class="pre">indicesn}</span></code> A cell array containing <em>n</em>  vectors where <em>n</em> is the number of dimensions of the matrix.
+Each vector must have the same size of the <code class="docutils literal notranslate"><span class="pre">matrix</span></code> in that dimension.</p>
+<p><strong>Example</strong> 1: One dimension</p>
+<p>Create a one dimensional matrix (an array) and assign it</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Create a vector of four random numbers</span>
+<span class="n">A</span> <span class="p">=</span> <span class="nb">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="c">% Create a vector of indices</span>
+<span class="n">A1</span> <span class="p">=</span> <span class="p">{</span><span class="s">&#39;a1&#39;</span> <span class="p">,</span> <span class="s">&#39;a2&#39;</span><span class="p">,</span> <span class="s">&#39;a3&#39;</span> <span class="p">,</span> <span class="s">&#39;a4&#39;</span><span class="p">};</span>
+<span class="c">% Create a dataframe with 1 index</span>
+<span class="n">df</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;A1&#39;</span><span class="p">,</span> <span class="s">&#39;Values&#39;</span><span class="p">);</span>
+<span class="c">% Assign the vector</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setMatrix</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">A1</span><span class="p">)</span>
+<span class="c">% Print the value</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span>
+<span class="n">A1</span>  <span class="o">|</span>  <span class="n">Values</span>
+<span class="n">a1</span>  <span class="o">|</span>  <span class="mf">0.3187652398589808</span>
+<span class="n">a2</span>  <span class="o">|</span>  <span class="o">-</span><span class="mf">1.3076882963052734</span>
+<span class="n">a3</span>  <span class="o">|</span>  <span class="o">-</span><span class="mf">0.43359202230568356</span>
+<span class="n">a4</span>  <span class="o">|</span>  <span class="mf">0.3426244665386499</span>
+</pre></div>
+</div>
+<p><strong>Example</strong> 2: Two dimensions and assignment to an AMPL parameter</p>
+<p>Create a two dimensional matrix and assign it to an AMPL parameter using <a class="reference internal" href="matlabAMPL.html#AMPL.setData" title="AMPL.setData"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">AMPL.setData</span></code></a>.
+The binding between the DataFrame and the parameter to which the values are assigned is
+achieved via the name of the only data column in the DataFrame.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Create a 4x3 matrix</span>
+<span class="n">A</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">;</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">;</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span><span class="p">;</span> <span class="mi">10</span> <span class="mi">11</span> <span class="mi">12</span><span class="p">];</span>
+<span class="c">% First index (cardinality = number of rows</span>
+<span class="n">A1</span> <span class="p">=</span> <span class="p">{</span><span class="s">&#39;a1&#39;</span> <span class="p">;</span> <span class="s">&#39;a2&#39;</span><span class="p">;</span> <span class="s">&#39;a3&#39;</span> <span class="p">;</span> <span class="s">&#39;a4&#39;</span><span class="p">};</span>
+<span class="c">% Second index (cardinality = number of columns)</span>
+<span class="n">A2</span> <span class="p">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">;</span> <span class="mi">2</span><span class="p">;</span> <span class="mi">3</span><span class="p">};</span>
+<span class="c">% Create a dataframe with two idexing columns and</span>
+<span class="c">% a data column called TheParameter</span>
+<span class="n">df</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;A1&#39;</span><span class="p">,</span> <span class="s">&#39;A2&#39;</span><span class="p">,</span> <span class="s">&#39;TheParameter&#39;</span><span class="p">);</span>
+<span class="c">% Assign the matrix to the dataframe</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setMatrix</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">A1</span><span class="p">,</span> <span class="n">A2</span><span class="p">)</span>
+
+<span class="c">% Create an AMPL instance</span>
+<span class="n">ampl</span> <span class="p">=</span> <span class="n">AMPL</span><span class="p">;</span>
+<span class="c">% Create two sets and a parameter. The name of the parameter</span>
+<span class="c">% has to be the same as the column in our dataframe.</span>
+<span class="c">% Sets name can differ, since we are not assigning them using</span>
+<span class="c">% AMPL.setData</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&#39;set S1; set S2; param TheParameter{S1, S2};&#39;</span><span class="p">);</span>
+<span class="c">% Set the data for sets S1 and S2</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">getSet</span><span class="p">(</span><span class="s">&#39;S1&#39;</span><span class="p">).</span><span class="n">setValues</span><span class="p">(</span><span class="n">A1</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">getSet</span><span class="p">(</span><span class="s">&#39;S2&#39;</span><span class="p">).</span><span class="n">setValues</span><span class="p">(</span><span class="n">A2</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">setData</span><span class="p">(</span><span class="n">df</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">display</span><span class="p">(</span><span class="s">&#39;TheParameter&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TheParameter</span> <span class="p">:</span><span class="o">=</span>
+   <span class="n">a1</span> <span class="mi">1</span>    <span class="mi">1</span>
+   <span class="n">a1</span> <span class="mi">2</span>    <span class="mi">2</span>
+   <span class="n">a1</span> <span class="mi">3</span>    <span class="mi">3</span>
+   <span class="n">a2</span> <span class="mi">1</span>    <span class="mi">4</span>
+   <span class="n">a2</span> <span class="mi">2</span>    <span class="mi">5</span>
+   <span class="n">a2</span> <span class="mi">3</span>    <span class="mi">6</span>
+   <span class="n">a3</span> <span class="mi">1</span>    <span class="mi">7</span>
+   <span class="n">a3</span> <span class="mi">2</span>    <span class="mi">8</span>
+   <span class="n">a3</span> <span class="mi">3</span>    <span class="mi">9</span>
+   <span class="n">a4</span> <span class="mi">1</span>   <span class="mi">10</span>
+   <span class="n">a4</span> <span class="mi">2</span>   <span class="mi">11</span>
+   <span class="n">a4</span> <span class="mi">3</span>   <span class="mi">12</span>
+   <span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Example</strong> 3: Symbolic parameters assignments</p>
+<p>This <strong>Example</strong> shows how to assign a two-dimensional cell array containing
+strings to a parameter.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Create a 2-d cell array</span>
+<span class="n">cellArray</span> <span class="p">=</span> <span class="p">{</span><span class="s">&#39;r1c1&#39;</span><span class="p">,</span> <span class="s">&#39;r1c2&#39;</span><span class="p">,</span> <span class="s">&#39;r1c3&#39;</span><span class="p">;</span> <span class="s">&#39;r2c1&#39;</span><span class="p">,</span> <span class="s">&#39;r2c2&#39;</span><span class="p">,</span> <span class="s">&#39;r2c3&#39;</span><span class="p">;</span> <span class="s">&#39;r3c1&#39;</span><span class="p">,</span> <span class="s">&#39;r3c2&#39;</span><span class="p">,</span><span class="s">&#39;r3c3&#39;</span><span class="p">;</span> <span class="s">&#39;r4c1&#39;</span><span class="p">,</span> <span class="s">&#39;r4c2&#39;</span><span class="p">,</span> <span class="s">&#39;r4c3&#39;</span><span class="p">}</span>
+<span class="c">% assign it to the previous dataframe</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setMatrix</span><span class="p">(</span><span class="n">cellArray</span><span class="p">,</span> <span class="n">A1</span><span class="p">,</span> <span class="n">A2</span><span class="p">)</span>
+<span class="c">% display the dataframe</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span>
+<span class="n">A1</span>  <span class="n">A2</span>   <span class="o">|</span>  <span class="n">TheParameter</span>
+<span class="n">a1</span>  <span class="mf">1.0</span>  <span class="o">|</span>  <span class="n">r1c1</span>
+<span class="n">a1</span>  <span class="mf">2.0</span>  <span class="o">|</span>  <span class="n">r1c2</span>
+<span class="n">a1</span>  <span class="mf">3.0</span>  <span class="o">|</span>  <span class="n">r1c3</span>
+<span class="n">a2</span>  <span class="mf">1.0</span>  <span class="o">|</span>  <span class="n">r2c1</span>
+<span class="n">a2</span>  <span class="mf">2.0</span>  <span class="o">|</span>  <span class="n">r2c2</span>
+<span class="n">a2</span>  <span class="mf">3.0</span>  <span class="o">|</span>  <span class="n">r2c3</span>
+<span class="n">a3</span>  <span class="mf">1.0</span>  <span class="o">|</span>  <span class="n">r3c1</span>
+<span class="n">a3</span>  <span class="mf">2.0</span>  <span class="o">|</span>  <span class="n">r3c2</span>
+<span class="n">a3</span>  <span class="mf">3.0</span>  <span class="o">|</span>  <span class="n">r3c3</span>
+<span class="n">a4</span>  <span class="mf">1.0</span>  <span class="o">|</span>  <span class="n">r4c1</span>
+<span class="n">a4</span>  <span class="mf">2.0</span>  <span class="o">|</span>  <span class="n">r4c2</span>
+<span class="n">a4</span>  <span class="mf">3.0</span>  <span class="o">|</span>  <span class="n">r4c3</span>
+</pre></div>
+</div>
+<p><strong>Example</strong> 4: Higher dimensional matrices</p>
+<p>This <strong>Example</strong> shows how to assign a 4-d matrix to a DataFrame. The same logic applies
+to higher dimensional cell arrays.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Create a 4-d matrix</span>
+<span class="n">B</span> <span class="p">=</span> <span class="nb">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="c">% Create 4 sets of indices of cardinality 2 and of various types</span>
+<span class="c">% (both strings and numbers)</span>
+<span class="n">B1</span> <span class="p">=</span> <span class="p">{</span><span class="s">&#39;a1&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
+<span class="n">B2</span> <span class="p">=</span> <span class="p">{</span><span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;4&#39;</span><span class="p">};</span>
+<span class="n">B3</span> <span class="p">=</span> <span class="p">{</span><span class="s">&#39;c1&#39;</span> <span class="p">,</span><span class="s">&#39;2&#39;</span><span class="p">};</span>
+<span class="n">B4</span> <span class="p">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="s">&#39;4&#39;</span><span class="p">};</span>
+<span class="c">% Create a dataframe with 4 index columns</span>
+<span class="n">df</span> <span class="p">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s">&#39;B1&#39;</span><span class="p">,</span> <span class="s">&#39;B2&#39;</span><span class="p">,</span> <span class="s">&#39;B3&#39;</span><span class="p">,</span> <span class="s">&#39;B4&#39;</span><span class="p">,</span> <span class="s">&#39;Value&#39;</span><span class="p">)</span>
+<span class="c">% Assign the valuees to the dataframe</span>
+<span class="n">df</span><span class="p">.</span><span class="n">setMatrix</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">B1</span><span class="p">,</span> <span class="n">B2</span><span class="p">,</span> <span class="n">B3</span><span class="p">,</span> <span class="n">B4</span><span class="p">)</span>
+<span class="c">% Display the contents</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+<p>gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span>
+<span class="n">B1</span>   <span class="n">B2</span>  <span class="n">B3</span>  <span class="n">B4</span>   <span class="o">|</span>  <span class="n">Value</span>
+<span class="n">a1</span>   <span class="mi">1</span>   <span class="n">c1</span>  <span class="mf">4.0</span>  <span class="o">|</span>  <span class="o">-</span><span class="mf">1.0688704581680317</span>
+<span class="n">a1</span>   <span class="mi">1</span>   <span class="n">c1</span>  <span class="mi">4</span>    <span class="o">|</span>  <span class="o">-</span><span class="mf">0.10224244608549089</span>
+<span class="n">a1</span>   <span class="mi">1</span>   <span class="mi">2</span>   <span class="mf">4.0</span>  <span class="o">|</span>  <span class="mf">0.32519053945619786</span>
+<span class="n">a1</span>   <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">4</span>    <span class="o">|</span>  <span class="o">-</span><span class="mf">0.8648799173244565</span>
+<span class="n">a1</span>   <span class="mi">4</span>   <span class="n">c1</span>  <span class="mf">4.0</span>  <span class="o">|</span>  <span class="o">-</span><span class="mf">2.9442841619948963</span>
+<span class="n">a1</span>   <span class="mi">4</span>   <span class="n">c1</span>  <span class="mi">4</span>    <span class="o">|</span>  <span class="mf">0.3192067391655018</span>
+<span class="n">a1</span>   <span class="mi">4</span>   <span class="mi">2</span>   <span class="mf">4.0</span>  <span class="o">|</span>  <span class="mf">1.370298540095228</span>
+<span class="n">a1</span>   <span class="mi">4</span>   <span class="mi">2</span>   <span class="mi">4</span>    <span class="o">|</span>  <span class="o">-</span><span class="mf">0.1648790192090383</span>
+<span class="mf">4.0</span>  <span class="mi">1</span>   <span class="n">c1</span>  <span class="mf">4.0</span>  <span class="o">|</span>  <span class="o">-</span><span class="mf">0.8094986944248755</span>
+<span class="mf">4.0</span>  <span class="mi">1</span>   <span class="n">c1</span>  <span class="mi">4</span>    <span class="o">|</span>  <span class="o">-</span><span class="mf">0.24144704160735794</span>
+<span class="mf">4.0</span>  <span class="mi">1</span>   <span class="mi">2</span>   <span class="mf">4.0</span>  <span class="o">|</span>  <span class="o">-</span><span class="mf">0.7549283191697034</span>
+<span class="mf">4.0</span>  <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">4</span>    <span class="o">|</span>  <span class="o">-</span><span class="mf">0.03005129619626856</span>
+<span class="mf">4.0</span>  <span class="mi">4</span>   <span class="n">c1</span>  <span class="mf">4.0</span>  <span class="o">|</span>  <span class="mf">1.4383802928150984</span>
+<span class="mf">4.0</span>  <span class="mi">4</span>   <span class="n">c1</span>  <span class="mi">4</span>    <span class="o">|</span>  <span class="mf">0.31285859663742843</span>
+<span class="mf">4.0</span>  <span class="mi">4</span>   <span class="mi">2</span>   <span class="mf">4.0</span>  <span class="o">|</span>  <span class="o">-</span><span class="mf">1.711516418853698</span>
+<span class="mf">4.0</span>  <span class="mi">4</span>   <span class="mi">2</span>   <span class="mi">4</span>    <span class="o">|</span>  <span class="mf">0.6277072875287265</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="matlabConstraint.html" title="Constraint"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="matlabAMPLOutput.html" title="AMPLOutput"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../reference.html" >MATLAB API reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013-2017, AMPL Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.
+    </div>
+  </body>
+</html>

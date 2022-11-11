@@ -1,0 +1,21 @@
+.. _secMATLABrefAMPLOutput:
+
+AMPLOutput
+==========
+
+.. mat:class:: AMPLOutput
+
+This class encapsulates AMPL output, it is used together
+with the event :math:attribute:'AMPL.Output' and the method :mat:meth:`AMPL.initializeEvents`
+to redirect the messages coming from the AMPL interpreter.
+
+msg
+---
+
+.. mat:attribute:: AMPLOutput.msg
+
+
+**Description**
+~~~~~~~~~~~~~~~
+
+This property contains the std output of the AMPL interpreter

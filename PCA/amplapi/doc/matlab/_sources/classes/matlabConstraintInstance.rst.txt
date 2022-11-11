@@ -1,0 +1,328 @@
+.. _secMATLABrefCoinstraintInstance:
+
+ConstraintInstance
+==================
+
+.. mat:class:: ConstraintInstance
+
+The ConstraintInstance object stores the information regarding a specific instance of a costraint.
+The instances can be accessed through the function :mat:meth:`Constraint.get` of the parent
+entity.  
+
+
+
+body()
+------
+
+.. mat:classmethod:: ConstraintInstance.body()
+
+**Syntax**
+
+
+``v = body()``
+ 
+**Description**
+
+
+``v = body()`` Get the current value of the constraint’s body.
+
+**Output Arguments**
+
+
+``v``
+   The current body of the constraint.
+   
+**Example**
+
+     
+Create a constraint c (using :mat:meth:`AMPL.eval`), get an instance and display its body.
+
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..2} := i*0.9;');
+   ampl.eval('c{i in 1..2} : 0<= x[i] <= 5;');
+   c1 = ampl.getConstraint('c').get(1);
+   c1.body
+   
+
+   
+gives::
+
+   ans =
+   0.9000  
+    
+
+
+dual
+----
+
+.. mat:classmethod:: ConstraintInstance.dual()
+
+**Syntax**
+
+
+``v = dual``
+ 
+**Description**
+
+
+``dual`` Get the current value of the constraint’s dual variable.
+
+
+**Output Arguments**
+
+
+``v``
+   The value of the dual variable corresponding to the constraint
+
+**Example**
+
+     
+Create a constraint c (using :mat:meth:`AMPL.eval`), get an instance and display its dual value.
+
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..2} := i*0.9;');
+   ampl.eval('c{i in 1..2} : 0<= x[i] <= 5;');
+   c1 = ampl.getConstraint('c').get(1);
+   c1.dual
+   
+   
+gives::
+
+    ans = 0
+
+setDual(v)
+----------
+
+.. mat:classmethod:: Constraint.setDual()
+
+**Syntax**
+
+
+``setDual(v)``
+ 
+**Description**
+
+
+``setDual(v)`` Assigns the specified value to the dual variable.  Valid only for scalar constraints. Equivalent to the AMPL code::
+
+   var x;
+   c: x<=5;
+   let c := v;
+
+
+**Input Arguments**
+
+
+``v``
+   The value to be assigned 
+   
+**Example**
+
+     
+Create a constraint c and sets its dual value. We have to switch off AMPL presolve abilities to 
+see the effect consistently.
+
+.. code-block:: matlab
+
+   ampl.setBoolOption('presolve', 0)
+   ampl.eval('var x;');  
+   ampl.eval('c: x <= 20;');
+   c = ampl.getConstraint('c');
+   c.setDual(4);
+   c.dual
+   
+gives::
+
+   ans =
+     4
+     
+
+lb
+--
+
+.. mat:classmethod:: ConstraintInstance.lb()
+
+**Syntax**
+
+
+``v = lb``
+ 
+**Description**
+
+
+``lb`` Access the current lower bound of the constraint.
+
+
+**Output Arguments**
+
+
+``v``
+   The lower bound of the constraint.
+
+**Example**
+
+     
+Create a constraint c (using :mat:meth:`AMPL.eval`), get an instance and display its lower bound.
+
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..2} := i*0.9;');
+   ampl.eval('c{i in 1..2} : 0<= x[i] <= 5;');
+   c1 = ampl.getConstraint('c').get(1);
+   c1.lb
+   
+gives::
+
+    ans = 0
+    
+
+
+
+ub
+--
+
+.. mat:classmethod:: ConstraintInstance.ub()
+
+**Syntax**
+
+
+``v = ub``
+ 
+**Description**
+
+
+``dual`` Access the current upper bound of the constraint.
+
+
+**Output Arguments**
+
+
+``v``
+   The upper bound of the constraint
+
+**Example**
+
+     
+Create a constraint c (using :mat:meth:`AMPL.eval`), get an instance and display its upper bound.
+
+.. code-block:: matlab
+
+   ampl.eval('var x{i in 1..2} := i*0.9;');
+   ampl.eval('c{i in 1..2} : 0<= x[i] <= 5;');
+   c1 = ampl.getConstraint('c').get(1);
+   c1.ub
+   
+gives::
+
+    ans = 5   
+
+      
+
+drop
+----
+
+.. mat:classmethod:: ConstraintInstance.drop()
+
+**Syntax**
+
+
+``drop``
+ 
+**Description**
+
+
+``drop`` Drop this instances of the constraint, corresponding to the AMPL code ``drop constraintname[index];``.
+
+**Example**
+
+     
+Create an indexed constraint c (using :mat:meth:`AMPL.eval`) and drop one instance:
+
+.. code-block:: matlab
+
+   ampl.eval('var x{1..3}<=4;');
+   ampl.eval('maximize z: sum{i in 1..3} x[i];');
+   ampl.eval('c {i in 1..3} : x[i] <= i;');
+   x = ampl.getVariable('x');
+   ampl.solve;
+   x.display
+   ampl.getConstraint('c').get(2).drop
+   ampl.solve;
+   x.display
+   
+ gives::
+ 
+   ans =
+   x [*] :=
+   1  1
+   2  2
+   3  3
+   ;
+    
+   ans =
+   x [*] :=
+   1  1
+   2  4
+   3  3
+   ;
+    
+    
+   
+
+
+restore
+-------
+
+.. mat:classmethod:: ConstraintInstance.restore()
+
+**Syntax**
+
+
+``restore``
+ 
+**Description**
+
+
+``restore`` Restore this instance of the constraint
+
+**Example**
+
+     
+Create a constraint c, get an instance (c2), drop it and restore it, solving and displaying the values of the variables involved.
+
+.. code-block:: matlab
+
+   ampl.eval('var x{1..3}<=4;');
+   ampl.eval('maximize z: sum{i in 1..3} x[i];');
+   ampl.eval('c {i in 1..3} : x[i] <= i;');
+   c2 = ampl.getConstraint('c').get(2);
+   x = ampl.getVariable('x');
+   
+   c2.drop;
+   ampl.solve;
+   x.display
+   
+   c2.restore;
+   ampl.solve;
+   x.display
+
+
+gives::
+ 
+   x [*] :=
+   1  1
+   2  4
+   3  3
+   ;
+    
+    
+   ans =
+    
+   x [*] :=
+   1  1
+   2  2
+   3  3
+   ;
+      

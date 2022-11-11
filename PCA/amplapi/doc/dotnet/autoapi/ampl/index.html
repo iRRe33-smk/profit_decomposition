@@ -1,0 +1,200 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ampl Namespace &#8212; AMPL API 2.0.3-0 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/autoapi.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/autoapi/ampl/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ampl-namespace">
+<h1>ampl Namespace<a class="headerlink" href="#ampl-namespace" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<dl class="namespace">
+<dt id="ns-ampl">
+<em class="property">namespace </em><code class="descname">ampl</code><a class="headerlink" href="#ns-ampl" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Classes</p>
+<dl class="docutils">
+<dt>class <a class="reference internal" href="AMPL/index.html#ampl.AMPL" title="ampl.AMPL"><code class="xref dn dn-cls docutils literal notranslate"><span class="pre">AMPL</span></code></a></dt>
+<dd><p class="first">An AMPL translator. An object of this class can be used to do the following tasks:</p>
+<p>Run AMPL code. See <a class="reference internal" href="AMPL/index.html#ampl.AMPL.Eval" title="ampl.AMPL.Eval"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.Eval</span></code></a> and <a class="reference internal" href="AMPL/index.html#ampl.AMPL.EvalAsync" title="ampl.AMPL.EvalAsync"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.EvalAsync</span></code></a>.</p>
+<p>Read models and data from files. See <code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.read</span></code>,
+<a class="reference internal" href="AMPL/index.html#ampl.AMPL.ReadData" title="ampl.AMPL.ReadData"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.ReadData</span></code></a>, <a class="reference internal" href="AMPL/index.html#ampl.AMPL.ReadAsync" title="ampl.AMPL.ReadAsync"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.ReadAsync</span></code></a> and
+<a class="reference internal" href="AMPL/index.html#ampl.AMPL.ReadDataAsync" title="ampl.AMPL.ReadDataAsync"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.ReadDataAsync</span></code></a>.</p>
+<p>Solve optimization problems constructed from model and data (see
+<a class="reference internal" href="AMPL/index.html#ampl.AMPL.Solve" title="ampl.AMPL.Solve"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.Solve</span></code></a> and <a class="reference internal" href="AMPL/index.html#ampl.AMPL.SolveAsync" title="ampl.AMPL.SolveAsync"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.SolveAsync</span></code></a>).</p>
+<p>Access single elements of an optimization problem. See the generic
+<a class="reference internal" href="AMPL/index.html#ampl.AMPL.GetEntity" title="ampl.AMPL.GetEntity"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.GetEntity</span></code></a> and the generic <a class="reference internal" href="AMPL/index.html#ampl.AMPL.GetVariable" title="ampl.AMPL.GetVariable"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.GetVariable</span></code></a>,
+<a class="reference internal" href="AMPL/index.html#ampl.AMPL.GetObjective" title="ampl.AMPL.GetObjective"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.GetObjective</span></code></a>, <a class="reference internal" href="AMPL/index.html#ampl.AMPL.GetConstraint" title="ampl.AMPL.GetConstraint"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.GetConstraint</span></code></a>,
+<a class="reference internal" href="AMPL/index.html#ampl.AMPL.GetSet" title="ampl.AMPL.GetSet"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.GetSet</span></code></a> and <a class="reference internal" href="AMPL/index.html#ampl.AMPL.GetParameter" title="ampl.AMPL.GetParameter"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.GetParameter</span></code></a>.</p>
+<p>Access lists of available elements of an optimization problem. See
+<a class="reference internal" href="AMPL/index.html#ampl.AMPL.GetVariables" title="ampl.AMPL.GetVariables"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.GetVariables</span></code></a>, <a class="reference internal" href="AMPL/index.html#ampl.AMPL.GetObjectives" title="ampl.AMPL.GetObjectives"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.GetObjectives</span></code></a>,
+<a class="reference internal" href="AMPL/index.html#ampl.AMPL.GetConstraints" title="ampl.AMPL.GetConstraints"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.GetConstraints</span></code></a>, <a class="reference internal" href="AMPL/index.html#ampl.AMPL.GetSets" title="ampl.AMPL.GetSets"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.GetSets</span></code></a> and
+<a class="reference internal" href="AMPL/index.html#ampl.AMPL.GetParameters" title="ampl.AMPL.GetParameters"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.GetParameters</span></code></a>.</p>
+<p>AMPL stores one or more problems which may consume substantial amount of
+memory. An AMPL object without any references to it will eventually be freed
+by the Java garbage collector and all the memory and other resources
+associated with it will be released. This includes any resources which are
+out of scope of the garbage collector such as open files or memory managed by
+the native code. Call <a class="reference internal" href="AMPL/index.html#ampl.AMPL.Close" title="ampl.AMPL.Close"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.Close</span></code></a> to release these resources
+explicitly.</p>
+<p>The initialisation of the Java representation of the AMPL entities (any class
+derived from <a class="reference internal" href="Entities/Entity/index.html#ampl.Entities.Entity" title="ampl.Entities.Entity"><code class="xref dn dn-class docutils literal notranslate"><span class="pre">ampl.Entities.Entity</span></code></a>) is lazy and consists of two steps. When a
+function listing available elements is called, only a shallow list with
+names, types and declarations of the elements is populated. The same happens
+when a reference to a Java representation of one entity is obtained (through
+a call to <a class="reference internal" href="AMPL/index.html#ampl.AMPL.GetEntity" title="ampl.AMPL.GetEntity"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.GetEntity</span></code></a> or any other single entity factory
+function). When accessing any instance of an entity (through the methods
+‘get’ of any class), the (memory hungry) list of instances for that entity is
+created.</p>
+<p>Consistency is maintained automatically. Any command issued to the translator
+through <a class="reference internal" href="AMPL/index.html#ampl.AMPL.Eval" title="ampl.AMPL.Eval"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.Eval</span></code></a> and similar functions invalidates all entities,
+and any further access to any entity will require communication between the
+native translator and the Java code. Conversely, any operation called through
+the Java equivalent function, like fixing variables or solving the model will
+invalidate only the entities involved. A list of dependencies between
+entities is automatically updated.</p>
+<p>Error handling is two-faced:</p>
+<p>1. Errors coming from the underlying AMPL translator (e.g. syntax errors and
+warnings obtained calling the <a class="reference internal" href="AMPL/index.html#ampl.AMPL.Eval" title="ampl.AMPL.Eval"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.Eval</span></code></a> method) are handled by
+the event <a class="reference internal" href="AMPL/index.html#ampl.AMPL.Error" title="ampl.AMPL.Error"><code class="xref dn dn-event docutils literal notranslate"><span class="pre">ampl.AMPL.Error</span></code></a>. Note that by default the event is
+disabled. To enable it, call <a class="reference internal" href="AMPL/index.html#ampl.AMPL.EnableErrorAndWarningRouting" title="ampl.AMPL.EnableErrorAndWarningRouting"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.EnableErrorAndWarningRouting</span></code></a>.</p>
+<p>2. Generic errors coming from misusing the API, which are detected in .NET,
+are thrown as exceptions.</p>
+<p>The default implementation of the error handler throws exceptions on errors
+and prints to console on warnings.</p>
+<p class="last">The output of every user interaction with the underlying translator is
+handled by the event <a class="reference internal" href="AMPL/index.html#ampl.AMPL.Output" title="ampl.AMPL.Output"><code class="xref dn dn-event docutils literal notranslate"><span class="pre">ampl.AMPL.Output</span></code></a>, which is called at each
+block of output from the translator after the function <a class="reference internal" href="AMPL/index.html#ampl.AMPL.EnableOutputRouting" title="ampl.AMPL.EnableOutputRouting"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.EnableOutputRouting</span></code></a>
+is called.</p>
+</dd>
+<dt>class <a class="reference internal" href="ConstraintInstance/index.html#ampl.ConstraintInstance" title="ampl.ConstraintInstance"><code class="xref dn dn-cls docutils literal notranslate"><span class="pre">ConstraintInstance</span></code></a></dt>
+<dd>Represents a constraint instance and allows access to all the AMPL suffixes of the related instance. For documentation on the properties see <a class="reference internal" href="Entities/Constraint/index.html#ampl.Entities.Constraint" title="ampl.Entities.Constraint"><code class="xref dn dn-class docutils literal notranslate"><span class="pre">ampl.Entities.Constraint</span></code></a>.</dd>
+<dt>class <a class="reference internal" href="DataFrame/index.html#ampl.DataFrame" title="ampl.DataFrame"><code class="xref dn dn-cls docutils literal notranslate"><span class="pre">DataFrame</span></code></a></dt>
+<dd><p class="first">A DataFrame object, used to communicate data to and from the AMPL entities.</p>
+<p>An object of this class can be used to do the following tasks:</p>
+<p>Assign values to AMPL entities (once the DataFrame is populated,
+use&nbsp;<a class="reference internal" href="AMPL/index.html#ampl.AMPL.SetData" title="ampl.AMPL.SetData"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.AMPL.SetData</span></code></a> to assign its values to the modelling entities in its
+columns)</p>
+<p>Get values from AMPL, decoupling the values from the AMPL entities they
+originate via <a class="reference internal" href="Entities/Entity/index.html#ampl.Entities.Entity.GetValues" title="ampl.Entities.Entity.GetValues"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.Entities.Entity.GetValues</span></code></a>.</p>
+<p>A DataFrame object can be created in various ways via the various constructors:
+create a skeleton manually specifiying the number of indexing columns and the column headers;
+get column names (and number of indexing columns) from entities of the API passing them directly
+to the appropriate constructor,
+get values from AMPL, decoupling the values from the AMPL entities they
+originate from (via <a class="reference internal" href="Entities/Entity/index.html#ampl.Entities.Entity.GetValues" title="ampl.Entities.Entity.GetValues"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.Entities.Entity.GetValues()</span></code></a>).</p>
+<p class="last">Populating a DataFrame object can be done adding row by row to a
+pre-existing skeleton via <a class="reference internal" href="DataFrame/index.html#ampl.DataFrame.AddRow" title="ampl.DataFrame.AddRow"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.DataFrame.AddRow</span></code></a>, setting whole columns of a
+pre-existing skeleton via <a class="reference internal" href="DataFrame/index.html#ampl.DataFrame.SetColumn" title="ampl.DataFrame.SetColumn"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.DataFrame.SetColumn</span></code></a> or adding columns (including
+indexing columns) via <a class="reference internal" href="DataFrame/index.html#ampl.DataFrame.AddColumn" title="ampl.DataFrame.AddColumn"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.DataFrame.AddColumn</span></code></a>.
+Modifying a DataFrame object can be done via <a class="reference internal" href="DataFrame/index.html#ampl.DataFrame.SetColumn" title="ampl.DataFrame.SetColumn"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.DataFrame.SetColumn</span></code></a> or
+via <a class="reference internal" href="DataFrame/index.html#ampl.DataFrame.SetArray" title="ampl.DataFrame.SetArray"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.DataFrame.SetArray</span></code></a> or <a class="reference internal" href="DataFrame/index.html#ampl.DataFrame.SetMatrix" title="ampl.DataFrame.SetMatrix"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.DataFrame.SetMatrix</span></code></a>
+Accessing data in a DataFrame can be done row by row using
+<a class="reference internal" href="DataFrame/index.html#ampl.DataFrame.GetRow" title="ampl.DataFrame.GetRow"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.DataFrame.GetRow</span></code></a> or by column via <a class="reference internal" href="DataFrame/index.html#ampl.DataFrame.GetColumn" title="ampl.DataFrame.GetColumn"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.DataFrame.GetColumn</span></code></a>.</p>
+</dd>
+<dt>class <code class="xref dn dn-cls docutils literal notranslate"><span class="pre">Column</span></code></dt>
+<dd></dd>
+<dt>class <code class="xref dn dn-cls docutils literal notranslate"><span class="pre">Row</span></code></dt>
+<dd></dd>
+<dt>class <a class="reference internal" href="Environment/index.html#ampl.Environment" title="ampl.Environment"><code class="xref dn dn-cls docutils literal notranslate"><span class="pre">Environment</span></code></a></dt>
+<dd>This class provides access to the environment variables and provides
+facilities to specify where to load the underlying AMPL interpreter.</dd>
+<dt>class <a class="reference internal" href="Instance/index.html#ampl.Instance" title="ampl.Instance"><code class="xref dn dn-cls docutils literal notranslate"><span class="pre">Instance</span></code></a></dt>
+<dd>Represent an instance of a modelling entity</dd>
+<dt>class <a class="reference internal" href="ObjectiveInstance/index.html#ampl.ObjectiveInstance" title="ampl.ObjectiveInstance"><code class="xref dn dn-cls docutils literal notranslate"><span class="pre">ObjectiveInstance</span></code></a></dt>
+<dd>Represents an objective instance and allows access to all the AMPL suffixes of the related instance. For documentation on the properties see <a class="reference internal" href="Entities/Objective/index.html#ampl.Entities.Objective" title="ampl.Entities.Objective"><code class="xref dn dn-class docutils literal notranslate"><span class="pre">ampl.Entities.Objective</span></code></a>.</dd>
+<dt>class <a class="reference internal" href="SetInstance/index.html#ampl.SetInstance" title="ampl.SetInstance"><code class="xref dn dn-cls docutils literal notranslate"><span class="pre">SetInstance</span></code></a></dt>
+<dd>A SetInstance object stores the information regarding a specific instance of
+a set.The instances can be accessed through the function <a class="reference internal" href="Entities/Set/index.html#ampl.Entities.Set.Get" title="ampl.Entities.Set.Get"><code class="xref dn dn-method docutils literal notranslate"><span class="pre">ampl.Entities.Set.Get</span></code></a>
+of the parent entity or through its indexer.</dd>
+<dt>class <code class="xref dn dn-cls docutils literal notranslate"><span class="pre">MemberRange</span></code></dt>
+<dd></dd>
+<dt>class <code class="xref dn dn-cls docutils literal notranslate"><span class="pre">iterator</span></code></dt>
+<dd></dd>
+<dt>class <a class="reference internal" href="Tuple/index.html#ampl.Tuple" title="ampl.Tuple"><code class="xref dn dn-cls docutils literal notranslate"><span class="pre">Tuple</span></code></a></dt>
+<dd>AMPL immutable tuple</dd>
+<dt>class <a class="reference internal" href="VariableInstance/index.html#ampl.VariableInstance" title="ampl.VariableInstance"><code class="xref dn dn-cls docutils literal notranslate"><span class="pre">VariableInstance</span></code></a></dt>
+<dd>Represents a variable instance and allows access to all the AMPL suffixes of the related instance. For documentation on the properties see <a class="reference internal" href="Entities/Variable/index.html#ampl.Entities.Variable" title="ampl.Entities.Variable"><code class="xref dn dn-class docutils literal notranslate"><span class="pre">ampl.Entities.Variable</span></code></a>.</dd>
+<dt>class <a class="reference internal" href="Variant/index.html#ampl.Variant" title="ampl.Variant"><code class="xref dn dn-cls docutils literal notranslate"><span class="pre">Variant</span></code></a></dt>
+<dd>AMPL base type, can store a number or a string</dd>
+<dt>class <a class="reference internal" href="VariantRef/index.html#ampl.VariantRef" title="ampl.VariantRef"><code class="xref dn dn-cls docutils literal notranslate"><span class="pre">VariantRef</span></code></a></dt>
+<dd>AMPL base type, can store a number or a string</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013-2017, AMPL Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.
+    </div>
+  </body>
+</html>

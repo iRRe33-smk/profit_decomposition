@@ -1,0 +1,372 @@
+.. _secMATLABrefSet:
+
+Set
+===
+
+.. mat:class:: Set
+
+
+The Set object stores the information regarding a set in the algebraic model.                
+It can be indexed or simple. In case of simple sets, its members are accessible from this object, through methods like
+:mat:meth:`Set.getValues` or :mat:meth:`asSet`. 
+
+If it is indexed, the single sets, represented as :mat:class:`SetInstance` are accessible through the function :mat:meth:`Set.get`. 
+
+Data can be assigned to the set via :mat:meth:`Set.setValues` and :mat:meth:`SetInstance.setValues` 
+
+
+get
+---
+
+.. mat:classmethod:: Set.get()
+
+**Syntax**
+~~~~~~~~~~
+``v = get()``
+``v = get(key)``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``v = get()`` returns the SetInstance (only for not indexed sets)
+``v = get(key)`` returns the SetInstance corresponding to the specified key
+Note that the same effect can be achieved using MATLAB's indexing operator (round brackets).
+
+**Input Arguments**
+~~~~~~~~~~~~~~~~~~~
+``key``
+   The key of the set instance to look up.
+
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``v``
+   The specified set instance (:mat:class:`SetInstance`)
+   
+**Example**
+~~~~~~~~~~~
+     
+Create an indexed set and get an instance
+
+.. code-block:: matlab
+
+   ampl.eval('set A{1..2}; let A[1] := {''a'', ''b''};');  
+   A = ampl.getSet('A');
+   setinstance = A.get(1);
+   cell(setinstance.asStrings())
+   
+
+gives:: 
+
+   ans = 
+    'a'
+    'b'
+
+
+
+
+getValues
+---------
+
+.. mat:classmethod:: Set.getValues()
+
+**Syntax**
+~~~~~~~~~~
+
+``df = v.getValues()``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+
+``v.getValues()``
+
+This functions return a dataframe with all the values of
+the set, decoupled from the underlying AMPL. 
+To gain access to the data, see :mat:class:`DataFrame`.
+
+
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``df``
+   A dataframe containing all the values in the set
+   
+**Example**
+~~~~~~~~~~~
+     
+Create an AMPL set and get its values in a dataframe  
+
+.. code-block:: matlab
+ 
+    ampl.eval('set A{1..2}; let A[1] := {''a'', ''b''}; let A[2] := {''c'', ''d''};'); 
+    A = ampl.getSet('A');
+    df = A.getValues();
+    df
+    
+gives::
+
+   df =
+   1 .. 2  |  A       
+   1.0     |  [a, b]  
+   2.0     |  [c, d]  
+
+
+
+
+
+asSet()
+-------
+
+.. mat:classmethod:: Set.asSet()
+
+**Syntax**
+~~~~~~~~~~
+
+``v = set.asSet()``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``v = set.asSet()`` Get a copy of the elements in this set as a java Set of Objects (Strings and double numbers). Valid only for not indexed sets.
+ 
+
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``v``
+   Get a copy of the elements in this set as a java Set of Objects (Strings and double numbers).
+   
+**Example**
+~~~~~~~~~~~
+     
+Create a set in AMPL and get it as a Java Set.
+
+.. code-block:: matlab
+
+   ampl.eval('set A := 2000..2020 by 5;');
+   A = ampl.getSet('A');
+   A = s.asSet()
+   
+gives::
+
+   set =
+   [2000.0, 2005.0, 2010.0, 2015.0, 2020.0]
+
+
+
+      
+
+
+setValues()
+-----------
+
+.. mat:classmethod:: Set.setValues()
+
+**Syntax**
+~~~~~~~~~~
+
+``set.setValues(members)``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``v = set.setValues(members)`` Assign data to this set instance. 
+ 
+
+**Input Arguments**
+~~~~~~~~~~~~~~~~~~~
+
+``members``
+   List of strings and numbers which represent the members of this set.
+   
+   For multidimensional sets, each item of the ``members`` list must be either a cell array or a Tuple representing each item. 
+   
+   
+**Example**
+~~~~~~~~~~~
+     
+Create a set in AMPL and assign some data to it from MATLAB
+
+.. code-block:: matlab
+
+   ampl.eval('set A;');
+   s = ampl.getSet('A').get();
+   s.setValues({4.2, '4.2', 'a', 'b'});
+   s.asSet
+   
+gives::
+
+   ans =
+      [4.2, 4.2, a, b]
+      
+**Example**: multidimensional sets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     
+Create a multidimensional set in AMPL and assign some data to it from MATLAB, using Tuples and using cell arrays.
+
+.. code-block:: matlab
+
+   ampl.eval('set A dimen 2;');
+   A = ampl.getSet('A').get();
+   A.setValues( {1, 'a'}, {2, 'b'});
+   A
+   
+   % Alternative way, with tuples
+   ampl.eval('set B dimen 2;');
+   B = ampl.getSet('B').get();
+   t1 = Tuple(1, 'a');
+   t2 = Tuple(2, 'b');
+   B.setValues(t1, t2);
+   B
+   
+gives::
+
+   A =
+    set A = {(1.0,'a'), (2.0,'b')};
+
+   B =
+    set B = {(1.0,'a'), (2.0,'b')};
+ 
+
+contains()
+----------
+
+.. mat:classmethod:: Set.contains
+
+**Syntax**
+~~~~~~~~~~
+
+``b = set.contains(member)``
+``b = set.containsAll(members)``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``b =  set.contains(member)`` Checks whether the set contains the specified member. Valid only for not indexed sets.
+``b =  set.containsAll(members)`` Checks whether the set contains all the specified members. Valid only for not indexed sets.
+ 
+ 
+
+**Input Arguments**
+~~~~~~~~~~~~~~~~~~~
+
+``member``
+   The element (string or number) to be found in the set
+
+``members``
+   A cell arrray of strings and numbers which represent the members to be found
+   
+**Example**
+~~~~~~~~~~~
+     
+Create a set in AMPL and checks for its members
+
+.. code-block:: matlab
+
+   ampl.eval('set A := {''a'', ''b'', 4};');
+   A = ampl.getSet('A');
+   A.contains('a')
+   A.contains(4)
+   A.containsAll({'a', 'b', 4})
+   A.containsAll({'a', 'b', 5})
+   
+   
+gives::
+
+   ans =
+        0
+   
+   ans =
+        1
+   
+   ans =
+        1
+   
+   ans =
+        0
+
+
+ 
+
+
+
+size()
+------
+
+.. mat:classmethod:: Set.size()
+
+**Syntax**
+~~~~~~~~~~
+
+``b =  set.size(member)``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``b =  set.size(member)`` For not indexed sets, get the cardinality of the set. For indexed sets, get the number of set instances into this 
+set.
+ 
+ 
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``b``
+   The cardinality (number of elements) of this set or the number of set instances.
+   
+**Example**
+~~~~~~~~~~~
+     
+Create a set in AMPL and look at its size
+
+.. code-block:: matlab
+
+   ampl.eval('set A := {''a'', ''b'', 4};');
+   A = ampl.getSet('A');
+   A.size()
+   
+gives::
+
+   ans =
+        3
+        
+arity()
+-------
+
+.. mat:classmethod:: Set.arity()
+
+**Syntax**
+~~~~~~~~~~
+
+``b =  Set.arity()``
+ 
+**Description**
+~~~~~~~~~~~~~~~
+
+``b =  Set.arity()`` Returns the dimension of the items in this set.  
+set.
+ 
+ 
+**Output Arguments**
+~~~~~~~~~~~~~~~~~~~~
+
+``b``
+   The *arity* (number of elements) of the members of this set.
+   
+**Example**
+~~~~~~~~~~~
+     
+Create a set in AMPL as a set product and look at its arity
+
+.. code-block:: matlab
+
+   ampl.eval('set A; set B;');
+   ampl.eval('set C := A cross B;');
+   C = ampl.getSet('C');
+   C.arity()
+   
+gives::
+
+   ans =
+        2
+

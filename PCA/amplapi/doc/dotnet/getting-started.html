@@ -1,0 +1,286 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Getting started &#8212; AMPL API 2.0.3-0 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/autoapi.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Class structure" href="class-structure.html" />
+    <link rel="prev" title="Introduction" href="intro.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="class-structure.html" title="Class structure"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Getting started</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#running-the-examples">Running the examples</a><ul>
+<li><a class="reference internal" href="#visual-studio">Visual Studio</a></li>
+<li><a class="reference internal" href="#mono">Mono</a><ul>
+<li><a class="reference internal" href="#windows">Windows</a></li>
+<li><a class="reference internal" href="#linux-osx">Linux / OSX</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#development">Development</a></li>
+<li><a class="reference internal" href="#deployment">Deployment</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="intro.html"
+                        title="previous chapter">Introduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="class-structure.html"
+                        title="next chapter">Class structure</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/getting-started.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>The AMPL API can function as an add-on to any existing AMPL installation.
+If you do not yet have an AMPL installation on the computer where you will
+be working with the API, see our
+<a class="reference external" href="http://ampl.com/try-ampl/download-a-free-demo/">demo page</a> or
+<a class="reference external" href="http://ampl.com/try-ampl/request-a-full-trial/">trial page</a> to download a
+working version that can be installed quickly.</p>
+<p>Follow the instructions on our <a class="reference external" href="http://ampl.com/products/api/">AMPL API</a>
+page to download the API package appropriate to your platform, and to add
+the downloaded folder (directory) <code class="docutils literal notranslate"><span class="pre">amplapi</span></code> to your AMPL installation.</p>
+</div>
+<div class="section" id="running-the-examples">
+<h2>Running the examples<a class="headerlink" href="#running-the-examples" title="Permalink to this headline">¶</a></h2>
+<p>AMPL API is distributed as one .NET assembly and a native library. They must be both
+accessible for the API to work.
+A valid Mono .NET or .NET framework configuration is needed to use the .NET AMPL API;
+some examples are provided for the user to familiarize with the API; for users of Visual Studio,
+some ready-to-use solution files are provided, whilst users of Mono .NET must follow the instructions
+or build their own assemblies taking care to reference the assembly provided.</p>
+<div class="section" id="visual-studio">
+<h3>Visual Studio<a class="headerlink" href="#visual-studio" title="Permalink to this headline">¶</a></h3>
+<p>Open the solution file at <code class="docutils literal notranslate"><span class="pre">amplapi/examples/csharp/csharp-examples.sln</span></code>. Visual Studio 2010 or above are required to open the solution files. The solution file contains all the examples as separate projects.
+Note that depending on the architecture of the AMPL API in use (32 bits or 64 bits), the appropriate solution platform should be selected, this is easily achieved using the dropdown in the figure below:</p>
+<div class="align-center figure">
+<a class="reference internal image-reference" href="_images/visualstudio.png"><img alt="Visual studio configuration" src="_images/visualstudio.png" style="width: 645px; height: 78px;" /></a>
+</div>
+</div>
+<div class="section" id="mono">
+<h3>Mono<a class="headerlink" href="#mono" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="windows">
+<h4>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h4>
+<p>Note that the csharp examples look for model files in <code class="docutils literal notranslate"><span class="pre">..\\..\\models</span></code>, hence they should be compiled in a subdirectory of the path containing them, which must be created. Moreover, they expect <code class="docutils literal notranslate"><span class="pre">ampl-csharp.dll</span></code> to be accessible. So, for example:</p>
+<ul class="simple">
+<li>Change the current directory to <code class="docutils literal notranslate"><span class="pre">amplapi\examples\csharp</span></code></li>
+<li>Create a directory</li>
+<li>Change current directory to the directory created above</li>
+<li><dl class="first docutils">
+<dt>Copy the required assembliy to this directory:</dt>
+<dd><ul class="first last">
+<li>The mono assembly <code class="docutils literal notranslate"><span class="pre">bin\ampl-csharp.dll</span></code></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Either:</dt>
+<dd><ol class="first last loweralpha">
+<li>Copy the required libraries to the directory above:<ul>
+<li>The mono/native interface <code class="docutils literal notranslate"><span class="pre">bin\csharpswigwrapper.dll</span></code></li>
+<li>The C++ AMPLAPI library <code class="docutils literal notranslate"><span class="pre">bin\ampl-2.0.3.0.dll</span></code></li>
+</ul>
+</li>
+<li>Add the <code class="docutils literal notranslate"><span class="pre">bin</span></code> directory of the AMPL API distribution to the system path</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li>Compile any of the example files taking care of referencing the API assembly.</li>
+<li>The procedure above is implemented by the script below:</li>
+</ul>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>md bin
+cd bin
+copy ..\..\..\bin\* .
+mcs /t:exe /out:firstexample /platform:anycpu /sdk:4 /reference:System.dll /reference:ampl-csharp.dll ../FirstExample.cs
+</pre></div>
+</div>
+<p>To complete an initial test, build <code class="docutils literal notranslate"><span class="pre">FirstExample.cs</span></code> using the script above and then invoke it with:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>mono firstexample &lt;modeldir&gt; &lt;solver&gt;
+</pre></div>
+</div>
+<p>where optionally <code class="docutils literal notranslate"><span class="pre">&lt;modeldir&gt;</span></code> is the location of the model files used in the examples
+and <code class="docutils literal notranslate"><span class="pre">&lt;solver&gt;</span></code> is the name of a solver that has been installed with AMPL
+(if a solver is not specified, then AMPL default choice will be used). This will solve
+several small diet problems and then display the optimal amounts of the foods
+from the last solution.</p>
+<p>Note that the folder containing the AMPL executable should be in the system search path.
+Otherwise, the error message “AMPL could not be started” will be shown.
+If the AMPL installation directory is not in the system search path,
+you can add it passing a new  <a class="reference internal" href="autoapi/ampl/Environment/index.html#ampl.Environment" title="ampl.Environment"><code class="xref dn dn-class docutils literal notranslate"><span class="pre">ampl.Environment</span></code></a> to  <a class="reference internal" href="autoapi/ampl/AMPL/index.html#ampl.AMPL" title="ampl.AMPL"><code class="xref dn dn-class docutils literal notranslate"><span class="pre">ampl.AMPL</span></code></a> as follows:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">ampl</span><span class="p">.</span><span class="n">Environment</span> <span class="n">env</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ampl</span><span class="p">.</span><span class="n">Environment</span><span class="p">(</span><span class="s">&quot;full path to the AMPL installation directory&quot;</span><span class="p">);</span>
+<span class="n">ampl</span><span class="p">.</span><span class="n">AMPL</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ampl</span><span class="p">.</span><span class="n">AMPL</span><span class="p">(</span><span class="n">env</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Note that you may need to escape backslashes (e.g., “C:\\ampl\\ampl.mswin64”) if included in the path.</p>
+</div>
+<div class="section" id="linux-osx">
+<h4>Linux / OSX<a class="headerlink" href="#linux-osx" title="Permalink to this headline">¶</a></h4>
+<p>Note that the csharp examples look for model files in <code class="docutils literal notranslate"><span class="pre">../../models</span></code>, hence they should be compiled in a subdirectory of the path containing them, which must be created. Moreover, they expect <code class="docutils literal notranslate"><span class="pre">ampl-csharp.dll</span></code> to be accessible. So, for example:</p>
+<ul>
+<li><p class="first">Change the current directory to <code class="docutils literal notranslate"><span class="pre">amplapi/examples/csharp</span></code></p>
+</li>
+<li><p class="first">Create a directory</p>
+</li>
+<li><p class="first">Change current directory to the directory created above</p>
+</li>
+<li><p class="first">Copy the mono assembly <code class="docutils literal notranslate"><span class="pre">bin/ampl-csharp.dll</span></code> to this directory.</p>
+</li>
+<li><p class="first">Adjust the environment variable <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> (or <code class="docutils literal notranslate"><span class="pre">DYLD_LIBRARY_PATH</span></code> for OSX)  to look for the dynamic libraries in the correct directory</p>
+</li>
+<li><p class="first">Compile any of the example files taking care of referencing the API assembly</p>
+</li>
+<li><p class="first">The procedure above is implemented by the script below:</p>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>mkdir bin
+cd bin
+cp ../../../bin/ampl-csharp.dll ./
+export LD_LIBRARY_PATH=`pwd`/../../../lib:$LD_LIBRARY_PATH # for Linux
+export DYLD_LIBRARY_PATH=`pwd`/../../../lib:$DYLD_LIBRARY_PATH # for OSX
+mcs /t:exe /out:firstexample /platform:anycpu /sdk:4 /reference:System.dll /reference:./ampl-csharp.dll ../FirstExample.cs
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p>To complete an initial test, build <code class="docutils literal notranslate"><span class="pre">FirstExample.cs</span></code> using the script above and then invoke it with:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>mono firstexample &lt;modeldir&gt; &lt;solver&gt;
+</pre></div>
+</div>
+<p>where optionally <code class="docutils literal notranslate"><span class="pre">&lt;modeldir&gt;</span></code> is the location of the model files used in the examples
+and <code class="docutils literal notranslate"><span class="pre">&lt;solver&gt;</span></code> is the name of a solver that has been installed with AMPL
+(if a solver is not specified, then AMPL default choice will be used). This will solve
+several small diet problems and then display the optimal amounts of the foods
+from the last solution. If some libraries are not found, see the note on <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> in the next section.</p>
+</div>
+</div>
+</div>
+<div class="section" id="development">
+<h2>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h2>
+<p>Reference the assembly <code class="docutils literal notranslate"><span class="pre">bin/ampl-csharp.dll</span></code> in your C# project. The binary files that must be accessible are platform dependent and listed below, using the main amplapi directory as root:</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Windows:</dt>
+<dd><ul class="first last">
+<li><code class="docutils literal notranslate"><span class="pre">bin\csharpswigwrapper.dll</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">bin\ampl-csharp.dll</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">bin\ampl-2.0.3.0.dll</span></code></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Linux/Unix:</dt>
+<dd><ul class="first last">
+<li><code class="docutils literal notranslate"><span class="pre">bin/ampl-csharp.dll</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">lib/libcsharpswigwrapper.so</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">lib/libampl.so.2.0.3.0</span></code> on Linux or <code class="docutils literal notranslate"><span class="pre">lib/libampl.2.0.3.0.dylib</span></code> on OSX</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Together with your existing AMPL implementation, this will provide the full object library and access to all AMPL functions.</p>
+<p>The <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">amplapi</span></code> folder (directory) can be moved to a different location in your computer’s filesystem, provided that the location of your AMPL executable has been placed in the system search path.
+In Unix/Linux environments, note that the environment variable <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> (or <code class="docutils literal notranslate"><span class="pre">DYLD_LIBRARY_PATH</span></code> for OSX) may need to be set appropriately.
+To search for the libraries in the current directory, on Linux execute <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">LD_LIBRARY_PATH=`pwd`:$LD_LIBRARY_PATH</span></code>, on OSX execute
+<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">DYLD_LIBRARY_PATH=`pwd`:$DYLD_LIBRARY_PATH</span></code></p>
+</div>
+<div class="section" id="deployment">
+<h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
+<p>To deploy AMPL API applications to users who do not have their own AMPL installations, include with your C# application the AMPL executable
+(<code class="docutils literal notranslate"><span class="pre">ampl</span></code> or <code class="docutils literal notranslate"><span class="pre">ampl.exe</span></code>), the additional files listed in the previous section, the binaries needed to run any solvers that are used and
+an appropriate license file for AMPL and solvers.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="class-structure.html" title="Class structure"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introduction"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AMPL API 2.0.3-0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013-2017, AMPL Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.
+    </div>
+  </body>
+</html>

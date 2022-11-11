@@ -1,0 +1,10 @@
+.. _ref::Variable:
+
+Variable
+--------
+
+.. doxygenclass:: ampl::Variable
+   :members:
+   :undoc-members:
+
+.. doxygenenum:: ampl::var::Integrality

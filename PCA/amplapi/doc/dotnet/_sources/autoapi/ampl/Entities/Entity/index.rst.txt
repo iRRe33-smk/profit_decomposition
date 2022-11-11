@@ -1,0 +1,297 @@
+
+
+Entity Class
+============
+
+
+
+
+
+
+An AMPL entity such as a parameter or a variable.
+
+An entity can either represent a single instance of an AMPL algebraic entity
+or, if the corresponding declaration has an indexing expression, a mapping
+from keys to instances.In the derived classes, it has methods to access
+instance-level properties which can be used in case the represented entity is
+scalar.
+To gain access to all the values in an entity (for all instances and all
+suffixes for that entities), use the function :dn:method:`ampl.Entities.Entity.GetValues()`.
+The algebraic entities which currenty have an equivalent class in the API are:
+
+Variables (see :dn:class:`ampl.Entities.Variable`)
+
+Constraints (see :dn:class:`ampl.Entities.Constraint`)
+
+Objectives (see :dn:class:`ampl.Entities.Objective`)
+
+Sets (see :dn:class:`ampl.Entities.Set`)
+
+Parameters (see :dn:class:`ampl.Entities.Parameter`)
+
+
+Namespace
+    :dn:ns:`ampl.Entities`
+Assemblies
+    * AMPL
+
+----
+
+.. contents::
+   :local:
+
+
+
+Inheritance Hierarchy
+---------------------
+
+
+* :dn:cls:`System.Object`
+* :dn:cls:`ampl.Entities.Entity`
+
+
+
+
+
+
+
+
+Syntax
+------
+
+.. code-block:: csharp
+
+    public class Entity : IEnumerable
+
+
+
+
+
+
+
+
+.. dn:class:: ampl.Entities.Entity
+    :hidden:
+
+.. dn:class:: ampl.Entities.Entity
+
+Methods
+-------
+
+.. dn:class:: ampl.Entities.Entity
+    :noindex:
+    :hidden:
+
+    
+    .. dn:method:: ampl.Entities.Entity.GetEnumerator()
+
+        
+        :rtype: System.Collections.IEnumerator
+
+        
+        .. code-block:: csharp
+
+            public virtual IEnumerator GetEnumerator()
+    
+    .. dn:method:: ampl.Entities.Entity.GetValues()
+
+        
+
+        
+        Get the principal values of this entity as a DataFrame. The specific returned
+        value depends on the
+        type of entity(see list below).
+
+        For:
+
+        * Variables and Objectives it returns the suffix ``val``
+        * Parameters it returns their values
+        * Constraints it returns the suffix ``dual``
+        * Sets it returns all the members of the set, Note that it does not apply to indexed sets. See :dn:method:`ampl.SetInstance.GetValues`
+
+
+        
+        :rtype: ampl.DataFrame
+        :return: A DataFrame containing the values for all instances
+
+        
+        .. code-block:: csharp
+
+            public virtual DataFrame GetValues()
+    
+    .. dn:method:: ampl.Entities.Entity.GetValues(System.String[])
+
+        
+
+        
+        Get the specified suffixes value for all instances in a DataFrame
+
+
+        
+
+        
+        :param suffixes: Suffixes to get
+        
+        :type suffixes: System.String<System.String>[]
+        :rtype: ampl.DataFrame
+        :return: A DataFrame containing the specified values
+
+        
+        .. code-block:: csharp
+
+            public DataFrame GetValues(params string[] suffixes)
+    
+    .. dn:method:: ampl.Entities.Entity.SetValues(ampl.DataFrame)
+
+        
+
+        
+        Set the values of this entiy to the correponding values of a
+        DataFrame indexed over the same sets(or a subset). 
+        This function assigns the values in the first data column of
+        the passed dataframe to the entity the function is called from.
+        In particular, the statement::
+
+        `x.SetValues(y.GetValues());`
+
+        is semantically equivalent to the AMPL statement::
+
+        `let { s in S } x[s] := y[s];`
+
+
+        
+
+        
+        :param data: The data to set the entity to
+        
+        :type data: ampl.DataFrame
+
+        
+        .. code-block:: csharp
+
+            public void SetValues(DataFrame data)
+    
+    .. dn:method:: ampl.Entities.Entity.ToString()
+
+        
+
+        
+        Returns a textual representation of this entity
+
+
+        
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public override string ToString()
+    
+
+Properties
+----------
+
+.. dn:class:: ampl.Entities.Entity
+    :noindex:
+    :hidden:
+
+    
+    .. dn:property:: ampl.Entities.Entity.Indexarity
+
+        
+
+        
+        Get the indexarity of this entity (sum of the dimensions of the indexing
+        sets).
+        This value indicates the arity of the tuple to be passed to the method
+        :dn:method:`ampl.Entities.Entity.Get` in order to access an instance of this entity.
+        See the following AMPL examples::
+
+         var x;               # indexarity = 0
+         var y {1..2};        # indexarity = 1
+         var z {1..2,3..4};   # indexarity = 2
+         var zz {{ (1, 2)} };   # indexarity = 2
+
+        Get the sum of the dimensions of the indexing sets or 0 if the
+        entity is not indexed
+
+
+        
+        :rtype: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public int Indexarity { get; }
+    
+    .. dn:property:: ampl.Entities.Entity.IndexingSets
+
+        
+
+        
+        Get the AMPL string representation of the sets on which this entity is
+        indexed.The obtained vector can be modified without any effect to the
+        entity.
+        Is equal to the string representation of the indexing sets for this entity or
+        an empty array if the entity is scalar
+
+
+        
+        :rtype: System.String<System.String>[]
+
+        
+        .. code-block:: csharp
+
+            public string[] IndexingSets { get; }
+    
+    .. dn:property:: ampl.Entities.Entity.IsScalar
+
+        
+
+        
+        Check whether this entity is scalar. Equivalent to testing whether
+        indexarity is equal to zero, is true if the entity is scalar 
+        (not indexed over any set)
+
+
+        
+        :rtype: System.Boolean
+
+        
+        .. code-block:: csharp
+
+            public bool IsScalar { get; }
+    
+    .. dn:property:: ampl.Entities.Entity.Name
+
+        
+
+        
+        Get the name of this entity
+
+
+        
+        :rtype: System.String
+
+        
+        .. code-block:: csharp
+
+            public string Name { get; }
+    
+    .. dn:property:: ampl.Entities.Entity.NumInstances
+
+        
+
+        
+        Get the number of instances in this entity
+
+
+        
+        :rtype: System.Int32
+
+        
+        .. code-block:: csharp
+
+            public int NumInstances { get; }
+    
+

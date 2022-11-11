@@ -1,0 +1,56 @@
+.. java:import:: java.util Iterator
+
+.. java:import:: java.util NoSuchElementException
+
+ConstraintMap
+=============
+
+.. java:package:: com.ampl
+   :noindex:
+
+.. java:type:: public class ConstraintMap implements EntityMap<Constraint>
+
+Fields
+------
+_impl
+^^^^^
+
+.. java:field::  EntityMapConstraint _impl
+   :outertype: ConstraintMap
+
+Constructors
+------------
+ConstraintMap
+^^^^^^^^^^^^^
+
+.. java:constructor::  ConstraintMap(EntityMapConstraint impl)
+   :outertype: ConstraintMap
+
+Methods
+-------
+find
+^^^^
+
+.. java:method:: @Override public Constraint find(String name)
+   :outertype: ConstraintMap
+
+   Get the Constraint with the specified name
+
+   :throws NoSuchElementException: if not found
+
+iterator
+^^^^^^^^
+
+.. java:method:: @Override public Iterator<Constraint> iterator()
+   :outertype: ConstraintMap
+
+   Get an iterator to the contents of the class
+
+size
+^^^^
+
+.. java:method:: @Override public int size()
+   :outertype: ConstraintMap
+
+   Get the number of Constraints
+

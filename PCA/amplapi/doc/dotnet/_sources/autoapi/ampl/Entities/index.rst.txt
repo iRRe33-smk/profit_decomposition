@@ -1,0 +1,330 @@
+
+
+ampl.Entities Namespace
+=======================
+
+
+
+
+
+
+
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+
+   
+   
+   /autoapi/ampl/Entities/Constraint/index
+   
+   
+   
+   /autoapi/ampl/Entities/ConstraintMap/index
+   
+   
+   
+   /autoapi/ampl/Entities/Entity/index
+   
+   
+   
+   /autoapi/ampl/Entities/EntityMap-ENTITY/index
+   
+   
+   
+   /autoapi/ampl/Entities/Entity-K/index
+   
+   
+   
+   /autoapi/ampl/Entities/Objective/index
+   
+   
+   
+   /autoapi/ampl/Entities/ObjectiveMap/index
+   
+   
+   
+   /autoapi/ampl/Entities/Parameter/index
+   
+   
+   
+   /autoapi/ampl/Entities/ParameterMap/index
+   
+   
+   
+   /autoapi/ampl/Entities/Set/index
+   
+   
+   
+   /autoapi/ampl/Entities/SetMap/index
+   
+   
+   
+   /autoapi/ampl/Entities/Variable/index
+   
+   
+   
+   /autoapi/ampl/Entities/VariableMap/index
+   
+   
+
+
+
+
+
+
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+
+
+
+
+.. dn:namespace:: ampl.Entities
+
+
+    .. rubric:: Classes
+
+
+    class :dn:cls:`Constraint`
+        .. object: type=class name=ampl.Entities.Constraint
+
+        
+        This class represents an algebraic or logical constraint. In case the
+        constraint is scalar, its values can be accessed via properties like
+        :dn:prop:`ampl.Entities.Constraint.Body` and :dn:prop:`ampl.Entities.Constraint.Dual`.
+        All the AMPL suffixes for constraints (see http://www.ampl.com/NEW/suffbuiltin.html)
+        are available through methods of this class with the same name (and methods
+        of :dn:class:`ampl.ConstraintInstance` for indexed constraints).
+        Note that, since this class represents both algebraic and logical
+        constraints, some suffixes might not be available for every entity.
+        An `ArgumentException` is thrown if one of such methods is called for
+        a non-scalar constraint and if a method corresponding to a suffix which is
+        not supported by the type of the constraint is called.
+        An `ArgumentOutOfRangeException` is thrown if any property of an entity which has been
+        deleted from the underlying interpreter is accessed.
+        The instances, represented by the class :dn:class:`ampl.ConstraintInstance` can be accessed
+        via the indexing operator, via the method :dn:method:`ampl.Entities.Constraint.Get` or via the iterator provided.
+        To gain access to all the values in an entity (for all instances and all
+        suffixes for that entities), see :dn:method:`ampl.Entities.Entity.GetValues()` and the
+        :dn:class:`ampl.DataFrame` class.
+
+
+
+    class :dn:cls:`ConstraintMap`
+        .. object: type=class name=ampl.Entities.ConstraintMap
+
+        
+        Enables iterable access to the constraints
+
+
+
+    class :dn:cls:`Entity`
+        .. object: type=class name=ampl.Entities.Entity
+
+        
+        An AMPL entity such as a parameter or a variable.
+
+        An entity can either represent a single instance of an AMPL algebraic entity
+        or, if the corresponding declaration has an indexing expression, a mapping
+        from keys to instances.In the derived classes, it has methods to access
+        instance-level properties which can be used in case the represented entity is
+        scalar.
+        To gain access to all the values in an entity (for all instances and all
+        suffixes for that entities), use the function :dn:method:`ampl.Entities.Entity.GetValues()`.
+        The algebraic entities which currenty have an equivalent class in the API are:
+
+        Variables (see :dn:class:`ampl.Entities.Variable`)
+
+        Constraints (see :dn:class:`ampl.Entities.Constraint`)
+
+        Objectives (see :dn:class:`ampl.Entities.Objective`)
+
+        Sets (see :dn:class:`ampl.Entities.Set`)
+
+        Parameters (see :dn:class:`ampl.Entities.Parameter`)
+
+
+
+    class :dn:cls:`EntityMap\<ENTITY>`
+        .. object: type=class name=ampl.Entities.EntityMap\<ENTITY>
+
+        
+        A generic enumerable map storing entities 
+
+
+
+    class :dn:cls:`Entity\<K>`
+        .. object: type=class name=ampl.Entities.Entity\<K>
+
+        
+
+
+    class :dn:cls:`Objective`
+        .. object: type=class name=ampl.Entities.Objective
+
+        
+        Represents an AMPL objective. Note that, in case of a scalar objective, all
+        the properties (corresponding to AMPL suffixes) of the objective instance can
+        be accessed through corresponding properties on the Objective itself.
+        The properties have the same name of the corresponding
+        AMPL suffixes. See http://www.ampl.com/NEW/suffbuiltin.html
+        for a list of the available suffixes.
+        An `ArgumentException` is thrown if one of such methods is called for
+        a non-scalar objective.
+        An `ArgumentOutOfRangeException` is thrown if any property of an entity which has been
+        deleted from the underlying interpreter is accessed.
+        The instances, represented by the class  :dn:class:`ampl.ObjectiveInstance` can be accessed via
+        the indexing operator, via the method :dn:method:`ampl.Entities.Objective.Get` or via the iterator provided.
+        To gain access to all the values in an entity (for all instances and all
+        suffixes for that entities), see :dn:method:`ampl.Entities.Entity.GetValues` and the
+        :dn:class:`ampl.DataFrame` class.
+
+
+
+    class :dn:cls:`ObjectiveMap`
+        .. object: type=class name=ampl.Entities.ObjectiveMap
+
+        
+        Enables iterable access to the objectives
+
+
+
+    class :dn:cls:`Parameter`
+        .. object: type=class name=ampl.Entities.Parameter
+
+        
+        Represents an AMPL parameter. The values can be double or string (in case of
+        symbolic parameters).
+        Data can be assigned to the parameter using the methods :dn:method:`ampl.Entities.Parameter.Set`
+        and :dn:method:`ampl.Entities.Parameter.SetValues` directly from objects of this class or using
+        :dn:method:`ampl.AMPL.SetData` and a :dn:class:`DataFrame` object.
+
+
+    class :dn:cls:`ParameterMap`
+        .. object: type=class name=ampl.Entities.ParameterMap
+
+        
+        Enables iterable access to the parameters
+
+
+
+    class :dn:cls:`Set`
+        .. object: type=class name=ampl.Entities.Set
+
+        
+        Represents an AMPL set. In case of not indexed sets, this class exposes
+        iterators for accessing its elements. The members of the set are tuples,
+        represented by objects of class :dn:class:`ampl.Tuple`.
+
+        All these methods throw an `ArgumentException` if called for an indexed set.
+
+        In case of indexed sets, you can gain access to the instances (of class
+        :dn:class:`ampl.SetInstance`) using the methods :dn:method:`ampl.Set.Get`, using the indexing operator or
+        via the iterators.
+
+        Data can be assigned to the set using the methods :dn:method:`ampl.Set.SetValues`
+        (for non-indexed sets only) or using :dn:method:`ampl.AMPL.SetData` and an object of
+        class :dn:class:`ampl.DataFrame`.
+
+
+
+    class :dn:cls:`SetMap`
+        .. object: type=class name=ampl.Entities.SetMap
+
+        
+        Enables iterable access to the sets
+
+
+
+    class :dn:cls:`Variable`
+        .. object: type=class name=ampl.Entities.Variable
+
+        
+        Represents an AMPL variable. Note that, in case of a scalar variable, all
+        the properties (corresponding to AMPL suffixes) of the variable instance can
+        be accessed through corresponding properties on the Variable itself.
+        The properties have the same name of the corresponding
+        AMPL suffixes. See http://www.ampl.com/NEW/suffbuiltin.html
+        for a list of the available suffixes.
+        An `ArgumentException` is thrown if one of such methods is called for
+        a non-scalar variable.
+        An `ArgumentOutOfRangeException` is thrown if any property of an entity which has been
+        deleted from the underlying interpreter is accessed.
+        The instances, represented by the class :dn:class:`ampl.VariableInstance` can be accessed via
+        the indexing operator, via the method :dn:method:`ampl.Entities.Variable.Get` or via the iterator provided.
+        To gain access to all the values in an entity (for all instances and all
+        suffixes for that entities), see :dn:method:`ampl.Entities.Entity.GetValues` and the
+        :dn:class:`ampl.DataFrame` class.
+
+
+
+    class :dn:cls:`VariableMap`
+        .. object: type=class name=ampl.Entities.VariableMap
+
+        
+        Enables iterable access to the variables
+
+
+

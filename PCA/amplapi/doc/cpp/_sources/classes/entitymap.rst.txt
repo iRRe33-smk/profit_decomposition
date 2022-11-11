@@ -1,0 +1,15 @@
+.. highlight:: c++
+
+.. _ref::EntityMap:
+
+EntityMap
+---------
+
+.. doxygenclass:: ampl::EntityMap
+	:members: operator[], begin, end, find
+
+.. doxygenclass:: ampl::EntityMap::iterator
+	
+
+	
+
