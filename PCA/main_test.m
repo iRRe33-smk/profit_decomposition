@@ -1,7 +1,6 @@
-%Import data for cash flows: size, tau and timestamp
+%Get data from excel
+[c, tau] = read_from_excel()
 
-c = readmatrix('PCA_test.xlsx', 'sheet', 'Cash Flows', 'Range', 'F6:F7');
-tau = readmatrix('PCA_test.xlsx', 'sheet', 'Cash Flows', 'Range', 'G6:Z7');
 
 %Get forwardrate curves by running create_curve.m
 if (~exist('forward_rates','var'))
