@@ -58,7 +58,7 @@ function [f, z, e, T, date] = IRC(day, e)
             for column = 1:n_f
                 if marketPriceIndeces(column) == 1
                     A(row, 1:column) = deltaT;
-                    A(row, n_f + row) = deltaT*column;
+                    A(row, n_f + row) = 1;
                     marketPriceIndeces(column) = 0;
                     b(row) = b(row);
                     break;

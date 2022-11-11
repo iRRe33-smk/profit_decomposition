@@ -29,17 +29,17 @@ function [f, z, e, T, date] = IRC(day, e)
     hessLagrangian(n_f + 1:end, n_f + 1:end) = E;
     A_s = zeros(n_f + 2*n_r);
     A_s(1:n_f + n_r, 1:n_f + n_r) = hessLagrangian;
-    A_s(n_f + n_r + 1:end, 1:n_f + n_r) = A;
-    A_s(1:n_f + n_r, n_f + n_r + 1:end) = A';
+    A_s(n_f + n_r + 1:end, 1:n_f + n_r) = -A;
+    A_s(1:n_f + n_r, n_f + n_r + 1:end) = -A';
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     B = zeros(n_f + 2*n_r, 1);
-    B(n_f + n_r + 1:end) = -b;
+    B(n_f + n_r + 1:end) = b;
     [L,U,P] = lu(A_s);
     y = L\(P*B);
     X = U\y;
-    f = X(1:n_f)*100;
+    f = X(1:n_f)*100*365;
     z = X(n_f+1:n_f + n_r)*10000;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -57,8 +57,8 @@ function [f, z, e, T, date] = IRC(day, e)
         for row = 1:n_r
             for column = 1:n_f
                 if marketPriceIndeces(column) == 1
-                    A(row, 1:column) = deltaT;
-                    A(row, n_f + row) = deltaT*column;
+                    A(row, 1:column) = 1;
+                    A(row, n_f + row) = 1;
                     marketPriceIndeces(column) = 0;
                     b(row) = b(row);
                     break;
