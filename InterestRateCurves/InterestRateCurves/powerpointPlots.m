@@ -91,7 +91,7 @@ ylabel('Basis points')
 set(gca,'TickLength',[0 0])
 
 figure(6)
-e = [1, 100, 10000, 1000000, 100000000];
+e = [0.01, 1, 10, 1000, 100000];
 hold on
 for i = 1:length(e)
     [f, z, E, T, date] = IRC3(16, e(i));
@@ -101,7 +101,7 @@ hold off
 title('Continously compunded forward rates, Constraint ex. 3')
 xlabel('Days')
 ylabel('%')
-legend('E = 1', 'E = 100', 'E = 10000', 'E = 1000000', 'E = 100000000', 'Location','southeast')
+legend('E = 0.01', 'E = 1', 'E = 10', 'E = 1000', 'E = 100000', 'Location','southeast')
 
 
 %%
