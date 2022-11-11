@@ -1,4 +1,4 @@
-function f = IRC(day)
+function [f, z, e, T, date] = IRC(day, e)
     [forwardRates, spotRates, discountFactors, ~, ~, dates] = getForwAndSpot();
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -7,11 +7,12 @@ function f = IRC(day)
     %day = 60;
     date = datestr(x2mdate(dates(day)));
     T = [1 2 7 14 30 60 90 180 270 1*365 2*365 3*365 4*365 5*365 6*365 7*365 ...
-         8*365 9*365 10*365 11*365 12*365 13*365 14*365 15*365 20*365];
+         8*365 9*365 10*365 11*365 12*365 13*365 14*365 15*365];
 
     n_r = length(T);
     n_f = T(end);
-    discountFactors = discountFactors(day,1:n_r);
+    discountFactors = discountFactors(day, 1:n_r);
+    forwardRates = forwardRates(day, 1:n_r);
     b = log(discountFactors)';
     deltaT = 1/365;
     marketPriceIndeces = zeros(n_f, 1);
@@ -21,7 +22,7 @@ function f = IRC(day)
     A_n = getA_n(deltaT, n_f);
     V = 10; rho = 2; phi = 4;
     W = getW(n_f, V, rho, phi);
-    E = 10000*eye(n_r);
+    E = e*eye(n_r);
     [A, b] = getA(marketPriceIndeces, n_f, n_r, deltaT, b);
     hessLagrangian = zeros(n_r + n_f);
     hessLagrangian(1:n_f, 1:n_f) = A_n'*W*A_n;
@@ -38,14 +39,13 @@ function f = IRC(day)
     [L,U,P] = lu(A_s);
     y = L\(P*B);
     X = U\y;
-    f = X(1:n_f);
-    z = X(n_f+1:n_f + n_r);
-    lambda = X(n_f + n_r:end);
+    f = X(1:n_f)*100;
+    z = X(n_f+1:n_f + n_r)*10000;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    h = @(f,z) f'*A_n'*W*A_n*f + z'*E*z;
-    h(f,z);
+    %h = @(f,z) f'*A_n'*W*A_n*f + z'*E*z;
+    %h(f,z);
     %figure(2)
     %plot(f)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -57,8 +57,8 @@ function f = IRC(day)
         for row = 1:n_r
             for column = 1:n_f
                 if marketPriceIndeces(column) == 1
-                    A(row, 1:column-1) = deltaT;
-                    A(row, n_f + row) = column*deltaT;
+                    A(row, 1:column) = deltaT;
+                    A(row, n_f + row) = deltaT*column;
                     marketPriceIndeces(column) = 0;
                     b(row) = b(row);
                     break;
@@ -86,4 +86,8 @@ function f = IRC(day)
        end
        W = diag(W);
     end
+
+   
+    
+   
 end

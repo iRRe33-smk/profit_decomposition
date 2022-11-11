@@ -1,4 +1,4 @@
-syms f0 f1 f2 f3 f4 f5 f6 t w1 w2 w3 w4 w5 z1 z2 z3 r1 r2 r3 deltaT e1 e2 e3
+syms f0 f1 f2 f3 f4 f5 f6 t w1 w2 w3 w4 w5 z1 z2 z3 r1 r2 r3 deltaT e1 e2 e3 real
 z = [z1;z2;z3];
 E = [e1 0 0; 0 e2 0; 0 0 e3];
 r = [r1;r2;r3];
@@ -12,10 +12,12 @@ w = [w1 w2 w3 w4 w5];
 W = diag(w);
 
 hessian(f, [f0,f1,f2,f3,f4,f5,f6, z1, z2, z3])
-%gradient(f, [f0,f1,f2,f3,f4,f5,f6, z1, z2, z3])
+grad = gradient(f, [f0,f1,f2,f3,f4,f5,f6,z1,z2,z3])
+%grad - (A_n'*W*A_n)'*fow(1:7)
+
 %gradcon = [gradient(con(1,:), [f0,f1,f2,f3,f4,f5,f6, z1, z2, z3]) gradient(con(2,:), [f0,f1,f2,f3,f4,f5,f6, z1, z2, z3]) gradient(con(3,:), [f0,f1,f2,f3,f4,f5,f6, z1, z2, z3])]
 A_n = getA_n(t, 7);
-Hess = getHess(0, 0, t, w,7 , 3, E);
+%Hess = getHess(0, 0, t, w,7 , 3, E);
 
 
 

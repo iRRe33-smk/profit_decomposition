@@ -1,10 +1,10 @@
-function [curve] = curveHessianNonlconWithZ(day, punishment)
+
     [forwardRates, spotRates, ~, deltaTdays] = getForwAndSpot();
-    forwardRates = forwardRates(day,:);
+    forwardRates = forwardRates(56,:);
     givenRates = forwardRates';
     deltaT = 1/365;
 
-    T = [1 2 7 14 30 60 90 180 270 1*365 2*365 3*365 4*365 5*365 6*365 7*365 8*365 9*365 10*365];
+    T = [1 2 7 14 30 60 90 180 270 1*365 2*365 3*365 4*365 5*365 6*365 7*365 8*365 9*365 10*365 20*365];
 
     fr = zeros(3650, 1);
     ind = zeros(3650, 1);
@@ -24,7 +24,7 @@ function [curve] = curveHessianNonlconWithZ(day, punishment)
     V = 10; rho = 2; phi = 4;
     w = getW(n_f, V, rho, phi);
     W = diag(w);
-    E = punishment*eye(n_r);
+    E = 10*eye(n_r);
 
     [A] = getA(marketPriceIndeces, n_f, n_r);
 
@@ -146,4 +146,3 @@ function [curve] = curveHessianNonlconWithZ(day, punishment)
     end
 
         
-end  
