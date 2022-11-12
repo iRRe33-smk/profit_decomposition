@@ -1,11 +1,43 @@
-syms f0 f1 f2 f3 z1 z2 lam1 lam2 dt real
+syms f0 f1 f2 f3 z1 z2 lam1 lam2 dt w1 w2 e1 e2 d1 d2 real
 
-f = f0^2 - 4*f1^2 + f2 + 3*f3 -z1^2 + 4*z2;
-g1 = f0 + f1 + z1 - 3 ;
-g2 = f2 + f3 + z2 - 2 ;
+W = [w1 0; 0 w2];
+b = [-d1 -d2]';
 x = [f0 f1 f2 f3 z1 z2]';
-lagrangian = f - lam1*g1 - lam2*g2;
-lagrangianGrad = gradient(lagrangian, [x ; lam1; lam2])
+f = [f0 f1 f2 f3]';
+z = [z1 z2]';
+A = [dt 0 0 0;
+     dt dt dt dt];
+F = [dt 0;
+     0 3*dt];
+A_n = getA_n(dt, 4);
+E = [e1 0; 0 e2];
+fun = f'*A_n'*W*A_n*f + z'*E*z;
+constraints = A*f + F*z - b;
+lambda = [lam1 lam2];
+lagrangian = fun - lambda*constraints;
+C = A_n'*W*A_n;
+lagrangianGrad = gradient(lagrangian, [x; lambda'])
 
-[A,B] = equationsToMatrix(lagrangianGrad, [x ; lam1; lam2])
-hessian(lagrangian, x)
+[A1,B1] = equationsToMatrix(lagrangianGrad(1:4), f)
+[A2,B2] = equationsToMatrix(lagrangianGrad(5:6), z)
+[A3,B3] = equationsToMatrix(lagrangianGrad(7:8), z)
+%hessian(lagrangian, x)
+
+eq = C*f + A'*(inv(F)*inv(E)*inv(F)*(A*f-b))
+[A4,B4] = equationsToMatrix(eq, f)
+
+
+
+
+
+
+
+
+function A_n = getA_n(deltaT, n_f)
+        deltaTsq = 1/(deltaT^2);
+        A_n =sym('A_n',[n_f-2, n_f]); 
+        for i = 1:n_f-2
+            A_n(i, :) = [zeros(1,i-1), deltaTsq, -2*deltaTsq, deltaTsq, zeros(1,n_f-2-i)];
+        end
+        A_n = A_n*deltaT;
+    end

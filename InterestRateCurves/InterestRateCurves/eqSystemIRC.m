@@ -1,4 +1,4 @@
-function [f, z, e, T, date] = IRC(day, e)
+function [f, z, e, T, date, A_solve, B_solve, A, F, b] = eqSystemIRC(day, e)
     [forwardRates, spotRates, discountFactors, ~, ~, dates] = getForwAndSpot();
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -12,7 +12,7 @@ function [f, z, e, T, date] = IRC(day, e)
     n_f = T(end);
     discountFactors = discountFactors(day, 1:n_r);
     forwardRates = forwardRates(day, 1:n_r);
-    b = log(discountFactors)';
+    b = -log(discountFactors)';
     deltaT = 1/365;
     marketPriceIndeces = zeros(n_f, 1);
     for i = 1:length(T)
@@ -22,45 +22,30 @@ function [f, z, e, T, date] = IRC(day, e)
     V = 10; rho = 2; phi = 4;
     W = getW(n_f, V, rho, phi);
     E = e*eye(n_r);
-    [A, b] = getA(marketPriceIndeces, n_f, n_r, deltaT, b);
-    hessLagrangian = zeros(n_r + n_f);
-    hessLagrangian(1:n_f, 1:n_f) = A_n'*W*A_n;
-    hessLagrangian(n_f + 1:end, n_f + 1:end) = E;
-    A_s = zeros(n_f + 2*n_r);
-    A_s(1:n_f + n_r, 1:n_f + n_r) = hessLagrangian;
-    A_s(n_f + n_r + 1:end, 1:n_f + n_r) = A;
-    A_s(1:n_f + n_r, n_f + n_r + 1:end) = A';
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    B = zeros(n_f + 2*n_r, 1);
-    B(n_f + n_r + 1:end) = -b;
-    [L,U,P] = lu(A_s);
-    y = L\(P*B);
-    X = U\y;
-    f = X(1:n_f)*100;
-    z = X(n_f+1:n_f + n_r)*10000;
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %h = @(f,z) f'*A_n'*W*A_n*f + z'*E*z;
-    %h(f,z);
-    %figure(2)
-    %plot(f)
+    [A, F] = getAandF(marketPriceIndeces, n_f, n_r, deltaT);
+    C = A_n'*W*A_n;
+    A_solve = C + A'*inv(F)*E*inv(F)*A;
+    B_solve = A'*inv(F)*E*inv(F)*b;
+    R = chol(A_solve);
+    f = R\(R'\B_solve);
+    
+    z = (-inv(F)*(A*f - b))*10000;
+    f = 100*f;
+    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %              Functions              %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    function [A,b] = getA(marketPriceIndeces, n_f, n_r, deltaT, b)
-        A = zeros(n_r, n_f + n_r);
+    function  [A, F] = getAandF(marketPriceIndeces, n_f, n_r, deltaT)
+        A = zeros(n_r, n_f);
+        F = zeros(n_r, n_r);
         A(:,1) = deltaT;
         for row = 1:n_r
             for column = 1:n_f
                 if marketPriceIndeces(column) == 1
                     A(row, 1:column-1) = deltaT;
-                    A(row, n_f + row) = deltaT*column;
+                    F(row, row) = deltaT*column;
                     marketPriceIndeces(column) = 0;
-                    b(row) = b(row);
                     break;
                 end
             end
