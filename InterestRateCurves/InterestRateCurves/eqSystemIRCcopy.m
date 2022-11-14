@@ -2,24 +2,41 @@ function [A_s, B_s, C_s] = eqSystemIRCcopy(e, T , n_f, n_r, dt)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %    Calculate constant expressions   %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
     marketPriceIndeces = zeros(n_f, 1);
     for i = 1:length(T)
         marketPriceIndeces(T(i)) = 1;
     end
-    A_n = getA_n(dt, n_f);
     V = 10; rho = 2; phi = 4;
     W = getW(n_f, V, rho, phi);
     E = e*eye(n_r);
     [A, F] = getAandF(marketPriceIndeces, n_f, n_r, dt);
-    R = chol(A_n'*W*A_n + A'*pinv(F)*E*pinv(F)*A);
-    A_s = R\(R'\(A'*pinv(F)*E*pinv(F)));
-    B_s = -inv(F)*(A);
+    [C] = getC(W, dt, n_f);
+    R = chol(C + A'*(F\E)*(F\A));
+    A_s = R\(R'\(A'*(F\E)/F));
+    B_s = -F\A;
     C_s = inv(F);
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %              Functions              %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+    function [C] = getC(W, dt, n_f)
+        dtSq = 1/(dt^2);
+        w = diag(W);
+        C = zeros(n_f, n_f);
+        C(1, :) = [w(1)*dtSq, -(2*w(1)*dtSq), w(1)*dtSq, zeros(1, n_f-3)];
+        C(2, :) = [-2*w(1)*dtSq, 4*w(1)*dtSq + w(2)*dtSq, (-2*w(1)*dtSq -2*w(2)*dtSq), w(2)*dtSq, zeros(1, n_f-4)];
+        for row = 3:n_f-2
+            C(row, :) = [ zeros(1, row-3) ...  
+                         (w(row-2)*dtSq)...
+                         (-2*w(row-2)*dtSq -2*w(row-1)*dtSq)...
+                         (w(row-2)*dtSq + (4*w(row-1))*dtSq + w(row)*dtSq)...
+                         (-2*w(row-1)*dtSq -2*w(row)*dtSq)...
+                         (w(row)*dtSq)...
+                          zeros(1, n_f - row - 2)];
+        end
+        C(n_f-1, :) = [zeros(1, n_f-4), w(n_f-3)*dtSq, (-2*w(n_f-3)*dtSq -2*w(n_f-2)*dtSq) , (w(n_f-3)*dtSq + 4*w(n_f-2)*dtSq), -2*w(n_f-2)*dtSq];  
+        C(n_f, :)   = [zeros(1, n_f-3), w(n_f-2)*dtSq, -(2*w(n_f-2)*dtSq), w(n_f-2)*dtSq];
+    end    
+    
     function [A, F] = getAandF(marketPriceIndeces, n_f, n_r, deltaT)
         A = zeros(n_r, n_f);
         F = zeros(n_r, n_r);

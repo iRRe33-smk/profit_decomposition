@@ -2,7 +2,7 @@
 forward_rate = zeros(100, 7300);
 count = 1;
 for day = 1:100
-    forward_rate(count,:) = IRC(day);
+    forward_rate(count,:) = IRC(day, 10);
     count = count + 1;
     count
 end
