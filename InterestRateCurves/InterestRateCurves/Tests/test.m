@@ -1,27 +1,27 @@
 syms f0 f1 f2 f3 f4 f5 f6 z1 z2 lam1 lam2 dt w1 w2 w3 w4 w5 e1 e2 d1 d2 real
 
-w = [w1 w2 w3 w4 w5];
+w = [w1 w2];
 W = diag(w);
 b = [-d1 -d2]';
 x = [f0 f1 f2 f3 z1 z2]';
-f = [f0 f1 f2 f3 f4 f5 f6]';
+f = [f0 f1 f2 f3 ]';
 z = [z1 z2]';
 A = [dt 0 0 0;
      dt dt dt dt];
 F = [dt 0;
      0 3*dt];
-A_n = getA_n(dt, 7);
+A_n = getA_n(dt, 4);
 E = [e1 0; 0 e2];
 fun = f'*A_n'*W*A_n*f + z'*E*z;
-%constraints = A*f + F*z - b;
+constraints = A*f + F*z - b;
 lambda = [lam1 lam2];
-%lagrangian = fun - lambda*constraints;
+lagrangian = fun - lambda*constraints;
 C = A_n'*W*A_n;
-% lagrangianGrad = gradient(lagrangian, [x; lambda'])
+lagrangianGrad = gradient(lagrangian, [x; lambda'])
 % 
-% [A1,B1] = equationsToMatrix(lagrangianGrad(1:4), f)
-% [A2,B2] = equationsToMatrix(lagrangianGrad(5:6), z)
-% [A3,B3] = equationsToMatrix(lagrangianGrad(7:8), z)
+[A1,B1] = equationsToMatrix(lagrangianGrad(1:4), f)
+[A2,B2] = equationsToMatrix(lagrangianGrad(5:6), z)
+[A3,B3] = equationsToMatrix(lagrangianGrad(7:8), z)
 % %hessian(lagrangian, x)
 % 
 % eq = C*f + A'*(inv(F)*inv(E)*inv(F)*(A*f-b))

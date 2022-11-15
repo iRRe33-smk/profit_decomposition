@@ -1,4 +1,4 @@
-function [A_s, B_s, C_s] = eqSystemIRCcopy(e, T , n_f, n_r, dt)
+function [A_s, B_s, C_s] = matrixGeneration(e, T , n_f, n_r, dt)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %    Calculate constant expressions   %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
