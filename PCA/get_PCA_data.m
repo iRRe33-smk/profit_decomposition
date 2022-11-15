@@ -1,5 +1,5 @@
 
-function [risk_factors, gradient, hessian] = get_PCA_data(c, tau,forward_rates)
+function [risk_factors, gradient, hessian,spot_rates] = get_PCA_data(c, tau,forward_rates)
 
 %Get riskfactors by running create_riskfactors.m
 fAll = create_F(forward_rates);
