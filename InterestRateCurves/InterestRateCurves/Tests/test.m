@@ -16,7 +16,7 @@ fun = f'*A_n'*W*A_n*f + z'*E*z;
 constraints = A*f + F*z - b;
 lambda = [lam1 lam2];
 lagrangian = fun - lambda*constraints;
-C = A_n'*W*A_n;
+C = A_n'*W*A_n
 lagrangianGrad = gradient(lagrangian, [x; lambda'])
 % 
 [A1,B1] = equationsToMatrix(lagrangianGrad(1:4), f)

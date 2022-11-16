@@ -53,15 +53,6 @@ function [A_s, B_s, C_s] = matrixGeneration(e, T , n_f, n_r, dt)
         end
     end
 
-    function [A_n] = getA_n(deltaT, n_f)
-        deltaTsq = 1/(deltaT^2);
-        A_n = zeros(n_f-2, n_f);
-        for i = 1:n_f-2
-            A_n(i, :) = [zeros(1,i-1), deltaTsq, -2*deltaTsq, deltaTsq, zeros(1,n_f-2-i)];
-        end
-        A_n = A_n*deltaT;
-    end
-
     function [W] = getW(n_f, V, rho, phi)
        W = zeros(n_f-2,1);
        for t = 1:n_f-2
