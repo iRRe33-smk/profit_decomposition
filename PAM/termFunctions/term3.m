@@ -10,7 +10,7 @@ function [T3] = term3(h, D, df)
 H = repmat(h,1,nC);
 dF = repmat(df',nP,1);
 
-T3 = H.* D.* dF;
+T3 = sum(H.* D.* dF, 2);
 
 
 
