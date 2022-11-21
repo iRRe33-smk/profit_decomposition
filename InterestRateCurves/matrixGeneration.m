@@ -10,14 +10,28 @@ function [A_s, B_s, C_s] = matrixGeneration(e, T , n_f, n_r, dt)
     W = getW(n_f, V, rho, phi);
     E = e*eye(n_r);
     [A, F] = getAandF(marketPriceIndeces, n_f, n_r, dt);
-    [C] = getC(W, dt, n_f);
-    R = chol(C + A'*(F\E)*(F\A));
-    A_s = R\(R'\(A'*(F\E)/F));
+    C = getC(W, dt, n_f);
+    %A_n = getA_n(dt, n_f);
+    %C = A_n'*W*A_n;
+    K = C + A'*E*A;
+    U = A'*E;
+    R = chol(K);
+    A_s = R\(R'\(U));
+    %A_s = K\U;
     B_s = -F\A;
     C_s = inv(F);
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %              Functions              %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    function A_n = getA_n(deltaT, n_f)
+        deltaTsq = 1/(deltaT);
+        A_n = zeros(n_f-2, n_f);
+        for i = 1:n_f-2
+            A_n(i, :) = [zeros(1,i-1), deltaTsq, -2*deltaTsq, deltaTsq, zeros(1,n_f-2-i)];
+        end
+    end
+    
+    
     function [C] = getC(W, dt, n_f)
         dtSq = 1/(dt^2);
         w = diag(W);
@@ -35,6 +49,9 @@ function [A_s, B_s, C_s] = matrixGeneration(e, T , n_f, n_r, dt)
         end
         C(n_f-1, :) = [zeros(1, n_f-4), w(n_f-3)*dtSq, (-2*w(n_f-3)*dtSq -2*w(n_f-2)*dtSq) , (w(n_f-3)*dtSq + 4*w(n_f-2)*dtSq), -2*w(n_f-2)*dtSq];  
         C(n_f, :)   = [zeros(1, n_f-3), w(n_f-2)*dtSq, -(2*w(n_f-2)*dtSq), w(n_f-2)*dtSq];
+        
+        
+        %C = C./dt;
     end    
     
     function [A, F] = getAandF(marketPriceIndeces, n_f, n_r, deltaT)
