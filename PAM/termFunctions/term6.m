@@ -5,12 +5,14 @@ function [T6] = term6(h,dP, f)
 %   f = FX-rates, array[nC]
 
 
-[nP, nC] = size(dP);
+[nP, nC, nRF] = size(dP);
 
 H = repmat(h,1,nC);
-F = repmat(f',nP,1);
 
-T6 = H.* dP .* F;
+T6 = zeros(nP,nRF);
+for i=1:nRF
+    T6(:,i) = H .* squeeze(dP(:,:,i)) * f; 
+end
 
 end
 
