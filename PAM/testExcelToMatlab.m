@@ -10,7 +10,10 @@ bomExcel = readtable('casetest.xlsx', 'sheet', 'bom');
 prodExcel = readtable('casetest.xlsx', 'sheet','production');
 
 %% Adding data
-currVec = ["SEK"; "USD"; "CAD"];
+currVec = ["AED"; "AUD"; "BHD"; "CAD"; "CHF"; "CNY"; "CZK"; "DKK"; "EUR"; "GBP"; "HKD";...
+            "HUF"; "IDR"; "ILS"; "INR"; "ISK"; "JPY"; "KES"; "KRW"; "KWD"; "MXN"; "MYR";...
+            "NOK"; "NZD"; "PHP"; "PKR"; "PLN"; "QAR"; "RON"; "RUB"; "SAR"; "SEK"; "SGD";...
+            "THB"; "TRY"; "TWD"; "UGX"; "USD"; "ZAR"];
 row = size(dates,1);
 column = size(currVec,1) + 1;
 hFX = zeros(row,column);
@@ -30,7 +33,7 @@ for i = 1:numberOfDeposit
     if(ismember(datenum(datestr(table2array(depositExcel(i,1)))), hFX(:,1)));
         indexCurr = find(ismember(currVec,string(table2array(depositExcel(i,2))))) + 1;
         date = find(ismember(hFX(:,1),datenum(table2array(depositExcel(i,1)))));
-        hFX(date:row,indexCurr) = hFX(i,indexCurr) - table2array(depositExcel(i,3));
+        hFX(date:row,indexCurr) = hFX(i,indexCurr) + table2array(depositExcel(i,3));
     end
 end
 
@@ -45,7 +48,7 @@ for i = 1:numberOfDeposit
         indexCurr = find(ismember(currVec,string(table2array(depositExcel(i,2))))) + 1;
         date = find(ismember(hFX(:,1),datenum(table2array(depositExcel(i,1)))));
         transCostB(date,indexCurr) = transCostB(date,indexCurr) + table2array(depositExcel(i,4));
-        hFX(date,indexCurr) = hFX(date,indexCurr) - table2array(depositExcel(i,4));
+        hFX(date,indexCurr) = hFX(date,indexCurr) + table2array(depositExcel(i,4));
     end
 end
 
@@ -122,7 +125,7 @@ end
 numberOfSales = size(salesExcel,1);
 numberOfCurr = size(currVec,1);
 numberOfDates = size(arrayDates,1);
-tempSalesMatrix = zeros(numberOfCurr,numberOfFinalItem);
+tempSalesMatrix = zeros(numberOfFinalItem,numberOfCurr,);
 
 for i = 1:numberOfDates
    if (ismember(datePeriod(i), datenum(table2array(salesExcel(:,4)))))
@@ -134,10 +137,10 @@ for i = 1:numberOfDates
            indexItem = find(ismember(finalItemVec,itemName));
            tempSalesMatrix(indexItem,indexCurr) = salesMatrix(indexItem,indexCurr) + table2array(salesExcel(indexSales(j),6));
            hFX(i:row,indexCurr+1) = hFX(i,indexCurr+1) + table2array(salesExcel(indexSales(j),6));
-           hFinalItem(i:row,indexCurr+1) = hFinalItem(i,indexCurr+1) - table2array(salesExcel(indexSales(j),3));
+           hFinalItem(i:row,indexItem+1) = hFinalItem(i,indexItem+1) - table2array(salesExcel(indexSales(j),3));
        end
    else
-        tempSalesMatrix = zeros(numberOfCurr,numberOfFinalItem);
+        tempSalesMatrix = zeros(numberOfProd,numberOfCurr);
    end
    if (i == 1)
        salesMatrix = tempSalesMatrix;
