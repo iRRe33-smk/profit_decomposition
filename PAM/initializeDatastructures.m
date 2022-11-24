@@ -1,4 +1,6 @@
-function [h_p, h_c, xs_s, xs_b, P, dP, R, f, df, deltaT, D, numProducts, numCurrencies] = initializeDatastructures()
+
+function [h_p, h_c, xs_s, xs_b, P, dP, R, f, df, deltaT, D, numProducts, numCurrencies] = initializeDatastructures(numProds, numCurrs, numRFs)
+
 
 
 %productTypes = ["mutter","skruv","plåt","borrig", "pump"];
@@ -6,8 +8,8 @@ function [h_p, h_c, xs_s, xs_b, P, dP, R, f, df, deltaT, D, numProducts, numCurr
 
 
 
-assetIDN = 1:3;
-currencies = 1:2;
+assetIDN = 1:numProds;
+currencies = 1:numCurrs;
 
 
 %N = 1000; %max number of holdings
@@ -17,7 +19,8 @@ currencies = 1:2;
 
 numProducts = length(assetIDN);
 numCurrencies = length(currencies);
-numRiskFactors = 6;
+numRiskFactors = numRFs;
+
 
 h_p = rand(numProducts,1); 
 h_c = rand(numCurrencies, 1);

@@ -1,6 +1,4 @@
-
 function [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepError] = PAM_timestep(h_p, h_c, xs_s, xs_b, P, dP, R, f, df, deltaT, D, numProducts, numCurrencies)
-
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -28,6 +26,6 @@ timeStepProducts = T3 + sum(6,2) + T7 + sum(error_f, 2);
 
 timeStepError = sum(error_f,"all");
 
-timeStepTerms = [sum(T1,"all"), sum(T2,"all"), sum(T3,"all"), sum(T4,"all"), sum(T5,"all"), sum(T6,"all"), sum(T7,"all"), timeStepError];
+
 
 end
