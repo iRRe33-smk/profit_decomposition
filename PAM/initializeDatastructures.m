@@ -1,4 +1,6 @@
+
 function [h_p, h_c, xs_s, xs_b, P, dP, R, f, df, deltaT, D, numProducts, numCurrencies] = initializeDatastructures(numProds, numCurrs, numRFs)
+
 
 
 %productTypes = ["mutter","skruv","plåt","borrig", "pump"];
@@ -19,6 +21,7 @@ numProducts = length(assetIDN);
 numCurrencies = length(currencies);
 numRiskFactors = numRFs;
 
+
 h_p = rand(numProducts,1); 
 h_c = rand(numCurrencies, 1);
 
@@ -30,7 +33,7 @@ xs_s = rand(numCurrencies,1);
 %s_s = rand(numProducts,numCurrencies); %PriceList[typeID ,PriceListID]
 %s_b = rand(numProducts,numCurrencies); %PriceList[typeID ,PriceListID]
 
-BOM = randi(3,numProducts); % zeroes if bought/sold product, relation between input and output if manufacture ex (3 bolt, 1 plate -> borrig)
+%BOM = randi(3,numProducts); % zeroes if bought/sold product, relation between input and output if manufacture ex (3 bolt, 1 plate -> borrig)
 
 R = rand(numCurrencies,1);
 deltaT = rand(numCurrencies,1);

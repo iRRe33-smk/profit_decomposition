@@ -1,4 +1,6 @@
-function [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms] = PAM_timestep(h_p, h_c, xs_s, xs_b, P, dP, R, f, df, deltaT, D, numProducts, numCurrencies)
+
+function [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepError] = PAM_timestep(h_p, h_c, xs_s, xs_b, P, dP, R, f, df, deltaT, D, numProducts, numCurrencies)
+
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
