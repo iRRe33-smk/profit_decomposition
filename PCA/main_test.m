@@ -1,5 +1,5 @@
 %Get data from excel
-[c, tau] = read_from_excel()
+[c,c2, tau,tau2] = read_from_excel()
 
 
 %Get forwardrate curves by running create_curve.m
