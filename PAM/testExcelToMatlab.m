@@ -1,19 +1,24 @@
-%% Read data
+
 clc 
 clear
-depositExcel = readtable('caseTest.xlsx','sheet', 'deposits');
-dates = readtable('caseTest.xlsx', 'sheet', 'hc');
-FXExcel = readtable('caseTest.xlsx','sheet', 'fx');
-procurementExcel = readtable('casetest.xlsx', 'sheet', 'procurement');
-salesExcel = readtable('casetest.xlsx', 'sheet', 'sales')
-bomExcel = readtable('casetest.xlsx', 'sheet', 'bom');
-prodExcel = readtable('casetest.xlsx', 'sheet','production');
+
+%% Read data
+
+fileName = "TestCaseNewStructure.xlsx";
+depositExcel = readtable(fileName,'sheet', 'deposits');
+dates = readtable(fileName, 'sheet', 'hc');
+FXExcel = readtable(fileName,'sheet', 'fx');
+procurementExcel = readtable(fileName, 'sheet', 'procurement');
+salesExcel = readtable(fileName, 'sheet', 'sales');
+bomExcel = readtable(fileName, 'sheet', 'bom');
+prodExcel = readtable(fileName, 'sheet','production');
 
 %% Adding data
-currVec = ["AED"; "AUD"; "BHD"; "CAD"; "CHF"; "CNY"; "CZK"; "DKK"; "EUR"; "GBP"; "HKD";...
-            "HUF"; "IDR"; "ILS"; "INR"; "ISK"; "JPY"; "KES"; "KRW"; "KWD"; "MXN"; "MYR";...
-            "NOK"; "NZD"; "PHP"; "PKR"; "PLN"; "QAR"; "RON"; "RUB"; "SAR"; "SEK"; "SGD";...
-            "THB"; "TRY"; "TWD"; "UGX"; "USD"; "ZAR"];
+% currVec = ["AED"; "AUD"; "BHD"; "CAD"; "CHF"; "CNY"; "CZK"; "DKK"; "EUR"; "GBP"; "HKD";...
+%             "HUF"; "IDR"; "ILS"; "INR"; "ISK"; "JPY"; "KES"; "KRW"; "KWD"; "MXN"; "MYR";...
+%             "NOK"; "NZD"; "PHP"; "PKR"; "PLN"; "QAR"; "RON"; "RUB"; "SAR"; "SEK"; "SGD";...
+%             "THB"; "TRY"; "TWD"; "UGX"; "USD"; "ZAR"];
+currVec = ["SEK"; "CAD"; "USD"];
 row = size(dates,1);
 column = size(currVec,1) + 1;
 hFX = zeros(row,column);
@@ -28,27 +33,17 @@ datePeriod = datenum(arrayDates,formatIn);
 hFX(:,1) = datePeriod;
 numberOfDeposit = size(depositExcel,1);
 
-%Kolla på datum
-for i = 1:numberOfDeposit
-    if(ismember(datenum(datestr(table2array(depositExcel(i,1)))), hFX(:,1)));
-        indexCurr = find(ismember(currVec,string(table2array(depositExcel(i,2))))) + 1;
-        date = find(ismember(hFX(:,1),datenum(table2array(depositExcel(i,1)))));
-        hFX(date:row,indexCurr) = hFX(i,indexCurr) + table2array(depositExcel(i,3));
-    end
-end
-
-% Adding the transaction cost for the deposits
 transCostB = zeros(row,column);
 transCostB (:,1) = datePeriod;
 transCostS = zeros(row,column);
 transCostS (:,1) = datePeriod;
 
 for i = 1:numberOfDeposit
-    if(ismember(datenum(datestr(table2array(depositExcel(i,1)))), transCostB(:,1)));
+    if(ismember(datenum(datestr(table2array(depositExcel(i,1)))), hFX(:,1)));
         indexCurr = find(ismember(currVec,string(table2array(depositExcel(i,2))))) + 1;
         date = find(ismember(hFX(:,1),datenum(table2array(depositExcel(i,1)))));
+        hFX(date:row,indexCurr) = hFX(i,indexCurr) + table2array(depositExcel(i,3)) - table2array(depositExcel(i,4));
         transCostB(date,indexCurr) = transCostB(date,indexCurr) + table2array(depositExcel(i,4));
-        hFX(date,indexCurr) = hFX(date,indexCurr) + table2array(depositExcel(i,4));
     end
 end
 
@@ -59,7 +54,7 @@ for i = 1:numberOfFXTrades
     if(ismember(datenum(datestr(table2array(FXExcel(i,1)))), hFX(:,1)))
         date = find(ismember(hFX(:,1),datenum(table2array(FXExcel(i,1)))));
         indexCurrSell = find(ismember(currVec,string(table2array(FXExcel(i,2))))) + 1;
-        hFX(date:row,indexCurrSell) = hFX(i,indexCurrSell) + table2array(FXExcel(i,3)) - table2array(FXExcel(i,4));
+        hFX(date:row,indexCurrSell) = hFX(i,indexCurrSell) - table2array(FXExcel(i,3)) - table2array(FXExcel(i,4));
         transCostS(i,indexCurrSell) = transCostS(i,indexCurrSell) + table2array(FXExcel(i,4));
         indexCurrBuy = find(ismember(currVec,string(table2array(FXExcel(i,5))))) + 1;
         hFX(date:row,indexCurrBuy) = hFX(i,indexCurrBuy) + table2array(FXExcel(i,6)) - table2array(FXExcel(i,7));
@@ -81,10 +76,8 @@ for i = 1:numberOfTransactions
     if(ismember(datenum(datestr(table2array(procurementExcel(i,1)))), hItem(:,1)))
         dateCost= find(ismember(hItem(:,1),datenum(table2array(procurementExcel(i,5)))));
         indexCurr = find(ismember(currVec,string(table2array(procurementExcel(i,6))))) + 1;
-        hFX(dateCost:row,indexCurr) = hFX(dateCost,indexCurr) - table2array(procurementExcel(i,7));
-        if("Labour" == string(table2array((procurementExcel(i,3)))))
-            transCostB(dateCost,indexCurr) = transCostB(dateCost,indexCurr) + table2array(procurementExcel(i,7));
-        else
+        hFX(dateCost:row,indexCurr) = hFX(dateCost,indexCurr) - table2array(procurementExcel(i,7)) - table2array(procurementExcel(i,8));
+        if("Labour" ~= string(table2array((procurementExcel(i,3)))))
             indexItem =  find(ismember(itemVec,string(table2array(procurementExcel(i,3))))) + 1;
             dateDelivery = find(ismember(hItem(:,1),datenum(table2array(procurementExcel(i,2)))));
             hItem(dateDelivery:row, indexItem) = hItem(dateDelivery, indexItem) + table2array(procurementExcel(i,4));
@@ -125,7 +118,7 @@ end
 numberOfSales = size(salesExcel,1);
 numberOfCurr = size(currVec,1);
 numberOfDates = size(arrayDates,1);
-tempSalesMatrix = zeros(numberOfFinalItem,numberOfCurr,);
+tempSalesMatrix = zeros(numberOfFinalItem,numberOfCurr);
 
 for i = 1:numberOfDates
    if (ismember(datePeriod(i), datenum(table2array(salesExcel(:,4)))))
