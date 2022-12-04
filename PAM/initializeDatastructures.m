@@ -8,14 +8,15 @@ function [h_p, h_c, xs_s, xs_b, P, dP, R, f, df, deltaT, D, numProducts, numCurr
 
 
 
-assetIDN = 1:numProds;
-currencies = 1:numCurrs;
+
 
 
 %N = 1000; %max number of holdings
 
 
 
+assetIDN = 1:numProds;
+currencies = 1:numCurrs;
 
 numProducts = length(assetIDN);
 numCurrencies = length(currencies);
@@ -42,7 +43,7 @@ df = rand(numCurrencies,1);
 
 D = rand(numProducts,numCurrencies); % dividends in this timestep
 P = rand(numProducts, numCurrencies); % match with currency
-dP = rand(numProducts, numCurrencies, numRiskFactors);
+dP = rand(numProducts, numCurrencies, numRiskFactors+1);
 end
 
 

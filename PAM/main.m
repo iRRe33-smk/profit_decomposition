@@ -1,4 +1,10 @@
-%addpath termFunctions\
+addpath("termFunctions\")
+
+%Dividends = matrix[numProd, numCurr, Timesteps]
+%.
+%.
+%.
+%Holdings = matrix[numporod,m timne]
 
 numProd = 5;
 numCurr = 4;
