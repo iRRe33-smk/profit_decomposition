@@ -1,4 +1,4 @@
-function [T6RF, T6Common] = term6(h,dP, f)
+function [T6RF, T6Common] = term6_unObservable(h,dP, f)
 %TERM6 sixth term of PAM -> array[nP]
 %   h = holdings, array[nP]
 %   dP = daily changes in market prices, observed or calculated, array[nP, nC, nRF +1]

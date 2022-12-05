@@ -1,28 +1,32 @@
 addpath("termFunctions\")
+addpath("priceEquation\")
 
-%Dividends = matrix[numProd, numCurr, Timesteps]
-%.
-%.
-%.
-%Holdings = matrix[numporod,m timne]
-
-numProd = 5;
+numProd = 10;
 numCurr = 4;
 numRf = 6;
 
 T_max = 10;
 
+%Variables to save results from the terms
 deltaNPV = zeros(T_max,1);
 deltaNPVterms = zeros(T_max,8);
-
 deltaNPVrf = zeros(T_max,numRf); %riskfactors
 deltaNPVp = zeros(T_max,numProd); %products
 
-for t = 1:T_max
-    [h_p, h_c, xs_s, xs_b, P, dP, R, f, df, deltaT, D, numProducts, numCurrencies] = initializeDatastructures(numProd,numCurr,numRf);
 
+%[salesMatrix, TimeIndex, Rates] = dPSetUp(.. .. .. )
+
+
+for t = 1:T_max
+    %initializing random data of the right sizes
+    [h_p_finished,h_p_raw, h_c, xs_s, xs_b, P, dP_raw, R, f, df, deltaT, D, numProducts, numCurrencies] = initializeDatastructures(numProd,numCurr,numRf);
+    
+    %dP = getDP(t,salesMatrix, rates)
+    dP_finished = rand(size(h_p_finished,1), numCurr, numRf+1);
+
+    %calculating results from each timestep 
     [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms] = ... 
-        PAM_timestep(h_p, h_c, xs_s, xs_b, P, dP, R, f, df, deltaT, D, numProducts, numCurrencies);
+        PAM_timestep(h_p_finished,h_p_raw, h_c, xs_s, xs_b, P, dP_finished, dP_raw, R, f, df, deltaT, D, numProducts, numCurrencies);
     
     deltaNPV(t) = timeStepTotal;
     deltaNPVp(t,:) = timeStepProducts';
