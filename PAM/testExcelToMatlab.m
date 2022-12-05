@@ -4,7 +4,7 @@ clear
 
 %% Read data
 
-fileName = "TestCaseNewStructure.xlsx";
+fileName = "Test_Case_Realistic.xlsx";
 depositExcel = readtable(fileName,'sheet', 'deposits');
 dates = readtable(fileName, 'sheet', 'hc');
 FXExcel = readtable(fileName,'sheet', 'fx');
@@ -14,11 +14,10 @@ bomExcel = readtable(fileName, 'sheet', 'bom');
 prodExcel = readtable(fileName, 'sheet','production');
 
 %% Adding data
-% currVec = ["AED"; "AUD"; "BHD"; "CAD"; "CHF"; "CNY"; "CZK"; "DKK"; "EUR"; "GBP"; "HKD";...
-%             "HUF"; "IDR"; "ILS"; "INR"; "ISK"; "JPY"; "KES"; "KRW"; "KWD"; "MXN"; "MYR";...
-%             "NOK"; "NZD"; "PHP"; "PKR"; "PLN"; "QAR"; "RON"; "RUB"; "SAR"; "SEK"; "SGD";...
-%             "THB"; "TRY"; "TWD"; "UGX"; "USD"; "ZAR"];
-currVec = ["SEK"; "CAD"; "USD"];
+ currVec = ["AED"; "AUD"; "BHD"; "CAD"; "CHF"; "CNY"; "CZK"; "DKK"; "EUR"; "GBP"; "HKD";...
+             "HUF"; "IDR"; "ILS"; "INR"; "ISK"; "JPY"; "KES"; "KRW"; "KWD"; "MXN"; "MYR";...
+             "NOK"; "NZD"; "PHP"; "PKR"; "PLN"; "QAR"; "RON"; "RUB"; "SAR"; "SEK"; "SGD";...
+             "THB"; "TRY"; "TWD"; "UGX"; "USD"; "ZAR"];
 row = size(dates,1);
 column = size(currVec,1) + 1;
 hFX = zeros(row,column);
@@ -42,7 +41,7 @@ for i = 1:numberOfDeposit
     if(ismember(datenum(datestr(table2array(depositExcel(i,1)))), hFX(:,1)));
         indexCurr = find(ismember(currVec,string(table2array(depositExcel(i,2))))) + 1;
         date = find(ismember(hFX(:,1),datenum(table2array(depositExcel(i,1)))));
-        hFX(date:row,indexCurr) = hFX(i,indexCurr) + table2array(depositExcel(i,3)) - table2array(depositExcel(i,4));
+        hFX(date:row,indexCurr) = hFX(date,indexCurr) + table2array(depositExcel(i,3)) - table2array(depositExcel(i,4));
         transCostB(date,indexCurr) = transCostB(date,indexCurr) + table2array(depositExcel(i,4));
     end
 end
@@ -54,11 +53,11 @@ for i = 1:numberOfFXTrades
     if(ismember(datenum(datestr(table2array(FXExcel(i,1)))), hFX(:,1)))
         date = find(ismember(hFX(:,1),datenum(table2array(FXExcel(i,1)))));
         indexCurrSell = find(ismember(currVec,string(table2array(FXExcel(i,2))))) + 1;
-        hFX(date:row,indexCurrSell) = hFX(i,indexCurrSell) - table2array(FXExcel(i,3)) - table2array(FXExcel(i,4));
-        transCostS(i,indexCurrSell) = transCostS(i,indexCurrSell) + table2array(FXExcel(i,4));
+        hFX(date:row,indexCurrSell) = hFX(date,indexCurrSell) - table2array(FXExcel(i,3)) - table2array(FXExcel(i,4));
+        transCostS(date,indexCurrSell) = transCostS(date,indexCurrSell) + table2array(FXExcel(i,4));
         indexCurrBuy = find(ismember(currVec,string(table2array(FXExcel(i,5))))) + 1;
-        hFX(date:row,indexCurrBuy) = hFX(i,indexCurrBuy) + table2array(FXExcel(i,6)) - table2array(FXExcel(i,7));
-        transCostB(i,indexCurrBuy) = transCostB(i,indexCurrBuy) + table2array(FXExcel(i,7));
+        hFX(date:row,indexCurrBuy) = hFX(date,indexCurrBuy) + table2array(FXExcel(i,6)) - table2array(FXExcel(i,7));
+        transCostB(date,indexCurrBuy) = transCostB(date,indexCurrBuy) + table2array(FXExcel(i,7));
     end
 end
 
@@ -70,11 +69,11 @@ numberOfItem = size(itemVec,1);
 hItem = zeros(row,numberOfItem + 1);
 hItem(:,1) = datePeriod;
 
-numberOfTransactions = size(procurementExcel ,1);
+numberOfProcurments = size(procurementExcel ,1);
 
-for i = 1:numberOfTransactions
+for i = 1:numberOfProcurments
     if(ismember(datenum(datestr(table2array(procurementExcel(i,1)))), hItem(:,1)))
-        dateCost= find(ismember(hItem(:,1),datenum(table2array(procurementExcel(i,5)))));
+        dateCost = find(ismember(hItem(:,1),datenum(table2array(procurementExcel(i,5)))));
         indexCurr = find(ismember(currVec,string(table2array(procurementExcel(i,6))))) + 1;
         hFX(dateCost:row,indexCurr) = hFX(dateCost,indexCurr) - table2array(procurementExcel(i,7)) - table2array(procurementExcel(i,8));
         if("Labour" ~= string(table2array((procurementExcel(i,3)))))
@@ -95,7 +94,7 @@ numberOfProd = size(prodExcel,1);
 for i = 1:numberOfProd
     if(ismember(datenum(datestr(table2array(prodExcel(i,1)))), hFinalItem(:,1)))
         date = find(ismember(hFinalItem(:,1),datenum(table2array(prodExcel(i,1)))));
-        indexFinalItem = find(ismember(itemVec,string(table2array(procurementExcel(i,3))))) + 1;
+        indexFinalItem = find(ismember(finalItemVec,string(table2array(prodExcel(i,2))))) + 1;
         hFinalItem(date:row, indexFinalItem) = hFinalItem(date,indexFinalItem) + table2array(prodExcel(i,3));
         indexCurr = find(ismember(currVec,string(table2array(prodExcel(i,4))))) + 1;
         hFX(date:row,indexCurr) = hFX(date,indexCurr) - table2array(prodExcel(i,5));
@@ -123,14 +122,16 @@ tempSalesMatrix = zeros(numberOfFinalItem,numberOfCurr);
 for i = 1:numberOfDates
    if (ismember(datePeriod(i), datenum(table2array(salesExcel(:,4)))))
        salesPerDay =  sum(datenum(table2array(salesExcel(:,4))) == datePeriod(i));
-       indexSales = find(ismember(datenum(table2array(salesExcel(:,4))),datePeriod(i)));
+       salesDate = i;
+       salesDateIndex = find(ismember(datenum(table2array(salesExcel(:,4))), datePeriod(i)));
        for j = 1:salesPerDay
-           indexCurr = find(ismember(currVec,string(table2array(salesExcel(indexSales(j),5)))));
-           itemName =  string(table2array(salesExcel(indexSales(j),2)));
+           indexCurr = find(ismember(currVec,string(table2array(salesExcel(salesDateIndex(j),5)))));
+           itemName =  string(table2array(salesExcel(salesDateIndex(j),2)));
            indexItem = find(ismember(finalItemVec,itemName));
-           tempSalesMatrix(indexItem,indexCurr) = salesMatrix(indexItem,indexCurr) + table2array(salesExcel(indexSales(j),6));
-           hFX(i:row,indexCurr+1) = hFX(i,indexCurr+1) + table2array(salesExcel(indexSales(j),6));
-           hFinalItem(i:row,indexItem+1) = hFinalItem(i,indexItem+1) - table2array(salesExcel(indexSales(j),3));
+           deliveryDate = find(ismember(datePeriod,datenum(table2array(salesExcel(salesDateIndex(j),1)))));
+           tempSalesMatrix(indexItem,indexCurr) = tempSalesMatrix(indexItem,indexCurr) + table2array(salesExcel(salesDateIndex(j),6));
+           hFX(salesDate:row,indexCurr+1) = hFX(salesDate,indexCurr+1) + table2array(salesExcel(salesDateIndex(j),6));
+           hFinalItem(deliveryDate:row,indexItem+1) = hFinalItem(deliveryDate,indexItem+1) - table2array(salesExcel(salesDateIndex(j),3));
        end
    else
         tempSalesMatrix = zeros(numberOfProd,numberOfCurr);
