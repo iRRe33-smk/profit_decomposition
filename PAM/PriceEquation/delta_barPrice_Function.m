@@ -1,5 +1,5 @@
 
-function [dP] = delta_barPrice_Function(risk_factors,spot_rates,AE,tau,t,c,currency,currVec)
+function [dP,P_yesterday] = delta_barPrice_Function(risk_factors,spot_rates,AE,tau,t,c,currency,currVec)
 
 % N= N assets
 %T = t timesteps
@@ -113,5 +113,5 @@ end
 delta_barPrice_riskfactors(:,end) = delta_barPrice;
 
 dP = format_dP(delta_barPrice_riskfactors,currency,currVec,N);
-
+P_yesterday = format_P(theoretical_price_yesterday,currency,currVec,N);
 end
