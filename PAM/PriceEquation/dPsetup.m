@@ -1,7 +1,7 @@
 function [risk_factors,spot_rates,AE,c,currency,currVec,salesMatrix,T_cashFlow] = dPsetup()
-
-[currVec,salesMatrix]=testExcelToMatlab();
-
+addpath("PriceEquation\")
+%[currVec,salesMatrix]=testExcelToMatlab();
+testExcelToMatlab;
 %c(assets, size)
 maxCashFlows = 2; %TODO: calculate max cashflows
 c=zeros(size(salesMatrix,1),maxCashFlows);

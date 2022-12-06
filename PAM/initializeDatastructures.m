@@ -1,34 +1,28 @@
 
-function [h_p_finished,h_p_raw, h_c, xs_s, xs_b, P, dP_raw, R, f, df, deltaT, D, numProducts, numCurrencies] = initializeDatastructures(numProds, numCurrs, numRFs)
+function [h_p_finished,h_p_raw, h_c, xsProd_s, xsProd_b, xsCurr_b,  P_raw, dP_raw, R, f, df, deltaT, numProducts, numCurrencies] = initializeDatastructures(numProductsFinished,numProductsRaw, numCurrencies)
 
-assetIDN = 1:numProds;
-currencies = 1:numCurrs;
-
-numProducts = length(assetIDN);
-numProductsFinished = round(numProducts * .8);
-numProductsRaw = numProducts - numProductsFinished;
-
-numCurrencies = length(currencies);
-%numRiskFactors = numRFs;
-
-
+numProducts = numProductsFinished + numProductsRaw;
+%numCurrencies = length(currencies);
 
 h_p_finished = rand(numProductsFinished,1);
 h_p_raw = rand(numProductsRaw,1);
 h_c = rand(numCurrencies, 1);
 
 
-xs_b = rand(numCurrencies,1);
-xs_s = rand(numCurrencies,1);
+xsProd_b = rand(numCurrencies,1);
+xsProd_s = rand(numCurrencies,1);
+
+xsCurr_b = rand(numCurrencies,1);
 
 R = rand(numCurrencies,1);
 deltaT = rand(numCurrencies,1);
 f = rand(numCurrencies,1);
 df = rand(numCurrencies,1);
 
-D = rand(numProducts,numCurrencies); % dividends in this timestep
-P = rand(numProducts, numCurrencies); % match with currency
-dP_raw = rand(numProductsRaw, numCurrencies);
+%D = rand(numProducts,numCurrencies); % dividends in this timestep
+P_raw = rand(numProducts, numCurrencies); % match with currency
+
+dP_raw = ones(numProductsRaw,1) * (1/365); %daily Price Differences for Observed Prices all expressed in SEK
 end
 
 

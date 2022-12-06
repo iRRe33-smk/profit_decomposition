@@ -125,7 +125,7 @@ end
 numberOfSales = size(salesExcel,1);
 numberOfCurr = size(currVec,1);
 numberOfDates = size(arrayDates,1);
-tempSalesMatrix = zeros(numberOfFinalItem,numberOfCurr,);
+tempSalesMatrix = zeros(numberOfFinalItem,numberOfCurr);
 
 for i = 1:numberOfDates
    if (ismember(datePeriod(i), datenum(table2array(salesExcel(:,4)))))
