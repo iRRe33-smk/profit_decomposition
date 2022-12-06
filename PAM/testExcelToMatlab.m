@@ -12,6 +12,8 @@ procurementExcel = readtable(fileName, 'sheet', 'procurement');
 salesExcel = readtable(fileName, 'sheet', 'sales');
 bomExcel = readtable(fileName, 'sheet', 'bom');
 prodExcel = readtable(fileName, 'sheet','production');
+priceItems =  xlsread(fileName,"Price List Valuta", 'B2:T94');
+FXMatrix =  xlsread(fileName,"usedFXCurves");
 
 %% Adding data
  currVec = ["AED"; "AUD"; "BHD"; "CAD"; "CHF"; "CNY"; "CZK"; "DKK"; "EUR"; "GBP"; "HKD";...
@@ -37,6 +39,8 @@ transCostB (:,1) = datePeriod;
 transCostS = zeros(row,column);
 transCostS (:,1) = datePeriod;
 
+
+
 for i = 1:numberOfDeposit
     if(ismember(datenum(datestr(table2array(depositExcel(i,1)))), hFX(:,1)));
         indexCurr = find(ismember(currVec,string(table2array(depositExcel(i,2))))) + 1;
@@ -61,10 +65,17 @@ for i = 1:numberOfFXTrades
     end
 end
 
-itemVec = string(unique(table2array(procurementExcel(:,3))));
-itemVec = setdiff(itemVec, "Labour");
+[~,itemVec] = xlsread(fileName,"Price List SEK",'B1:T1');
+itemVec = string(itemVec)';
 
 numberOfItem = size(itemVec,1);
+
+
+% dp Non final product
+dpPriceItems = zeros(row,numberOfItem);
+for i = 1:row-1
+   dpPriceItems(i+1,:) = priceItems(i+1,:) - priceItems(i,:);
+end
 
 hItem = zeros(row,numberOfItem + 1);
 hItem(:,1) = datePeriod;
