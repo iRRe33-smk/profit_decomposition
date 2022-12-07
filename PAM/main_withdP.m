@@ -1,11 +1,17 @@
 %% Run setup
 
 clear
+%cd("PAM")
 addpath("termFunctions\")
-addpath("priceEquation\")
+addpath("PriceEquation\")
 
 
 [risk_factors,spot_rates,AE,c,currency,currVec,salesMatrix,T_cashFlow] = dPsetup();
+%% Test get DP
+t = 25;
+[dP_finished,P_finished] = getDP(risk_factors,spot_rates,AE,t,c,currency,currVec,T_cashFlow,salesMatrix);
+
+%% cut 
 
 [numProdFinished, numCurr, T_max] = size(salesMatrix);
 disp([numProdFinished, numCurr, T_max])
@@ -66,4 +72,5 @@ plot(dates,cumsum(deltaNPV),"-", ...
     dates,cumsum(deltaNPVrf(:,5),1),"--", ...
     dates,cumsum(deltaNPVrf(:,6),1),"--")
 legend( {"cumm. deltaNPV", "shift", "twist", "butterfly", "RiskFactor4", "RiskFactor5", "RiskFactor6"}, "Location", "northwest")
+
 
