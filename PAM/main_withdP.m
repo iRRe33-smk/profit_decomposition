@@ -1,41 +1,46 @@
+%% Run setup
+
+clear
 addpath("termFunctions\")
 addpath("priceEquation\")
 
-numProd = 10;
-numCurr = 4;
+
+[risk_factors,spot_rates,AE,c,currency,currVec,salesMatrix,T_cashFlow] = dPsetup();
+
+[numProdFinished, numCurr, T_max] = size(salesMatrix);
+disp([numProdFinished, numCurr, T_max])
+numProdRaw = 5;
 numRf = 6;
 
-T_max = 10;
+%% Run simulation
 
 %Variables to save results from the terms
 deltaNPV = zeros(T_max,1);
 deltaNPVterms = zeros(T_max,8);
 deltaNPVrf = zeros(T_max,numRf); %riskfactors
-deltaNPVp = zeros(T_max,numProd); %products
+deltaNPVp = zeros(T_max,numProdRaw + numProdFinished); %products
 
-
-%[salesMatrix, TimeIndex, Rates] = dPSetUp(.. .. .. )
-[risk_factors,spot_rates,AE,c,currency,currVec,salesMatrix,T_cashFlow] = dPsetup();
-
-for t = 1:T_max
-    %initializing random data of the right sizes
-    [h_p_finished,h_p_raw, h_c, xs_s, xs_b, P, dP_raw, R, f, df, deltaT, D, numProducts, numCurrencies] = initializeDatastructures(numProd,numCurr,numRf);
+for t = 2:T_max
+    % creates placeholder until readExcel has been completed
+    [h_p_finished,h_p_raw, h_c, xsProd_s, xsProd_b, xsCurr_b,  P_raw, dP_raw, R, f, df, deltaT, numProducts, numCurrencies] = ...
+           initializeDatastructures(numProdFinished,numProdRaw,numCurr);
     
-    %dP = getDP(t,salesMatrix, rates)
-    [dP,P] = getDP(risk_factors,spot_rates,AE,t,c,currency,currVec,T_cashFlow,salesMatrix);
-    dP_finished = rand(size(h_p_finished,1), numCurr, numRf+1);
-
+    %gets delta P from priceEquations
+    [dP_finished,P_finished] = getDP(risk_factors,spot_rates,AE,t,c,currency,currVec,T_cashFlow,salesMatrix);
+    D = squeeze(salesMatrix(:,:,t));
+    
     %calculating results from each timestep 
     [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms] = ... 
-        PAM_timestep(h_p_finished,h_p_raw, h_c, xs_s, xs_b, P, dP_finished, dP_raw, R, f, df, deltaT, D, numProducts, numCurrencies);
+         PAM_timestep(h_p_finished, h_p_raw, h_c, xsProd_s, xsProd_b, xsCurr_b, P_finished, dP_finished, P_raw, dP_raw, R, f, df, deltaT, D, numProducts, numCurrencies);
     
+    %saves results in each timestep
     deltaNPV(t) = timeStepTotal;
     deltaNPVp(t,:) = timeStepProducts';
     deltaNPVrf(t,:) = timeStepRiskFactors';
     deltaNPVterms(t,:) = timeStepTerms';
 end
 
-
+%% Make Plots
 dates = 1:T_max;
 
 figure("Name","deltaNPV terms")

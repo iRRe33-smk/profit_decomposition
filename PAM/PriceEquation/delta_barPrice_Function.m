@@ -55,7 +55,7 @@ for i = 1:size(risk_factor,1)
     vec_risk = zeros(size(risk_factor,1),1);
     vec_risk(i)=1;
     for j = 1:N
-        delta_price_a_riskfactors(j,i) = transpose(vec_risk)*delta_price_xi(:,j) + transp(vec_risk)*delta_price_q(:,:,j)*vec_risk;
+        delta_price_a_riskfactors(j,i) = transpose(vec_risk)*delta_price_xi(:,j) + transpose(vec_risk)*delta_price_q(:,:,j)*vec_risk;
     end
 end
 delta_price_a_riskfactors(:,end) = delta_price_a;
