@@ -159,7 +159,7 @@ for i = 1:numberOfDates
            h_p_finished_matrix(deliveryDate:row,indexItem+1) = h_p_finished_matrix(deliveryDate:row,indexItem+1) - table2array(salesExcel(salesDateIndex(j),3));
        end
    else
-        tempSalesMatrix = zeros(numberOfProd,numCurrencies);
+        tempSalesMatrix = zeros(numProductsFinished,numCurrencies);
    end
    if (i == 1)
        D = tempSalesMatrix;
