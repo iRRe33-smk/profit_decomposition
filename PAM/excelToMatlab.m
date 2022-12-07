@@ -1,7 +1,7 @@
 
 function[numProductsRaw, numProductsFinished, numCurrencies, D, h_p_finished_matrix, h_p_raw_matrix,...
     h_c_matrix, xsProd_b_matrix, xsProd_s_matrix, xsCurr_b_matrix, FXMatrix, dFMatrix, P_raw_matrix, ...
-    dP_raw_matrix, row] = excelToMatlab()
+    dP_raw_matrix, row, currVec] = excelToMatlab()
 
 %% Read data
 
