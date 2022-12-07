@@ -26,10 +26,11 @@ end
 
 [risk_factors, spot_rates, AE] = getPCAdata(forward_rates,currVec);
 %%
-T_start = 2;
-tau = mat2cell(repmat(zeros(size(c,2),size(salesMatrix,3)-T_start+1),1,size(c,1)),size(c,2),repmat(size(salesMatrix,3)-T_start+1,1,size(c,1)));
+T_start = 25;
+T_tau = T_start-1;
+tau = mat2cell(repmat(zeros(size(c,2),size(salesMatrix,3)-T_tau+1),1,size(c,1)),size(c,2),repmat(size(salesMatrix,3)-T_tau+1,1,size(c,1)));
 for i=1:size(c,1)
-    tau(1,i) = mat2cell(calculate_tau(T_cashFlow(i,:),T_start,size(salesMatrix,3)),size(c,2),size(salesMatrix,3)-T_start+1);
+    tau(1,i) = mat2cell(calculate_tau(T_cashFlow(i,:),T_tau,size(salesMatrix,3)),size(c,2),size(salesMatrix,3)-T_tau+1);
 end
 t = T_start;
-dP = delta_barPrice_Function(risk_factors,spot_rates,AE,tau,t,c,currency,currVec);
+[dP, P_yesterday] = delta_barPrice_Function(risk_factors,spot_rates,AE,tau,t,c,currency,currVec);
