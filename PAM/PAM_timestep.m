@@ -29,13 +29,8 @@ timeStepTotal = T1 +T2 + sum(T3) + T4 + T5 + sum(T6_allSources,"all") + sum(T7) 
 
 timeStepRiskFactors = sum(T6_riskFactors,1);%
 
-disp(size(T3))
-disp(size(sum(T6_allSources,2)))
-disp(size(T7))
-disp(size(sum(error_f, 2)))
-timeStepProducts = sum(T6_allSources,2) + sum(error_f,2);
-timeStepProducts(end-1:end,1) = T3 + T7;
-%timeStepProducts = T3 + sum(T6_allSources,2) + T7 + sum(error_f, 2);
+timeStepProducts = sum(T6_allSources,2) + sum(error_f,2); % contains info for all products
+timeStepProducts(end-size(h_p_finished,1):end,1) = T3 + T7; %Adding values for finished products
 
 timeStepError = sum(error_f,"all");
 
