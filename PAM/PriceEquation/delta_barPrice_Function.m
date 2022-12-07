@@ -97,8 +97,7 @@ for i =1:N
 end
 delta_epsilon_a_riskfactors = zeros(N,size(risk_factor,1)+1);
 for i = 1:size(risk_factor,1)
-    delta_price_a_riskfactors(:,i)
-    delta_epsilon_a_riskfactors(:,i) = theoretical_price + dividend -theoretical_price_yesterday -delta_price_a_riskfactors(:,i) -delta_epsilon_i_riskfactors(:,i)
+    delta_epsilon_a_riskfactors(:,i) = theoretical_price + dividend -theoretical_price_yesterday -delta_price_a_riskfactors(:,i) -delta_epsilon_i_riskfactors(:,i);
 end
 delta_epsilon_a_riskfactors(:,end)=delta_epsilon_a;
 

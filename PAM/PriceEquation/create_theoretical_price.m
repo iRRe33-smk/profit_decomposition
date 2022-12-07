@@ -9,12 +9,12 @@ theoretical_price = zeros(N,1);
     for i = 1:N % (c,1) dvs. mängden assets
         for j = 1:size(c,2)
             tau_temp = cell2mat(tau(1,i));
-            if (c(i,j)~=0  && (round(tau_temp(j,t-1)*365) > 0))
+            if (c(i,j)~=0  && (round(tau_temp(j,2)*365) > 0))
                 index = find(strcmp(string(spot_rates(1,:)),currency(i,j)));
                 spot_rate_temp = cell2mat(spot_rates(2,index));
                 
                
-                sum = sum + c(i,j)*exp(-spot_rate_temp(t,round(tau_temp(j,t)*365))*tau_temp(j,t));
+                sum = sum + c(i,j)*exp(-spot_rate_temp(t,round(tau_temp(j,2)*365))*tau_temp(j,2));
             end
         end
         theoretical_price(i) = sum;
