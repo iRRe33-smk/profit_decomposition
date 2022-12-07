@@ -13,6 +13,6 @@ T6RF = zeros(nP,nRF);
 for i=1:nRF
     T6RF(:,i) = H .* squeeze(dP(:,:,i)) * f; 
 end
-T6Common = H .* squeeze(dP(:,:,nRF+1)) * f;
+T6Common = H .* squeeze(dP(:,:,nRF+1)) * f; %[nP,1]
 end
 
