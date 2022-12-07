@@ -13,13 +13,21 @@ deltaNPVterms = zeros(T_max,8);
 deltaNPVrf = zeros(T_max,numRf); %riskfactors
 deltaNPVp = zeros(T_max,numProd); %products
 
+% Retrivering the data from Excel
+[numProductsRaw, numProductsFinished, numCurrencies, D, h_p_finished_matrix, h_p_raw_matrix,...
+    h_c_matrix, xsProd_b_matrix, xsProd_s_matrix, xsCurr_b_matrix, FXMatrix, dFMatrix, P_raw_matrix, ...
+    dP_raw_matrix, T_max] = excelToMatlab();
 
 %[salesMatrix, TimeIndex, Rates] = dPSetUp(.. .. .. )
 
 
 for t = 1:T_max
     %initializing random data of the right sizes
-    [h_p_finished,h_p_raw, h_c, xs_s, xs_b, P, dP_raw, R, f, df, deltaT, D, numProducts, numCurrencies] = initializeDatastructures(numProd,numCurr,numRf);
+    [h_p_finished,h_p_raw, h_c, xsProd_s, xsProd_b, xsCurr_b,  P_raw,dP_raw, R, f, df, ...
+     deltaT, numProducts, numCurrencies] = ...
+    initializeDatastructures(numProductsFinished,numProductsRaw, numCurrencies,timestep,...
+    h_p_finished_matrix, h_p_raw_matrix,h_c_matrix, xsProd_b_matrix, xsProd_s_matrix,...
+    xsCurr_b_matrix, FXMatrix, dFMatrix, P_raw_matrix,dP_raw_matrix);
     
     %dP = getDP(t,salesMatrix, rates)
     dP_finished = rand(size(h_p_finished,1), numCurr, numRf+1);
