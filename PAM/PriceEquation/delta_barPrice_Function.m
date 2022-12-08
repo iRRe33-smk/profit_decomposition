@@ -18,7 +18,11 @@ theoretical_price_yesterday =  create_theoretical_price_xi_tilde_yesterday(c,tau
 dividend_yesterday = zeros(N,1);
 for i = 1:N
     tau_temp = cell2mat(tau(1,i));
-    for j = 1:size(c,1)
+    %disp(size(tau_temp))
+    %disp(tau_temp)
+    for j = 1:size(c,2) %HÄR ÄNDRADE Isak från size(c,1) 7/12
+        %disp(j)
+       
         if(tau_temp(j,1) == -1/365)
             dividend_yesterday(i) = dividend_yesterday(i) + c(i,j);
         end
@@ -85,7 +89,7 @@ delta_epsilon_a = zeros(N,1);
 dividend = zeros(N,1);
 for i = 1:N
     tau_temp = cell2mat(tau(1,i));
-    for j = 1:size(c,1)
+    for j = 1:size(c,2) %HÄR ÄNDRADE Isak från size(c,1) 7/12
         if(tau_temp(j,1) == 0)
             dividend(i) = dividend(i) + c(i,j);
         end

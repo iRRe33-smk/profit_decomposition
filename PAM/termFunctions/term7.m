@@ -11,7 +11,7 @@ function [T7] = term7(h, P, Dt, f, df)
 
 
 
-T7 = h .* ( P - squeeze(Dt)) * df;
+T7 = h .* ((P - Dt) * df);
 
 
 

@@ -1,5 +1,6 @@
 %% Read data
 function [currVec,salesMatrix] = testExcelToMatlab()
+
 clc 
 clear
 depositExcel = readtable('caseTest.xlsx','sheet', 'deposits');

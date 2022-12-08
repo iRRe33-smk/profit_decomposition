@@ -1,5 +1,5 @@
 
-function [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepError] = ... 
+function [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms] = ... 
     PAM_timestep(h_p_finished, h_p_raw, h_c, xsProd_s, xsProd_b, xsCurr_b, P_finished, dP_finished, P_raw, dP_raw, R, f, df, deltaT, D, numProducts, numCurrencies)
 
 %h_p = [h_p_raw ; h_p_finished];
@@ -25,12 +25,32 @@ T7 = term7(h_p_finished,P_finished,D,f, df);
 
 error_f = termError(dP_finished, df, numProducts);
 
-timeStepTotal = T1 +T2 + sum(T3) + T4 + T5 + sum(T6_allSources,"all") + sum(T7) + sum(error_f,"all");
+
+%% print dimensions of all terms
+if true
+    disp("%%%%%%%%%%%%%%%%%")
+    disp(size(T1)) %curr
+    disp(size(T2)) %curr
+    disp(size(T3)) % finished
+    disp(size(T4)) %1
+    disp(size(T5)) % 1x1
+    disp(size(T6_allSources)) % all prod
+    disp(size(T7)) % finished
+    disp(size(error_f)) % finished x rf
+
+    disp(size(T6_riskFactors))
+end
+
+
+
+
+
+timeStepTotal = sum(T1) + sum(T2) + sum(T3) + sum(T4) + sum(T5) + sum(T6_allSources, "all") + sum(T7) + sum(error_f,"all");
 
 timeStepRiskFactors = sum(T6_riskFactors,1);%
 
-timeStepProducts = sum(T6_allSources,2) + sum(error_f,2); % contains info for all products
-timeStepProducts(end-size(h_p_finished,1):end,1) = T3 + T7; %Adding values for finished products
+timeStepProducts = sum(T6_allSources,2);% + sum(error_f,2); % contains info for all products
+timeStepProducts(end-size(h_p_finished,1)+1:end,1) = T3 + T7; %Adding values for finished products
 
 timeStepError = sum(error_f,"all");
 

@@ -4,7 +4,7 @@ function [T1] = term1(h_c, R, f)
 %   R ON-interest returns ~1
 %   f  FX-rate to base currency
 
-    T1 = h_c' .* (R - 1)' * f;
+    T1 = h_c .* (R - 1) .* f;
 
 
 end
