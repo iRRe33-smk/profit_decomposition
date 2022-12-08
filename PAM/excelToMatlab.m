@@ -13,7 +13,7 @@ procurementExcel = readtable(fileName, 'sheet', 'procurement');
 salesExcel = readtable(fileName, 'sheet', 'sales');
 bomExcel = readtable(fileName, 'sheet', 'bom');
 prodExcel = readtable(fileName, 'sheet','production');
-P_raw_matrix =  xlsread(fileName,"Price List Valuta", 'B2:T94');
+P_raw_matrix =  xlsread(fileName,"Price List SEK", 'B2:T94');
 FXMatrix =  xlsread(fileName,"usedFXCurves");
 
 %% Adding data
