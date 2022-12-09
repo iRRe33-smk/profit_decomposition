@@ -14,8 +14,8 @@ for k=1:size(forward_rates)
     
     %Calculation of the AE-matrix
     %A_eigen_vectors = create_A(size(eigen_vectors,1));
-    size_E = size(eigen_vectors)
-    size_A = size(A)
+    size_E = size(eigen_vectors);
+    size_A = size(A);
     AE_temp = A*eigen_vectors;
     AE(:,k) = {currVec(k,1);AE_temp};
 
