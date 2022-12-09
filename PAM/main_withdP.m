@@ -34,8 +34,8 @@ deltaNPVp = zeros(T_max,numProductsRaw + numProductsFinished); %products
 
 
 
-for t = 2:4%min(T_max,80)
-    %disp(t)
+for t = 2:80%min(T_max,80)
+    disp(t)
     
     % Gets simulated data from dataset
     [h_p_finished,h_p_raw, h_c, xsProd_s, xsProd_b, xsCurr_b,  P_raw,dP_raw, R, f, df, ...
