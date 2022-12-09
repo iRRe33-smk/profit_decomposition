@@ -1,10 +1,14 @@
 %% Run setup
 
 clear
-cd("PAM")
-addpath("termFunctions\")
-addpath("PriceEquation\")
-
+%cd("PAM")
+if ispc
+    addpath("termFunctions\")
+    addpath("PriceEquation\")
+elseif ismac
+    addpath("termFunctions/")
+    addpath("PriceEquation/")
+end
 
 
 % Retrivering the data from Excel
@@ -30,7 +34,7 @@ deltaNPVp = zeros(T_max,numProductsRaw + numProductsFinished); %products
 
 
 
-for t = 2:24%T_max%min(T_max,80)
+for t = 2:85%T_max%min(T_max,80)
     %disp(t)
     % creates placeholder until readExcel has been completed
     %[h_p_finished,h_p_raw, h_c, xsProd_s, xsProd_b, xsCurr_b,  P_raw, dP_raw, R, f, df, deltaT, numProducts, numCurrencies] = ...
