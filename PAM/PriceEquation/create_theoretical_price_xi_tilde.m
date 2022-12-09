@@ -1,11 +1,11 @@
 
-function theoretical_price_xi_tilde = create_theoretical_price_xi_tilde(c,tau,spot_rates,N,t,currency)
+function theoretical_price_xi_tilde = create_theoretical_price_xi_tilde(c,tau,spot_rates,N,t,currency,Nc)
 %theoretical_price_xi_tilde = zeros(nP,nC,nRF);
 %nP = N;
 %nC = length(currVec);
 %nRF = 6;
-sum = 0;
-theoretical_price_xi_tilde = zeros(N,1);
+sum = zeros(1,Nc);
+theoretical_price_xi_tilde = zeros(N,Nc);
 %for k = 1:nRF
     for i = 1:N % (c,1) dvs. mängden assets
         for j = 1:size(c,2)
@@ -15,11 +15,11 @@ theoretical_price_xi_tilde = zeros(N,1);
                 spot_rate_temp = cell2mat(spot_rates(2,index));
                 
                
-                sum = sum + c(i,j)*exp(-spot_rate_temp(t-1,round(tau_temp(j,1)*365))*tau_temp(j,2));
+                sum(index) = sum(index) + c(i,j)*exp(-spot_rate_temp(t-1,round(tau_temp(j,1)*365))*tau_temp(j,2));
             end
         end
-        theoretical_price_xi_tilde(i) = sum;
-        sum = 0; %nollställd
+        theoretical_price_xi_tilde(i,:) = sum;
+        sum = zeros(1,Nc); %nollställd
     end
 
 end
