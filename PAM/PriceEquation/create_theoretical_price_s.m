@@ -11,7 +11,7 @@ sum = 0;
                 AE_temp = cell2mat(AE(2,index));
                
 
-                sum = sum + c(i,j)*exp(-(spot_rate_temp(t-1,round(tau_temp(j,1)*365))+AE_temp(round(tau_temp(j,1)*365),:)*risk_factor(:,t))*tau_temp(j,2));
+                sum = sum + c(i,j)*exp(-(spot_rate_temp(t-1,round(tau_temp(j,1)*365))+AE_temp(round(tau_temp(j,1)*365),:)*risk_factor(index*6-5:index*6,1))*tau_temp(j,2));
 
             %gradient(i,:) = gradient(i,:) + -AE(round(tau(j,i)*365),:)*tau(j,i)*c(j)*exp(-(spot_rates(i,round(tau(j,i)*365))*tau(j,i)));
              end

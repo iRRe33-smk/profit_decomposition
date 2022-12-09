@@ -23,8 +23,11 @@ end
 if (~exist('forward_rates','var'))
     forward_rates = getForwardRate();
 end
-
+%%
 [risk_factors, spot_rates, AE] = getPCAdata(forward_rates,currVec);
+
+
+
 %%
 T_start = 25;
 T_tau = T_start-1;

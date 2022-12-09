@@ -3,17 +3,30 @@ function [risk_factors,spot_rates,AE] = getPCAdata(forward_rates,currVec)
 %Get riskfactors by running create_riskfactors.m
 for k=1:size(forward_rates)
     fAll = create_F(cell2mat(forward_rates(k,2)));
+    
     [risk_factors_temp, eigen_values, eigen_vectors,C] = create_riskfactor(fAll);
     risk_factors(:,k)={currVec(k,1);risk_factors_temp};
     %Convert forwardrates to spotrates
-    A_spot_rates = create_A(size(cell2mat(forward_rates(k,2)),1)); 
-    spot_rates_temp = transpose(A_spot_rates)*cell2mat(forward_rates(k,2)); 
+    [spot_rates_temp,A] = calculate_spotrates(cell2mat(forward_rates(k,2)));
+    %A_spot_rates = create_A(size(cell2mat(forward_rates(k,2)),1));
+    %spot_rates_temp = transpose(A_spot_rates)*cell2mat(forward_rates(k,2)); 
     spot_rates(:,k) = {currVec(k,1);spot_rates_temp};
     
     %Calculation of the AE-matrix
-    A_eigen_vectors = create_A(size(eigen_vectors,1));
-    AE_temp = A_eigen_vectors*eigen_vectors;
+    %A_eigen_vectors = create_A(size(eigen_vectors,1));
+    size_E = size(eigen_vectors)
+    size_A = size(A)
+    AE_temp = A*eigen_vectors;
     AE(:,k) = {currVec(k,1);AE_temp};
+
+end
+
+function [spot_rate, A] = calculate_spotrates(forward_rate)
+    spot_rate = zeros(size(forward_rate));
+    A = create_A(size(forward_rate,2));
+    for i=1:size(forward_rate,1)
+        spot_rate(i,:) = (A*forward_rate(i,:)')';
+    end
 
 end
 %{

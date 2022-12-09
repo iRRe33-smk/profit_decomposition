@@ -7,8 +7,10 @@ function [dP,P_yesterday] = delta_barPrice_Function(risk_factors,spot_rates,AE,t
 %+ epsA + epsI. The equation is implemented down below:
 % the numbers,i.e (514) refers to equation numbers from paper
 % interestRateInstruments.pdf
-risk_factor=cell2mat(risk_factors(2,32)); %Uses risk factors for SEK now, might change (Ask Jörgen)
+%risk_factor=cell2mat(risk_factors(2,32)); %Uses risk factors for SEK now, might change (Ask Jörgen)
+risk_factor = create_risk_vec(risk_factors,t);
 N=size(c,1);
+Nc=size(currVec,1);
 
 
 % (514) deltapriceT = "Passage of Time":
@@ -29,14 +31,15 @@ passage_of_time = theoretical_price_xi_tilde - (theoretical_price_yesterday - di
 
 
 % (515) delta_PriceXI = "Change in price with respect to riskfactors"
-delta_price_xi = diag(risk_factor(:,t))*create_gradient(c,tau,AE,spot_rates,N,currency,t); % gradient from PCA.
+gradient = create_gradient(c,tau,AE,spot_rates,N,currency,t,Nc);
+delta_price_xi = diag(risk_factor)*gradient; % gradient from PCA.
 
 
 % (516)delta_price_Q = "quadratic term of the bar_price"
-hessian = create_hessian(c,tau,AE,spot_rates,N,currency,t);
-delta_price_q = zeros(6,6,N);
+hessian = create_hessian(c,tau,AE,spot_rates,N,currency,t,Nc);
+delta_price_q = zeros(6*Nc,6*Nc,N);
 for i =1:N
-    delta_price_q(:,:,i) = (1/2)*diag(risk_factor(:,t))*hessian(:,:,i)*diag(risk_factor(:,t)); %hessian from PCA
+    delta_price_q(:,:,i) = (1/2)*diag(risk_factor)*hessian(:,:,i)*diag(risk_factor); %hessian from PCA
 end
 
 % (517) delta_price_A = "the approximation that does not take into considiration for error terms:
@@ -50,11 +53,15 @@ for i = 1:N
 end
 
 %calculating delta_price_A with respect to single risk factors
-delta_price_a_riskfactors = zeros(N,size(risk_factor,1)+1);
-for i = 1:size(risk_factor,1)
-    vec_risk = zeros(size(risk_factor,1),1);
-    vec_risk(i)=1;
+delta_price_a_riskfactors = zeros(N,size(risk_factor,1)/Nc+1);
+for i = 1:size(risk_factor,1)/Nc
     for j = 1:N
+        vec_risk = zeros(size(risk_factor,1),1);
+        for k =1:size(currency(j,:),2)
+            index = find(strcmp(string(spot_rates(1,:)),currency(j,k)));
+            vec_risk((index-1)*6+i)=1;
+        end
+
         delta_price_a_riskfactors(j,i) = transpose(vec_risk)*delta_price_xi(:,j) + transpose(vec_risk)*delta_price_q(:,:,j)*vec_risk;
     end
 end
@@ -67,11 +74,14 @@ theoretical_price = create_theoretical_price(c,tau,spot_rates,N,t,currency);
 delta_epsilon_i = theoretical_price-theoretical_price_s;
 
 %calculating delta_epsilon_i with respect to single risk factors.
-theoretical_price_s_riskfactors = zeros(N,size(risk_factor,1)+1);
-delta_epsilon_i_riskfactors = zeros(N,size(risk_factor,1)+1);
-for i=1:size(risk_factor,1)
+theoretical_price_s_riskfactors = zeros(N,size(risk_factor,1)/Nc+1);
+delta_epsilon_i_riskfactors = zeros(N,size(risk_factor,1)/Nc+1);
+for i=1:size(risk_factor,1)/Nc
     risk_factor_temp = zeros(size(risk_factor,1),size(risk_factor,2));
-    risk_factor_temp(i,:)=risk_factor(i,:);
+    for j = 1:Nc
+        risk_factor_temp((j-1)*6+i)=risk_factor((j-1)*6+i);
+    end
+
     theoretical_price_s_riskfactors(:,i) = create_theoretical_price_s(c,tau,AE,spot_rates,N,currency,t,risk_factor_temp);
     delta_epsilon_i_riskfactors(:,i)=theoretical_price-theoretical_price_s_riskfactors(:,i);
 end
@@ -95,8 +105,8 @@ end
 for i =1:N
     delta_epsilon_a(i) = theoretical_price(i) + dividend(i)- theoretical_price_yesterday(i) -delta_price_a(i) -delta_epsilon_i(i); %Lägg till dividends
 end
-delta_epsilon_a_riskfactors = zeros(N,size(risk_factor,1)+1);
-for i = 1:size(risk_factor,1)
+delta_epsilon_a_riskfactors = zeros(N,size(risk_factor,1)/Nc+1);
+for i = 1:size(risk_factor,1)/Nc
     delta_epsilon_a_riskfactors(:,i) = theoretical_price + dividend -theoretical_price_yesterday -delta_price_a_riskfactors(:,i) -delta_epsilon_i_riskfactors(:,i);
 end
 delta_epsilon_a_riskfactors(:,end)=delta_epsilon_a;
@@ -105,8 +115,8 @@ delta_epsilon_a_riskfactors(:,end)=delta_epsilon_a;
 % Complete un-observed pricechange equation;
 
 delta_barPrice = delta_price_a + delta_epsilon_a + delta_epsilon_i; 
-delta_barPrice_riskfactors = zeros(N,size(risk_factor,1)+1);
-for i =1:size(risk_factor,1)
+delta_barPrice_riskfactors = zeros(N,size(risk_factor,1)/Nc+1);
+for i =1:size(risk_factor,1)/Nc
     delta_barPrice_riskfactors(:,i) = delta_price_a_riskfactors(:,i) + delta_epsilon_a_riskfactors(:,i) + delta_epsilon_i_riskfactors(:,i);
 end
 delta_barPrice_riskfactors(:,end) = delta_barPrice;
