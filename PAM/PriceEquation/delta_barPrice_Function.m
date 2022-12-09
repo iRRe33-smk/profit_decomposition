@@ -105,7 +105,7 @@ theoretical_price = create_theoretical_price(c,tau,spot_rates,N,t,currency,Nc);
 delta_epsilon_i = theoretical_price-theoretical_price_s;
 
 %calculating delta_epsilon_i with respect to single risk factors.
-theoretical_price_s_riskfactors = zeros(N,Nc,NrF+1);
+theoretical_price_s_riskfactors = zeros(N,Nc,NrF+1); 
 delta_epsilon_i_riskfactors = zeros(N,Nc,NrF+1);
 for i=1:NrF
     risk_factor_temp = zeros(size(risk_factor,1),size(risk_factor,2));
@@ -147,10 +147,13 @@ delta_epsilon_a_riskfactors(:,:,end)=delta_epsilon_a;
 % Complete un-observed pricechange equation;
 
 delta_barPrice = delta_price_a + delta_epsilon_a + delta_epsilon_i; 
-delta_barPrice_riskfactors = zeros(N,Nc,NrF+1);
+delta_barPrice_riskfactors = zeros(N,Nc,NrF+4);
 for i =1:NrF
-    delta_barPrice_riskfactors(:,:,i) = delta_price_a_riskfactors(:,:,i) + delta_epsilon_a_riskfactors(:,:,i) + delta_epsilon_i_riskfactors(:,:,i);
+    delta_barPrice_riskfactors(:,:,i) = delta_price_a_riskfactors(:,:,i); %+ delta_epsilon_a_riskfactors(:,:,i) + delta_epsilon_i_riskfactors(:,:,i);
 end
+delta_barPrice_riskfactors(:,:,end-3) = passage_of_time;
+delta_barPrice_riskfactors(:,:,end-2) = delta_epsilon_a;
+delta_barPrice_riskfactors(:,:,end-1) = delta_epsilon_i;
 delta_barPrice_riskfactors(:,:,end) = delta_barPrice;
 
 %dP = format_dP(delta_barPrice_riskfactors,currency,currVec,N);
