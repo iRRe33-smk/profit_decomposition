@@ -1,5 +1,6 @@
 function [error_f] = termError(dP, df, numProducts)
-
+% termError -> array[numProducts x numRiskFactors + 1]
+%
 
 [nP_unObserved,nC,nRF] = size(dP); %only unobserved priceChanges
 

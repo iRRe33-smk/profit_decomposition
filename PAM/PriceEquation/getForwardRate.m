@@ -1,5 +1,5 @@
 function [forward_rates]=getForwardRate()
-cd("PriceEquation\")
+cd("PriceEquation/")
 %myDir = "\\ad.liu.se\home\einei581\Documents\CDIO\profit_decomposition-main (1)\profit_decomposition-main\PAM\termFunctions\3MonthCurves\";
 myDir = ".\3MonthCurves\";
 myFiles = dir(fullfile(myDir,'*.mat'));

@@ -1,7 +1,8 @@
-function [risk_factors,spot_rates,AE,c,currency,currVec,salesMatrix,T_cashFlow] = dPsetup()
+function [risk_factors,spot_rates,AE,c,currency,currVec,salesMatrix,T_cashFlow] = dPsetup(currVec,salesMatrix)
 addpath("PriceEquation\")
 %[currVec,salesMatrix]=testExcelToMatlab();
-testExcelToMatlab;
+%[currVec,salesMatrix] = testExcelToMatlab();
+
 %c(assets, size)
 maxCashFlows = 2; %TODO: calculate max cashflows
 c=zeros(size(salesMatrix,1),maxCashFlows);
@@ -24,6 +25,9 @@ end
 
 if (~exist('forward_rates','var'))
     forward_rates = getForwardRate();
+    disp("forward rates not found")
+else
+    disp("forward rates found")
 end
 
 [risk_factors, spot_rates, AE] = getPCAdata(forward_rates,currVec);
