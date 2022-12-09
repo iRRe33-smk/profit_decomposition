@@ -27,7 +27,7 @@ error_f = termError(dP_finished, df, numProducts);
 
 
 %% print dimensions of all terms
-if true
+if false
     disp("%%%%%%%%%%%%%%%%%")
     disp(size(T1)) %curr
     disp(size(T2)) %curr

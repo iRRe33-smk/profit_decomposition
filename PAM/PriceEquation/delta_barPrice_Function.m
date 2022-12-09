@@ -110,7 +110,7 @@ delta_epsilon_i_riskfactors = zeros(N,Nc,NrF+1);
 for i=1:NrF
     risk_factor_temp = zeros(size(risk_factor,1),size(risk_factor,2));
     for j = 1:Nc
-        risk_factor_temp((j-1)*6+i)=risk_factor((j-1)*6+i);
+        risk_factor_temp((j-1)*6+i) = risk_factor((j-1)*6+i);
     end
 
     theoretical_price_s_riskfactors(:,:,i) = create_theoretical_price_s(c,tau,AE,spot_rates,N,currency,t,risk_factor_temp,Nc);
@@ -155,6 +155,7 @@ delta_barPrice_riskfactors(:,:,end-3) = passage_of_time;
 delta_barPrice_riskfactors(:,:,end-2) = delta_epsilon_a;
 delta_barPrice_riskfactors(:,:,end-1) = delta_epsilon_i;
 delta_barPrice_riskfactors(:,:,end) = delta_barPrice;
+
 
 %dP = format_dP(delta_barPrice_riskfactors,currency,currVec,N);
 dP = delta_barPrice_riskfactors;

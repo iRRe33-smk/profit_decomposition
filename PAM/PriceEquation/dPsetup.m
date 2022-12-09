@@ -1,5 +1,11 @@
 function [risk_factors,spot_rates,AE,c,currency,currVec,salesMatrix,T_cashFlow] = dPsetup(currVec,salesMatrix)
-addpath("PriceEquation\")
+
+if ispc
+   addpath("PriceEquation\")
+elseif ismac
+    addpath("PriceEquation/")
+end
+
 %[currVec,salesMatrix]=testExcelToMatlab();
 %[currVec,salesMatrix] = testExcelToMatlab();
 
