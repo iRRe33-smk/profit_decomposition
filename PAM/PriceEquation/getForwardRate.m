@@ -19,6 +19,7 @@ for k = 1:length(myFiles)/2
 
 end
 %go back to PAM-dir
-cd("..\")
+
+cd("..")
 
 end
