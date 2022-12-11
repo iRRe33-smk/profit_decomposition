@@ -31,10 +31,11 @@ deltaNPV = zeros(T_max,1);
 deltaNPVterms = zeros(T_max,8); %eight terms, incl error
 deltaNPVrf = zeros(T_max,numRf); %riskfactors
 deltaNPVp = zeros(T_max,numProductsRaw + numProductsFinished); %products
+deltaNPVc = zeros(T_max, numCurrencies);%Currencies
 
-
-
-for t = 2:80%min(T_max,80)
+loopMax = 80;%T_max
+all_equal = ones(T_max,1);
+for t = 2:loopMax
     disp(t)
     
     % Gets simulated data from dataset
@@ -44,6 +45,9 @@ for t = 2:80%min(T_max,80)
                 h_p_finished_matrix, h_p_raw_matrix,h_c_matrix, xsProd_b_matrix, xsProd_s_matrix,...
                 xsCurr_b_matrix, FXMatrix, dFMatrix, P_raw_matrix,dP_raw_matrix);
     
+    %temporär fix, Isak, 11/12 -22
+    dP_raw = rand(numProductsRaw,numCurrencies)/1000;
+
     %Adding ON interest  to currency holdings
     h_c_matrix(t+1:end, :) = h_c_matrix(t+1:end,:) + (h_c .* (R-1))'; 
 
@@ -52,10 +56,17 @@ for t = 2:80%min(T_max,80)
     [passage_of_time,gradient_delta_risk_factor,hessian_delta_risk_factor,delta_epsilon_i,delta_epsilon_a,dP_finished,P_finished] = ...
         getDP(risk_factors,spot_rates,AE,t,c,currency,currVec,T_cashFlow,salesMatrix);
     
+    %{comps = zeros(6,6);
+    for i = 1:6
+        for j = 1:6
+            comps(i,j) = mean(dP_finished(:,:,i) == dP_finished(:,:,j),"all") == 1; 
+        end
+    end
+    %}all_equal(t) = mean(comps,"all") == 1;
     D = squeeze(salesMatrix(:,:,t));
     
     %calculating results from each timestep 
-    [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms] = ... 
+    [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms,timeStepCurrencies] = ... 
          PAM_timestep(h_p_finished, h_p_raw, h_c, xsProd_s, xsProd_b, ... 
          xsCurr_b, P_finished, dP_finished, P_raw, dP_raw, R, f, df, deltaT, D, numProducts, numCurrencies);
     
@@ -64,9 +75,12 @@ for t = 2:80%min(T_max,80)
     deltaNPVp(t,:) = timeStepProducts;
     deltaNPVrf(t,:) = timeStepRiskFactors;
     deltaNPVterms(t,:) = timeStepTerms';
+    deltaNPVc(t,:) = timeStepCurrencies;
 end
 
 %% Make Plots
+close all % close all plots before creating new ones
+
 dates = 1:T_max;
 figure("Name","Changes in NPV over time Period"); 
 hold on
@@ -91,7 +105,8 @@ plot(dates,cumsum(sum(deltaNPVterms,2)),"-", ...
 legend({"All terms", "term1", "term2", "term3", "term4", "term5", "term6", "term7", "termError"},"Location", "northwest" )
 
 
-figure("Name","deltaNPV RiskFactors")
+figure("Name","deltaNPV RiskFactors") 
+hold on;
 plot(dates,cumsum(sum(deltaNPVrf,2)),"-", ...
     dates,cumsum(deltaNPVrf(:,1),1),"--", ...
     dates,cumsum(deltaNPVrf(:,2),1),"--", ...
@@ -99,19 +114,31 @@ plot(dates,cumsum(sum(deltaNPVrf,2)),"-", ...
     dates,cumsum(deltaNPVrf(:,4),1),"--", ...
     dates,cumsum(deltaNPVrf(:,5),1),"--", ...
     dates,cumsum(deltaNPVrf(:,6),1),"--", ...
-    "LineWidth",2)
+    "LineWidth",2);
 legend( {"cumm. deltaNPV RF", "shift", "twist", "butterfly", "RiskFactor4", "RiskFactor5", "RiskFactor6"}, "Location", "northwest")
-
+hold off;
 
 % sort out most important products
 figure("Name", "deltaNPV Products")
-plot(dates, cumsum(sum(deltaNPVp(:,1:numProductsFinished),2)));
+plot(dates, cumsum(sum(deltaNPVp(:,1:numProductsFinished),2)), "LineWidth",2);
 hold on;
 prodNames = ["cumm. deltaNPV products", round(rand(1,numProductsFinished)*1000)];
 for i = 1:numProductsFinished 
-    plot(dates, cumsum(deltaNPVp(:,i)),"--")
+    plot(dates, cumsum(deltaNPVp(:,i)),"--", "LineWidth",2)
         
 end
 legend( prodNames, "Location", "northwest")
 
-%legend({"Total","Drilling Rig", "Drill Box", "Charging Station"}, "Location", "northwest");
+
+% sort out most important Currencies
+figure("Name", "deltaNPV Currencies")
+plot(dates, cumsum(sum(deltaNPVc(:,1:numCurrencies),2)), "LineWidth",2);
+hold on;
+prodNames = ["cumm. deltaNPV Currencies"; char(randi([65 90],numCurrencies,3))];
+for i = 1:numCurrencies 
+    plot(dates, cumsum(deltaNPVc(:,i)),"--", "LineWidth",2)
+        
+end
+legend( prodNames, "Location", "northwest")
+
+
