@@ -13,10 +13,10 @@ deviationPunishment = ...
               100,    100,    100,    100,    100,    100,    100];
 
           
-saveInWorkspace = true;
+saveInWorkspace = false;
 readFromWorkspace = false;
 addToWorkspace = false;
-saveToFile = false;
+saveToFile = true;
 readFromFile = true;
 addToFile = false;
 days = 90;
