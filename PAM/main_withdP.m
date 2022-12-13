@@ -67,8 +67,8 @@ for t = 2:loopMax
     
     %calculating results from each timestep 
     [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms,timeStepCurrencies] = ... 
-         PAM_timestep(h_p_finished, h_p_raw, h_c, xsProd_s, xsProd_b, ... 
-         xsCurr_b, P_finished, dP_finished, P_raw, dP_raw, R, f, df, deltaT, D, numProducts, numCurrencies);
+         PAM_timestep(h_p_finished, h_p_raw, h_c, -xsProd_s, -xsProd_b, ... 
+         -xsCurr_b, P_finished, dP_finished, P_raw, dP_raw, R, f, df, deltaT, D, numProducts, numCurrencies);
     
     %saves results in each timestep
     deltaNPV(t) = timeStepTotal;
