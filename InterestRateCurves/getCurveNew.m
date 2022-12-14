@@ -6,7 +6,7 @@ currencies = ["AED", "AUD", "BHD", "CAD", "CHF", "CNY", "CZK", "DKK", ...
               "PHP", "PKR", "PLN", "QAR", "RON", "RUB", "SAR", "SEK", ...
               "SGD", "THB", "TRY", "TWD", "UGX", "USD", "ZAR"]';
 deviationPunishment = ...
-             0.1*[100,    100,    100,    100,    100,    100,    100,    100, ...
+             [100,    100,    100,    100,    100,    100,    100,    100, ...
               100,    100,    100,    100,    100,    100,    100,    100, ...
               100,    100,    100,    100,    100,    100,    100,    100, ...
               100,    100,    100,    100,    100,    100,    100,    100, ...
@@ -16,25 +16,38 @@ deviationPunishment = ...
 days = 3650;
 n_f = days;
 dt = 1/365;
-%C = getC(days);
-
-for i = 1:1
-    df = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\3MonthDiscountFactors\' + currencies(i) + 'dF.mat');
+W = getW(n_f, 10, 2, 4);
+C = getC(W, dt, n_f);
+curN = length(currencies);
+for i = 6:curN
+    format = "Current currency is number %d of 39, %s, which is %.2f percent done! \n Estimated time left %.2f minutes, estimated total time left %.2f hours!";
+    str1 = currencies(i);
+    df = matfile('\\ad.liu.se\home\adaen534\Downloads\profit_decomposition-main\InterestRateCurves\3MonthDiscountFactors\' + currencies(i) + 'dF.mat');
     discountFactors = df.discountFactors;
-    t = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\3MonthT\' + currencies(i) + 'T.mat');
+    t = matfile('\\ad.liu.se\home\adaen534\Downloads\profit_decomposition-main\InterestRateCurves\3MonthT\' + currencies(i) + 'T.mat');
     T = t.T;
-    d = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\3MonthDates\' + currencies(i) + 'Dates.mat');
-    dates = d.dates; 
+    T = T(T <= n_f);
+    %d = matfile('\\ad.liu.se\home\adaen534\Downloads\profit_decomposition-main\InterestRateCurves\3MonthDates\' + currencies(i) + 'Dates.mat');
+    %dates = d.dates; 
     %for day = 1:numel(dates)
     f = zeros(n_f, 120);
     %E = deviationPunishment(i)*eye(n_r);
-    for day = 1:120
+    dfN = size(discountFactors, 2);
+    tic;
+    for day = 1:dfN
+        dig2 = round((day/dfN)*100, 2);
         [newT, n_r, newdiscountFactors] = getDayData(T, discountFactors(:, day));  
         logDiscountFactors = -log(newdiscountFactors)';
-        [A_s, B_s, C_s] = matrixGeneration(deviationPunishment(i), newT , n_f, n_r, dt);
+        [A_s, B_s, C_s] = matrixGeneration(deviationPunishment(i), newT , n_f, n_r, dt, C);
         f(:,day) = A_s*logDiscountFactors;
+        endLoop = toc;           
+        estimateTimeLeft = ((endLoop/day)*(dfN - day))/60;
+        estTotalTimeLeft = ((estimateTimeLeft/(1 - (dig2/100)))*(curN - i))/60;
+        sprintf(format, i, str1, dig2, estimateTimeLeft, estTotalTimeLeft)
+        
     end
-    save('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\120daysCurves\' + currencies(i) + '.mat', 'f');
+    save('\\ad.liu.se\home\adaen534\Downloads\profit_decomposition-main\InterestRateCurves\FullCurves\' + currencies(i) + '.mat', 'f');
+    
 end
     
 

@@ -1,4 +1,4 @@
-function [A_s, B_s, C_s] = matrixGeneration(e, T , n_f, n_r, dt)
+function [A_s, B_s, C_s] = matrixGeneration(e, T , n_f, n_r, dt, C)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %    Calculate constant expressions   %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -10,7 +10,7 @@ function [A_s, B_s, C_s] = matrixGeneration(e, T , n_f, n_r, dt)
     W = getW(n_f, V, rho, phi);
     E = e*eye(n_r);
     [A, F] = getAandF(marketPriceIndeces, n_f, n_r, dt);
-    C = getC(W, dt, n_f);
+    %C = getC(W, dt, n_f);
     %A_n = getA_n(dt, n_f);
     %C = A_n'*W*A_n;
     K = C + A'*E*A;
@@ -33,7 +33,7 @@ function [A_s, B_s, C_s] = matrixGeneration(e, T , n_f, n_r, dt)
     
     
     function [C] = getC(W, dt, n_f)
-        dtSq = 1/(dt^2);
+        dtSq = 1/(dt^3);
         w = diag(W);
         C = zeros(n_f, n_f);
         C(1, :) = [w(1)*dtSq, -(2*w(1)*dtSq), w(1)*dtSq, zeros(1, n_f-3)];
