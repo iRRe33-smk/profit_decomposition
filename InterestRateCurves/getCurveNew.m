@@ -20,16 +20,16 @@ W = getW(n_f, 10, 2, 4);
 C = getC(W, dt, n_f);
 nDates = 120;
 curN = length(currencies);
-for i = 9:9
+for i = 32:32
     format = "Current currency is number %d of 39, %s, which is %.2f percent done! \n Estimated time left %.2f minutes, estimated total time left %.2f hours!";
     str1 = currencies(i);
-    df = matfile('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\CurveDiscountFactors\' + currencies(i) + 'dF.mat');
+    df = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\CurveDiscountFactors\' + currencies(i) + 'dF.mat');
     discountFactors = df.discountFactors;
-    t = matfile('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\CurveT\' + currencies(i) + 'T.mat');
+    t = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\CurveT\' + currencies(i) + 'T.mat');
     T = t.T;
     T = T(T <= n_f);
     T = T(T >= 30);
-    d = matfile('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\CurveDates\' + currencies(i) + 'Dates.mat');
+    d = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\CurveDates\' + currencies(i) + 'Dates.mat');
     dates = d.dates; 
     %for day = 1:numel(dates)
     f = zeros(n_f, nDates);
@@ -50,8 +50,8 @@ for i = 9:9
         sprintf(format, i, str1, dig2, estimateTimeLeft, estTotalTimeLeft)
         
     end
-    save('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\120daysCurves\' + currencies(i) + '.mat', 'f');
-    save('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\120PriceDeviations\' + currencies(i) + 'dev.mat', 'z');
+    save('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\120daysCurves\' + currencies(i) + '.mat', 'f');
+    save('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\120PriceDeviations\' + currencies(i) + 'dev.mat', 'z');
     
     
 end
