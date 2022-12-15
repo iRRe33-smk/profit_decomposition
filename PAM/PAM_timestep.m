@@ -31,12 +31,12 @@ if false
     disp("%%%%%%%%%%%%%%%%%")
     disp(size(T1)) %curr
     disp(size(T2)) %curr
-    disp(size(T3)) % finished
-    disp(size(T4)) %1
+    disp(size(T3)) % curr x finished
+    disp(size(T4)) %curr
     disp(size(T5)) % curr
-    disp(size(T6_allSources)) % all prod
-    disp(size(T7)) % finished
-    disp(size(error_f)) % finished x rf
+    disp(size(T6_allSources)) % curr x allProd
+    disp(size(T7)) % curr x finished
+    disp(size(error_f)) % allProd x rf
 
     disp(size(T6_riskFactors))
 end
@@ -49,15 +49,15 @@ timeStepTotal = sum(T1, "all") + sum(T2, "all") + sum(T3, "all") + sum(T4, "all"
 
 
 rftemp = squeeze(sum(sum(T6_riskFactors,1),2));
-timeStepRiskFactors  = rftemp(1:6);
+timeStepRiskFactors  = rftemp(:);
 
 timeStepProducts = sum(T6_allSources,2);% + sum(error_f,2); % contains info for all products
 
-timeStepProducts(end-size(h_p_finished,1)+1:end,1) = sum(T3,1)' + T7; %Adding values for finished products
+timeStepProducts(end-size(h_p_finished,1)+1:end,1) = sum(T3,1)' + sum(T7,1)'; %Adding values for finished products
 
 timeStepError = [sum(error_f,"all") ; squeeze(sum(sum(T6_riskFactors(:,:,7:end)),2))];
 
 timeStepTerms = [sum(T1,"all"), sum(T2,"all"), sum(T3,"all"), sum(T4,"all"), sum(T5,"all"), sum(T6_allSources,"all"), sum(T7,"all"), sum(timeStepError,"all")];
 
-timeStepCurrencies = T1 + T2 + sum(T3,2) + T4 + T5 + sum(T6_allSources,1)' ;
+timeStepCurrencies = T1 + T2 + sum(T3,2) + T4 + T5 + sum(T6_allSources,1)' + sum(T7,2) ;
 end
