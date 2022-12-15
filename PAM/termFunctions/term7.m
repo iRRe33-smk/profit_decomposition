@@ -11,7 +11,8 @@ function [T7] = term7(h, P, Dt, f, df)
 
 
 
-T7 = h .* ((P - Dt) * df);
+%T7 = h .* ((P - Dt) * df);
+T7 = term6_observable(h,(P-Dt),df)';
 
 
 

@@ -16,6 +16,7 @@ end
     h_c_matrix, xsProd_b_matrix, xsProd_s_matrix, xsCurr_b_matrix, FXMatrix, dFMatrix, P_raw_matrix, ...
     dP_raw_matrix, T_max, currVec] = excelToMatlab();
 disp("Excel to Matlab done  ")
+
 %% dP Setup
 
 [risk_factors,spot_rates,AE,c,currency,currVec,salesMatrix,T_cashFlow] = dPsetup(currVec, D);
@@ -25,7 +26,7 @@ disp("Excel to Matlab done  ")
 
 %% Run simulation
 
-numRf = 6;
+numRf = 9;
 %Variables to save results from the terms
 deltaNPV = zeros(T_max,1);
 deltaNPVterms = zeros(T_max,8); %eight terms, incl error
@@ -56,13 +57,7 @@ for t = 2:loopMax
     [passage_of_time,gradient_delta_risk_factor,hessian_delta_risk_factor,delta_epsilon_i,delta_epsilon_a,dP_finished,P_finished] = ...
         getDP(risk_factors,spot_rates,AE,t,c,currency,currVec,T_cashFlow,salesMatrix);
     
-    %{comps = zeros(6,6);
-    for i = 1:6
-        for j = 1:6
-            comps(i,j) = mean(dP_finished(:,:,i) == dP_finished(:,:,j),"all") == 1; 
-        end
-    end
-    %}all_equal(t) = mean(comps,"all") == 1;
+    %
     D = squeeze(salesMatrix(:,:,t));
     
     %calculating results from each timestep 
@@ -107,7 +102,7 @@ legend({"All terms", "term1", "term2", "term3", "term4", "term5", "term6", "term
 
 figure("Name","deltaNPV RiskFactors") 
 hold on;
-plot(dates,cumsum(sum(deltaNPVrf,2)),"-", ...
+plot(dates,cumsum(sum(deltaNPVrf(1,1:6),2)),"-", ...
     dates,cumsum(deltaNPVrf(:,1),1),"--", ...
     dates,cumsum(deltaNPVrf(:,2),1),"--", ...
     dates,cumsum(deltaNPVrf(:,3),1),"--", ...
@@ -118,27 +113,60 @@ plot(dates,cumsum(sum(deltaNPVrf,2)),"-", ...
 legend( {"cumm. deltaNPV RF", "shift", "twist", "butterfly", "RiskFactor4", "RiskFactor5", "RiskFactor6"}, "Location", "northwest")
 hold off;
 
-% sort out most important products
-figure("Name", "deltaNPV Products")
-plot(dates, cumsum(sum(deltaNPVp(:,1:numProductsFinished),2)), "LineWidth",2);
+figure("Name","deltaNPV RiskFactors") 
 hold on;
-prodNames = ["cumm. deltaNPV products", round(rand(1,numProductsFinished)*1000)];
-for i = 1:numProductsFinished 
+plot(dates,cumsum(sum(deltaNPVrf(:,1:6),2)),"-", ...
+    dates,cumsum(deltaNPVrf(:,7),1),"--", ...
+    dates,cumsum(deltaNPVrf(:,8),1),"--", ...
+    dates,cumsum(deltaNPVrf(:,9),1),"--", ...
+    "LineWidth",2);
+legend( {"cumm. deltaNPV RF-errors", "error1","error2","error3"}, "Location", "northwest")
+hold off;
+
+
+
+% sort out most important products
+figure("Name", "deltaNPV Finished Products")
+plot(dates, cumsum(sum(deltaNPVp(:,end-numProductsFinished  : end),2)), "LineWidth",2);
+hold on;
+prodNames = ["cumm. deltaNPV Finished products", round(rand(1,numProductsFinished)*1000)];
+for i = 1:numProductsFinished
+    plot(dates, cumsum(deltaNPVp(:,end-numProductsFinished +i)),"--", "LineWidth",2)
+        
+end
+legend( prodNames, "Location", "northwest")
+
+figure("Name", "deltaNPV Raw Products")
+plot(dates, cumsum(sum(deltaNPVp(:,1:numProductsRaw ),2)), "LineWidth",2);
+hold on;
+prodNames = ["cumm. deltaNPV Raw products", round(rand(1,numProductsRaw)*1000)];
+for i = 1:numProductsRaw
     plot(dates, cumsum(deltaNPVp(:,i)),"--", "LineWidth",2)
         
 end
 legend( prodNames, "Location", "northwest")
 
 
+
 % sort out most important Currencies
 figure("Name", "deltaNPV Currencies")
 plot(dates, cumsum(sum(deltaNPVc(:,1:numCurrencies),2)), "LineWidth",2);
 hold on;
-prodNames = ["cumm. deltaNPV Currencies"; char(randi([65 90],numCurrencies,3))];
-for i = 1:numCurrencies 
-    plot(dates, cumsum(deltaNPVc(:,i)),"--", "LineWidth",2)
+[vals,currIdx] = sort(sum(abs(deltaNPVc),1),"descend");
+numCurrPlot = 5;
+for i = 1:numCurrPlot 
+    plot(dates, cumsum(deltaNPVc(:,currIdx(i))),"--", "LineWidth",2)
         
 end
-legend( prodNames, "Location", "northwest")
+legend( ["Total cummulative";currVec(currIdx(1:numCurrPlot))], "Location", "northwest")
+
+
+%Finished vs unfinished products
+%figure("Name","Finished vs Unifinisehd products")
+%hold on;
+%for pr 
+%plot(dates, d)
+
+
 
 

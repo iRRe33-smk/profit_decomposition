@@ -5,8 +5,8 @@ function T6_observable = term6_observable(h,dP,f)
 %   f = currency Exchange rates
 
 
-T6_observable_old = h .* (dP * f);
-T6_observable = ((h*f') .* dP);
+%T6_observable_old = h .* (dP * f);
+%T6_observable = ((h*f') .* dP);
 
 [nP, nC] = size(dP);
 T6_observable = zeros(nP,nC);
@@ -17,8 +17,8 @@ for p = 1:nP
     end
 
 end
-disp("max difference is T6 ")
-disp(norm(T6_observable - T6_observable_old, "inf"))
+%disp("max difference is T6 ")
+%disp(norm(T6_observable - T6_observable_old, "inf"))
 
 
 end
