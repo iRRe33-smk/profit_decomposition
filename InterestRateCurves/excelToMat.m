@@ -7,14 +7,14 @@ currencies = ["AED", "AUD", "BHD", "CAD", "CHF", "CNY", "CZK", "DKK", ...
 
 C = cell(length(currencies), 3);
 sheets = cell(length(currencies), 1);
-for i = 1:2
+for i = 38:38
     i
     sheets{i} = readtable("discountFactors.xlsx", "Sheet", currencies(i), 'PreserveVariableNames', 1);
 end
 
 
 
-for i = 1:2
+for i = 38:38
     i
     %data = readtable("discountFactors.xlsx", "Sheet", currencies(i), 'VariableNamingRule', 'preserve');
     data = sheets{i};

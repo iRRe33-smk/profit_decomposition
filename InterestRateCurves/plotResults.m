@@ -16,13 +16,13 @@ currencies = ["AED", "AUD", "BHD", "CAD", "CHF", "CNY", "CZK", "DKK", ...
 
 %%
 i = 9;
-curve = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\120daysCurves\' + currencies(i) + '.mat');
+curve = matfile('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\120daysCurves\' + currencies(i) + '.mat');
 curve = curve.f;
 curve = 100*curve;
-deviation = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\120PriceDeviations\' + currencies(i) + 'dev.mat');
+deviation = matfile('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\120PriceDeviations\' + currencies(i) + 'dev.mat');
 deviation = deviation.z;
 T = [30,60,90,180,270,365,455,545,635,730,820,910,1000,1095,1185,1275,1365,1460,1550,1640,1730,1825,1915,2005,2095,2190,2280,2370,2460,2555,2645,2735,2825,2920,3010,3100,3190,3285,3375,3465,3555,3650]./365;
-dates = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\CurveDates\' + currencies(i) + 'Dates.mat');
+dates = matfile('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\CurveDates\' + currencies(i) + 'Dates.mat');
 dates = dates.dates;
 dates = dates(1:120, 1);
 dates = datetime(dates{:,1});
@@ -46,7 +46,7 @@ set(gca,'TickLength',[0 0])
 ylim([(min(mean(deviation, 2)) - 5), (max(mean(deviation, 2)) + 5)]) 
 xlim([0, max(T) + 0.1])
 ylabel('$\mathbf{mean}(z)$', 'interpreter', 'latex', 'Fontsize', 26)
-title('Deviation from Market Prices for EUR')
+title('Deviation from Market Prices for EUR (basis points)')
 subplot(2,1,2)
 stem(T, mean(abs(deviation),2))
 set(gca,'TickLength',[0 0])
@@ -57,13 +57,13 @@ xlabel('Time to Maturity (years)')
 set(findall(gcf,'-property','FontSize'),'FontSize',26)
 %%
 i = 38;
-curve = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\120daysCurves\' + currencies(i) + '.mat');
+curve = matfile('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\120daysCurves\' + currencies(i) + '.mat');
 curve = curve.f;
 curve = 100*curve;
-deviation = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\120PriceDeviations\' + currencies(i) + 'dev.mat');
+deviation = matfile('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\120PriceDeviations\' + currencies(i) + 'dev.mat');
 deviation = deviation.z;
-T = [30,60,90,180,270,365,455,545,635,730,820,910,1000,1095]./365;
-dates = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\CurveDates\' + currencies(i) + 'Dates.mat');
+T = [30,60,90,180,270,365,455,545,635,730,820,910,1000,1095,1185,1275,1365,1460,1550,1640,1730,1825,1915,2005,2095,2190,2280,2370,2460,2555,2645,2735,2825,2920,3010,3100,3190,3285,3375,3465,3555,3650]./365;
+dates = matfile('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\CurveDates\' + currencies(i) + 'Dates.mat');
 dates = dates.dates;
 dates = dates(1:120, 1);
 dates = datetime(dates{:,1});
@@ -87,7 +87,7 @@ set(gca,'TickLength',[0 0])
 ylim([(min(mean(deviation, 2)) - 5), (max(mean(deviation, 2)) + 5)]) 
 xlim([0, max(T) + 0.1])
 ylabel('$\mathbf{mean}(z)$', 'interpreter', 'latex', 'Fontsize', 26)
-title('Deviation from Market Prices for USD')
+title('Deviation from Market Prices for USD (basis points)')
 subplot(2,1,2)
 stem(T, mean(abs(deviation),2))
 set(gca,'TickLength',[0 0])
@@ -99,13 +99,13 @@ set(findall(gcf,'-property','FontSize'),'FontSize',26)
 
 %%
 i = 32;
-curve = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\120daysCurves\' + currencies(i) + '.mat');
+curve = matfile('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\120daysCurves\' + currencies(i) + '.mat');
 curve = curve.f;
 curve = 100*curve;
-deviation = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\120PriceDeviations\' + currencies(i) + 'dev.mat');
+deviation = matfile('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\120PriceDeviations\' + currencies(i) + 'dev.mat');
 deviation = deviation.z;
 T = [30,60,90,120,150,180,210,240,270,365,455,545,635,730,820,910,1000,1095,1185,1275,1365,1460,1550,1640,1730,1825,1915,2005,2095,2190,2280,2370,2460,2555,2645,2735,2825,2920,3010,3100,3190,3285,3375,3465,3555,3650]./365;
-dates = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\CurveDates\' + currencies(i) + 'Dates.mat');
+dates = matfile('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\CurveDates\' + currencies(i) + 'Dates.mat');
 dates = dates.dates;
 dates = dates(1:120, 1);
 dates = datetime(dates{:,1});
@@ -129,7 +129,7 @@ set(gca,'TickLength',[0 0])
 ylim([(min(mean(deviation, 2)) - 5), (max(mean(deviation, 2)) + 5)]) 
 xlim([0, max(T) + 0.1])
 ylabel('$\mathbf{mean}(z)$', 'interpreter', 'latex', 'Fontsize', 26)
-title('Deviation from Market Prices for SEK')
+title('Deviation from Market Prices for SEK (basis points)')
 subplot(2,1,2)
 stem(T, mean(abs(deviation),2))
 set(gca,'TickLength',[0 0])
