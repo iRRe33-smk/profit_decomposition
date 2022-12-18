@@ -12,9 +12,9 @@ end
 
 
 % Retrivering the data from Excel
-[numProductsRaw, numProductsFinished, numCurrencies, D, h_p_finished_matrix, h_p_raw_matrix,...
+[numProductsRaw, numProductsFinished, numCurrencies, h_p_finished_matrix, h_p_raw_matrix,...
     h_c_matrix, xsProd_b_matrix, xsProd_s_matrix, xsCurr_b_matrix, FXMatrix, dFMatrix, P_raw_matrix, ...
-    dP_raw_matrix, T_max, currVec] = excelToMatlab();
+    dP_raw_matrix, row, currVec, salesExcel, datePeriod] = excelToMatlab();
 disp("Excel to Matlab done  ")
 %% dP Setup
 
@@ -44,6 +44,9 @@ for t = 2:loopMax
                 numProductsFinished,numProductsRaw, numCurrencies,t,...
                 h_p_finished_matrix, h_p_raw_matrix,h_c_matrix, xsProd_b_matrix, xsProd_s_matrix,...
                 xsCurr_b_matrix, FXMatrix, dFMatrix, P_raw_matrix,dP_raw_matrix);
+    
+    % Get relevant cashflows
+    [D] = getDmatrix(salesExcel,datePeriod, t, currVec);
     
     %temporär fix, Isak, 11/12 -22
     dP_raw = rand(numProductsRaw,numCurrencies)/1000;
