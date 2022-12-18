@@ -10,19 +10,19 @@ elseif ismac
     addpath("PriceEquation/")
 end
 
+%Reading data from file
+fileName = "Test_Case_Realistic.xlsx";
 
 % Retrivering the data from Excel
 [numProductsRaw, numProductsFinished, numCurrencies, h_p_finished_matrix, h_p_raw_matrix,...
     h_c_matrix, xsProd_b_matrix, xsProd_s_matrix, xsCurr_b_matrix, FXMatrix, dFMatrix, P_raw_matrix, ...
-    dP_raw_matrix, row, currVec, salesExcel, datePeriod] = excelToMatlab();
+    dP_raw_matrix, row, currVec, salesExcel, datePeriod, finalItemVec] = excelToMatlab(fileName);
+%Temp solution to get dPsetup to run. Should be updated
+[D] = getDmatrix(salesExcel,datePeriod, 1, currVec, finalItemVec);
 disp("Excel to Matlab done  ")
 
 %% dP Setup
-
 [risk_factors,spot_rates,AE,c,currency,currVec,salesMatrix,T_cashFlow] = dPsetup(currVec, D);
-
-
-
 
 %% Run simulation
 
@@ -40,14 +40,18 @@ for t = 2:loopMax
     disp(t)
     
     % Gets simulated data from dataset
-    [h_p_finished,h_p_raw, h_c, xsProd_s, xsProd_b, xsCurr_b,  P_raw,dP_raw, R, f, df, ...
+    [h_p_finished,h_p_raw, h_c, xsProd_s, xsProd_b, xsCurr_b,  P_raw, dP_raw, R, f, df, ...
          deltaT, numProducts, numCurrencies] = initializeDatastructures( ... 
                 numProductsFinished,numProductsRaw, numCurrencies,t,...
                 h_p_finished_matrix, h_p_raw_matrix,h_c_matrix, xsProd_b_matrix, xsProd_s_matrix,...
                 xsCurr_b_matrix, FXMatrix, dFMatrix, P_raw_matrix,dP_raw_matrix);
     
     % Get relevant cashflows
-    [D] = getDmatrix(salesExcel,datePeriod, t, currVec);
+    prevD = D;
+    [D] = getDmatrix(salesExcel,datePeriod, t, currVec, finalItemVec);
+    
+    % Output where new cashflows has been added: [currIndex,finalItemIndex, dayIndex]
+    newSalesIndex = newSales(D, prevD);
     
     %temporär fix, Isak, 11/12 -22
     dP_raw = rand(numProductsRaw,numCurrencies)/1000;
@@ -60,8 +64,7 @@ for t = 2:loopMax
     [passage_of_time,gradient_delta_risk_factor,hessian_delta_risk_factor,delta_epsilon_i,delta_epsilon_a,dP_finished,P_finished] = ...
         getDP(risk_factors,spot_rates,AE,t,c,currency,currVec,T_cashFlow,salesMatrix);
     
-    %
-    D = squeeze(salesMatrix(:,:,t));
+    %D = squeeze(salesMatrix(:,:,t));
     
     %calculating results from each timestep 
     [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms,timeStepCurrencies] = ... 

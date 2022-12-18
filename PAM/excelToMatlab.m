@@ -1,11 +1,11 @@
 
 function[numProductsRaw, numProductsFinished, numCurrencies, h_p_finished_matrix, h_p_raw_matrix,...
     h_c_matrix, xsProd_b_matrix, xsProd_s_matrix, xsCurr_b_matrix, FXMatrix, dFMatrix, P_raw_matrix, ...
-    dP_raw_matrix, row, currVec, salesExcel, datePeriod] = excelToMatlab()
+    dP_raw_matrix, row, currVec, salesExcel, datePeriod, finalItemVec] = excelToMatlab(fileName)
 
 %% Read data
 
-fileName = "Test_Case_Realistic.xlsx";
+
 depositExcel = readtable(fileName,'sheet', 'deposits');
 dates = readtable(fileName, 'sheet', 'hc');
 FXExcel = readtable(fileName,'sheet', 'fx');
