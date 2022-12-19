@@ -147,7 +147,7 @@ legend( prodNames, "Location", "northwest")
 figure("Name", "deltaNPV Raw Products")
 plot(dates, cumsum(sum(deltaNPVp(:,1:numProductsRaw ),2)), "LineWidth",2);
 hold on;
-prodNames = ["cumm. deltaNPV Raw products", round(rand(1,numProductsRaw)*1000)];
+prodNames = ["cumm deltaNPV Finished Products" ; finalItemVec];
 for i = 1:numProductsRaw
     plot(dates, cumsum(deltaNPVp(:,i)),"--", "LineWidth",2)
         
