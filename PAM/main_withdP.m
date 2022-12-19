@@ -62,7 +62,7 @@ for t = 2:loopMax
 
     %gets delta P from priceEquations
     %[dP_finished,P_finished] 
-    [passage_of_time,gradient_delta_risk_factor,hessian_delta_risk_factor,delta_epsilon_i,delta_epsilon_a,dP_finished,P_finished] = ...
+    [passage_of_time,gradient_delta_risk_factor,hessian_delta_risk_factor,delta_epsilon_i,delta_epsilon_a,dP_finished,P_finished,spot_rate_today, spot_rate_yesterday] = ...
         getDP(risk_factors,spot_rates,AE,t,c,currency,currVec,T_cashFlow,salesMatrix);
     
     %D = squeeze(salesMatrix(:,:,t));
