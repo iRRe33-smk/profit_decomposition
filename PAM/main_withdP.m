@@ -28,7 +28,6 @@ disp("Excel to Matlab done  ")
 close all 
 T_max = size(D,3);
 numRf = 9;
-T_max = 80;
 %Variables to save results from the terms
 deltaNPV = zeros(T_max,1);
 deltaNPVterms = zeros(T_max,8); %eight terms, incl error
@@ -71,8 +70,8 @@ for t = 2:loopMax
 
     [passage_of_time,gradient_delta_risk_factor,hessian_delta_risk_factor,delta_epsilon_i,delta_epsilon_a,dP_finished,P_finished,spot_rate_today, spot_rate_yesterday] = ...
         getDP(risk_factors,spot_rates,AE,t,c,currency,currVec,T_cashFlow,D,prevD,newSalesIndex,prevC,prevCurrency,prevT_cashflow);
-    dP_finished(:,38,10)
-    D = squeeze(D(:,:,t));
+    %dP_finished(:,38,10);
+    %D = squeeze(D(:,:,t));
     
     %calculating results from each timestep 
     [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms,timeStepCurrencies] = ... 
