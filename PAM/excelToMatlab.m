@@ -1,7 +1,7 @@
 
 function[numProductsRaw, numProductsFinished, numCurrencies, h_p_finished_matrix, h_p_raw_matrix,...
     h_c_matrix, xsProd_b_matrix, xsProd_s_matrix, xsCurr_b_matrix, FXMatrix, dFMatrix, P_raw_matrix, ...
-    dP_raw_matrix, row, currVec, salesExcel, datePeriod, finalItemVec, numberOfDates] = excelToMatlab(fileName)
+    dP_raw_matrix, row, currVec, salesExcel, datePeriod, itemVec, finalItemVec, numberOfDates] = excelToMatlab(fileName)
 
 %% Read data
 
@@ -14,7 +14,7 @@ bomExcel = readtable(fileName, 'sheet', 'bom');
 prodExcel = readtable(fileName, 'sheet','production');
 salesExcel = readtable(fileName, 'sheet','sales');
 P_raw_matrix =  xlsread(fileName,"Price List Valuta", 'B2:T94');
-FXMatrix =  xlsread(fileName,"usedFXCurves");
+FXMatrix =  1./xlsread(fileName,"usedFXCurves");
 
 %% Inializing datastrucutre
 
