@@ -12,7 +12,7 @@ nRF = nRF -1; %last index is common, passage of time not included for first 6
 T6RF = zeros(nP,nC,nRF);
 for i=1:nRF
     %T6RF(:,i) = h .* (squeeze(dP(:,:,i)) * f);
-    T6RF(:,:,i) = ((h*f') .* squeeze(dP(:,:,i)));
+    %T6RF(:,:,i) = ((h*f') .* squeeze(dP(:,:,i)));
 
     %
     T6RF(:,:,i) = term6_observable(h,squeeze(dP(:,:,i)),f);
