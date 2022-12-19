@@ -26,7 +26,7 @@ disp("Excel to Matlab done  ")
 
 %% Run simulation
 close all 
-T_max = size(D,3);
+%T_max = size(D,3);
 numRf = 9;
 %Variables to save results from the terms
 deltaNPV = zeros(T_max,1);
@@ -55,7 +55,7 @@ for t = 2:loopMax
     newSalesIndex = newSales(D, prevD);
     
     %temporär fix, Isak, 11/12 -22
-    dP_raw = rand(numProductsRaw,numCurrencies)*0;
+    %dP_raw = rand(numProductsRaw,numCurrencies)*0;
 
     %Adding ON interest  to currency holdings
     h_c_matrix(t+1:end, :) = h_c_matrix(t+1:end,:) + (h_c .* (R-1) .* deltaT)'; 
@@ -136,7 +136,8 @@ hold off;
 figure("Name", "deltaNPV Finished Products")
 plot(dates, cumsum(sum(deltaNPVp(:,end-numProductsFinished  : end),2)), "LineWidth",2);
 hold on;
-prodNames = ["cumm. deltaNPV Finished products", round(rand(1,numProductsFinished)*1000)];
+%prodNames = ["cumm. deltaNPV Finished products", round(rand(1,numProductsFinished)*1000)];
+proNames = ["Cumm deltaNPV Finished Products" ; finalItemVec];
 for i = 1:numProductsFinished
     plot(dates, cumsum(deltaNPVp(:,end-numProductsFinished +i)),"--", "LineWidth",2)
         
