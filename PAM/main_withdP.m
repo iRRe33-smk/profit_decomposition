@@ -18,21 +18,14 @@ fileName = "Test_Case_Realistic.xlsx";
     h_c_matrix, xsProd_b_matrix, xsProd_s_matrix, xsCurr_b_matrix, FXMatrix, dFMatrix, P_raw_matrix, ...
     dP_raw_matrix, row, currVec, salesExcel, datePeriod, finalItemVec] = excelToMatlab(fileName);
 %Temp solution to get dPsetup to run. Should be updated
-%[D] = getDmatrix(salesExcel,datePeriod, 80, currVec, finalItemVec);
+[D] = getDmatrix(salesExcel,datePeriod, 80, currVec, finalItemVec);
 disp("Excel to Matlab done  ")
 
 %% dP Setup
-[risk_factors,spot_rates,AE] = dPsetup(currVec);
-disp("dPsetup done")
+[risk_factors,spot_rates,AE] = dPsetup(currVec, D);
 
 %% Run simulation
 close all 
-
-%initiating D for the first day
-[D] = getDmatrix(salesExcel,datePeriod, 1, currVec, finalItemVec);
-[c, currency, T_cashFlow] = dPsetup_update(currVec, D);
-
-
 T_max = size(D,3);
 numRf = 9;
 %Variables to save results from the terms
@@ -41,8 +34,7 @@ deltaNPVterms = zeros(T_max,8); %eight terms, incl error
 deltaNPVrf = zeros(T_max,numRf); %riskfactors
 deltaNPVp = zeros(T_max,numProductsRaw + numProductsFinished); %products
 deltaNPVc = zeros(T_max, numCurrencies);%Currencies
-
-
+[c, currency, T_cashFlow] = dPsetup_update(currVec, D);
 
 loopMax = 80;%
 %all_equal = ones(T_max,1);
@@ -127,7 +119,7 @@ plot(dates,cumsum(sum(deltaNPVrf(1,1:6),2)),"-", ...
     dates,cumsum(deltaNPVrf(:,1),1),"--", ...
     dates,cumsum(deltaNPVrf(:,2),1),"--", ...
     dates,cumsum(deltaNPVrf(:,3),1),"--", ...
-    dates,cumsum(deltaNPVrf(:,4),1),"--", ... 
+    dates,cumsum(deltaNPVrf(:,4),1),"--", ...
     dates,cumsum(deltaNPVrf(:,5),1),"--", ...
     dates,cumsum(deltaNPVrf(:,6),1),"--", ...
     "LineWidth",2);
