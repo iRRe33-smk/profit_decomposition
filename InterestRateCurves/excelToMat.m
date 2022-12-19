@@ -7,14 +7,14 @@ currencies = ["AED", "AUD", "BHD", "CAD", "CHF", "CNY", "CZK", "DKK", ...
 
 C = cell(length(currencies), 3);
 sheets = cell(length(currencies), 1);
-for i = 1:39
+for i = 38:38
     i
-    sheets{i} = readtable("C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\Data\Excel\discountFactors.xlsx", "Sheet", currencies(i), 'PreserveVariableNames', 1);
+    sheets{i} = readtable("discountFactors.xlsx", "Sheet", currencies(i), 'PreserveVariableNames', 1);
 end
 
 
 
-for i = 1:39
+for i = 38:38
     i
     %data = readtable("discountFactors.xlsx", "Sheet", currencies(i), 'VariableNamingRule', 'preserve');
     data = sheets{i};
@@ -23,7 +23,7 @@ for i = 1:39
     T = table2array(data(3, 2:size_data(2)));
     discountFactors = table2array(data(5:end, 2:size_data(2)));
     discountFactors = discountFactors';
-    save('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\Data\MatLab\DiscountFactors\' + currencies(i) + 'dF.mat', 'discountFactors');
-    save('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\Data\MatLab\T\' + currencies(i) + 'T.mat', 'T');
-    save('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\Data\MatLab\Dates\' + currencies(i) + 'Dates.mat', 'dates');
+    save('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\CurveDiscountFactors\' + currencies(i) + 'dF.mat', 'discountFactors');
+    save('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\CurveT\' + currencies(i) + 'T.mat', 'T');
+    save('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\CurveDates\' + currencies(i) + 'Dates.mat', 'dates');
 end
