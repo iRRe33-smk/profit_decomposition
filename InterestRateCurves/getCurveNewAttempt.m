@@ -20,7 +20,7 @@ W = getW(n_f, 10, 2, 4);
 C = getC(W, dt, n_f);
 
 curN = length(currencies);
-for i = 14:curN
+for i = 1:13
     i
     nDates = 252*2 + 1;
     
