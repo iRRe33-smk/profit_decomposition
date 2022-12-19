@@ -18,14 +18,15 @@ fileName = "Test_Case_Realistic.xlsx";
     h_c_matrix, xsProd_b_matrix, xsProd_s_matrix, xsCurr_b_matrix, FXMatrix, dFMatrix, P_raw_matrix, ...
     dP_raw_matrix, row, currVec, salesExcel, datePeriod, finalItemVec, T_max] = excelToMatlab(fileName);
 %Temp solution to get dPsetup to run. Should be updated
-[D] = getDmatrix(salesExcel,datePeriod, 1, currVec, finalItemVec);
+[D] = getDmatrix(salesExcel,datePeriod, 80, currVec, finalItemVec);
 disp("Excel to Matlab done  ")
 
 %% dP Setup
 [risk_factors,spot_rates,AE,c,currency,currVec,salesMatrix,T_cashFlow] = dPsetup(currVec, D);
 
 %% Run simulation
-
+close all 
+T_max = size(D,3);
 numRf = 9;
 %Variables to save results from the terms
 deltaNPV = zeros(T_max,1);
@@ -34,8 +35,8 @@ deltaNPVrf = zeros(T_max,numRf); %riskfactors
 deltaNPVp = zeros(T_max,numProductsRaw + numProductsFinished); %products
 deltaNPVc = zeros(T_max, numCurrencies);%Currencies
 
-loopMax = 80;%T_max
-all_equal = ones(T_max,1);
+loopMax = 80;%
+%all_equal = ones(T_max,1);
 for t = 2:loopMax
     disp(t)
     
@@ -54,14 +55,14 @@ for t = 2:loopMax
     newSalesIndex = newSales(D, prevD);
     
     %temporär fix, Isak, 11/12 -22
-    dP_raw = rand(numProductsRaw,numCurrencies)/1000;
+    dP_raw = rand(numProductsRaw,numCurrencies)*0;
 
     %Adding ON interest  to currency holdings
-    h_c_matrix(t+1:end, :) = h_c_matrix(t+1:end,:) + (h_c .* (R-1))'; 
+    h_c_matrix(t+1:end, :) = h_c_matrix(t+1:end,:) + (h_c .* (R-1) .* deltaT)'; 
 
     %gets delta P from priceEquations
     %[dP_finished,P_finished] 
-    [passage_of_time,gradient_delta_risk_factor,hessian_delta_risk_factor,delta_epsilon_i,delta_epsilon_a,dP_finished,P_finished] = ...
+    [passage_of_time,gradient_delta_risk_factor,hessian_delta_risk_factor,delta_epsilon_i,delta_epsilon_a,dP_finished,P_finished,spot_rate_today, spot_rate_yesterday] = ...
         getDP(risk_factors,spot_rates,AE,t,c,currency,currVec,T_cashFlow,salesMatrix);
     
     %D = squeeze(salesMatrix(:,:,t));
@@ -69,7 +70,7 @@ for t = 2:loopMax
     %calculating results from each timestep 
     [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms,timeStepCurrencies] = ... 
          PAM_timestep(h_p_finished, h_p_raw, h_c, -xsProd_s, -xsProd_b, ... 
-         -xsCurr_b, P_finished, dP_finished, P_raw, dP_raw, R, f, df, deltaT, D, numProducts, numCurrencies);
+         -xsCurr_b, P_finished, dP_finished, P_raw, dP_raw, R, f, df, deltaT, prevD, D, numProducts, numCurrencies, t, T_max);
     
     %saves results in each timestep
     deltaNPV(t) = timeStepTotal;
