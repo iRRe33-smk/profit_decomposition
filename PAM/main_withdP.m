@@ -54,9 +54,6 @@ for t = 2:loopMax
     % Output where new cashflows has been added: [finalItemIndex, currIndex, dayIndex]
     newSalesIndex = newSales(D, prevD);
     
-    %temporär fix, Isak, 11/12 -22
-    dP_raw = rand(numProductsRaw,numCurrencies)*0;
-
     %Adding ON interest  to currency holdings
     h_c_matrix(t+1:end, :) = h_c_matrix(t+1:end,:) + (h_c .* (R-1) .* deltaT)'; 
 
