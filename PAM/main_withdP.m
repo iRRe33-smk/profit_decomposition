@@ -127,17 +127,19 @@ plot(dates,cumsum(sum(deltaNPVrf(:,1:6),2)),"-", ...
     dates,cumsum(deltaNPVrf(:,8),1),"--", ...
     dates,cumsum(deltaNPVrf(:,9),1),"--", ...
     "LineWidth",2);
-legend( {"cumm. deltaNPV RF-errors", "error1","error2","error3"}, "Location", "northwest")
+legend( {"cumm. deltaNPV RF-errors", "Passage of Time (epsilon carry)","deltaEpsilon_a","deltaEpsilon_i"}, "Location", "northwest")
 hold off;
 
 
-
+Passage of time (epsilon_carry)
+%8.delta_epsilon_a
+%9.delta_epsilon_i
 % sort out most important products
 figure("Name", "deltaNPV Finished Products")
 plot(dates, cumsum(sum(deltaNPVp(:,end-numProductsFinished  : end),2)), "LineWidth",2);
 hold on;
 %prodNames = ["cumm. deltaNPV Finished products", round(rand(1,numProductsFinished)*1000)];
-proNames = ["Cumm deltaNPV Finished Products" ; finalItemVec];
+prodNames = ["Cumm deltaNPV Finished Products" ; finalItemVec];
 for i = 1:numProductsFinished
     plot(dates, cumsum(deltaNPVp(:,end-numProductsFinished +i)),"--", "LineWidth",2)
         
