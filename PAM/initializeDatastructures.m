@@ -26,7 +26,7 @@ df = dFMatrix(timestep,:)';
 %D = rand(numProducts,numCurrencies); % dividends in this timestep
 P_raw = P_raw_matrix(timestep,:)'; % match with currency
 
-dP_raw = dP_raw_matrix(timestep,:)'; %daily Price Differences for Observed Prices all expressed in SEK
+dP_raw = squeeze(dP_raw_matrix(:,:,timestep)); %daily Price Differences for Observed Prices all expressed in SEK
 end
 
 

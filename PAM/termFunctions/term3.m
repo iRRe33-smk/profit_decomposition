@@ -12,7 +12,7 @@ function [T3] = term3(h, D, df, t, T_max)
 %H = repmat(h,1,nC);
 %dF = repmat(df',nP,1);
  
-T3 = ones(size(D,[2,1]));
+T3 = zeros(size(D,[2,1]));
 for i = t:T_max
     T3_i = term6_observable(h,squeeze(D(:,:,i)),df)';
     %T3_i = ((h * df') .* squeeze(D(:,:,i)))';

@@ -1,6 +1,6 @@
 %% Run setup
 
-clear
+% clear
 %cd("PAM")
 if ispc
     addpath("termFunctions\")
@@ -16,13 +16,13 @@ fileName = "Test_Case_Realistic.xlsx";
 % Retrivering the data from Excel
 [numProductsRaw, numProductsFinished, numCurrencies, h_p_finished_matrix, h_p_raw_matrix,...
     h_c_matrix, xsProd_b_matrix, xsProd_s_matrix, xsCurr_b_matrix, FXMatrix, dFMatrix, P_raw_matrix, ...
-    dP_raw_matrix, row, currVec, salesExcel, datePeriod, finalItemVec] = excelToMatlab(fileName);
+    dP_raw_matrix, row, currVec, salesExcel, datePeriod, itemVec, finalItemVec, T_max] = excelToMatlab(fileName);
 %Temp solution to get dPsetup to run. Should be updated
 [D] = getDmatrix(salesExcel,datePeriod, 80, currVec, finalItemVec);
 disp("Excel to Matlab done  ")
 
 %% dP Setup
-[risk_factors,spot_rates,AE] = dPsetup(currVec, D);
+%[risk_factors,spot_rates,AE,c,currency,currVec,salesMatrix,T_cashFlow] = dPsetup(currVec, D);
 
 %% Run simulation
 close all 
@@ -42,7 +42,7 @@ for t = 2:loopMax
     disp(t)
     
     % Gets simulated data from dataset
-    [h_p_finished,h_p_raw, h_c, xsProd_s, xsProd_b, xsCurr_b,  P_raw, dP_raw, R, f, df, ... 
+    [h_p_finished,h_p_raw, h_c, xsProd_s, xsProd_b, xsCurr_b,  P_raw, dP_raw, R, f, df, ...
          deltaT, numProducts, numCurrencies] = initializeDatastructures( ... 
                 numProductsFinished,numProductsRaw, numCurrencies,t,...
                 h_p_finished_matrix, h_p_raw_matrix,h_c_matrix, xsProd_b_matrix, xsProd_s_matrix,...
@@ -58,9 +58,6 @@ for t = 2:loopMax
     % Output where new cashflows has been added: [finalItemIndex, currIndex, dayIndex]
     newSalesIndex = newSales(D, prevD);
     
-    %temporär fix, Isak, 11/12 -22
-    dP_raw = rand(numProductsRaw,numCurrencies)*0;
-
     %Adding ON interest  to currency holdings
     h_c_matrix(t+1:end, :) = h_c_matrix(t+1:end,:) + (h_c .* (R-1) .* deltaT)'; 
 
@@ -69,9 +66,9 @@ for t = 2:loopMax
     [c, currency, T_cashFlow] = dPsetup_update(currVec, D);
 
     [passage_of_time,gradient_delta_risk_factor,hessian_delta_risk_factor,delta_epsilon_i,delta_epsilon_a,dP_finished,P_finished,spot_rate_today, spot_rate_yesterday] = ...
-        getDP(risk_factors,spot_rates,AE,t,c,currency,currVec,T_cashFlow,D,prevD,newSalesIndex,prevC,prevCurrency,prevT_cashflow);
-    %dP_finished(:,38,10);
-    %D = squeeze(D(:,:,t));
+        getDP(risk_factors,spot_rates,AE,t,c,currency,currVec,T_cashFlow,salesMatrix);
+    
+    %D = squeeze(salesMatrix(:,:,t));
     
     %calculating results from each timestep 
     [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms,timeStepCurrencies] = ... 
@@ -133,16 +130,19 @@ plot(dates,cumsum(sum(deltaNPVrf(:,1:6),2)),"-", ...
     dates,cumsum(deltaNPVrf(:,8),1),"--", ...
     dates,cumsum(deltaNPVrf(:,9),1),"--", ...
     "LineWidth",2);
-legend( {"cumm. deltaNPV RF-errors", "error1","error2","error3"}, "Location", "northwest")
+legend( {"cumm. deltaNPV RF-errors", "Passage of Time (epsilon carry)","deltaEpsilon_a","deltaEpsilon_i"}, "Location", "northwest")
 hold off;
 
 
-
+Passage of time (epsilon_carry)
+%8.delta_epsilon_a
+%9.delta_epsilon_i
 % sort out most important products
 figure("Name", "deltaNPV Finished Products")
 plot(dates, cumsum(sum(deltaNPVp(:,end-numProductsFinished  : end),2)), "LineWidth",2);
 hold on;
-prodNames = ["cumm. deltaNPV Finished products", round(rand(1,numProductsFinished)*1000)];
+%prodNames = ["cumm. deltaNPV Finished products", round(rand(1,numProductsFinished)*1000)];
+prodNames = ["Cumm deltaNPV Finished Products" ; finalItemVec];
 for i = 1:numProductsFinished
     plot(dates, cumsum(deltaNPVp(:,end-numProductsFinished +i)),"--", "LineWidth",2)
         
@@ -152,7 +152,7 @@ legend( prodNames, "Location", "northwest")
 figure("Name", "deltaNPV Raw Products")
 plot(dates, cumsum(sum(deltaNPVp(:,1:numProductsRaw ),2)), "LineWidth",2);
 hold on;
-prodNames = ["cumm. deltaNPV Raw products", round(rand(1,numProductsRaw)*1000)];
+prodNames = ["cumm deltaNPV Finished Products" ; finalItemVec];
 for i = 1:numProductsRaw
     plot(dates, cumsum(deltaNPVp(:,i)),"--", "LineWidth",2)
         
@@ -179,7 +179,4 @@ legend( ["Total cummulative";currVec(currIdx(1:numCurrPlot))], "Location", "nort
 %hold on;
 %for pr 
 %plot(dates, d)
-
-
-
 
