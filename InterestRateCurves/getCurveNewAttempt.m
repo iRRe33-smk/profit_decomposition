@@ -20,20 +20,20 @@ W = getW(n_f, 10, 2, 4);
 C = getC(W, dt, n_f);
 
 curN = length(currencies);
-for i = 1:curN
+for i = 14:curN
     i
     nDates = 252*2 + 1;
     
-    df = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\Data\MatLab\DiscountFactors\' + currencies(i) + 'dF.mat');
+    df = matfile('C:\Users\adame\Downloads\Profit\profit_decomposition\InterestRateCurves\Data\MatLab\DiscountFactors\' + currencies(i) + 'dF.mat');
     discountFactors = df.discountFactors;
-    t = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\Data\MatLab\T\' + currencies(i) + 'T.mat');
+    t = matfile('C:\Users\adame\Downloads\Profit\profit_decomposition\InterestRateCurves\Data\MatLab\T\' + currencies(i) + 'T.mat');
     T = t.T;
     T = T(T <= n_f);
     Tbef = size(T, 2);
     T = T(T >= 30);
     Taft = size(T, 2);
     discountFactors = discountFactors(Tbef-Taft + 1:end, :);
-    d = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\Data\MatLab\Dates\' + currencies(i) + 'Dates.mat');
+    d = matfile('C:\Users\adame\Downloads\Profit\profit_decomposition\InterestRateCurves\Data\MatLab\Dates\' + currencies(i) + 'Dates.mat');
     dates = d.dates; 
     if height(dates) < nDates
         nDates = height(dates);
@@ -81,9 +81,9 @@ for i = 1:curN
             break
         end
     end
-    save('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\2year\ForwardCurves\' + currencies(i) + '.mat', 'f');
-    save('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\2year\Deviations\' + currencies(i) + 'dev.mat', 'z');
-    save('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\2year\Dates\' + currencies(i) + 'dates.mat', 'dates');
+    save('C:\Users\adame\Downloads\Profit\profit_decomposition\InterestRateCurves\10year\ForwardCurves\' + currencies(i) + '.mat', 'f');
+    save('C:\Users\adame\Downloads\Profit\profit_decomposition\InterestRateCurves\10year\Deviations\' + currencies(i) + 'dev.mat', 'z');
+    save('C:\Users\adame\Downloads\Profit\profit_decomposition\InterestRateCurves\10year\Dates\' + currencies(i) + 'dates.mat', 'dates');
 end
     
 
