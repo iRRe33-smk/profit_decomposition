@@ -11,7 +11,7 @@ numOfDates = size(datePeriod,1);
 numOfFinalItems = size(finalItemVec,1);
 
 
-D = zeros(numOfFinalItems, numOfCurr, numOfDates);
+D = zeros(numOfCurr, numOfFinalItems, numOfDates);
 
 for i = 1:numOfClosedSales
     payDate = datenum(table2array(salesExcel(closedSales(i),4)));
@@ -19,7 +19,7 @@ for i = 1:numOfClosedSales
     amount = table2array(salesExcel(closedSales(i),6));
     currIndex = find(currVec == table2array(salesExcel(closedSales(i),5)));
     finalItemIndex = find(finalItemVec == table2array(salesExcel(closedSales(i), 2)));
-    D(finalItemIndex, currIndex, dateIndex) = D(finalItemIndex, currIndex, dateIndex) + amount;
+    D(currIndex, finalItemIndex, dateIndex) = D(currIndex, finalItemIndex, dateIndex) + amount;
 end
 
 end

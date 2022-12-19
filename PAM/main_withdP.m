@@ -50,7 +50,7 @@ for t = 2:loopMax
     prevD = D;
     [D] = getDmatrix(salesExcel,datePeriod, t, currVec, finalItemVec);
     
-    % Output where new cashflows has been added: [currIndex,finalItemIndex, dayIndex]
+    % Output where new cashflows has been added: [finalItemIndex, currIndex, dayIndex]
     newSalesIndex = newSales(D, prevD);
     
     %temporär fix, Isak, 11/12 -22
