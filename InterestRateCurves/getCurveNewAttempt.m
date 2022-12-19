@@ -18,41 +18,49 @@ n_f = days;
 dt = 1/365;
 W = getW(n_f, 10, 2, 4);
 C = getC(W, dt, n_f);
-nDates = 3000;
+
 curN = length(currencies);
-for i = 18:18
+for i = 1:curN
     i
-    format = "Current currency is number %d of 39, %s, which is %.2f percent done! \n Estimated time left %.2f minutes, estimated total time left %.2f hours!";
-    str1 = currencies(i);
-    df = matfile('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\CurveDiscountFactors\' + currencies(i) + 'dF.mat');
+    nDates = 252*2 + 1;
+    
+    df = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\Data\MatLab\DiscountFactors\' + currencies(i) + 'dF.mat');
     discountFactors = df.discountFactors;
-    t = matfile('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\CurveT\' + currencies(i) + 'T.mat');
+    t = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\Data\MatLab\T\' + currencies(i) + 'T.mat');
     T = t.T;
     T = T(T <= n_f);
+    Tbef = size(T, 2);
     T = T(T >= 30);
-    d = matfile('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\CurveDates\' + currencies(i) + 'Dates.mat');
+    Taft = size(T, 2);
+    discountFactors = discountFactors(Tbef-Taft + 1:end, :);
+    d = matfile('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\Data\MatLab\Dates\' + currencies(i) + 'Dates.mat');
     dates = d.dates; 
-    
-    %for day = 1:numel(dates)
-    
-    %E = deviationPunishment(i)*eye(n_r);
-    nDates = size(discountFactors, 2);
-    f1 = zeros(n_f, nDates);
+    if height(dates) < nDates
+        nDates = height(dates);
+    else
+        dates = dates{1:nDates-1, 1};
+    end
+    f = zeros(n_f, nDates-1);
     z = zeros(length(T), nDates);
     tic;
     it = 1;
     block = 0;
     blockL = 0;
     [newT, n_r, newdiscountFactors] = getDayData(T, discountFactors(:, it));  
-    oldNR = n_r;
+    oldT = newT;
     start = 1;
-    while true
-        while it < nDates
+    while (it <= nDates)
+        while true
             [newT, n_r, ~] = getDayData(T, discountFactors(:, it));  
-            if n_r == oldNR 
-                blockL = blockL + 1;
-                it = it + 1;
-                oldNR = n_r;
+            if (size(newT) == size(oldT)) 
+                if (it >= nDates)
+                    break
+                end
+                if newT == oldT
+                    blockL = blockL + 1;
+                    it = it + 1;
+                    oldT = newT;
+                end
             else
                [newT, n_r, ~] = getDayData(T, discountFactors(:, it-1)); 
                break
@@ -62,21 +70,20 @@ for i = 18:18
         for day = start:start + blockL - 1
             [~, n_r, newdiscountFactors] = getDayData(T, discountFactors(:, day));  
             logDiscountFactors = -log(newdiscountFactors)';
-            f1(:,day) = A_s*logDiscountFactors;
-            z(1:n_r,day) = 10000*(B_s*(f1(:,day)) + C_s*logDiscountFactors);
+            f(:,day) = A_s*logDiscountFactors;
+            z(1:n_r,day) = 10000*(B_s*(f(:,day)) + C_s*logDiscountFactors);
         end
         start = start + blockL;
         blockL = 0;
         block = block + 1;
-        [newT, oldNR, newdiscountFactors] = getDayData(T, discountFactors(:, it));  
+        [oldT, n_r, newdiscountFactors] = getDayData(T, discountFactors(:, it));  
         if start >= nDates
             break
         end
     end
-    %save('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\120daysCurves\' + currencies(i) + '.mat', 'f');
-    %save('\\ad.liu.se\home\adaen534\Desktop\profit_decomposition\InterestRateCurves\120PriceDeviations\' + currencies(i) + 'dev.mat', 'z');
-    block
-    
+    save('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\2year\ForwardCurves\' + currencies(i) + '.mat', 'f');
+    save('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\2year\Deviations\' + currencies(i) + 'dev.mat', 'z');
+    save('C:\Users\adame\Desktop\profit_decomposition\InterestRateCurves\2year\Dates\' + currencies(i) + 'dates.mat', 'dates');
 end
     
 

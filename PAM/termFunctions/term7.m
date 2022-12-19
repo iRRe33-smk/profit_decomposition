@@ -1,4 +1,4 @@
-function [T7] = term7(h, P, D, f, df, t, T_max)
+function [T7] = term7(h, P, Dt, f, df)
 %TERM7 seventh term of PAM -> array[nP]
 %   TODO error-termen tas ej med här. Gör separat funktion för den.
 %   Antar att vi vill hålla den separat för att kunna bdöma felet.
@@ -12,11 +12,7 @@ function [T7] = term7(h, P, D, f, df, t, T_max)
 
 
 %T7 = h .* ((P - Dt) * df);
-%h = min(h,1);
-Dsum = sum(D(:,:,t:T_max),3);
-T7 = term6_observable(h,(P-Dsum),df)';
-
-%T7 = term6_observable(h,(P-D),df)';
+T7 = term6_observable(h,(P-Dt),df)';
 
 
 

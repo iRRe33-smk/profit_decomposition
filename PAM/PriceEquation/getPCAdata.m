@@ -7,7 +7,7 @@ for k=1:size(forward_rates)
     [risk_factors_temp, eigen_values, eigen_vectors,C] = create_riskfactor(fAll);
     risk_factors(:,k)={currVec(k,1);risk_factors_temp};
     %Convert forwardrates to spotrates
-    [spot_rates_temp,A] = calculate_spotrates(flipud(cell2mat(forward_rates(k,2))));
+    [spot_rates_temp,A] = calculate_spotrates(cell2mat(forward_rates(k,2)));
     %A_spot_rates = create_A(size(cell2mat(forward_rates(k,2)),1));
     %spot_rates_temp = transpose(A_spot_rates)*cell2mat(forward_rates(k,2)); 
     spot_rates(:,k) = {currVec(k,1);spot_rates_temp};

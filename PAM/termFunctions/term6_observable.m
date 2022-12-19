@@ -10,6 +10,7 @@ function T6_observable = term6_observable(h,dP,f)
 
 [nP, nC] = size(dP);
 T6_observable = zeros(nP,nC);
+
 for p = 1:nP
     for c = 1:nC
         T6_observable(p,c) = T6_observable(p,c) + h(p) * dP(p,c) * f(c);
