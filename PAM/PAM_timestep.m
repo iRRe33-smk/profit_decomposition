@@ -1,13 +1,16 @@
 
 function [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms, timeStepCurrencies] = ... 
-    PAM_timestep(h_p_finished, h_p_raw, h_c, xsProd_s, xsProd_b, xsCurr_b, P_finished, dP_finished, P_raw, dP_raw, R, f, df, deltaT, D, numProducts, numCurrencies)
+    PAM_timestep(h_p_finished, h_p_raw, h_c, xsProd_s, xsProd_b, xsCurr_b, P_finished, dP_finished, ...
+                 P_raw, dP_raw, R, f, df, deltaT, prevD, D, numProducts, numCurrencies, t, T_max)
+
+h_p_finished = ones(size(h_p_finished));
 
 %h_p = [h_p_raw ; h_p_finished];
-T1 = term1(h_c, R, f);
+T1 = term1(h_c, R, f, deltaT);
 
 T2 = term2(h_c,R, df);
 
-T3 = term3(h_p_finished, D, df);
+T3 = term3(h_p_finished, prevD, df, t, T_max);
 
 T4 = term4(xsCurr_b,f);
 
@@ -21,7 +24,7 @@ T6_observable = term6_observable(h_p_raw,dP_raw, f);
 T6_allSources = [T6_observable ; T6_unObs_allSources];
 
 
-T7 = term7(h_p_finished,P_finished,D,f, df);
+T7 = term7(h_p_finished,P_finished,prevD,f, df,t,T_max);
 
 error_f = termError(dP_finished, df, numProducts);
 
@@ -50,6 +53,7 @@ timeStepTotal = sum(T1, "all") + sum(T2, "all") + sum(T3, "all") + sum(T4, "all"
 
 rftemp = squeeze(sum(sum(T6_riskFactors,1),2));
 timeStepRiskFactors  = rftemp(:);
+%disp(rftemp)
 
 timeStepProducts = sum(T6_allSources,2);% + sum(error_f,2); % contains info for all products
 
