@@ -1,4 +1,4 @@
-function [risk_factors,spot_rates,AE,salesMatrix] = dPsetup(currVec,salesMatrix)
+function [risk_factors,spot_rates,AE,salesMatrix] = dPsetup(currVec)
 
 if ispc
    addpath("PriceEquation\")
