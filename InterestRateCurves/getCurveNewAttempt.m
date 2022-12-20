@@ -12,28 +12,28 @@ deviationPunishment = ...
               100,    10,    100,    10,    10,    1000,    100,    1000, ...
               100,    100,    10,    100,    10,    1000,    10];
 
-
+path = '\\ad.liu.se\home\adaen534\Desktop';
 days = 3650;
 n_f = days;
 dt = 1/365;
 W = getW(n_f, 10, 2, 4);
 C = getC(W, dt, n_f);
-
 curN = length(currencies);
-for i = 1:13
+
+for i = 19:curN
     i
-    nDates = 252*2 + 1;
+    nDates = 252*10 + 1;
     
-    df = matfile('C:\Users\adame\Downloads\Profit\profit_decomposition\InterestRateCurves\Data\MatLab\DiscountFactors\' + currencies(i) + 'dF.mat');
+    df = matfile(string([path, '\profit_decomposition\InterestRateCurves\Data\MatLab\DiscountFactors\']) + currencies(i) + 'dF.mat');
     discountFactors = df.discountFactors;
-    t = matfile('C:\Users\adame\Downloads\Profit\profit_decomposition\InterestRateCurves\Data\MatLab\T\' + currencies(i) + 'T.mat');
+    t = matfile(string([path, '\profit_decomposition\InterestRateCurves\Data\MatLab\T\']) + currencies(i) + 'T.mat');
     T = t.T;
     T = T(T <= n_f);
     Tbef = size(T, 2);
     T = T(T >= 30);
     Taft = size(T, 2);
     discountFactors = discountFactors(Tbef-Taft + 1:end, :);
-    d = matfile('C:\Users\adame\Downloads\Profit\profit_decomposition\InterestRateCurves\Data\MatLab\Dates\' + currencies(i) + 'Dates.mat');
+    d = matfile(string([path, '\profit_decomposition\InterestRateCurves\Data\MatLab\Dates\']) + currencies(i) + 'Dates.mat');
     dates = d.dates; 
     if height(dates) < nDates
         nDates = height(dates);
@@ -81,9 +81,9 @@ for i = 1:13
             break
         end
     end
-    save('C:\Users\adame\Downloads\Profit\profit_decomposition\InterestRateCurves\10year\ForwardCurves\' + currencies(i) + '.mat', 'f');
-    save('C:\Users\adame\Downloads\Profit\profit_decomposition\InterestRateCurves\10year\Deviations\' + currencies(i) + 'dev.mat', 'z');
-    save('C:\Users\adame\Downloads\Profit\profit_decomposition\InterestRateCurves\10year\Dates\' + currencies(i) + 'dates.mat', 'dates');
+    save(string([path, '\profit_decomposition\InterestRateCurves\10year\ForwardCurves\']) + currencies(i) + '.mat', 'f');
+    save(string([path, '\profit_decomposition\InterestRateCurves\10year\Deviations\']) + currencies(i) + 'dev.mat', 'z');
+    save(string([path, '\profit_decomposition\InterestRateCurves\10year\Dates\']) + currencies(i) + 'dates.mat', 'dates');
 end
     
 
