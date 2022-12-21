@@ -1,6 +1,6 @@
 %% Run setup
 
-clear
+%clear
 %cd("PAM")
 if ispc
     addpath("termFunctions\")
@@ -17,8 +17,7 @@ fileName = "Test_Case_Realistic.xlsx";
 [numProductsRaw, numProductsFinished, numCurrencies, h_p_finished_matrix, h_p_raw_matrix,...
     h_c_matrix, xsProd_b_matrix, xsProd_s_matrix, xsCurr_b_matrix, FXMatrix, dFMatrix, P_raw_matrix, ...
     dP_raw_matrix, row, currVec, salesExcel, datePeriod, itemVec, finalItemVec, T_max] = excelToMatlab(fileName);
-%Temp solution to get dPsetup to run. Should be updated
-%[D] = getDmatrix(salesExcel,datePeriod, 80, currVec, finalItemVec);
+
 disp("Excel to Matlab done  ")
 
 %% dP Setup
@@ -41,7 +40,6 @@ deltaNPVterms = zeros(T_max,8); %eight terms, incl error
 deltaNPVrf = zeros(T_max,numRf); %riskfactors
 deltaNPVp = zeros(T_max,numProductsRaw + numProductsFinished); %products
 deltaNPVc = zeros(T_max, numCurrencies);%Currencies
-[c, currency, T_cashFlow] = dPsetup_update(currVec, D);
 
 loopMax = 80;%
 %all_equal = ones(T_max,1);
@@ -146,7 +144,7 @@ hold off;
 
 % sort out most important products
 figure("Name", "deltaNPV Finished Products")
-plot(dates, cumsum(sum(deltaNPVp(:,end-numProductsFinished  : end),2)), "LineWidth",2);
+plot(dates, cumsum(sum(deltaNPVp(:,end-numProductsFinished  : end),2)),"-", "LineWidth",2);
 hold on;
 %prodNames = ["cumm. deltaNPV Finished products", round(rand(1,numProductsFinished)*1000)];
 prodNames = ["Cumm deltaNPV Finished Products" ; finalItemVec];
@@ -157,9 +155,9 @@ end
 legend( prodNames, "Location", "northwest")
 
 figure("Name", "deltaNPV Raw Products")
-plot(dates, cumsum(sum(deltaNPVp(:,1:numProductsRaw ),2)), "LineWidth",2);
+plot(dates, cumsum(sum(deltaNPVp(:,1:numProductsRaw ),2)),"-", "LineWidth",2);
 hold on;
-prodNames = ["cumm deltaNPV Finished Products" ; finalItemVec];
+prodNames = ["cumm deltaNPV Finished Products" ; itemVec];
 for i = 1:numProductsRaw
     plot(dates, cumsum(deltaNPVp(:,i)),"--", "LineWidth",2)
         
@@ -170,7 +168,7 @@ legend( prodNames, "Location", "northwest")
 
 % sort out most important Currencies
 figure("Name", "deltaNPV Currencies")
-plot(dates, cumsum(sum(deltaNPVc(:,1:numCurrencies),2)), "LineWidth",2);
+plot(dates, cumsum(sum(deltaNPVc(:,1:numCurrencies),2)),"-", "LineWidth",2);
 hold on;
 [vals,currIdx] = sort(sum(abs(deltaNPVc),1),"descend");
 numCurrPlot = 5;
