@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 function [risk_factors,spot_rates,AE,salesMatrix] = dPsetup(currVec,salesMatrix)
+=======
+function [risk_factors,spot_rates,AE,c,currency,currVec,salesMatrix,T_cashFlow] = dPsetup(currVec,salesMatrix)
+>>>>>>> parent of 828b291 (Spot rates för idag och igår fixat, städat)
 
 if ispc
    addpath("PriceEquation\")
