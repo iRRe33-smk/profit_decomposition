@@ -40,6 +40,8 @@ deltaNPVterms = zeros(T_max,8); %eight terms, incl error
 deltaNPVrf = zeros(T_max,numRf); %riskfactors
 deltaNPVp = zeros(T_max,numProductsRaw + numProductsFinished); %products
 deltaNPVc = zeros(T_max, numCurrencies);%Currencies
+deltaNPVcDirect = zeros(T_max, numCurrencies);%Currencies, terms  1 and 2
+
 
 loopMax = 80;%
 %all_equal = ones(T_max,1);
@@ -78,7 +80,7 @@ for t = 2:loopMax
     %D = squeeze(salesMatrix(:,:,t));
     
     %calculating results from each timestep 
-    [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms,timeStepCurrencies] = ... 
+    [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms,timeStepCurrencies, timeStepCurrenciesDirect] = ... 
          PAM_timestep(h_p_finished, h_p_raw, h_c, -xsProd_s, -xsProd_b, ... 
          -xsCurr_b, P_finished, dP_finished, P_raw, dP_raw, R, f, df, deltaT, prevD, D, numProducts, numCurrencies, t, T_max);
     
@@ -88,6 +90,7 @@ for t = 2:loopMax
     deltaNPVrf(t,:) = timeStepRiskFactors;
     deltaNPVterms(t,:) = timeStepTerms';
     deltaNPVc(t,:) = timeStepCurrencies;
+    deltaNPVcDirect(t,:) = timeStepCurrenciesDirect;
 end
 
 %% Make Plots
@@ -167,13 +170,26 @@ legend( prodNames, "Location", "northwest")
 
 
 % sort out most important Currencies
-figure("Name", "deltaNPV Currencies")
+figure("Name", "deltaNPV per currencies")
 plot(dates, cumsum(sum(deltaNPVc(:,1:numCurrencies),2)),"-", "LineWidth",2);
 hold on;
 [vals,currIdx] = sort(sum(abs(deltaNPVc),1),"descend");
 numCurrPlot = 5;
 for i = 1:numCurrPlot 
     plot(dates, cumsum(deltaNPVc(:,currIdx(i))),"--", "LineWidth",2)
+        
+end
+legend( ["Total cummulative";currVec(currIdx(1:numCurrPlot))], "Location", "northwest")
+
+
+% sort out most important Currencies
+figure("Name", "deltaNPV from currency holdings")
+plot(dates, cumsum(sum(deltaNPVcDirect(:,1:numCurrencies),2)),"-", "LineWidth",2);
+hold on;
+[vals,currIdx] = sort(sum(abs(deltaNPVcDirect),1),"descend");
+numCurrPlot = 5;
+for i = 1:numCurrPlot 
+    plot(dates, cumsum(deltaNPVcDirect(:,currIdx(i))),"--", "LineWidth",2)
         
 end
 legend( ["Total cummulative";currVec(currIdx(1:numCurrPlot))], "Location", "northwest")

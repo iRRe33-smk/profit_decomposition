@@ -1,5 +1,5 @@
 
-function [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms, timeStepCurrencies] = ... 
+function [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms, timeStepCurrencies, timeStepCurrenciesDirect] = ... 
     PAM_timestep(h_p_finished, h_p_raw, h_c, xsProd_s, xsProd_b, xsCurr_b, P_finished, dP_finished, ...
                  P_raw, dP_raw, R, f, df, deltaT, prevD, D, numProducts, numCurrencies, t, T_max)
 
@@ -64,4 +64,6 @@ timeStepError = [sum(error_f,"all") ; squeeze(sum(sum(T6_riskFactors(:,:,7:end))
 timeStepTerms = [sum(T1,"all"), sum(T2,"all"), sum(T3,"all"), sum(T4,"all"), sum(T5,"all"), sum(T6_allSources,"all"), sum(T7,"all"), sum(timeStepError,"all")];
 
 timeStepCurrencies = T1 + T2 + sum(T3,2) + T4 + T5 + sum(T6_allSources,1)' + sum(T7,2) ;
+
+timeStepCurrenciesDirect = T1 + T2;
 end
