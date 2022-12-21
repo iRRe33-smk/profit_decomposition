@@ -7,7 +7,7 @@ function[numProductsRaw, numProductsFinished, numCurrencies, h_p_finished_matrix
 
 
 depositExcel = readtable(fileName,'sheet', 'deposits');
-dates = readtable(fileName, 'sheet', 'hc');
+dates = readtable(fileName, 'sheet', 'hc', 'Range', 'A2:A94');
 FXExcel = readtable(fileName,'sheet', 'fx');
 procurementExcel = readtable(fileName, 'sheet', 'procurement');
 bomExcel = readtable(fileName, 'sheet', 'bom');
