@@ -12,7 +12,16 @@ function [T7] = term7(h, P, Dt, f, df)
 
 
 %T7 = h .* ((P - Dt) * df);
+<<<<<<< Updated upstream
 T7 = term6_observable(h,(P-Dt),df)';
+=======
+%h = min(h,1);
+%Dsum = sum(D(:,:,t:T_max),3);
+Dsum = D(:,:,t);
+T7 = term6_observable(h,(P-Dsum),df)';
+
+%T7 = term6_observable(h,(P-D),df)';
+>>>>>>> Stashed changes
 
 
 
