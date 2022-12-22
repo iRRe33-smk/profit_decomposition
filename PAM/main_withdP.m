@@ -67,8 +67,6 @@ for t = 2:loopMax
     % Output where new cashflows has been added: [finalItemIndex, currIndex, dayIndex]
     newSalesIndex = newSales(D, prevD);
     
-    %Adding ON interest  to currency holdings
-    h_c_matrix(t+1:end, :) = h_c_matrix(t+1:end,:) + (h_c .* (R-1) .* deltaT)'; 
 
     %gets delta P from priceEquations
     %[dP_finished,P_finished] 
@@ -83,8 +81,12 @@ for t = 2:loopMax
     %calculating results from each timestep 
     [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms,timeStepCurrencies, timeStepCurrenciesDirect] = ... 
          PAM_timestep(h_p_finished, h_p_raw, h_c, -xsProd_s, -xsProd_b, ... 
-         -xsCurr_b, P_finished, dP_finished, P_raw, dP_raw, R, f, df, deltaT, prevD, D, numProducts, numCurrencies, t, T_max);
-    
+         -xsCurr_b, P_finished, dP_finished, P_raw, dP_raw, spot_rate_yesterday'+1, f, df, deltaT, prevD, D, numProducts, numCurrencies, t, T_max);
+
+    %Adding ON interest  to currency holdings
+    h_c_matrix(t+1:end, :) = h_c_matrix(t+1:end,:) + (h_c .* (spot_rate_yesterday'-1))'; 
+
+        
     %saves results in each timestep
     deltaNPV(t) = timeStepTotal;
     deltaNPVp(t,:) = timeStepProducts;
