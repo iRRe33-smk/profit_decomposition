@@ -2,23 +2,19 @@
 function [risk_factors,spot_rates,AE] = getPCAdata(forward_rates,currVec)
 %Get riskfactors by running create_riskfactors.m
 for k=1:size(forward_rates)
-    fAll = create_F(cell2mat(forward_rates(k,2)));
     
+    fAll = create_F(flipud(cell2mat(forward_rates(k,2))));
     [risk_factors_temp, eigen_values, eigen_vectors,C] = create_riskfactor(fAll);
     risk_factors(:,k)={currVec(k,1);risk_factors_temp};
+
     %Convert forwardrates to spotrates
-    [spot_rates_temp,A] = calculate_spotrates(flipud(cell2mat(forward_rates(k,2))));
-    %A_spot_rates = create_A(size(cell2mat(forward_rates(k,2)),1));
-    %spot_rates_temp = transpose(A_spot_rates)*cell2mat(forward_rates(k,2)); 
+    [spot_rates_temp,A] = calculate_spotrates(flipud(cell2mat(forward_rates(k,2)))); 
     spot_rates(:,k) = {currVec(k,1);spot_rates_temp};
     
     %Calculation of the AE-matrix
-    %A_eigen_vectors = create_A(size(eigen_vectors,1));
-    size_E = size(eigen_vectors);
-    size_A = size(A);
     AE_temp = A*eigen_vectors;
     AE(:,k) = {currVec(k,1);AE_temp};
-
+    fprintf('%d of %d iterations competed\n',k,size(currVec,1));
 end
 
 function [spot_rate, A] = calculate_spotrates(forward_rate)
@@ -65,6 +61,7 @@ function F = create_F(forward_rate)
             F(i,j) = forward_rate(i+1,j)-forward_rate(i,j);
         end
     end
+    F = forward_rate(1:end-1,:)-forward_rate(2:end,:);
 end
 
 function A = create_A(n)

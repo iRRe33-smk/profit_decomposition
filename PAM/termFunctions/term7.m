@@ -13,8 +13,9 @@ function [T7] = term7(h, P, D, f, df, t, T_max)
 
 %T7 = h .* ((P - Dt) * df);
 %h = min(h,1);
-Dsum = sum(D(:,:,t:T_max),3);
-T7 = term6_observable(h,(P-Dsum),df)';
+%Dsum = sum(D(:,:,t:T_max),3);
+
+T7 = term6_observable(h,(P-D(:,:,t)),df)';
 
 %T7 = term6_observable(h,(P-D),df)';
 

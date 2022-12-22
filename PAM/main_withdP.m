@@ -42,8 +42,10 @@ deltaNPVp = zeros(T_max,numProductsRaw + numProductsFinished); %products
 deltaNPVc = zeros(T_max, numCurrencies);%Currencies
 deltaNPVcDirect = zeros(T_max, numCurrencies);%Currencies, terms  1 and 2
 
+%Variables to save results from term 6, 
+term6_result=zeros(T_max,6);
 
-loopMax = 80;%
+loopMax = T_max;
 %all_equal = ones(T_max,1);
 for t = 2:loopMax
     disp(t)
@@ -74,11 +76,10 @@ for t = 2:loopMax
 
     [passage_of_time,gradient_delta_risk_factor,hessian_delta_risk_factor,delta_epsilon_i,delta_epsilon_a,dP_finished,P_finished,spot_rate_today, spot_rate_yesterday] = ...
         getDP(risk_factors,spot_rates,AE,t,c,currency,currVec,T_cashFlow,D,prevD,newSalesIndex,prevC,prevCurrency,prevT_cashflow);
-    %dP_finished(:,38,10);
-    %D = squeeze(D(:,:,t));
-    
-    %D = squeeze(salesMatrix(:,:,t));
-    
+    %save results from term6 unobservable (passage of time, gradient,
+    %hessian, delta_i, delta_a)
+    term6_result(t,:) = term6_results(passage_of_time,gradient_delta_risk_factor,hessian_delta_risk_factor,delta_epsilon_i,delta_epsilon_a,f);
+
     %calculating results from each timestep 
     [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms,timeStepCurrencies, timeStepCurrenciesDirect] = ... 
          PAM_timestep(h_p_finished, h_p_raw, h_c, -xsProd_s, -xsProd_b, ... 
@@ -92,6 +93,7 @@ for t = 2:loopMax
     deltaNPVc(t,:) = timeStepCurrencies;
     deltaNPVcDirect(t,:) = timeStepCurrenciesDirect;
 end
+disp("Simulation completed")
 
 %% Make Plots
 close all % close all plots before creating new ones
@@ -135,7 +137,7 @@ hold off;
 
 figure("Name","deltaNPV RiskFactors") 
 hold on;
-plot(dates,cumsum(sum(deltaNPVrf(:,1:6),2)),"-", ...
+plot(dates,cumsum(sum(deltaNPVrf(:,7:9),2)),"-", ...
     dates,cumsum(deltaNPVrf(:,7),1),"--", ...
     dates,cumsum(deltaNPVrf(:,8),1),"--", ...
     dates,cumsum(deltaNPVrf(:,9),1),"--", ...
