@@ -14,7 +14,7 @@ bomExcel = readtable(fileName, 'sheet', 'bom');
 prodExcel = readtable(fileName, 'sheet','production');
 salesExcel = readtable(fileName, 'sheet','sales');
 P_raw_matrix =  xlsread(fileName,"Price List Valuta", 'B2:T94');
-FXMatrix =  1./xlsread(fileName,"usedFXCurves");
+FXMatrix =  1./xlsread(fileName,"usedFXCurves", "B2:AN94");
 
 %% Inializing datastrucutre
 
