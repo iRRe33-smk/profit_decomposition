@@ -1,6 +1,6 @@
 %% Run setup
 
-%clear
+clear all
 %cd("PAM")
 if ispc
     addpath("termFunctions\")
@@ -32,7 +32,6 @@ close all
 [c, currency, T_cashFlow] = dPsetup_update(currVec, D);
 
 
-T_max = size(D,3);
 numRf = 9;
 %Variables to save results from the terms
 deltaNPV = zeros(T_max,1);
@@ -45,9 +44,10 @@ deltaNPVcDirect = zeros(T_max, numCurrencies);%Currencies, terms  1 and 2
 %Variables to save results from term 6, 
 term6_result=zeros(T_max,6);
 
-loopMax = T_max;
-%all_equal = ones(T_max,1);
-for t = 2:loopMax
+
+for t = 2:T_max
+    %currTable = array2table(h_c_matrix, "VariableNames",currVec);
+   
     disp(t)
     
     % Gets simulated data from dataset
@@ -84,7 +84,12 @@ for t = 2:loopMax
          -xsCurr_b, P_finished, dP_finished, P_raw, dP_raw, spot_rate_yesterday'+1, f, df, deltaT, prevD, D, numProducts, numCurrencies, t, T_max);
 
     %Adding ON interest  to currency holdings
-    h_c_matrix(t+1:end, :) = h_c_matrix(t+1:end,:) + (h_c .* (spot_rate_yesterday'-1))'; 
+    ONReturns = (h_c .* spot_rate_yesterday')';
+    %disp(ONReturns(end-5:end))
+    for i = 1:T_max-t
+        h_c_matrix(t+i,:) = h_c_matrix(t+i,:) + ONReturns;
+
+    end
 
         
     %saves results in each timestep
