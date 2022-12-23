@@ -7,7 +7,7 @@ function[numProductsRaw, numProductsFinished, numCurrencies, h_p_finished_matrix
 
 
 depositExcel = readtable(fileName,'sheet', 'deposits');
-dates = readtable(fileName, 'sheet', 'hc');
+dates = readtable(fileName, 'sheet', 'hc', 'Range', 'A2:A94');
 FXExcel = readtable(fileName,'sheet', 'fx');
 procurementExcel = readtable(fileName, 'sheet', 'procurement');
 bomExcel = readtable(fileName, 'sheet', 'bom');
@@ -156,7 +156,7 @@ for i = 1:numOfSales
     finalItemIndex = find(string(table2array(salesExcel(i,2))) == finalItemVec);
     quantity = table2array(salesExcel(i,3));
     payDate = find(datenum(table2array(salesExcel(i,4))) == datePeriod);
-    currIndex = find(currVec == table2array(salesExcel(i,5)));
+    currIndex = find(currVec == table2array(salesExcel(i,5))) + 1;
     amount = table2array(salesExcel(i,6));
     transactionCost = table2array(salesExcel(i,7));
     h_p_finished_matrix(closedDate,finalItemIndex) = h_p_finished_matrix(closedDate,finalItemIndex) - quantity;
