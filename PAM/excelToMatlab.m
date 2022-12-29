@@ -142,12 +142,11 @@ for i = 1:numberOfProd
             indexItem = find(ismember(itemVec,itemName)) + 1;
             quanItem = table2array(bomExcel(indexBom(j),5));
             h_p_raw_matrix(date:row, indexItem) = h_p_raw_matrix(date:row, indexItem) - quanItem;
-            %xsProd_b_matrix(date,indexCurr) = xsProd_b_matrix(date,indexCurr) + table2array(bomExcel(i,7));
+            
         end
     end
     
 end
-
 % Adding sales
 numOfSales = size(salesExcel,1);
 
@@ -161,7 +160,7 @@ for i = 1:numOfSales
     transactionCost = table2array(salesExcel(i,7));
     h_p_finished_matrix(closedDate,finalItemIndex) = h_p_finished_matrix(closedDate,finalItemIndex) - quantity;
     h_c_matrix(payDate:row, currIndex) = h_c_matrix(payDate:row, currIndex) + amount - transactionCost;
-    xsProd_s_matrix(payDate:row, currIndex) = xsProd_s_matrix(payDate:row, currIndex) + transactionCost;
+    xsProd_s_matrix(payDate, currIndex) = xsProd_s_matrix(payDate, currIndex) + transactionCost;
 end
 
 %Cleaning data matrixes from datePeriod
