@@ -21,7 +21,7 @@ fileName = "Test_Case_Realistic_v2_3.xlsx";
 disp("Excel to Matlab done  ")
 
 %% dP Setup
-[risk_factors,spot_rates,AE] = dPsetup(currVec);
+[risk_factors,spot_rates,AE,forward_dates] = dPsetup(currVec,T_max);
 disp("dPsetup done")
 
 %% Run simulation

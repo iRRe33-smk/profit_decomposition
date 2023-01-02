@@ -1,30 +1,71 @@
 
-function [risk_factors,spot_rates,AE] = getPCAdata(forward_rates,currVec)
+function [risk_factors,spot_rates,AE] = getPCAdata(forward_rates,forward_dates,currVec,T_max)
+start_date = datetime(2022,8,15);
+%end_date = datetime(2022,11,15);
 %Get riskfactors by running create_riskfactors.m
 for k=1:size(forward_rates)
-    
+
+    if ~istable(forward_dates{k,2})
+        [dates] = forward_dates{k,2};
+    else
+        dates = table2array(forward_dates{k,2});
+    end
+    if ~isempty(find(dates==start_date))
+        index = find(dates == start_date);
+    else
+        A=true;
+        j=1;
+        while A
+            temp_date=start_date - caldays(j);
+            if ~isempty(find(dates==temp_date))
+                A = false;
+                index = find(dates==temp_date);
+            end
+            j=j+1;
+        end
+    end
+
     fAll = create_F(flipud(cell2mat(forward_rates(k,2))));
-    [risk_factors_temp, eigen_values, eigen_vectors,C] = create_riskfactor(fAll);
+    [risk_factors_temp, eigen_values, eigen_vectors,C] = create_riskfactor(fAll,flipud(dates(1:index)),T_max,index);
     risk_factors(:,k)={currVec(k,1);risk_factors_temp};
 
     %Convert forwardrates to spotrates
     forward_rates_temp = cell2mat(forward_rates(k,2));
-    size(forward_rates_temp(1:60,:))
-    [spot_rates_temp,A] = calculate_spotrates(flipud(forward_rates_temp(1:60,:))); 
+    [spot_rates_temp,A] = calculate_spotrates(flipud(forward_rates_temp(1:index,:)),flipud(dates(1:index)),T_max);
     spot_rates(:,k) = {currVec(k,1);spot_rates_temp};
     
     %Calculation of the AE-matrix
     AE_temp = A*eigen_vectors;
     AE(:,k) = {currVec(k,1);AE_temp};
-    fprintf('%d of %d iterations competed\n',k,size(currVec,1));
+
+    fprintf('%d of %d iterations completed\n',k,size(currVec,1));
 end
 
-function [spot_rate, A] = calculate_spotrates(forward_rate)
-    spot_rate = zeros(size(forward_rate));
+
+function [spot_rate_actual, A] = calculate_spotrates(forward_rate,dates,T_max)
+    spot_rate = zeros(T_max,size(forward_rate,2));
     A = create_A(size(forward_rate,2));
+    j=1;
     for i=1:size(forward_rate,1)
-        spot_rate(i,:) = (A*forward_rate(i,:)')';
+        if i==1
+        spot_rate(j,:) = (A*forward_rate(i,:)')';
+        j=j+1;
+
+        else
+        diff = daysact(dates(i-1),dates(i));
+        for l =1:diff-1
+            spot_rate(j,:)= spot_rate(j-1,:);
+            j=j+1;
+        end
+        spot_rate(j,:)=(A*forward_rate(i,:)')';
+        j=j+1;
+        end
     end
+    if size(forward_rate,1)==1
+        spot_rate(j,:) = spot_rate(j-1,:);
+        j=j+1;
+    end
+    spot_rate_actual = spot_rate(end-T_max+1:end,:);
 
 end
 %{

@@ -1,4 +1,4 @@
-function [forward_rates]=getForwardRate()
+function [forward_rates, forward_dates]=getForwardRate()
 %%
 path = pwd;
 path = path(1:end-4);
@@ -55,6 +55,21 @@ for k = 1:length(myFiles)
 end
 %go back to PAM-dir
 
+if ispc
+    myDir = ".\ForwardDates\";
+elseif ismac
+    myDir = "./ForwardDates/";
+end
+myFiles = dir(fullfile(myDir,'*.mat'));
+%disp(myFiles)
+for k = 1:length(myFiles)
+    baseFileName = myFiles(k).name;
+    currency_temp =erase(baseFileName, ".mat");
+    fullFileName = fullfile(myDir,baseFileName);
+    forward_date_temp = load(fullFileName);
+    forward_dates(k,:) = {currency_temp;forward_date_temp.dates};
+
+end
 cd("..")
 
 end
