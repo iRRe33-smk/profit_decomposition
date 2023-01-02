@@ -20,11 +20,16 @@ if ~(exist(string([path, '\PAM\PriceEquation\ForwardCurves']), 'dir'))
     mkdir(string([path, '\PAM\PriceEquation\ForwardCurves']));
 end
 
+if ~(exist(string([path, '\PAM\PriceEquation\ForwardDates']), 'dir'))
+    mkdir(string([path, '\PAM\PriceEquation\ForwardDates']));
+end
+
           
 for i = 1:length(currencies)
-    if ~(exist(string([path, '\PAM\PriceEquation\ForwardCurves\']) + currencies(i) + '.mat', 'file'))
-        [f] = getCurves(currencies(i), deviationPunishment(i), 2520, path);
+    if ~(exist(string([path, '\PAM\PriceEquation\ForwardCurves\']) + currencies(i) + '.mat', 'file')) || ~(exist(string([path, '\PAM\PriceEquation\ForwardDates\']) + currencies(i) + 'Dates.mat', 'file')) 
+        [f, dates] = getCurves(currencies(i), deviationPunishment(i), 2520, path);
         save(string([path, '\PAM\PriceEquation\ForwardCurves\']) + currencies(i) + '.mat', 'f');
+        save(string([path, '\PAM\PriceEquation\ForwardDates\']) + currencies(i) + 'Dates.mat', 'dates');
     end
 end
    %% 

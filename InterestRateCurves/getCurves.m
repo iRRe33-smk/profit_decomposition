@@ -1,4 +1,4 @@
-function [f] = getCurves(currency, punishment, Tdays, path)
+function [f, dates] = getCurves(currency, punishment, Tdays, path)
 
 days = 3650;
 n_f = days;
