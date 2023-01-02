@@ -8,7 +8,9 @@ for k=1:size(forward_rates)
     risk_factors(:,k)={currVec(k,1);risk_factors_temp};
 
     %Convert forwardrates to spotrates
-    [spot_rates_temp,A] = calculate_spotrates(flipud(cell2mat(forward_rates(k,2)))); 
+    forward_rates_temp = cell2mat(forward_rates(k,2));
+    size(forward_rates_temp(1:60,:))
+    [spot_rates_temp,A] = calculate_spotrates(flipud(forward_rates_temp(1:60,:))); 
     spot_rates(:,k) = {currVec(k,1);spot_rates_temp};
     
     %Calculation of the AE-matrix
