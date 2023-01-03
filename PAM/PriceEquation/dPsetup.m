@@ -1,9 +1,9 @@
 function [risk_factors,spot_rates,AE,forward_dates] = dPsetup(currVec,T_max)
 
 if ispc
-   addpath("PriceEquation\")
+   addpath("PAM\PriceEquation\")
 elseif ismac
-    addpath("PriceEquation/")
+    addpath("PAM/PriceEquation/")
 end
 
 if (~exist('forward_rates','var'))

@@ -1,7 +1,7 @@
 function [forward_rates, forward_dates]=getForwardRate()
 %%
 path = pwd;
-path = path(1:end-4);
+%path = path(1:end-4);
 %path = 'C:\Users\adame\Desktop\2Jan\profit_decomposition'; %%% Path to profit_decomposition
 
 currencies = ["AED", "AUD", "BHD", "CAD", "CHF", "CNY", "CZK", "DKK", ...
@@ -35,16 +35,14 @@ end
    %% 
           
 if ispc
-    cd("PriceEquation\")
-    myDir = ".\ForwardCurves\";
+%   cd("PriceEquation\")
+    myDir = path+"\PAM\PriceEquation\ForwardCurves\";
 elseif ismac
-    cd("PriceEquation/")
-    myDir = "./ForwardCurves/";
+%    cd("PriceEquation/")
+    myDir = path + "/PAM/PriceEquation/ForwardCurves/";
 end
-%myDir = "\\ad.liu.se\home\einei581\Documents\CDIO\profit_decomposition-main (1)\profit_decomposition-main\PAM\termFunctions\3MonthCurves\";
-%myDir = ".\3MonthCurves\";
 myFiles = dir(fullfile(myDir,'*.mat'));
-%disp(myFiles)
+
 for k = 1:length(myFiles)
     baseFileName = myFiles(k).name;
     currency_temp =erase(baseFileName, ".mat");
@@ -56,9 +54,11 @@ end
 %go back to PAM-dir
 
 if ispc
-    myDir = ".\ForwardDates\";
+%   cd("PriceEquation\")
+    myDir = path+"\PAM\PriceEquation\ForwardDates\";
 elseif ismac
-    myDir = "./ForwardDates/";
+%    cd("PriceEquation/")
+    myDir = path + "/PAM/PriceEquation/ForwardDates/";
 end
 myFiles = dir(fullfile(myDir,'*.mat'));
 %disp(myFiles)
@@ -70,6 +70,6 @@ for k = 1:length(myFiles)
     forward_dates(k,:) = {currency_temp;forward_date_temp.dates};
 
 end
-cd("..")
+%cd("..")
 
 end

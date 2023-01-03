@@ -1,14 +1,13 @@
 %% Run setup
 
-clear all
-%cd("PAM")
-if ispc
-    addpath("termFunctions\")
-    addpath("PriceEquation\")
-elseif ismac
-    addpath("termFunctions/")
-    addpath("PriceEquation/")
-end
+% assert, du står i prift_decompisuton
+
+
+%add paths för alla mappar
+%addpath(genpath("PCA"))
+addpath(genpath("PAM"))
+addpath(genpath("InterestRateCurves"))
+
 
 %Reading data from file
 fileName = "Test_Case_Realistic_v2_4.xlsx";
@@ -21,6 +20,7 @@ fileName = "Test_Case_Realistic_v2_4.xlsx";
 disp("Excel to Matlab done  ")
 
 %% dP Setup
+
 [risk_factors,spot_rates,AE,forward_dates] = dPsetup(currVec,T_max);
 disp("dPsetup done")
 
@@ -40,15 +40,13 @@ deltaNPVrf = zeros(T_max,numRf); %riskfactors
 deltaNPVp = zeros(T_max,numProductsRaw + numProductsFinished); %products
 deltaNPVc = zeros(T_max, numCurrencies);%Currencies
 deltaNPVcDirect = zeros(T_max, numCurrencies);%Currencies, terms  1 and 2
-
+deltaNPVerrors = zeros(T_max,3);
 %Variables to save results from term 6, 
 term6_result=zeros(T_max,6);
 
 
-for t = 2:T_max
-    %currTable = array2table(h_c_matrix, "VariableNames",currVec);
-   
-    disp(t)
+for t = 2:T_max   
+    %disp(t)
     
     % Gets simulated data from dataset
     [h_p_finished,h_p_raw, h_c, xsProd_s, xsProd_b, xsCurr_b,  P_raw, dP_raw, R, f, df, ... 
@@ -69,7 +67,6 @@ for t = 2:T_max
     
 
     %gets delta P from priceEquations
-    %[dP_finished,P_finished] 
     [c, currency, T_cashFlow] = dPsetup_update(currVec, D);
 
     [passage_of_time,gradient_delta_risk_factor,hessian_delta_risk_factor,delta_epsilon_i,delta_epsilon_a,dP_finished,P_finished,spot_rate_today, spot_rate_yesterday] = ...
@@ -84,9 +81,10 @@ for t = 2:T_max
          -xsCurr_b, P_finished, dP_finished, P_raw, dP_raw, spot_rate_yesterday'+1, f, df, deltaT, prevD, D, numProducts, numCurrencies, t, T_max);
     
     %Adding ON interest  to currency holdings
-    ONReturns = (h_c .* spot_rate_yesterday')';
+    ONReturns = (h_c .* (spot_rate_yesterday./365)')';
     %disp(ONReturns(end-5:end))
     for i = 1:T_max-t
+        %t+i = {t+1 <--> t+T_max-t == T_max}
         h_c_matrix(t+i,:) = h_c_matrix(t+i,:) + ONReturns;
 
     end
@@ -99,6 +97,7 @@ for t = 2:T_max
     deltaNPVterms(t,:) = timeStepTerms';
     deltaNPVc(t,:) = timeStepCurrencies;
     deltaNPVcDirect(t,:) = timeStepCurrenciesDirect;
+    deltaNPVerrors(t,:) = [sum(delta_epsilon_a,"all"),sum(delta_epsilon_i,"all"),timeStepTerms(8)];
 end
 disp("Simulation completed")
 
@@ -115,6 +114,7 @@ legend( {"Cummulative", "Daily"}, "Location" , "northwest")
 hold off
 
 
+%%%%%%%%%%%%%%%% TERMS %%%%%%%%%%%%%
 figure("Name","deltaNPV terms")
 plot(dates,cumsum(sum(deltaNPVterms,2)),"-", ...
     dates,cumsum(deltaNPVterms(:,1),1),"--", ...
@@ -124,25 +124,24 @@ plot(dates,cumsum(sum(deltaNPVterms,2)),"-", ...
     dates,cumsum(deltaNPVterms(:,5),1),"--", ...
     dates,cumsum(deltaNPVterms(:,6),1),"--", ...
     dates,cumsum(deltaNPVterms(:,7),1),"--", ...
-    dates,cumsum(deltaNPVterms(:,8),1),"--", ...
+    dates,cumsum(sum(deltaNPVerrors,2)),"--",...
     "LineWidth",2)
-legend({"All terms", "term1", "term2", "term3", "term4", "term5", "term6", "term7", "termError"},"Location", "northwest" )
+legend({"All terms", "term1", "term2", "term3", "term4", "term5", "term6", "term7","total Errors"},"Location", "northwest" )
 
 
+%%%%%%%%%%%%%%%%%% RISKFACTORS %%%%%%%%%%%%%%%%%%%%%
 figure("Name","deltaNPV RiskFactors") 
 hold on;
-plot(dates,sum(cumsum(deltaNPVrf,1),2),"-","LineWidth",2) 
+%plot(dates,sum(cumsum(deltaNPVrf,1),2),"-","LineWidth",2) 
+plot(dates,cumsum(sum(deltaNPVrf(:,1:6),2)),"-","LineWidth",2)
 plot(dates,cumsum(deltaNPVrf(:,1),1),"--", ...
     dates,cumsum(deltaNPVrf(:,2),1),"--", ...
     dates,cumsum(deltaNPVrf(:,3),1),"--", ...
     dates,cumsum(deltaNPVrf(:,4),1),"--", ... 
     dates,cumsum(deltaNPVrf(:,5),1),"--", ...
     dates,cumsum(deltaNPVrf(:,6),1),"--", ...
-    dates,cumsum(deltaNPVrf(:,7),1),"--", ...
-    dates,cumsum(deltaNPVrf(:,8),1),"--", ...
-    dates,cumsum(deltaNPVrf(:,9),1),"--", ...
     "LineWidth",2);
-legend( {"cumm. deltaNPV RF", "shift", "twist", "butterfly", "RiskFactor4", "RiskFactor5", "RiskFactor6","Passage of Time (epsilon carry)","deltaEpsilon_a","deltaEpsilon_i"}, "Location", "northwest")
+legend( {"cumm. deltaNPV RF", "shift", "twist", "butterfly", "RiskFactor4", "RiskFactor5", "RiskFactor6"}, "Location", "northwest")
 hold off;
 %{
 figure("Name","deltaNPV RiskFactors") 
@@ -157,6 +156,7 @@ hold off;
 %}
 
 
+%%%%%%%%%%%%%%%%%%% FINISHED PRODUCTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % sort out most important products
 figure("Name", "deltaNPV Finished Products")
 plot(dates, cumsum(sum(deltaNPVp(:,end-numProductsFinished  : end),2)),"-", "LineWidth",2);
@@ -169,6 +169,9 @@ for i = 1:numProductsFinished
 end
 legend( prodNames, "Location", "northwest")
 
+
+
+%%%%%%%%%%%%%%%%%%%%% RAW PRODUCTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure("Name", "deltaNPV Raw Products")
 plot(dates, cumsum(sum(deltaNPVp(:,1:numProductsRaw ),2)),"-", "LineWidth",2);
 hold on;
@@ -180,7 +183,7 @@ end
 legend( prodNames, "Location", "northwest")
 
 
-
+%%%%%%%%%%%%%%%%%%%% CURRENCIES TOTAL %%%%%%%%%%%%%%%%%%%%%%%%%%
 % sort out most important Currencies
 figure("Name", "deltaNPV per currencies")
 plot(dates, cumsum(sum(deltaNPVc(:,1:numCurrencies),2)),"-", "LineWidth",2);
@@ -193,7 +196,7 @@ for i = 1:numCurrPlot
 end
 legend( ["Total cummulative";currVec(currIdx(1:numCurrPlot))], "Location", "northwest")
 
-
+%%%%%%%%%%%%%%%%%% CURRENCIES HOLDINGS %%%%%%%%%%%%%%%%%%
 % sort out most important Currencies
 figure("Name", "deltaNPV from currency holdings")
 plot(dates, cumsum(sum(deltaNPVcDirect(:,1:numCurrencies),2)),"-", "LineWidth",2);
@@ -207,9 +210,15 @@ end
 legend( ["Total cummulative";currVec(currIdx(1:numCurrPlot))], "Location", "northwest")
 
 
-%Finished vs unfinished products
-%figure("Name","Finished vs Unifinisehd products")
-%hold on;
+%%%%%%%%%%%%%%%%%%%%%%% ERRORS %%%%%%%%%%%%%%%%%%%%%%%%
+
+figure("Name","Errors")
+hold on
+plot(dates, cumsum(sum(deltaNPVerrors,2)),"-","LineWidth",2)
+for i = 1:3
+    plot(dates,cumsum(deltaNPVerrors(:,i)),"--","LineWidth",2)
+end
+legend(["Total Cummulative Errors", "deltaEpsilon_a","deltaEpsilon_i","deltaEpsilon_f"])
 %for pr 
 %plot(dates, d)
 

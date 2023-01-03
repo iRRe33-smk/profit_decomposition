@@ -134,8 +134,8 @@ for i = 1:numberOfProd
     indexBom = intersect(indexComponent,indexDate);
     for j = 1:size(indexBom,1)
         if (string(table2array(bomExcel(indexBom(j),4))) == "Labour")
-            h_c_matrix(date:row, indexCurr) = h_c_matrix(date:row,indexCurr) - table2array(bomExcel(j,7));
-            xsProd_b_matrix(date,indexCurr) = xsProd_b_matrix(date,indexCurr) + table2array(bomExcel(i,7));
+            h_c_matrix(date:row, indexCurr) = h_c_matrix(date:row,indexCurr) - table2array(bomExcel(j,7))/10;
+            xsProd_b_matrix(date,indexCurr) = xsProd_b_matrix(date,indexCurr) + table2array(bomExcel(i,7))/10;
         else
             indexCurr = find(ismember(currVec,string(table2array(bomExcel(j,6))))) + 1;
             itemName =  string(table2array(bomExcel(indexBom(j),4)));
