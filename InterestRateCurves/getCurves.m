@@ -1,21 +1,30 @@
 function [f, dates] = getCurves(currency, punishment, Tdays, path)
-
+if ispc
+    path1 = '\InterestRateCurves\Data\MatLab\DiscountFactors\';
+    path2 = '\InterestRateCurves\Data\MatLab\T\';
+    path3 = '\InterestRateCurves\Data\MatLab\Dates\';
+end
+if ismac
+    path1 = '/InterestRateCurves/Data/MatLab/DiscountFactors/';
+    path2 = '/InterestRateCurves/Data/MatLab/T/';
+    path3 = '/InterestRateCurves/Data/MatLab/Dates/';
+end
 days = 3650;
 n_f = days;
 dt = 1/365;
 W = getW(n_f, 10, 2, 4);
 C = getC(W, dt, n_f);
 nDates = Tdays + 1;
-df = matfile(string([path, '\InterestRateCurves\Data\MatLab\DiscountFactors\']) + currency + 'dF.mat');
+df = matfile(string([path, path1]) + currency + 'dF.mat');
 discountFactors = df.discountFactors;
-t = matfile(string([path, '\InterestRateCurves\Data\MatLab\T\']) + currency + 'T.mat');
+t = matfile(string([path, path2]) + currency + 'T.mat');
 T = t.T;
 T = T(T <= n_f);
 Tbef = size(T, 2);
 T = T(T >= 30);
 Taft = size(T, 2);
 discountFactors = discountFactors(Tbef-Taft + 1:end, :);
-d = matfile(string([path, '\InterestRateCurves\Data\MatLab\Dates\']) + currency + 'Dates.mat');
+d = matfile(string([path, path3]) + currency + 'Dates.mat');
 dates = d.dates; 
 if height(dates) < nDates
     nDates = height(dates);
@@ -64,10 +73,6 @@ while (it <= nDates)
         break
     end
 end
-%save(string([path, '\profit_decomposition\InterestRateCurves\10year\ForwardCurves\']) + currencies(i) + '.mat', 'f');
-%save(string([path, '\profit_decomposition\InterestRateCurves\10year\Deviations\']) + currency + 'dev.mat', 'z');
-%save(string([path, '\profit_decomposition\InterestRateCurves\10year\Dates\']) + currency + 'dates.mat', 'dates');
-
 end
 
 

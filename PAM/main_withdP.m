@@ -1,8 +1,12 @@
 %% Run setup
 
 % assert, du står i prift_decompisuton
-
-
+temp = pwd;
+temp = temp(end-10:end);
+if strcmp(temp, 'composition') == 0
+    error('Please stand in the root directory of the repository (profit_decomposition)')
+end
+%%
 %add paths för alla mappar
 %addpath(genpath("PCA"))
 addpath(genpath("PAM"))
