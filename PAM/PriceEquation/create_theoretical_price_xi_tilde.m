@@ -15,7 +15,6 @@ theoretical_price_xi_tilde = zeros(N,Nc);
                     index = find(strcmp(string(spot_rates(1,:)),currency(i,j)));
                     spot_rate_temp = cell2mat(spot_rates(2,index));
 
-
                     sum(index) = sum(index) + c(i,j)*exp(-spot_rate_temp(t-1,round(tau_temp(j,1)*365))*tau_temp(j,2));
                 end
             end

@@ -122,7 +122,7 @@ end
 delta_epsilon_a_riskfactors(:,:,end)=delta_epsilon_a;
 
 % Complete un-observed pricechange equation;
-delta_barPrice = delta_price_a + delta_epsilon_a + delta_epsilon_i; 
+delta_barPrice = delta_price_a + delta_epsilon_a + delta_epsilon_i;
 delta_barPrice_riskfactors = zeros(N,Nc,NrF+4);
 for i =1:NrF
     delta_barPrice_riskfactors(:,:,i) = delta_price_a_riskfactors(:,:,i); %+ delta_epsilon_a_riskfactors(:,:,i) + delta_epsilon_i_riskfactors(:,:,i);

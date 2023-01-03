@@ -11,7 +11,7 @@ elseif ismac
 end
 
 %Reading data from file
-fileName = "Test_Case_Realistic_v2_3.xlsx";
+fileName = "Test_Case_Realistic_v2_4.xlsx";
 
 % Retrivering the data from Excel
 [numProductsRaw, numProductsFinished, numCurrencies, h_p_finished_matrix, h_p_raw_matrix,...
@@ -82,7 +82,7 @@ for t = 2:T_max
     [timeStepTotal,timeStepRiskFactors, timeStepProducts, timeStepTerms,timeStepCurrencies, timeStepCurrenciesDirect] = ... 
          PAM_timestep(h_p_finished, h_p_raw, h_c, -xsProd_s, -xsProd_b, ... 
          -xsCurr_b, P_finished, dP_finished, P_raw, dP_raw, spot_rate_yesterday'+1, f, df, deltaT, prevD, D, numProducts, numCurrencies, t, T_max);
-
+    
     %Adding ON interest  to currency holdings
     ONReturns = (h_c .* spot_rate_yesterday')';
     %disp(ONReturns(end-5:end))

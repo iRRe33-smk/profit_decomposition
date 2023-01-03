@@ -3,6 +3,6 @@ function [T2] = term2(h_c, R, df )
 %   h_c holdings of the currencies. Note only currency holdings are passed
 %   R ON-interest returns ~1
 %   df  changes in FX-rate to base currency
-    T2 = h_c .* R .* df;
+    T2 = (h_c .* R .* df)/365;
 end
 
