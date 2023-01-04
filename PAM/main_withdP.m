@@ -14,7 +14,7 @@ addpath(genpath("InterestRateCurves"))
 
 
 %Reading data from file
-fileName = "Test_Case_Realistic_v2_4.xlsx";
+fileName = "Test_sales_dept.xlsx";
 
 % Retrivering the data from Excel
 [numProductsRaw, numProductsFinished, numCurrencies, h_p_finished_matrix, h_p_raw_matrix,...
@@ -208,7 +208,8 @@ currNames = [currVec(currIdx(1:3));"Others"];
 currVals = [vals(1:3)';sum(vals(4:end))];
 figure("Name","deltaNPV per currency")
 hold on
-bar(categorical(currNames),currVals)
+%bar(flip(categorical(currNames)),flip(currVals))
+histogram('Categories',categorical(currNames),'BinCounts',currVals, "FaceColor",[0 0.4470 0.7410]);
 
 %set(gca,'yticklabel',currNames)
 
