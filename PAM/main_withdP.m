@@ -14,7 +14,7 @@ addpath(genpath("InterestRateCurves"))
 
 
 %Reading data from file
-fileName = "Test_sales_dept.xlsx";
+fileName = "Test_Case_Department_procurement_bom.xlsx";
 
 % Retrivering the data from Excel
 [numProductsRaw, numProductsFinished, numCurrencies, h_p_finished_matrix, h_p_raw_matrix,...
@@ -87,9 +87,9 @@ for t = 2:T_max
     %Adding ON interest  to currency holdings
     ONReturns = (h_c .* (spot_rate_yesterday./365)')';
     %disp(ONReturns(end-5:end))
-    for i = 1:T_max-t
+    for i = t+1:T_max
         %t+i = {t+1 <--> t+T_max-t == T_max}
-        h_c_matrix(t+i,:) = h_c_matrix(t+i,:) + ONReturns;
+        h_c_matrix(i,:) = h_c_matrix(i,:) + ONReturns;
 
     end
 
