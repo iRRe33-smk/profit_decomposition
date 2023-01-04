@@ -204,12 +204,12 @@ legend( ["Total cummulative";currVec(currIdx(1:numCurrPlot))], "Location", "nort
 [vals,currIdx] = sort(sum(abs(deltaNPVc),1),"descend");
 
 
-currNames = [currVec(currIdx(1:3));"Others"];
-currVals = [vals(1:3)';sum(vals(4:end))];
-figure("Name","deltaNPV per currency")
-hold on
+%currNames = [currVec(currIdx(1:3));"Others"];
+%currVals = [vals(1:3)';sum(vals(4:end))];
+%figure("Name","deltaNPV per currency")
+%hold on
 %bar(flip(categorical(currNames)),flip(currVals))
-histogram('Categories',categorical(currNames),'BinCounts',currVals, "FaceColor",[0 0.4470 0.7410]);
+%histogram('Categories',categorical(currNames),'BinCounts',currVals, "FaceColor",[0 0.4470 0.7410]);
 
 %set(gca,'yticklabel',currNames)
 
