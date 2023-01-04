@@ -184,7 +184,7 @@ for i = 1:numProductsRaw
     plot(dates, cumsum(deltaNPVp(:,i)),"--", "LineWidth",2)
         
 end
-legend( prodNames, "Location", "northwest")
+legend( prodNames, "Location", "southwest")
 
 
 %%%%%%%%%%%%%%%%%%%% CURRENCIES TOTAL %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -200,6 +200,20 @@ for i = 1:numCurrPlot
 end
 legend( ["Total cummulative";currVec(currIdx(1:numCurrPlot))], "Location", "northwest")
 
+
+[vals,currIdx] = sort(sum(abs(deltaNPVc),1),"descend");
+
+
+currNames = [currVec(currIdx(1:3));"Others"];
+currVals = [vals(1:3)';sum(vals(4:end))];
+figure("Name","deltaNPV per currency")
+hold on
+bar(categorical(currNames),currVals)
+
+%set(gca,'yticklabel',currNames)
+
+
+%{
 %%%%%%%%%%%%%%%%%% CURRENCIES HOLDINGS %%%%%%%%%%%%%%%%%%
 % sort out most important Currencies
 figure("Name", "deltaNPV from currency holdings")
@@ -212,7 +226,7 @@ for i = 1:numCurrPlot
         
 end
 legend( ["Total cummulative";currVec(currIdx(1:numCurrPlot))], "Location", "northwest")
-
+%}
 
 %%%%%%%%%%%%%%%%%%%%%%% ERRORS %%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -222,7 +236,7 @@ plot(dates, cumsum(sum(deltaNPVerrors,2)),"-","LineWidth",2)
 for i = 1:3
     plot(dates,cumsum(deltaNPVerrors(:,i)),"--","LineWidth",2)
 end
-legend(["Total Cummulative Errors", "deltaEpsilon_a","deltaEpsilon_i","deltaEpsilon_f"])
+legend(["Total Cummulative Errors", "deltaEpsilon_a","deltaEpsilon_i","deltaEpsilon_f"], "Location","northwest")
 %for pr 
 %plot(dates, d)
 
