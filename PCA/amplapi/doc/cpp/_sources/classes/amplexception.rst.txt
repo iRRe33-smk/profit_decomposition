@@ -1,7 +1,0 @@
-.. _ref::AMPLException:
-
-AMPLException
---------------
-
-.. doxygenclass:: ampl::AMPLException
-   :members:

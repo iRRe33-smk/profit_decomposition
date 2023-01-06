@@ -14,7 +14,7 @@ addpath(genpath("InterestRateCurves"))
 
 
 %Reading data from file
-fileName = "Test_Case_Department_procurement_bom.xlsx";
+fileName = "Test_Case_Realistic_v2_4.xlsx";
 
 % Retrivering the data from Excel
 [numProductsRaw, numProductsFinished, numCurrencies, h_p_finished_matrix, h_p_raw_matrix,...
@@ -240,4 +240,6 @@ end
 legend(["Total Cummulative Errors", "deltaEpsilon_a","deltaEpsilon_i","deltaEpsilon_f"], "Location","northwest")
 %for pr 
 %plot(dates, d)
+
+
 

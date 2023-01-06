@@ -1,8 +1,0 @@
-.. _ref::Parameter:
-
-Parameter
----------
-
-.. doxygenclass:: ampl::Parameter
-   :members:
-   :undoc-members:

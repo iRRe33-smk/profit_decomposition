@@ -1,7 +1,6 @@
 
 function [risk_factors,spot_rates,AE] = getPCAdata(forward_rates,forward_dates,currVec,T_max)
 start_date = datetime(2022,8,15);
-%end_date = datetime(2022,11,15);
 %Get riskfactors by running create_riskfactors.m
 for k=1:size(forward_rates)
 
@@ -38,8 +37,14 @@ for k=1:size(forward_rates)
     AE_temp = A*eigen_vectors;
     AE(:,k) = {currVec(k,1);AE_temp};
 
+    T = [30; 60; 90; 180; 270; 365; 455; 545; 635; 730; 820; 910; 1000; 1095; 1185; 1275; 1365; 1460; 1550; 1640; 1730; 1825; 1915; 2005; 2095; 2190; 2280; 2370; 2460; 2555; 2645; 2735; 2825; 2920; 3010; 3100; 3190; 3285; 3375; 3465; 3555; 3650]/365;
+    % Add below lines if you want to plot PCA data
+%     if(k==9 || k==32 || k==38)
+%         plot_PCA(eigen_vectors,eigen_values,C,T,currVec(k,1))
+%     end
     fprintf('%d of %d iterations completed\n',k,size(currVec,1));
 end
+
 
 
 function [spot_rate_actual, A] = calculate_spotrates(forward_rate,dates,T_max)
@@ -68,42 +73,9 @@ function [spot_rate_actual, A] = calculate_spotrates(forward_rate,dates,T_max)
     spot_rate_actual = spot_rate(end-T_max+1:end,:);
 
 end
-%{
-%Get gradient and hessian
-gradient = create_gradient(c,tau,AE,spot_rates);
-hessian = create_hessian(c,tau,AE,spot_rates);
-
-%Plot PCA
-
-dt=1/365;
-T = [1/12 ; 2/12 ; 3/12 ; 6/12 ; 9/12 ; 1 ; 2 ; 3 ; 4 ; 5 ; 6 ; 7 ; 8 ; 9 ; 10]; % Maturities
-M = round(T*1/dt); % Maturities (measured in number of time periods)
-share = diag(eigen_values)/sum(diag(C));
-cshare = cumsum(share);
-shift     = sprintf('Shift        %5.2f%% (%5.2f%%)\n',100*share(1), 100*cshare(1));
-twist     = sprintf('Twist        %5.2f%% (%5.2f%%)\n',100*share(2), 100*cshare(2));
-butterfly = sprintf('Butterfly    %5.2f%% (%5.2f%%)\n',100*share(3), 100*cshare(3));
-PC4       = sprintf('Loadings PC4 %5.2f%% (%5.2f%%)\n',100*share(4), 100*cshare(4));
-PC5       = sprintf('Loadings PC5 %5.2f%% (%5.2f%%)\n',100*share(5), 100*cshare(5));
-PC6       = sprintf('Loadings PC6 %5.2f%% (%5.2f%%)\n',100*share(6), 100*cshare(6));
-figure(2);
-plot((0:M(end)-1)*dt, eigen_vectors(:,1:3)', (0:M(end)-1)*dt, eigen_vectors(:,4:6)', '--');
-title('Eigenvectors');
-legend(shift,twist,butterfly, PC4, PC5, PC6, 'Location', 'Best');
-
-end
-%}
 
 %Creating matrix F from forward rates
 function F = create_F(forward_rate)
-    T = size(forward_rate,1);
-    n = size(forward_rate,2);
-    F = zeros(T-1,n);
-    for i=1:(T-1)
-        for j=1:n
-            F(i,j) = forward_rate(i+1,j)-forward_rate(i,j);
-        end
-    end
     F = forward_rate(1:end-1,:)-forward_rate(2:end,:);
 end
 

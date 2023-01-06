@@ -1,8 +1,0 @@
-.. _ref::Constraint:
-
-Constraint
-----------
-
-.. doxygenclass:: ampl::Constraint
-   :members:
-   :undoc-members:

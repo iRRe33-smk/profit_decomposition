@@ -1,7 +1,0 @@
-.. _ref::AMPL:
-
-AMPL
-----
-
-.. doxygenclass:: ampl::AMPL
-   :members:

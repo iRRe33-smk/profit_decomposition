@@ -1,9 +1,0 @@
-.. highlight:: c++
-
-.. _ref::Optional:
-
-Optional
---------
-
-.. doxygenclass:: ampl::Optional
-   :members:
