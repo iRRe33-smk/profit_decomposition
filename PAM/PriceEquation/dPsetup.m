@@ -12,6 +12,7 @@ if (~exist('forward_rates','var'))
 else
     disp("forward rates already exist")
 end
+
 [risk_factors, spot_rates, AE] = getPCAdata(forward_rates,forward_dates,currVec,T_max);
 % risk_factors =1;
 % spot_rates=1;

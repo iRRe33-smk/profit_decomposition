@@ -1,8 +1,0 @@
-Javadoc
-=======
-
-.. toctree::
-   :maxdepth: 2
-
-   com/ampl/package-index
-

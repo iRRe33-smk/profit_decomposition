@@ -1,1 +1,0 @@
--n  -n  -n  -n  -n  -n  -L/Users/distrib/stefan/Ipopt-3.11.1/build2/lib -lipopt  -L/Users/distrib/stefan/Ipopt-3.11.1/build2/lib -lcoinmumps -framework vecLib -lpthread  -framework vecLib -framework vecLib -lm  -ldl       -lstdc++ -lm

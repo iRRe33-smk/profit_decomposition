@@ -1,9 +1,0 @@
-.. highlight:: c++
-
-.. _ref::ObjectiveInstance:
-
-ObjectiveInstance
------------------
-
-.. doxygenclass:: ampl::ObjectiveInstance
-   :members:

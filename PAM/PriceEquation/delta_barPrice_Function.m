@@ -132,6 +132,7 @@ delta_barPrice_riskfactors(:,:,end-2) = delta_epsilon_a;
 delta_barPrice_riskfactors(:,:,end-1) = delta_epsilon_i;
 Discounted_today = create_theoretical_price_xi_tilde(c,tau,spot_rates,N,t,currency,Nc,T_cashFlow)-create_theoretical_price_xi_tilde(prevC,prevTau,spot_rates,N,t,prevCurrency,Nc,prevT_cashflow);
 delta_barPrice_riskfactors(:,:,end) = delta_barPrice + Discounted_today;
+passage_of_time = passage_of_time + Discounted_today;
 
 dP = delta_barPrice_riskfactors;
 
